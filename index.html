@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LIGHTYEAR — Proof that modernized code behaves the same</title>
+<meta name="description" content="LIGHTYEAR is the verification layer for autonomous modernization. We manufacture ground truth for systems that have no tests, then prove the replacement behaves identically — with evidence a risk committee can replay.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#FAF8F4; --floor:#F2EEE7; --panel:#FFFFFF; --panel2:#F7F4EF;
+  --hair:#E3DCD1; --hair2:#CFC5B6;
+  --amber:#B4531F; --amber-d:#8A4318; --amber-w:#FAEDE3;
+  --pass:#2F6B3F; --fail:#B03A28; --unknown:#8A6B12;
+  --ink:#181513; --body:#443E37; --dim:#6E6459; --faint:#6E6459;
+  --display:'Archivo',system-ui,sans-serif;
+  --sans:'IBM Plex Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --wrap:1220px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--body);font-family:var(--sans);font-size:19px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--amber);color:#FFF}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:2px}
+
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+.eyebrow{font-family:var(--mono);font-size:12.5px;line-height:1.5;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:500}
+h1,h2,h3{font-family:var(--display);color:var(--ink);letter-spacing:-.022em;line-height:1.08;font-weight:700}
+h1{font-size:clamp(36px,4.3vw,56px);font-weight:800;letter-spacing:-.03em;line-height:1.06}
+h2{font-size:clamp(26px,2.8vw,37px)}
+h3{font-size:22px;letter-spacing:-.012em}
+p{max-width:36em}
+.lead{font-size:clamp(18px,1.9vw,22.5px);color:var(--body);line-height:1.65}
+.small{font-size:16px;color:var(--dim);line-height:1.6}
+
+/* ---------- nav ---------- */
+header{position:sticky;top:0;z-index:60;background:rgba(250,248,244,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--hair)}
+.navbar{display:flex;align-items:center;gap:20px;min-height:74px}
+.brand{display:flex;align-items:center;gap:10px;flex:none}
+.primary-logo{display:block;object-fit:contain}
+.brand-logo{width:124px;height:52px;flex:none;display:block}
+nav.tabs{display:flex;gap:2px;margin-left:2px;flex:1}
+nav.tabs button{background:none;border:0;color:var(--dim);font-family:var(--sans);font-size:15.5px;padding:8px 11px;white-space:nowrap;cursor:pointer;border-radius:5px;transition:color .16s,background .16s}
+nav.tabs button:hover{color:var(--ink);background:var(--panel)}
+nav.tabs button[aria-selected="true"]{color:var(--amber);background:var(--amber-w)}
+nav.tabs .tablink{color:var(--dim);font-family:var(--sans);font-size:15.5px;padding:8px 11px;white-space:nowrap;border-radius:5px;transition:color .16s,background .16s}
+nav.tabs .tablink:hover{color:var(--ink);background:var(--panel)}
+.navcta{display:flex;gap:10px;align-items:center}
+.btn{font-family:var(--sans);font-size:15.5px;font-weight:500;padding:9px 17px;border-radius:5px;border:1px solid var(--hair2);color:var(--ink);cursor:pointer;background:none;transition:.16s;white-space:nowrap}
+.btn:hover{border-color:var(--amber-d);color:var(--amber)}
+.btn.solid{background:var(--amber);color:#FFF;border-color:var(--amber);font-weight:600}
+.btn.solid:hover{background:#9A4519;color:#FFF}
+.menu{display:none;background:none;border:1px solid var(--hair2);color:var(--ink);border-radius:5px;padding:7px 11px;cursor:pointer;font-size:17px}
+
+/* ---------- panels & receipts (the signature) ---------- */
+.panel{background:var(--panel);border:1px solid var(--hair);border-radius:10px}
+.receipt{background:var(--panel);border:1px solid var(--hair2);border-radius:10px;font-family:var(--mono);font-size:14.5px;overflow:hidden;box-shadow:0 18px 44px -26px rgba(60,45,30,.28)}
+.receipt .rhead{display:flex;justify-content:space-between;align-items:center;padding:12px 17px;border-bottom:1px solid var(--hair);color:var(--dim);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase}
+.receipt .rbody{padding:15px 16px}
+.kv{display:flex;justify-content:space-between;gap:16px;padding:5px 0;border-bottom:1px dashed var(--hair)}
+.kv:last-child{border-bottom:0}
+.kv b{color:var(--dim);font-weight:400}
+.kv span{color:var(--ink);text-align:right}
+.verdict{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;padding:5px 11px;border-radius:4px;font-weight:600}
+.v-pass{color:var(--pass);background:#79b86b18;border:1px solid #79b86b40}
+.v-fail{color:var(--fail);background:#e0664a18;border:1px solid #e0664a40}
+.v-unk{color:var(--unknown);background:#c9a22718;border:1px solid #c9a22745}
+.dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+
+/* ---------- sections ---------- */
+main{min-height:60vh}
+.pane{display:none;animation:rise .42s cubic-bezier(.2,.7,.3,1)}
+.pane.on{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+.band{padding:78px 0;border-bottom:1px solid var(--hair)}
+.band.tight{padding:54px 0}
+.band.hero{padding:86px 0 74px}
+.grid2{display:grid;grid-template-columns:1.08fr .92fr;gap:56px;align-items:center}
+.band.hero .grid2{align-items:start;grid-template-columns:1.22fr .78fr;gap:48px}
+.band.hero .receipt{margin-top:8px;font-size:13.5px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:var(--panel);border:1px solid var(--hair);border-radius:10px;padding:24px;transition:border-color .18s,transform .18s}
+.card:hover{border-color:var(--hair2);transform:translateY(-2px)}
+.card h3{margin-bottom:9px}
+.card p{font-size:17px;color:var(--body)}
+.rule{width:56px;height:2px;background:var(--amber);margin:18px 0 22px}
+
+/* stat plate */
+.stat{padding:22px 0}
+.stat .n{font-family:var(--display);font-size:clamp(33px,3.9vw,46px);font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1}
+.stat .n em{font-style:normal;color:var(--amber)}
+.stat .l{font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:9px;line-height:1.5}
+
+/* the agent line */
+.line{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px}
+.agent{background:var(--panel);border:1px solid var(--hair);border-radius:9px;padding:18px;position:relative}
+.agent.judge{border-color:var(--amber-d);background:linear-gradient(180deg,var(--panel2),var(--panel))}
+.agent .rolelab{font-family:var(--mono);font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--dim)}
+.agent.judge .rolelab{color:var(--amber)}
+.agent h4{font-family:var(--display);font-size:19.5px;color:var(--ink);margin:6px 0 8px;font-weight:700}
+.agent p{font-size:15.5px;color:var(--body);line-height:1.55}
+.agent .sees{margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--faint);line-height:1.5}
+.agent.judge .sees{color:var(--amber-d)}
+.membrane{margin:22px 0 0;display:flex;align-items:center;gap:14px}
+.membrane .l{flex:1;height:1px;background:var(--fail);opacity:.55}
+.membrane span{font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--fail)}
+
+/* table */
+table{width:100%;border-collapse:collapse;font-size:17px;min-width:520px}
+.panel{overflow-x:auto}
+th{font-family:var(--mono);font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--dim);text-align:left;padding:0 14px 11px;font-weight:500}
+td{padding:14px;border-top:1px solid var(--hair);color:var(--body);vertical-align:top}
+td:first-child{color:var(--ink);font-weight:500;white-space:nowrap}
+td.mono{font-family:var(--mono);font-size:14.5px}
+
+/* engagement tiers */
+.tier{background:var(--panel);border:1px solid var(--hair);border-radius:11px;padding:28px;display:flex;flex-direction:column}
+.tier.feature{border-color:var(--amber-d);background:linear-gradient(180deg,var(--panel2),var(--panel))}
+.tier .tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.tier.feature .tag{color:var(--amber)}
+.tier h3{font-size:23px;margin:9px 0 4px}
+.tier .price{font-family:var(--display);font-size:17px;color:var(--amber);font-weight:600;margin-bottom:16px}
+.tier ul{list-style:none;margin:6px 0 22px;flex:1}
+.tier li{font-size:16.5px;padding:8px 0 8px 21px;position:relative;border-bottom:1px dashed var(--hair);color:var(--body)}
+.tier li:before{content:"";position:absolute;left:0;top:15px;width:8px;height:2px;background:var(--amber)}
+.tier li:last-child{border-bottom:0}
+
+/* faq */
+details{border-bottom:1px solid var(--hair)}
+summary{cursor:pointer;padding:20px 0;font-family:var(--display);font-size:20.5px;color:var(--ink);list-style:none;display:flex;justify-content:space-between;gap:20px;align-items:center;font-weight:600}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";color:var(--amber);font-family:var(--mono);font-size:19px;flex:none}
+details[open] summary:after{content:"–"}
+details p{padding:0 0 22px;font-size:17px;max-width:34em}
+
+
+/* Measured fix: .lead, .note and the 92ch inline overrides were running
+   84-112 characters per line. Comfortable prose sits at 55-75; anything past
+   about 78 forces the eye to hunt for the next line start. */
+.lead{max-width:34em}
+.note{max-width:34em}
+.docsec p{max-width:36em}
+
+/* --- hero receipt: plays once on load, then sits still ---------------- */
+#heroReceipt .verdict{transition:color .3s,background .3s,border-color .3s}
+#heroReceipt .verdict.running{color:#6E6459;background:var(--panel);border-color:var(--hair2)}
+#heroReceipt .verdict.running .dot{animation:rcPulse 1s ease-in-out infinite}
+@keyframes rcPulse{0%,100%{opacity:1}50%{opacity:.25}}
+#heroReceipt .kv{opacity:0;transform:translateY(3px);
+  transition:opacity .3s ease,transform .3s ease}
+#heroReceipt .kv.in{opacity:1;transform:none}
+#heroReceipt .note{opacity:0;transition:opacity .45s ease}
+#heroReceipt .note.in{opacity:1}
+@media(prefers-reduced-motion:reduce){
+  #heroReceipt .kv,#heroReceipt .note{opacity:1!important;transform:none!important}
+  #heroReceipt .verdict .dot{animation:none!important}
+}
+
+/* --- band rhythm --------------------------------------------------------
+   Every section was eyebrow -> heading -> rule -> prose on one background.
+   Three treatments, alternated, break the flatness with no JavaScript:
+     .band          paper, the default
+     .band.sunk     a half-step down, for supporting or tabular sections
+     .band.feature  full-bleed dark, reserved for one pivotal statement per
+                    tab. Used sparingly, it lands; used often, it is noise. */
+.band.sunk{background:var(--floor)}
+.band.sunk .eyebrow{color:var(--amber-d)}
+.band.sunk .agent.judge .rolelab{color:var(--amber-d)}
+.band.feature{background:#241F2E;border-bottom-color:#241F2E}
+.band.feature h2,.band.feature h3{color:#FBF9F6}
+.band.feature p,.band.feature .lead{color:#CFC7BC}
+.band.feature .eyebrow{color:#D6B78A}
+.band.feature .rule{background:#D6B78A}
+.band.feature .note{color:#9E958A}
+.band.feature .card{background:#2E2839;border-color:#3D3648}
+.band.feature .card h3{color:#FBF9F6}
+.band.feature .card p{color:#CFC7BC}
+.band.feature .agent{background:#2E2839;border-color:#3D3648}
+.band.feature .agent h4{color:#FBF9F6}
+.band.feature .agent p{color:#CFC7BC}
+.band.feature .agent .rolelab{color:#9E958A}
+.band.feature .agent .sees{color:#A79E92}
+/* verdict and status colours were tuned for paper; they need lifting on dark */
+.band.feature .mono,.band.feature td.mono{color:#CFC7BC}
+.band.feature td.mono[style*="--fail"],.band.feature [style*="var(--fail)"]{color:#F09478!important}
+.band.feature [style*="var(--unknown)"]{color:#E8C35E!important}
+.band.feature [style*="var(--pass)"]{color:#8FD08A!important}
+.band.feature .v-unk{color:#E8C35E;background:#3A3320;border-color:#5E5330}
+.band.feature .v-fail{color:#F09478;background:#3A2620;border-color:#5E3A30}
+.band.feature .v-pass{color:#8FD08A;background:#213524;border-color:#345239}
+.band.feature .receipt{background:#2E2839;border-color:#3D3648}
+.band.feature .receipt .rhead{color:#9E958A;border-bottom-color:#3D3648}
+.band.feature .kv{border-bottom-color:#3D3648}
+.band.feature .kv b{color:#9E958A}
+.band.feature .kv span{color:#EDE8E1}
+.band.feature .kv span[style]{color:#F09478!important}
+.band.feature .receipt .note{color:#B5ABA0!important}
+.band.feature .agent.judge{background:#38304A;border-color:#D6B78A}
+.band.feature .agent.judge .rolelab,.band.feature .agent.judge .sees{color:#D6B78A}
+.band.feature .membrane span{color:#E08A6E}
+.band.feature .membrane .l{background:#E08A6E}
+.band.feature .panel{background:#2E2839;border-color:#3D3648}
+.band.feature table td{color:#CFC7BC;border-top-color:#3D3648}
+.band.feature table td:first-child{color:#FBF9F6}
+.band.feature th{color:#9E958A}
+
+/* inline diagrams: scale to the column, never exceed their natural size */
+.diagram{display:block;width:100%;max-width:880px;height:auto;margin:6px auto 0}
+.band.feature .diagram{filter:none}
+.figcap{font-family:var(--mono);font-size:12.5px;color:var(--dim);text-align:center;
+        max-width:70ch;margin:10px auto 0}
+footer{padding:52px 0 38px;color:var(--dim);font-size:13.5px}
+.fgrid{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:34px;padding-bottom:34px;border-bottom:1px solid var(--hair)}
+.fgrid h5{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:13px;font-weight:500}
+.fgrid a{display:block;padding:6px 0;color:var(--body);font-size:16.5px}
+.fgrid a:hover{color:var(--amber)}
+.fbot{display:flex;justify-content:space-between;padding-top:22px;flex-wrap:wrap;gap:12px;font-size:14px}
+
+.note{font-family:var(--mono);font-size:13.8px;color:var(--faint);line-height:1.65}
+.docwrap{display:grid;grid-template-columns:212px minmax(0,1fr);gap:44px;align-items:start}
+.docnav{position:sticky;top:96px}
+.docnav h5{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:0 0 10px;font-weight:500}
+.docnav a{display:block;padding:7px 0;color:var(--body);font-size:16px;border-left:2px solid transparent;padding-left:12px;margin-left:-12px}
+.docnav a:hover{color:var(--amber);border-left-color:var(--amber)}
+.docnav a.active{color:var(--amber);border-left-color:var(--amber);font-weight:600}
+.docsearch{width:100%;margin:0 0 14px;padding:9px 10px;border:1px solid var(--hair2);border-radius:5px;background:var(--panel);color:var(--ink);font:14px var(--sans)}
+.docsearch::placeholder{color:var(--dim)}
+.doc-empty{display:none;padding:24px;border:1px dashed var(--hair2);border-radius:8px;color:var(--dim)}
+.docsec{padding-bottom:44px;margin-bottom:44px;border-bottom:1px solid var(--hair)}
+.docsec:last-child{border-bottom:0}
+.docsec h3{margin-bottom:12px}
+.docsec p{margin-bottom:14px}
+pre{background:var(--floor);border:1px solid var(--hair);border-radius:8px;padding:18px 20px;overflow-x:auto;max-width:100%;font-family:var(--mono);font-size:14.5px;line-height:1.7;color:var(--body);margin:16px 0}
+pre .c{color:var(--dim)}
+pre .k{color:var(--amber-d)}
+pre .s{color:var(--pass)}
+code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--floor);padding:2px 6px;border-radius:4px;border:1px solid var(--hair)}
+.cta-band{background:linear-gradient(160deg,#FFF,var(--floor));border:1px solid var(--hair2);border-radius:12px;padding:44px}
+
+@media(max-width:940px){
+  .navbar{gap:14px}
+  .brand{flex:1}
+  .brand-logo{width:96px;height:40px}
+  .brand{gap:8px}
+  .navbar{gap:10px;min-height:64px}
+  nav.tabs{position:fixed;inset:87px 0 auto;flex-direction:column;background:var(--floor);border-bottom:1px solid var(--hair);padding:10px 18px 16px;display:none}
+  nav.tabs.open{display:flex}
+  nav.tabs button{text-align:left;padding:12px}
+  nav.tabs .tablink{padding:12px}
+  .menu{display:block}
+  .navcta .btn:not(.solid){display:none}
+  .navcta .btn.solid{font-size:13px;padding:8px 13px}
+  .band.hero{padding:52px 0 44px}
+  .grid2,.grid3,.grid4,.line,.fgrid,.docwrap{grid-template-columns:minmax(0,1fr)}
+  .band.hero .grid2{grid-template-columns:minmax(0,1fr);gap:34px}
+  .docnav{position:static;width:100%}
+  .docnav a{margin-left:0;padding-left:10px}
+  table{font-size:15px;min-width:460px}
+  .wrap{padding:0 20px}
+  pre{font-size:13px;padding:14px 15px}
+  .docwrap{gap:26px}
+  .band{padding:54px 0}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+  <link rel="canonical" href="https://lightyr.ai/">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iI0ZBRjhGNCIvPjxwYXRoIGQ9Ik0xNiA2IEwyNiAxNiBMMTYgMjYgTDYgMTYgWiIgZmlsbD0iIzdENTdFQSIvPjwvc3ZnPg==">
+  <meta name="theme-color" content="#FAF8F4">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lightyr.ai/">
+  <meta property="og:title" content="LIGHTYEAR — Proof that modernized code behaves the same">
+  <meta property="og:description" content="The autonomous factory for systems you cannot afford to break. We manufacture ground truth for systems that have no tests, then prove the replacement behaves identically.">
+  <meta property="og:site_name" content="LIGHTYEAR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LIGHTYEAR — Proof that modernized code behaves the same">
+  <meta name="twitter:description" content="Anyone can rewrite it. We prove it behaves the same.">
+  <meta name="robots" content="index,follow">
+</head>
+<body>
+
+<header>
+  <div class="wrap navbar">
+    <a class="brand" href="#how" onclick="go('how');return false" aria-label="LIGHTYEAR home">
+      <svg class="brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 150" role="img" aria-labelledby="lyT"> <title id="lyT">LIGHTYEAR</title> <defs> <!-- cuts a clear channel through the wings so the wordmark never sits on violet, and leaves no visible band on any background colour --> <mask id="lyBand"> <rect x="0" y="0" width="360" height="150" fill="#fff"/> <rect x="10" y="57" width="340" height="36" fill="#000"/> </mask> </defs> <g mask="url(#lyBand)"> <path fill="#573A9C" d="M24 66C84 62 125 46 156 20C166 12 173 5 179 4C179.5 3.7 179.8 3.2 180 3C180.2 3.2 180.5 3.7 181 4C187 5 194 12 204 20C235 46 276 62 336 66H24Z"/> <path fill="#573A9C" d="M24 84C84 88 125 104 156 130C166 138 173 145 179 146C179.5 146.3 179.8 146.8 180 147C180.2 146.8 180.5 146.3 181 146C187 145 194 138 204 130C235 104 276 88 336 84H24Z"/> </g> <text x="180" y="84" fill="#A7702C" font-family="Archivo, Arial, sans-serif" font-size="30" font-weight="800" letter-spacing="7" text-anchor="middle">LIGHTYEAR</text> </svg>
+    </a>
+    <button class="menu" aria-label="Menu" onclick="document.querySelector('nav.tabs').classList.toggle('open')">≡</button>
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-t="how" aria-selected="true" onclick="go('how')">How it works</button>
+      <button role="tab" data-t="where" aria-selected="false" onclick="go('where')">Where it runs</button>
+      <button role="tab" data-t="proof" aria-selected="false" onclick="go('proof')">Proof</button>
+      <button role="tab" data-t="trust" aria-selected="false" onclick="go('trust')">Trust</button>
+      <button role="tab" data-t="docs" aria-selected="false" onclick="go('docs')">Docs</button>
+      <button role="tab" data-t="engage" aria-selected="false" onclick="go('engage')">Engagements</button>
+      <a class="tablink" href="milestones/">Milestones</a>
+    </nav>
+    <div class="navcta">
+      <button class="btn" onclick="go('proof')">See the evidence</button>
+      <button class="btn solid" onclick="go('engage')">Talk to an engineer</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ===================== HOW IT WORKS ===================== -->
+<section class="pane on" id="p-how">
+
+  <div class="band hero">
+    <div class="wrap grid2">
+      <div>
+        <div class="eyebrow">The autonomous factory for systems you cannot afford to break</div>
+        <h1 style="margin:20px 0 22px">Modernization that<br>runs itself. And proves it.</h1>
+        <p class="lead" style="margin-bottom:30px">Three in four modernization programmes are never finished, and the survivors run 2.5&#215; over budget. LIGHTYEAR runs the work unattended across millions of lines of code — and refuses to sign anything off until it can prove the new system behaves exactly like the old one.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <button class="btn solid" onclick="go('engage')">Talk to an engineer</button>
+          <button class="btn" onclick="go('proof')">See the evidence</button>
+        </div>
+        <p class="note" style="margin-top:26px">Database: Oracle→PostgreSQL core banking on GCP · SAP ASE · Db2.<br>Mainframe: COBOL, CICS, VSAM, IMS, HLASM, PL/I, JCL.</p>
+      </div>
+
+      <!-- SIGNATURE: the hero is a receipt, and it is refusing to certify -->
+      <div class="receipt" id="heroReceipt" aria-label="Example comparison receipt">
+        <div class="rhead"><span>comparison receipt</span><span>run 8f3c1a·POSTTRAN</span></div>
+        <div class="rbody">
+          <div style="margin-bottom:14px"><span class="verdict v-unk" id="hrVerdict"><i class="dot"></i><span id="hrVerdictText">indeterminate</span></span></div>
+          <div class="kv"><b>reason_code</b><span style="color:var(--unknown)" id="hrReason">NO_COMPARABLE_RECORDS</span></div>
+          <div class="kv"><b>expected_records</b><span>0</span></div>
+          <div class="kv"><b>actual_records</b><span>0</span></div>
+          <div class="kv"><b>evidence_class</b><span>local_observed</span></div>
+          <div class="kv"><b>mainframe_equivalent</b><span style="color:var(--fail)">false</span></div>
+          <div class="kv"><b>exit</b><span>2</span></div>
+          <p class="note" style="margin-top:15px;color:var(--dim)">The candidate produced no output. Most tools would report this as a pass.<br>We return <span style="color:var(--unknown)">indeterminate</span>, because nothing was verified.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band tight">
+    <div class="wrap">
+      <div class="grid4">
+        <div class="stat"><div class="n"><em>74%</em></div><div class="l">of these programmes<br>are never finished</div></div>
+        <div class="stat"><div class="n">2.5×</div><div class="l">over budget when they<br>run into trouble</div></div>
+        <div class="stat"><div class="n">40–60%</div><div class="l">of converted code still needs<br>fixing by hand afterwards</div></div>
+        <div class="stat"><div class="n">£330M</div><div class="l">what it cost one bank to<br>find out too late</div></div>
+      </div>
+      <p class="note" style="margin-top:20px">Advanced Mainframe Modernization Barometer · IEEE/SEI Carnegie Mellon · TSB Bank, 2018.</p>
+    </div>
+  </div>
+  <div class="band">
+    <div class="wrap">
+      <div class="eyebrow">The problem</div>
+      <h2 style="margin:16px 0 0;max-width:20ch">Why these programmes cost what they cost</h2>
+      <div class="rule"></div>
+      <div class="grid3">
+        <div class="card"><h3>No tests</h3><p>Your most valuable systems have no tests, no specification, and nobody left who wrote them. Teams spend the first year of a programme just working out what the code currently does.</p></div>
+        <div class="card"><h3>No answer key</h3><p>So the work is done on assumptions. Every wrong assumption becomes a defect found in testing, or worse, after go-live — and each one costs weeks nobody budgeted for.</p></div>
+        <div class="card"><h3>No way to say no</h3><p>And nobody can prove the result is safe, so sign-off becomes a judgement call. Judgement calls are what boards read about afterwards — one bank spent &#163;330M finding that out.</p></div>
+      </div>
+    </div>
+  </div>
+<div class="band feature">
+    <div class="wrap">
+      <div class="eyebrow">What changes</div>
+      <h2 style="margin:16px 0 0;max-width:24ch">The rewrite was never the expensive part</h2>
+      <div class="rule"></div>
+      <p class="lead" style="margin-bottom:30px">Writing the replacement is now the cheapest step in the programme. What costs you is everything after it: months of people reading two systems side by side, arguing about whether a difference matters, and a go-live nobody will sign. That is where the 2.5&times; comes from, and it is the part a factory can actually take off you.</p>
+      <div class="grid3">
+        <div class="card" style="padding:22px"><h3 style="font-size:17px">It runs unattended</h3><p style="font-size:15px">Across millions of lines, without stopping to ask. Nobody is reading output at midnight and deciding whether it looks close enough.</p></div>
+        <div class="card" style="padding:22px"><h3 style="font-size:17px">It stops itself</h3><p style="font-size:15px">When it cannot prove the new system matches the old one, it refuses and says exactly why. You spend your people on the differences that are real.</p></div>
+        <div class="card" style="padding:22px"><h3 style="font-size:17px">It leaves the receipts</h3><p style="font-size:15px">The evidence behind every decision is kept and replayable, so sign-off is reading a record rather than rebuilding an argument.</p></div>
+      </div>
+      <p class="note" style="margin-top:24px">The saving is not that machines type faster. It is not spending eighteen months proving a migration by hand — and not being one of the three in four that never finish.</p>
+    </div>
+  </div>
+
+
+  
+
+  <div class="band sunk">
+    <div class="wrap">
+      <div class="eyebrow">The factory</div>
+      <h2 style="margin:16px 0 0;max-width:24ch">The factory runs itself. One station makes that safe.</h2>
+      <div class="rule"></div>
+      <p class="lead" style="margin-bottom:30px">Four stations, running unattended across millions of lines. Three of them are AI. The fourth is not — and that is the only reason the other three can be trusted to run without a human watching.</p>
+
+      <div class="line">
+        <div class="agent">
+          <div class="rolelab">station 01</div><h4>Planner</h4>
+          <p>Reads the work order and the approved slice of the estate graph. Emits a bounded plan: which files may change, which gates must pass.</p>
+          <div class="sees">sees: graph scope, source capsules</div>
+        </div>
+        <div class="agent">
+          <div class="rolelab">station 02</div><h4>Builder</h4>
+          <p>Writes the candidate. Every edit passes through a broker that validates it against the declared path allowlist before it lands.</p>
+          <div class="sees">sees: plan, redacted failure</div>
+        </div>
+        <div class="agent judge">
+          <div class="rolelab">station 03 · not a model</div><h4>Verifier</h4>
+          <p>Deterministic gates in a digest-pinned sandbox, holding the private holdout. The only station that decides pass or fail.</p>
+          <div class="sees">sees: everything, including the answer key</div>
+        </div>
+        <div class="agent">
+          <div class="rolelab">station 04</div><h4>Analyst</h4>
+          <p>Turns a failure into a repair direction. Receives the redacted envelope, so it can locate a defect without being handed the answer.</p>
+          <div class="sees">sees: which field diverged, how often</div>
+        </div>
+      </div>
+
+      <div class="membrane"><div class="l"></div><span>holdout boundary — expected values never cross</span><div class="l"></div></div>
+      <p class="note" style="margin-top:16px;max-width:34em">Give a generation agent the expected output and it learns to emit the expected output. You ship a system that reproduces your test corpus instead of your business, and every dashboard above it reports green. That failure is invisible until production, which is why the boundary is an allowlist that defaults closed.</p>
+
+      <div class="panel" style="margin-top:30px;padding:26px 28px;border-color:var(--hair2)">
+        <div class="eyebrow">Why we publish this</div>
+        <p style="margin-top:12px;max-width:32em">The architecture is public on purpose. In a trust business, an unexplained method is not a moat — it is a reason to be turned down in procurement. Knowing that our judge is deterministic and blind does not let anyone replicate the hard part: manufacturing ground truth for a system that has no tests, and being trusted when the answer is no.</p>
+        <p style="margin-top:12px;max-width:32em">What stays private is the evidence itself — holdout cases, corpora, and your data. Publishing the design is how you hold us to it.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band sunk">
+    <div class="wrap">
+      <div class="eyebrow">From proof to programme</div>
+      <h2 style="margin:16px 0 0;max-width:26ch">Proving each technology separately, then proving they hold together</h2>
+      <div class="rule"></div>
+      <p class="lead" style="margin-bottom:28px">A demo proves one program works. A real estate has COBOL calling PL/I against Db2 with assembler in the middle, and the question is whether the pieces still hold together once you move them. Each estate technology is qualified separately, then composed — and the composed package is blocked from dispatch until every constituent claim is satisfied.</p>
+      <div class="grid4">
+        <div class="card" style="padding:20px"><h3 style="font-size:17px">Prove each part</h3><p style="font-size:15px">Each technology gets a bounded claim with its evidence and its stated exclusions.</p></div>
+        <div class="card" style="padding:20px"><h3 style="font-size:17px">Fit them together</h3><p style="font-size:15px">Coordination dependencies between cells are declared and validated, not assumed.</p></div>
+        <div class="card" style="padding:20px"><h3 style="font-size:17px">Check before starting</h3><p style="font-size:15px">An overclaiming work package is rejected before a single agent is dispatched.</p></div>
+        <div class="card" style="padding:20px"><h3 style="font-size:17px">Then let it run</h3><p style="font-size:15px">Only then does the factory run, against scope a human selected and a machine checked.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap grid2">
+      <div>
+        <div class="eyebrow">Why the shape matters</div>
+        <h2 style="margin:16px 0 0">You are not being asked to trust our AI</h2>
+        <div class="rule"></div>
+        <p class="lead">You are being asked to trust one thing: a check that always gives the same answer, that can be re-run next quarter without the original team, and that produces evidence your auditors can read. That is a question a risk committee can settle in one meeting.</p>
+        <p class="lead" style="margin-top:16px">Change the model, change the vendor, change who writes the code entirely. Correctness is decided underneath — so a better model gets you there sooner, it does not change whether you arrived.</p>
+      </div>
+      <div class="panel" style="padding:26px">
+        <table>
+          <tr><th style="width:50%">Consensus of agents</th><th>LIGHTYEAR</th></tr>
+          <tr><td style="font-weight:400;color:var(--body);white-space:normal">Models debate toward agreement</td><td>Models propose, a deterministic gate disposes</td></tr>
+          <tr><td style="font-weight:400;color:var(--body);white-space:normal">Confidence tracks model persuasiveness</td><td>Confidence tracks captured evidence</td></tr>
+          <tr><td style="font-weight:400;color:var(--body);white-space:normal">The critic can see what it grades against</td><td>The judge holds the key; workers never see it</td></tr>
+          <tr><td style="font-weight:400;color:var(--body);white-space:normal">A better model changes the verdict</td><td>A better model changes throughput</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHERE IT RUNS ===================== -->
+<section class="pane" id="p-where">
+  <div class="band hero">
+    <div class="wrap">
+      <div class="eyebrow">Where it runs</div>
+      <h1 style="margin:18px 0 22px;max-width:21ch">Core banking on Oracle, moved to PostgreSQL</h1>
+      <p class="lead">This is where the money is, and where the proof is hardest. Conversion tools move the data; none of them can show you the business logic still works. We have run our factory across a 1.4 million line Oracle estate — and the same machinery then reaches the mainframe behind it.</p>
+    </div>
+  </div>
+  <div class="band feature">
+    <div class="wrap">
+      <div class="eyebrow">Reference programme</div>
+      <h2 style="margin:16px 0 0;max-width:26ch">An eight-service core banking application, Oracle to PostgreSQL, on GCP</h2>
+      <div class="rule"></div>
+      <p class="lead" style="margin-bottom:30px">CloudBank is Oracle's own core banking reference application. We took it end to end: schema, stored logic, messaging, identity and deployment — every step under the same evidence contract, with an autonomous factory doing the work and a deterministic gate deciding whether it counted.</p>
+      <div class="grid4">
+        <div class="card" style="padding:20px"><h3 style="font-size:17px">Data and logic</h3><p style="font-size:15px">Schema projection with type and scale fidelity, stored logic qualified as bounded supporting evidence rather than an unqualified claim.</p></div>
+        <div class="card" style="padding:20px"><h3 style="font-size:17px">Messaging</h3><p style="font-size:15px">Oracle AQ replaced by a PostgreSQL durable work queue — row locks with <span class="mono">SKIP LOCKED</span>, at-least-once with idempotent keys, FIFO within an aggregate, governed dead-letter replay.</p></div>
+        <div class="card" style="padding:20px"><h3 style="font-size:17px">Identity</h3><p style="font-size:15px">OAuth2/OIDC with client-credentials service identity and the JWT subject preserved through to account authorization. No static shared headers.</p></div>
+        <div class="card" style="padding:20px"><h3 style="font-size:17px">Platform</h3><p style="font-size:15px">Kubernetes on GKE with immutable sha256 digest image policy, Cloud SQL PostgreSQL 16, and a cutover rehearsal contract that makes rollback mandatory and observed rather than documented.</p></div>
+      </div>
+      <div style="margin-top:26px;background:#FAF8F4;border-radius:10px;padding:10px"><svg class="diagram diagram-plat" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" 
+     role="img" aria-label="LIGHTYEAR cloud platform: Oracle and PostgreSQL lanes observed live, compared, and receipted">
+<defs>
+  <marker id="d-plat" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M0 0 L8 4 L0 8 z" fill="#573A9C"/>
+  </marker>
+</defs>
+<style>
+  text{font-family:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif}
+  .ttl{font-size:15px;font-weight:600;fill:#181513}
+  .cap{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:10px;fill:#9A9086}
+  .lh{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:10px;letter-spacing:1.2px;font-weight:500}
+  .sub{font-size:11.5px;fill:#3C3730}
+  .li{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:10.5px;fill:#6E6459}
+  .cl{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:9.5px;letter-spacing:1.2px;fill:#573A9C}
+  .lane{opacity:0;animation:in 7.4s linear infinite}
+  .pipe{opacity:0;animation:in 7.4s linear infinite;animation-delay:2.30s}
+  .comp{opacity:0;animation:in 7.4s linear infinite;animation-delay:2.88s}
+  .rec{opacity:0;animation:in 7.4s linear infinite;animation-delay:4.14s}
+  .pulse{animation:pulse 7.4s linear infinite;animation-delay:2.99s}
+  @keyframes in{
+    0%{opacity:0;transform:translateY(5px)}
+    5%,94%{opacity:1;transform:none}
+    100%{opacity:1;transform:none} }
+  @keyframes pulse{
+    0%,3%{opacity:0} 8%{opacity:.9} 16%{opacity:.15} 24%{opacity:.9}
+    32%,100%{opacity:.15} }
+  @media (prefers-reduced-motion: reduce){
+    .lane,.pipe,.comp,.rec{opacity:1;animation:none} .pulse{animation:none;opacity:.3} }
+</style>
+
+<rect width="880" height="400" fill="#FAF8F4"/>
+<g transform="translate(40,26)">
+  <defs><mask id="m67289-plat">
+    <rect x="-2" y="-2" width="100" height="34" fill="#fff"/>
+    <rect x="-2" y="11.4" width="100" height="7.199999999999999" fill="#000"/>
+  </mask></defs>
+  <g mask="url(#m67289-plat)" fill="#573A9C">
+    <path d="M0 13.2 C22.080000000000002 12.299999999999999 33.599999999999994 9.0 42.24 3.9000000000000004
+             C45.12 1.5 47.04 0 48.0 0
+             C48.96 0 50.88 1.5 53.760000000000005 3.9000000000000004
+             C62.400000000000006 9.0 73.92 12.299999999999999 96 13.2 Z"/>
+    <path d="M0 16.8 C22.080000000000002 17.7 33.599999999999994 21.0 42.24 26.1
+             C45.12 28.5 47.04 30 48.0 30
+             C48.96 30 50.88 28.5 53.760000000000005 26.1
+             C62.400000000000006 21.0 73.92 17.7 96 16.8 Z"/>
+  </g>
+  <text x="48.0" y="17.25" text-anchor="middle" font-family="'IBM Plex Sans','Helvetica Neue',Arial,sans-serif" font-size="7.05" font-weight="700" letter-spacing="1.2899999999999998" fill="#A7702C">LIGHTYEAR</text>
+</g>
+<text x="152" y="47" class="ttl">Both lanes observed. One comparator between them.</text>
+<text x="840" y="47" class="cap" text-anchor="end">google cloud</text>
+<line x1="40" y1="66" x2="840" y2="66" stroke="#E0D9CE" stroke-width="1"/>
+<text x="40" y="96" class="cl">MANAGED PLATFORM &#183; DIGEST-PINNED WORKLOADS &#183; NO WRITE PATH TO SOURCE</text>
+
+
+  <g class="lane" style="animation-delay:0.00s">
+    <rect x="40" y="118" width="328" height="96" rx="6" fill="#FFFFFF"
+          stroke="#CFC5B6" stroke-width="1"/>
+    <rect x="40" y="118" width="3.5" height="96" rx="1.5" fill="#B4531F"/>
+    <text x="56" y="140" class="lh" fill="#B4531F">SOURCE LANE</text>
+    <text x="56" y="155" class="sub">Oracle, read-only</text>
+    <text x="56" y="170" class="li">schema and stored logic</text><text x="56" y="187" class="li">captured behaviour</text><text x="56" y="204" class="li">session controls pinned</text>
+  </g>
+
+  <g class="lane" style="animation-delay:1.15s">
+    <rect x="512" y="118" width="328" height="96" rx="6" fill="#FFFFFF"
+          stroke="#CFC5B6" stroke-width="1"/>
+    <rect x="512" y="118" width="3.5" height="96" rx="1.5" fill="#573A9C"/>
+    <text x="528" y="140" class="lh" fill="#573A9C">TARGET LANE</text>
+    <text x="528" y="155" class="sub">PostgreSQL, managed</text>
+    <text x="528" y="170" class="li">projected schema</text><text x="528" y="187" class="li">durable work queue</text><text x="528" y="204" class="li">observed behaviour</text>
+  </g>
+
+<g class="pipe">
+  <path d="M204.0 214 L204.0 226 L440.0 226"
+        stroke="#CFC5B6" stroke-width="1.4" fill="none"/>
+  <path d="M676.0 214 L676.0 226 L440.0 226"
+        stroke="#CFC5B6" stroke-width="1.4" fill="none"/>
+  <path d="M440.0 226 L440.0 243" stroke="#573A9C" stroke-width="1.8"
+        marker-end="url(#d-plat)" fill="none"/>
+</g>
+
+<g class="comp">
+  <rect x="300" y="246" width="280" height="58" rx="6" fill="#F3EFFA"
+        stroke="#573A9C" stroke-width="1.6"/>
+  <circle class="pulse" cx="322" cy="275.0" r="5" fill="#573A9C"/>
+  <text x="340" y="270" class="lh" fill="#573A9C">COMPARATOR</text>
+  <text x="340" y="288" class="sub" font-size="11">typed, keyed, policy-governed</text>
+</g>
+
+<g class="rec">
+  <path d="M440.0 304 L440.0 325" stroke="#A7702C" stroke-width="1.4"
+        fill="none" opacity=".6"/>
+  <rect x="240" y="328" width="400" height="44" rx="5"
+        fill="#F2EEE7" stroke="#E0D9CE"/>
+  <rect x="240" y="328" width="3.5" height="44" fill="#A7702C"/>
+  <text x="258" y="347" class="lh" fill="#A7702C">RECEIPT</text>
+  <text x="258" y="363" class="li">content-addressed &#183; replayable &#183; chained to the audit ledger</text>
+</g>
+
+<text x="40" y="366" class="cap">source</text>
+<text x="840" y="366" class="cap" text-anchor="end">target</text>
+</svg></div>
+      <p class="figcap">Both lanes run in Google Cloud. The comparator sits between them and neither can write to the other.</p>
+      <p class="note" style="margin-top:22px">Every artefact above is a contract plus a receipt. Every claim in this programme carries one.</p>
+    </div>
+  </div>
+
+  <div class="band sunk">
+    <div class="wrap">
+      <div class="eyebrow">Production readiness</div>
+      <h2 style="margin:16px 0 0;max-width:28ch">Thirteen things that have to be true, and where each one stands today</h2>
+      <div class="rule"></div>
+      <p class="lead" style="margin-bottom:24px">A migration is not finished when the data moves. This is the checklist we hold ourselves to on CloudBank, published as it currently reads. Nothing here is aspirational — it is the receipt.</p>
+      <div class="panel" style="padding:6px 24px">
+        <table>
+          <tr><th>Dimension</th><th>What it requires</th><th style="text-align:right">State</th></tr>
+          <tr><td>Non-production platform</td><td>Real authorised cluster, not a local emulation</td><td class="mono" style="text-align:right;color:var(--unknown)">eligible</td></tr>
+          <tr><td>TLS</td><td>External termination and internal service identity</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
+          <tr><td>High availability</td><td>Regional failover exercised, not configured</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
+          <tr><td>Backup and restore</td><td>Restore to an exact normalized state hash</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
+          <tr><td>Cutover and rollback</td><td>Rollback mandatory and observed, not documented</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
+          <tr><td>Observability</td><td>Evidence emitted, not dashboards installed</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
+          <tr><td>Performance</td><td>Representative data volume, not synthetic minimums</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
+          <tr><td>External secrets</td><td>Managed store, no operator-ephemeral keys</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
+          <tr><td>Customer identity</td><td>Your IdP, not our authorization server</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
+          <tr><td>Security</td><td>Workload identity and least privilege, exercised</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
+          <tr><td>Rolling deployment</td><td>Zero-downtime release path proven under load</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
+          <tr><td>Representative data</td><td>Production-shaped volume, not synthetic minimums</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
+          <tr><td>Customer approval</td><td>Your sign-off on the evidence, not ours</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
+        </table>
+      </div>
+      <p class="note" style="margin-top:18px">Most vendors reach this list in month four of a programme. You get it before the contract.</p>
+    </div>
+  </div>
+
+
+  <div class="band">
+    <div class="wrap">
+      <div class="eyebrow">The mainframe behind it</div>
+      <h2 style="margin:16px 0 0;max-width:30ch">The mainframe underneath is held to the same standard</h2>
+      <div class="rule"></div>
+      <div class="panel" style="padding:26px">
+        <table>
+          <tr><th>Technology</th><th>What we parse and compare</th><th style="text-align:right">Equivalence</th></tr>
+          <tr><td>COBOL / batch</td><td>Copybooks, EBCDIC, zoned and packed decimal, keyed record alignment</td><td class="mono" style="text-align:right;color:var(--fail)">gated</td></tr>
+          <tr><td>CICS</td><td>BMS screen maps, transaction routing, field-level screen diffing</td><td class="mono" style="text-align:right;color:var(--fail)">gated</td></tr>
+          <tr><td>VSAM</td><td>KSDS, ESDS, RRDS, alternate indexes, path and component definitions</td><td class="mono" style="text-align:right;color:var(--fail)">gated</td></tr>
+          <tr><td>IMS</td><td>PSB/DBD structure, GN/GNP/DLET/CHKP call paths</td><td class="mono" style="text-align:right;color:var(--fail)">gated</td></tr>
+          <tr><td>HLASM</td><td>Fixed-position conversion routines, including dead branches</td><td class="mono" style="text-align:right;color:var(--fail)">gated</td></tr>
+          <tr><td>PL/I</td><td>Procedures, includes, file handles, embedded SQL, reproducible builds</td><td class="mono" style="text-align:right;color:var(--fail)">gated</td></tr>
+          <tr><td>JCL</td><td>Bounded discovery and semantic subset; JES, catalog and scheduler claims held back</td><td class="mono" style="text-align:right;color:var(--fail)">gated</td></tr>
+          <tr><td>Db2 / data</td><td>Schema projection to PostgreSQL and Oracle with type and scale fidelity</td><td class="mono" style="text-align:right;color:var(--fail)">gated</td></tr>
+        </table>
+      </div>
+      <p class="note" style="margin-top:18px">Every technology here is <span style="color:var(--ink)">proven in development</span>. <span style="color:var(--fail)">Equivalence unlocks with an authorised mainframe baseline</span> — and the software holds that line itself, rather than a policy asking us to. You will always see where a claim stands.</p>
+    </div>
+  </div>
+
+  <div class="band sunk">
+    <div class="wrap">
+      <div class="eyebrow">Also supported</div>
+      <h2 style="margin:16px 0 0">The same approach, other systems</h2>
+      <div class="rule"></div>
+      <div class="grid3">
+        <div class="card"><h3>iDempiere ERP</h3><p>A second real Oracle estate, pinned to an exact upstream commit, with semantic risk signals detected across its own migration SQL. Proof the method is not tuned to one application.</p></div>
+        <div class="card"><h3>SAP ASE</h3><p>Measure semantic risk <em style="font-style:normal;color:var(--ink)">before</em> choosing a migration target or accepting a conversion estimate. Catalog, row, replication and transaction semantics under the same contract as everything else.</p></div>
+        <div class="card"><h3>Db2 for z/OS</h3><p>Brought into the same semantic adapter contract as Oracle and ASE, with stored logic retained as bounded supporting evidence rather than an unqualified claim.</p></div>
+      </div>
+
+      <h3 style="margin:44px 0 0">What we tell you we cannot do</h3>
+      <div class="rule"></div>
+      <p class="lead" style="margin-bottom:22px">This is our own analysis of where Oracle and PostgreSQL genuinely differ, published as we hold it internally. Most vendors reach this list in month four of a programme. You get it before you sign.</p>
+      <div class="panel" style="padding:6px 24px">
+        <table>
+          <tr><th>Behaviour</th><th>Classification</th><th style="text-align:right">What it means for you</th></tr>
+          <tr><td>Number precision and scale</td><td class="mono" style="color:var(--pass)">exact</td><td style="text-align:right;color:var(--dim)">provable, no policy needed</td></tr>
+          <tr><td>Date includes time</td><td class="mono">normalized-equivalent</td><td style="text-align:right;color:var(--dim)">governed normalization, owned and dated</td></tr>
+          <tr><td>Empty string is null</td><td class="mono" style="color:var(--unknown)">policy-decision-required</td><td style="text-align:right;color:var(--dim)">your call, recorded before we proceed</td></tr>
+          <tr><td>Transaction isolation</td><td class="mono" style="color:var(--unknown)">policy-decision-required</td><td style="text-align:right;color:var(--dim)">needs concurrent probes and an approved policy</td></tr>
+          <tr><td>Sequence and identity state</td><td class="mono" style="color:var(--fail)">lossy</td><td style="text-align:right;color:var(--dim)">cutover policy required; we cannot prove parity</td></tr>
+          <tr><td>DDL change capture</td><td class="mono" style="color:var(--fail)">unsupported</td><td style="text-align:right;color:var(--dim)">excluded from claim scope, needs a separate plan</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap grid2">
+      <div>
+        <div class="eyebrow">The wedge</div>
+        <h2 style="margin:16px 0 0">Know the number before you choose a vendor</h2>
+        <div class="rule"></div>
+        <p class="lead">Point us at your systems before you sign with anyone. We will tell you how much of your own business logic has never been tested — not once, by anything you own. Nobody else can produce that number, and it changes what you ask for, what you pay, and what you accept as done.</p>
+      </div>
+      <div class="receipt">
+        <div class="rhead"><span>coverage · CBTRN02C</span><span>estate assessment</span></div>
+        <div class="rbody">
+          <div class="kv"><b>business decision paths</b><span>14</span></div>
+          <div class="kv"><b>reached by your corpus</b><span style="color:var(--fail)">11</span></div>
+          <div class="kv"><b>rejection paths in code</b><span>4</span></div>
+          <div class="kv"><b>rejection paths exercised</b><span style="color:var(--fail)">1</span></div>
+          <div class="kv"><b>distinct reason codes seen</b><span>102 only</span></div>
+          <p class="note" style="margin-top:15px;color:var(--dim)">Three of four rejection paths are unmeasured. Captured production traffic is almost entirely the happy path — that is what production being healthy means, and it is where modernization defects survive to go-live.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROOF ===================== -->
+<section class="pane" id="p-proof">
+  <div class="band hero">
+    <div class="wrap">
+      <div class="eyebrow">Proof</div>
+      <h1 style="margin:18px 0 22px;max-width:17ch">Every number on this site is one we can show you</h1>
+      <p class="lead">A company that sells proof cannot afford to overstate anything. So here is exactly what exists, counted on the code that ships.</p>
+      <div style="margin-top:26px"><svg class="diagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" 
+     role="img" aria-label="LIGHTYEAR comparator: two lanes compared field by field until one diverges">
+<style>
+  .bg{fill:#FAF8F4}
+  text{font-family:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif;}
+  .ttl{font-size:15px;font-weight:600;fill:#181513}
+  .lane-h{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:9.5px;letter-spacing:1.4px;fill:#6E6459}
+  .k{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:11.5px;fill:#6E6459}
+  .v{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:11.5px;font-weight:500}
+  .eq{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:13px;font-weight:600;text-anchor:middle}
+  .cap{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:10px;fill:#9A9086}
+  .row{opacity:0;animation:fadeUp 6.84s linear infinite}
+  .verdict{opacity:0;animation:pop 6.84s linear infinite;animation-delay:4.85s}
+  .scan{animation:scan 6.84s linear infinite}
+  @keyframes fadeUp{
+    0%{opacity:0;transform:translateY(4px)}
+    3%,94%{opacity:1;transform:none}
+    100%{opacity:1;transform:none} }
+  @keyframes pop{
+    0%{opacity:0;transform:translateY(5px)}
+    4%,96%{opacity:1;transform:none}
+    100%{opacity:1;transform:none} }
+  @keyframes scan{
+    0%{transform:translateY(0);opacity:0}
+    4%{opacity:.55}
+    66%{transform:translateY(120px);opacity:.55}
+    70%,100%{opacity:0} }
+  @media (prefers-reduced-motion: reduce){
+    .row,.verdict{opacity:1;animation:none} .scan{display:none} }
+</style>
+
+<rect class="bg" width="880" height="400"/>
+<g transform="translate(40,26)">
+  <defs><mask id="m67289C">
+    <rect x="-2" y="-2" width="100" height="34" fill="#fff"/>
+    <rect x="-2" y="11.4" width="100" height="7.199999999999999" fill="#000"/>
+  </mask></defs>
+  <g mask="url(#m67289C)" fill="#573A9C">
+    <path d="M0 13.2 C22.080000000000002 12.299999999999999 33.599999999999994 9.0 42.24 3.9000000000000004
+             C45.12 1.5 47.04 0 48.0 0
+             C48.96 0 50.88 1.5 53.760000000000005 3.9000000000000004
+             C62.400000000000006 9.0 73.92 12.299999999999999 96 13.2 Z"/>
+    <path d="M0 16.8 C22.080000000000002 17.7 33.599999999999994 21.0 42.24 26.1
+             C45.12 28.5 47.04 30 48.0 30
+             C48.96 30 50.88 28.5 53.760000000000005 26.1
+             C62.400000000000006 21.0 73.92 17.7 96 16.8 Z"/>
+  </g>
+  <text x="48.0" y="17.25" text-anchor="middle" font-family="'IBM Plex Sans','Helvetica Neue',Arial,sans-serif" font-size="7.05" font-weight="700" letter-spacing="1.2899999999999998" fill="#A7702C">LIGHTYEAR</text>
+</g>
+<text x="152" y="47" class="ttl">Differential comparison</text>
+<text x="840" y="47" class="cap" text-anchor="end">field by field, keyed alignment</text>
+<line x1="40" y1="66" x2="840" y2="66" stroke="#E0D9CE" stroke-width="1"/>
+
+<text x="40" y="118" class="lane-h">LEGACY SYSTEM</text>
+<text x="424" y="118" class="lane-h">MODERN CANDIDATE</text>
+
+<rect class="scan" x="34" y="129" width="692" height="28"
+      rx="4" fill="none" stroke="#573A9C" stroke-width="1.4" opacity="0"/>
+
+  <g class="row" style="animation-delay:0.00s">
+    <rect x="40" y="132" width="296" height="26" rx="3" fill="#F1F7EE"/>
+    <text x="52" y="151" class="k">acct_id</text>
+    <text x="324" y="151" class="v" text-anchor="end"
+          fill="#181513">00000000011</text>
+  </g>
+  <g class="row" style="animation-delay:0.00s">
+    <rect x="424" y="132" width="296" height="26" rx="3" fill="#F1F7EE"/>
+    <text x="436" y="151" class="k">acct_id</text>
+    <text x="708" y="151" class="v" text-anchor="end"
+          fill="#181513">00000000011</text>
+  </g>
+  <g class="row" style="animation-delay:0.18s">
+    <text x="380.0" y="151" class="eq" fill="#2F6B3F">=</text>
+  </g>
+  <g class="row" style="animation-delay:0.90s">
+    <rect x="40" y="162" width="296" height="26" rx="3" fill="#F1F7EE"/>
+    <text x="52" y="181" class="k">balance</text>
+    <text x="324" y="181" class="v" text-anchor="end"
+          fill="#181513">194.00</text>
+  </g>
+  <g class="row" style="animation-delay:0.90s">
+    <rect x="424" y="162" width="296" height="26" rx="3" fill="#F1F7EE"/>
+    <text x="436" y="181" class="k">balance</text>
+    <text x="708" y="181" class="v" text-anchor="end"
+          fill="#181513">194.00</text>
+  </g>
+  <g class="row" style="animation-delay:1.08s">
+    <text x="380.0" y="181" class="eq" fill="#2F6B3F">=</text>
+  </g>
+  <g class="row" style="animation-delay:1.80s">
+    <rect x="40" y="192" width="296" height="26" rx="3" fill="#F1F7EE"/>
+    <text x="52" y="211" class="k">open_date</text>
+    <text x="324" y="211" class="v" text-anchor="end"
+          fill="#181513">2014-11-20</text>
+  </g>
+  <g class="row" style="animation-delay:1.80s">
+    <rect x="424" y="192" width="296" height="26" rx="3" fill="#F1F7EE"/>
+    <text x="436" y="211" class="k">open_date</text>
+    <text x="708" y="211" class="v" text-anchor="end"
+          fill="#181513">2014-11-20</text>
+  </g>
+  <g class="row" style="animation-delay:1.98s">
+    <text x="380.0" y="211" class="eq" fill="#2F6B3F">=</text>
+  </g>
+  <g class="row" style="animation-delay:2.70s">
+    <rect x="40" y="222" width="296" height="26" rx="3" fill="#FBEAE6"/>
+    <text x="52" y="241" class="k">interest</text>
+    <text x="324" y="241" class="v" text-anchor="end"
+          fill="#B03A28">67.80</text>
+  </g>
+  <g class="row" style="animation-delay:2.70s">
+    <rect x="424" y="222" width="296" height="26" rx="3" fill="#FBEAE6"/>
+    <text x="436" y="241" class="k">interest</text>
+    <text x="708" y="241" class="v" text-anchor="end"
+          fill="#B03A28">67.79</text>
+  </g>
+  <g class="row" style="animation-delay:2.88s">
+    <text x="380.0" y="241" class="eq" fill="#B03A28">≠</text>
+  </g>
+  <g class="row" style="animation-delay:3.60s">
+    <rect x="40" y="252" width="296" height="26" rx="3" fill="#F1F7EE"/>
+    <text x="52" y="271" class="k">status</text>
+    <text x="324" y="271" class="v" text-anchor="end"
+          fill="#181513">A</text>
+  </g>
+  <g class="row" style="animation-delay:3.60s">
+    <rect x="424" y="252" width="296" height="26" rx="3" fill="#F1F7EE"/>
+    <text x="436" y="271" class="k">status</text>
+    <text x="708" y="271" class="v" text-anchor="end"
+          fill="#181513">A</text>
+  </g>
+  <g class="row" style="animation-delay:3.78s">
+    <text x="380.0" y="271" class="eq" fill="#2F6B3F">=</text>
+  </g>
+
+<g class="verdict">
+  <rect x="40" y="300" width="680" height="46" rx="5"
+        fill="#FBEAE6" stroke="#B03A28" stroke-width="1"/>
+  <rect x="40" y="300" width="3.5" height="46" fill="#B03A28"/>
+  <text x="56" y="320" class="v" fill="#B03A28"
+        font-size="11" letter-spacing="1.3">DIVERGENT</text>
+  <text x="56" y="336" class="k" fill="#3C3730"
+        font-size="10.5">interest &#183; rounding_suspect &#183; 1 of 5 fields &#183; exit 1</text>
+  <text x="704" y="329" class="cap"
+        text-anchor="end" fill="#6E6459">receipt written</text>
+</g>
+</svg></div>
+      <p class="figcap">A one-cent difference, found and classified. The verdict names the field, not just the result.</p>
+    </div>
+  </div>
+
+  <div class="band tight">
+    <div class="wrap">
+      <div class="grid4">
+        <div class="stat"><div class="n">2,000</div><div class="l">behaviour cases, each with its<br>required evidence declared</div></div>
+        <div class="stat"><div class="n">49</div><div class="l">shipped milestones, each with<br>a published evidence boundary</div></div>
+        <div class="stat"><div class="n">455</div><div class="l">tests, every guard verified<br>by breaking what it protects</div></div>
+        <div class="stat"><div class="n"><em>0</em></div><div class="l">third-party runtime<br>dependencies</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band feature">
+    <div class="wrap">
+      <div class="eyebrow">What we test for</div>
+      <h2 style="margin:16px 0 0;max-width:30ch">The dangerous answer is not a wrong one. It is a confident empty one.</h2>
+      <div class="rule"></div>
+      <p class="lead" style="margin-bottom:28px">A tool that reports success having checked nothing looks exactly like a tool that works. It ships, and you find out when the numbers stop reconciling. We attack our own comparator on every build to make sure it cannot do that.</p>
+      <div class="panel" style="padding:26px">
+        <table>
+          <tr><th>Injected defect</th><th>What a naive comparator does</th><th style="text-align:right">Ours</th></tr>
+          <tr><td>Candidate writes nothing</td><td>reports passed, exit 0</td><td class="mono" style="text-align:right;color:var(--unknown)">indeterminate</td></tr>
+          <tr><td>Transaction posted twice</td><td>key collapses, reports passed</td><td class="mono" style="text-align:right;color:var(--fail)">failed</td></tr>
+          <tr><td>Balance drifts one cent</td><td>within float tolerance</td><td class="mono" style="text-align:right;color:var(--fail)">failed</td></tr>
+          <tr><td>Fixed-point money becomes floating point</td><td>passes until it compounds</td><td class="mono" style="text-align:right;color:var(--fail)">failed</td></tr>
+          <tr><td>Timestamps written blank</td><td>field is ignored anyway</td><td class="mono" style="text-align:right;color:var(--fail)">failed</td></tr>
+          <tr><td>Statement rows reordered</td><td>set comparison passes</td><td class="mono" style="text-align:right;color:var(--fail)">failed</td></tr>
+        </table>
+      </div>
+      <p class="note" style="margin-top:18px">Each row is a defect we deliberately introduced into our own code to check the alarm sounds. A test that cannot fail is not evidence, so every safeguard is verified by breaking the thing it protects.</p>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap">
+      <div class="eyebrow">Governance</div>
+      <h2 style="margin:16px 0 0">Every permitted difference has an owner and an expiry date</h2>
+      <div class="rule"></div>
+      <div class="grid2" style="align-items:start">
+        <p class="lead">Some differences between two systems are genuinely meaningless — a run timestamp, a padding convention. Waving those through is necessary, and it is also how a verification tool gets quietly widened until everything passes. So each one is a controlled entry: a written reason, a named owner, and a review date that expires.</p>
+        <div class="receipt">
+          <div class="rhead"><span>normalization ledger</span><span>validate → fail closed</span></div>
+          <div class="rbody">
+            <div class="kv"><b>rule</b><span>fixed-width-right-padding</span></div>
+            <div class="kv"><b>reason</b><span>storage artefact of PIC X(n)</span></div>
+            <div class="kv"><b>owner</b><span>data-migration</span></div>
+            <div class="kv"><b>review_after</b><span>2027-02-22</span></div>
+            <div class="kv"><b>runtime match</b><span style="color:var(--pass)">scope + behavior verified</span></div>
+            <p class="note" style="margin-top:14px;color:var(--dim)">A rule that is expired, unowned, undocumented, or no longer matches the code will stop the run.<br>The ledger cannot describe something the code does not do.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band sunk">
+    <div class="wrap">
+      <div class="eyebrow">Honest roadmap</div>
+      <h2 style="margin:16px 0 0">What we have not done yet</h2>
+      <div class="rule"></div>
+      <div class="grid2" style="align-items:start">
+        <div class="card"><h3>No live mainframe run yet</h3><p>Every equivalence claim in the product is gated pending authorised z/OS capture. That is deliberate, and it is the next value inflection. A verification company that quietly promotes simulated evidence has nothing to sell.</p></div>
+        <div class="card"><h3>Proven on one kind of workload</h3><p>Breadth across genuinely different estates is the next thing to prove. You are hearing it now rather than in month three of a programme.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TRUST ===================== -->
+<section class="pane" id="p-trust">
+  <div class="band hero">
+    <div class="wrap">
+      <div class="eyebrow">Trust</div>
+      <h1 style="margin:18px 0 22px;max-width:21ch">Built for organisations that cannot take a risk on us</h1>
+      <p class="lead">We are asking a regulated business to let software work unattended on its most sensitive code. Everything here assumes you will not take that on trust after a demo.</p>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap">
+      <div class="grid3">
+        <div class="card"><h3>Read-only by default</h3><p>Collection is read-only. Live capture carries operator attestation and verified TLS with certificate and hostname validation, and writes nothing back to your estate.</p></div>
+        <div class="card"><h3>Evidence cannot be laundered</h3><p>Simulated evidence cannot satisfy an equivalence claim. Replaying a live capture yields <span class="mono" style="color:var(--ink)">recorded</span>, never <span class="mono" style="color:var(--ink)">live</span> — weak evidence cannot be promoted by round-tripping it.</p></div>
+        <div class="card"><h3>Nothing runs loose</h3><p>Check before startings run in a digest-pinned container with a read-only host bind. Work orders are signed, expiring, and replay-safe. Agent identities are short-lived and action-scoped.</p></div>
+        <div class="card"><h3>Every step is on the record</h3><p>Every event binds actor, action, subject, policy decision and evidence receipt to an exact graph identity. A reviewer can replay the evidence behind any release decision.</p></div>
+        <div class="card"><h3>Your data stays yours</h3><p>Comparison output contains real record values by design — that is what makes it evidence. Classification, access control and retention on run directories are agreed before the first capture, not after.</p></div>
+        <div class="card"><h3>No borrowed code in the core</h3><p>The verification core has zero external runtime dependencies. For a tool whose product is evidence, the dependency tree is part of what your auditor has to trust.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band sunk">
+    <div class="wrap grid2">
+      <div>
+        <div class="eyebrow">For risk and audit</div>
+        <h2 style="margin:16px 0 0">Four questions we can answer in writing</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="panel" style="padding:8px 26px">
+        <table>
+          <tr><td>What changed, exactly?</td><td class="mono" style="color:var(--dim)">brokered patch + workspace hash</td></tr>
+          <tr><td>What proved it?</td><td class="mono" style="color:var(--dim)">gate result + output digest</td></tr>
+          <tr><td>What was the agent told?</td><td class="mono" style="color:var(--dim)">redacted diagnosis envelope</td></tr>
+          <tr><td>Can we replay it?</td><td class="mono" style="color:var(--dim)">content-addressed run receipt</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== DOCS ===================== -->
+<section class="pane" id="p-docs">
+  <div class="band hero">
+    <div class="wrap">
+      <div class="eyebrow">Documentation</div>
+      <h1 style="margin:18px 0 22px;max-width:20ch">How an engagement actually runs</h1>
+      <p class="lead">Written for the engineers who will operate this, not for the people who sign the contract. If you are evaluating us, this is the page to send to your platform team.</p>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap docwrap">
+      <nav class="docnav">
+        <h5>Contents</h5>
+        <label class="eyebrow" for="doc-search" style="position:absolute;left:-9999px">Filter documentation</label>
+        <input class="docsearch" id="doc-search" type="search" placeholder="Filter docs…" autocomplete="off">
+        <a href="#d-start">Getting started</a>
+        <a href="#d-order">Work orders</a>
+        <a href="#d-verdicts">Verdicts</a>
+        <a href="#d-norm">Normalization ledger</a>
+        <a href="#d-evidence">Evidence classes</a>
+        <a href="#d-coverage">Coverage</a>
+        <a href="#d-cli">CLI reference</a>
+        <a href="#d-integrate">CI integration</a>
+        <a href="#d-record">Body of record</a>
+      </nav>
+
+      <div>
+        <div class="docsec" id="d-start">
+          <h3>Getting started</h3>
+          <p>An engagement begins read-only. We take source and, where available, captured input and output from the running system. Nothing is written back to your estate at any point.</p>
+          <pre><span class="c"># 1 — build a typed graph of the estate</span>
+lightyr graph build --source ./estate --out knowledge/graph.json
+
+<span class="c"># 2 — measure what your existing corpus actually reaches</span>
+lightyr coverage report --program CBTRN02C --corpus ./captured
+
+<span class="c"># 3 — run one bounded proof cell end to end</span>
+lightyr factory run --work-order work-orders/intcalc.json</pre>
+          <p>Step 2 is usually the one that changes the conversation. It answers a question nobody has asked before: how much of this program's decision surface has any test you own ever exercised.</p>
+        </div>
+
+        <div class="docsec" id="d-order">
+          <h3>Work orders</h3>
+          <p>A work order is a contract, not a prompt. It declares the paths an agent may touch, the slice of the graph it may read, the gates that must pass, and the timeouts. Scope is a precondition — an agent cannot widen it at run time.</p>
+          <pre>{
+  <span class="k">"id"</span>: <span class="s">"intcalc-repair"</span>,
+  <span class="k">"allowed_paths"</span>: [<span class="s">"src/interest/**"</span>],
+  <span class="k">"graph_scope"</span>: [<span class="s">"CBACT04C"</span>, <span class="s">"TCATBAL"</span>],
+  <span class="k">"gates"</span>: [
+    { <span class="k">"id"</span>: <span class="s">"unit"</span>,    <span class="k">"expose_output_to_builder"</span>: true  },
+    { <span class="k">"id"</span>: <span class="s">"holdout"</span>, <span class="k">"expose_output_to_builder"</span>: false }
+  ]
+}</pre>
+          <p><code>expose_output_to_builder</code> defaults to <code>false</code> and must be a real JSON boolean — a quoted <code>"false"</code> is rejected rather than coerced, because in Python it would evaluate as true and silently open the holdout boundary.</p>
+        </div>
+
+        <div class="docsec" id="d-verdicts">
+          <h3>Verdicts and exit codes</h3>
+          <p>Three verdicts, and the third is the one most tools do not have.</p>
+          <div class="panel" style="padding:6px 24px;margin:16px 0">
+            <table>
+              <tr><th>Verdict</th><th>Exit</th><th>Meaning</th></tr>
+              <tr><td class="mono" style="color:var(--pass)">faithful</td><td class="mono">0</td><td>Every compared field matched under the equivalence policy.</td></tr>
+              <tr><td class="mono" style="color:var(--fail)">failed</td><td class="mono">1</td><td>A real divergence, classified by cause and located by field.</td></tr>
+              <tr><td class="mono" style="color:var(--unknown)">indeterminate</td><td class="mono">2</td><td>Nothing was verified. An operator error, never routed back to a builder as a defect.</td></tr>
+            </table>
+          </div>
+          <p>The separation of <code>1</code> and <code>2</code> matters operationally. A failed run means the candidate is wrong. An indeterminate run means the harness could not tell, which is a configuration problem and must not be handed to an agent as "your code is broken."</p>
+        </div>
+
+        <div class="docsec" id="d-norm">
+          <h3>Normalization ledger</h3>
+          <p>Some differences are genuinely meaningless — a run timestamp, a padding convention. Each permitted one is a controlled entry with a written reason, a named owner, and a review date. The validator fails closed on a missing owner, an expired review, an undocumented rule, or a rule whose text no longer matches the code.</p>
+          <pre>lightyr validate-normalizations --ledger spec/normalizations.json
+
+<span class="c"># NORMALIZATION_REVIEW_EXPIRED:fixed-width-padding:2026-02-22</span>
+<span class="c"># NORMALIZATION_GOVERNANCE_MISSING:decimal-canonical:owner</span>
+<span class="c"># NORMALIZATION_RUNTIME_MISMATCH:copybook-filler:behavior</span></pre>
+          <p>Prefer a shape-preserving normalization over an outright ignore. Ignoring a timestamp lets a candidate that never writes one pass; collapsing its digits still asserts format, length and punctuation.</p>
+        </div>
+
+        <div class="docsec" id="d-evidence">
+          <h3>Evidence classes</h3>
+          <p>Every artifact carries a class, and the class governs what may be claimed from it.</p>
+          <div class="panel" style="padding:6px 24px;margin:16px 0">
+            <table>
+              <tr><th>Class</th><th>Source</th><th>Can close an equivalence gate</th></tr>
+              <tr><td class="mono">simulated</td><td>Synthetic replay of the machinery</td><td>no</td></tr>
+              <tr><td class="mono">local_observed</td><td>Real execution, local environment</td><td>no</td></tr>
+              <tr><td class="mono">recorded</td><td>Replay of a prior capture</td><td>no</td></tr>
+              <tr><td class="mono">zos_observed</td><td>Captured from the authorised baseline</td><td>yes</td></tr>
+            </table>
+          </div>
+          <p>Replaying a live capture yields <code>recorded</code>, never <code>live</code>. Weak evidence cannot be promoted by round-tripping it through a mechanism, and that demotion is enforced in code rather than convention.</p>
+        </div>
+
+        <div class="docsec" id="d-coverage">
+          <h3>Coverage</h3>
+          <p>We measure <em style="color:var(--ink);font-style:normal">arc</em> coverage, not statement coverage. A corpus can execute every line of a validation paragraph and never once take the reject branch — and reject branches are where modernization defects survive to go-live.</p>
+          <p>Arcs are classified into three populations with three different owners, because blending them produces a number that sends teams to chase the wrong work:</p>
+          <div class="panel" style="padding:6px 24px;margin:16px 0">
+            <table>
+              <tr><th>Population</th><th>Owner</th><th>Acceptance</th></tr>
+              <tr><td>Business</td><td>the harness</td><td>output matches legacy under the policy</td></tr>
+              <tr><td>Resilience</td><td>NFR suite</td><td>fails safe, no partial commit, alert raised</td></tr>
+              <tr><td>Infrastructure</td><td>out of scope</td><td>documented, so it is not re-raised</td></tr>
+            </table>
+          </div>
+          <p>Fidelity coverage is reported over business arcs only. Where the corpus misses one, we generate the input that reaches it — then run it through the legacy system first, because a synthetic case whose expected output a human decided is not evidence.</p>
+        </div>
+
+        <div class="docsec" id="d-cli">
+          <h3>CLI reference</h3>
+          <pre>lightyr graph build         <span class="c"># typed estate graph from source</span>
+lightyr graph capabilities  <span class="c"># technology readiness and gate status</span>
+lightyr coverage report     <span class="c"># arc coverage for a program</span>
+lightyr coverage close-gaps <span class="c"># synthesize inputs for unreached arcs</span>
+lightyr compare             <span class="c"># differential run, emits a receipt</span>
+lightyr validate-normalizations
+lightyr factory run         <span class="c"># one bounded work cell</span>
+lightyr portfolio-plan      <span class="c"># schedule non-conflicting cells</span>
+lightyr audit verify        <span class="c"># replay the hash-chained ledger</span></pre>
+        </div>
+
+        <div class="docsec" id="d-integrate">
+          <h3>CI integration</h3>
+          <p>The comparator is designed to be a gate, so exit codes route directly. Treat <code>2</code> as a pipeline error rather than a test failure — it means the run proved nothing.</p>
+          <pre><span class="k">- name:</span> Differential verification
+  <span class="k">run:</span> |
+    lightyr compare --expected ref/ --actual out/ --report r.json
+    <span class="c"># 0 faithful · 1 divergent · 2 indeterminate</span>
+
+<span class="k">- name:</span> Reject runs that mutate tracked evidence
+  <span class="k">run:</span> git diff --exit-code</pre>
+          <p>That second step is worth copying whatever tooling you use. It asserts that a verification run is side-effect free, so a suite can never quietly rewrite the evidence it is checking against.</p>
+        </div>
+
+        <div class="docsec" id="d-record">
+          <h3>Body of record</h3>
+          <p>Every milestone ships with a published document: what it delivered, what evidence supports it, and — the part that matters — what it explicitly does not claim. Forty-nine of them, generated from the same catalog the platform validates against, so the narrative and the code cannot drift apart.</p>
+          <pre>lightyr milestones build     <span class="c"># regenerate the record from source</span>
+lightyr milestones verify    <span class="c"># catalog, hashes and boundaries</span>
+lightyr receipt-claims       <span class="c"># reject literal promotion anywhere in the tree</span>
+lightyr scripts              <span class="c"># every entry point owned, roled and twinned</span></pre>
+          <p>Each boundary statement is deliberately unflattering. MS-45, for example, records that ASE catalog, rows, replication and transactions are fixtures rather than live observations. If you are evaluating us, read the boundaries before the deliverables.</p>
+        </div>
+        <p class="doc-empty" id="doc-empty">No documentation sections match that filter.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band sunk">
+    <div class="wrap">
+      <div class="cta-band">
+        <div class="eyebrow">Not finding it</div>
+        <h2 style="margin:14px 0 14px;max-width:24ch">These docs describe the shape. Your estate decides the detail.</h2>
+        <p class="lead" style="margin-bottom:26px">Copybook dialects, screen conventions and clock injection all differ by site. Send us a program and we will tell you what the harness would need.</p>
+        <a class="btn solid" href="mailto:hello@lightyr.ai">Ask an engineer</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ENGAGEMENTS ===================== -->
+<section class="pane" id="p-engage">
+  <div class="band hero">
+    <div class="wrap">
+      <div class="eyebrow">Engagements</div>
+      <h1 style="margin:18px 0 22px;max-width:20ch">Find out what a modernization will really cost you.</h1>
+      <p class="lead">Every programme starts the same way: we measure how much of your system has never been tested. That number tells you whether modernizing it is a six-month job or a three-year one — before you commit to either.</p>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap">
+      <div class="grid3">
+        <div class="tier">
+          <div class="tag">Step 01</div>
+          <h3>Measure it</h3>
+          <div class="price">Fixed fee · 4 weeks</div>
+          <ul>
+            <li>We look, we do not touch — read-only from day one</li>
+            <li>A complete map of your system, every claim traced to source</li>
+            <li>The number: how much of your business logic has never been tested</li>
+            <li>One piece of your system, modernized end to end, with proof</li>
+          </ul>
+          <button class="btn" onclick="go('engage')">Start here</button>
+        </div>
+        <div class="tier feature">
+          <div class="tag">Step 02 · most common</div>
+          <h3>Modernize one system</h3>
+          <div class="price">Annual · per system</div>
+          <ul>
+            <li>Everything above, running inside your own environment</li>
+            <li>Continuous side-by-side comparison, with every accepted difference signed off by a named owner</li>
+            <li>Scored against tests the AI is never allowed to see</li>
+            <li>Full cutover rehearsal, including the rollback</li>
+            <li>One of our engineers sitting with your team</li>
+          </ul>
+          <button class="btn solid" onclick="go('engage')">Talk to an engineer</button>
+        </div>
+        <div class="tier">
+          <div class="tag">Step 03</div>
+          <div><h3>Modernize the estate</h3></div>
+          <div class="price">Enterprise · across the estate</div>
+          <ul>
+            <li>Many parts of the estate moving at once, safely</li>
+            <li>One screen showing what is proven and what is not, live</li>
+            <li>An audit trail your regulator can replay, years later</li>
+            <li>Your systems integrator works inside the same proof</li>
+          </ul>
+          <button class="btn" onclick="go('engage')">Contact us</button>
+        </div>
+      </div>
+      <p class="note" style="margin-top:22px">Most programmes start with the person who owns the modernization, or the one who owns the risk. What we install stays after the programme ends — so the thing that proved the migration keeps watching the system for years afterwards.</p>
+    </div>
+  </div>
+
+  <div class="band sunk">
+    <div class="wrap">
+      <div class="eyebrow">Questions we get asked</div>
+      <h2 style="margin:16px 0 26px">Frequently asked</h2>
+      <details open><summary>Do you compete with code-generation platforms?</summary><p>No. We sit underneath them. Generation is collapsing in price and will keep collapsing — a better model should change your throughput, not your confidence. We are the layer that decides whether generated change is safe to switch on, and we are deliberately agnostic about who wrote it. Several of our engagements verify a candidate produced by someone else's platform.</p></details>
+      <details><summary>What do you need from us to start?</summary><p>Read-only access to source and, for the assessment, enough captured input and output from the running system to be representative. We will tell you if it is not representative — that finding is usually the most valuable output of the first month.</p></details>
+      <details><summary>Why does the product refuse to claim equivalence?</summary><p>Because equivalence is a claim we make only from live evidence, and the authorised z/OS baseline is the piece still to come. The gate is enforced in code, so the moment you supply that baseline the claim unlocks. Until then the product shows you exactly where it stands.</p></details>
+      <details><summary>How is this different from a golden-master test suite?</summary><p>A golden master compares against outputs someone chose to capture. We measure which decision paths that capture actually reaches, then manufacture the inputs to close the gaps — usually rejection and error paths, which barely appear in production traffic and are where modernization defects survive to go-live.</p></details>
+      <details><summary>Does the comparison report contain sensitive data?</summary><p>Yes, by design. The expected and actual values are the evidence, and masking them would destroy the artifact. Classification, access control and retention on run directories are agreed with your security team before the first capture. This is a conversation we start early rather than discover in procurement.</p></details>
+      <details><summary>What happens to the harness after the programme ends?</summary><p>It stays. A modernization is a project; behavioural regression is permanent. Most customers keep the harness running against the estate long after the migration, which is when it stops being a cost line and starts being infrastructure.</p></details>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap">
+      <div class="cta-band">
+        <div class="eyebrow">Next step</div>
+        <h2 style="margin:14px 0 14px;max-width:22ch">Start with the number nobody has given you</h2>
+        <p class="lead" style="margin-bottom:26px">Four weeks. One system. One number that changes how you plan everything after it: how much of what your system actually does has ever been tested.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn solid" href="mailto:hello@lightyr.ai">Talk to an engineer</a>
+          <button class="btn" onclick="go('proof')">See the evidence</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a class="brand" href="#how" onclick="go('how');return false" aria-label="LIGHTYEAR home" style="margin-bottom:14px">
+          <svg class="primary-logo" viewBox="0 0 360 220" role="img" aria-label="LIGHTYEAR primary logo" style="width:152px;height:93px">
+            <path fill="#573A9C" d="M24 96C84 92 125 74 156 47C166 38 173 30 179 29C179.5 28.7 179.8 28.2 180 28C180.2 28.2 180.5 28.7 181 29C187 30 194 38 204 47C235 74 276 92 336 96H24Z"/>
+            <path fill="#573A9C" d="M24 124C84 128 125 146 156 173C166 182 173 190 179 191C179.5 191.3 179.8 191.8 180 192C180.2 191.8 180.5 191.3 181 191C187 190 194 182 204 173C235 146 276 128 336 124H24Z"/>
+            <text x="180" y="122" fill="#A7702C" font-family="Arial, sans-serif" font-size="32" font-weight="700" letter-spacing="6" text-anchor="middle">LIGHTYEAR</text>
+          </svg>
+        </a>
+        <p class="small" style="max-width:34ch">The autonomous factory for systems you cannot afford to break. Autonomy is safe only where the gate is deterministic — so we built the gate first.</p>
+      </div>
+      <div><h5>Platform</h5>
+        <a href="#" onclick="go('how');return false">How it works</a>
+        <a href="#" onclick="go('where');return false">Where it runs</a>
+        <a href="#" onclick="go('trust');return false">Trust</a>
+        <a href="#" onclick="go('engage');return false">Engagements</a></div>
+      <div><h5>Evidence</h5>
+        <a href="#" onclick="go('proof');return false">Proof</a>
+        <a href="#" onclick="go('proof');return false">Coverage method</a>
+        <a href="#" onclick="go('proof');return false">Normalization ledger</a>
+        <a href="#" onclick="go('trust');return false">Audit trail</a>
+        <a href="#" onclick="go('docs');return false">Documentation</a>
+        <a href="milestones/">Milestone library</a></div>
+      <div><h5>Company</h5>
+        <a href="mailto:hello@lightyr.ai">Contact</a>
+        <a href="mailto:careers@lightyr.ai">Careers</a>
+        <a href="mailto:press@lightyr.ai">Press</a></div>
+    </div>
+    <div class="fbot">
+      <span>© 2026 LIGHTYEAR</span>
+      <span class="note">Figures measured on the current build. Nothing on this page is a claim of mainframe equivalence.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const panes=['how','where','proof','trust','docs','engage'];
+function activatePane(t,resetScroll){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.toggle('on', p.id==='p-'+t));
+  document.querySelectorAll('nav.tabs button').forEach(b=>b.setAttribute('aria-selected', b.dataset.t===t));
+  document.querySelector('nav.tabs').classList.remove('open');
+  if(resetScroll) window.scrollTo({top:0,behavior:'instant'});
+}
+function go(t){
+  activatePane(t,true);
+  history.replaceState(null,'','#'+t);
+}
+const start=location.hash.replace('#','');
+if(panes.includes(start)) go(start);
+else if(start.startsWith('d-')){
+  activatePane('docs',false);
+  requestAnimationFrame(()=>document.getElementById(start)?.scrollIntoView());
+}
+
+const docSearch=document.getElementById('doc-search');
+const docSections=[...document.querySelectorAll('.docsec')];
+const docLinks=[...document.querySelectorAll('.docnav a')];
+docSearch.addEventListener('input',()=>{
+  const query=docSearch.value.trim().toLowerCase();
+  let visible=0;
+  docSections.forEach(section=>{
+    const match=!query||section.textContent.toLowerCase().includes(query);
+    section.hidden=!match;
+    const link=document.querySelector(`.docnav a[href="#${section.id}"]`);
+    if(link) link.hidden=!match;
+    if(match) visible++;
+  });
+  document.getElementById('doc-empty').style.display=visible?'none':'block';
+});
+
+const observer=new IntersectionObserver(entries=>{
+  const current=entries.filter(entry=>entry.isIntersecting&&!entry.target.hidden).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top)[0];
+  if(!current) return;
+  docLinks.forEach(link=>link.classList.toggle('active',link.getAttribute('href')==='#'+current.target.id));
+},{rootMargin:'-110px 0px -65% 0px',threshold:0});
+docSections.forEach(section=>observer.observe(section));
+</script>
+
+<script>
+(function(){
+  var r=document.getElementById('heroReceipt'); if(!r) return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var kvs=[].slice.call(r.querySelectorAll('.kv')), note=r.querySelector('.note');
+  var v=document.getElementById('hrVerdict'), vt=document.getElementById('hrVerdictText'),
+      reason=document.getElementById('hrReason');
+  if(reduce){ kvs.forEach(function(k){k.classList.add('in')}); if(note)note.classList.add('in'); return; }
+  var wait=function(ms){return new Promise(function(res){setTimeout(res,ms)})};
+  var finalReason=reason.textContent;
+  (async function(){
+    v.classList.add('running'); vt.textContent='reading expected\u2026'; reason.textContent='\u2014';
+    await wait(650); vt.textContent='reading candidate\u2026';
+    await wait(650); vt.textContent='comparing\u2026';
+    for(var i=0;i<kvs.length;i++){ await wait(150); kvs[i].classList.add('in'); }
+    await wait(320);
+    v.classList.remove('running'); vt.textContent='indeterminate';
+    reason.textContent=finalReason;
+    await wait(180); if(note) note.classList.add('in');
+  })();
+})();
+</script>
+</body>
+</html>
