@@ -379,8 +379,168 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
         </div>
         <p class="note" style="margin-top:22px">Captured production traffic covers the happy path. Undocumented rejection and error paths are where modernization defects survive to go-live. Your own figures replace these at the end of week four.</p>
       </div>
+  
+
     </div>
   </div>
+
+  <div class="band sunk">
+    <div class="wrap">
+      <div class="eyebrow">What the engine does</div>
+      <h2 style="margin:16px 0 0;max-width:26ch">It compares the two systems field by field</h2>
+      <div class="rule"></div>
+      <p class="lead" style="margin-bottom:24px">Every record, every field, aligned by key and judged against your equivalence policy. A one-cent difference halts the run and names the field that caused it.</p>
+      <div style="background:#FAF8F4;border-radius:10px;padding:10px"><svg class="diagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" 
+     role="img" aria-label="LIGHTYEAR comparator: two lanes compared field by field until one diverges">
+<style>
+  .bg{fill:#FAF8F4}
+  text{font-family:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif;}
+  .ttl{font-size:15px;font-weight:600;fill:#181513}
+  .lane-h{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:9.5px;letter-spacing:1.4px;fill:#6E6459}
+  .k{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:11.5px;fill:#6E6459}
+  .v{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:11.5px;font-weight:500}
+  .eq{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:13px;font-weight:600;text-anchor:middle}
+  .cap{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:10px;fill:#9A9086}
+  .row{opacity:0;animation:fadeUp 6.84s linear infinite}
+  .verdict{opacity:0;animation:pop 6.84s linear infinite;animation-delay:4.85s}
+  .scan{animation:scan 6.84s linear infinite}
+  @keyframes fadeUp{
+    0%{opacity:0;transform:translateY(4px)}
+    3%,94%{opacity:1;transform:none}
+    100%{opacity:1;transform:none} }
+  @keyframes pop{
+    0%{opacity:0;transform:translateY(5px)}
+    4%,96%{opacity:1;transform:none}
+    100%{opacity:1;transform:none} }
+  @keyframes scan{
+    0%{transform:translateY(0);opacity:0}
+    4%{opacity:.55}
+    66%{transform:translateY(120px);opacity:.55}
+    70%,100%{opacity:0} }
+  @media (prefers-reduced-motion: reduce){
+    .row,.verdict{opacity:1;animation:none} .scan{display:none} }
+</style>
+
+<rect class="bg" width="880" height="400"/>
+<g transform="translate(40,26)">
+  <defs><mask id="m67289C">
+    <rect x="-2" y="-2" width="100" height="34" fill="#fff"/>
+    <rect x="-2" y="11.4" width="100" height="7.199999999999999" fill="#000"/>
+  </mask></defs>
+  <g mask="url(#m67289C)" fill="#573A9C">
+    <path d="M0 13.2 C22.080000000000002 12.299999999999999 33.599999999999994 9.0 42.24 3.9000000000000004
+             C45.12 1.5 47.04 0 48.0 0
+             C48.96 0 50.88 1.5 53.760000000000005 3.9000000000000004
+             C62.400000000000006 9.0 73.92 12.299999999999999 96 13.2 Z"/>
+    <path d="M0 16.8 C22.080000000000002 17.7 33.599999999999994 21.0 42.24 26.1
+             C45.12 28.5 47.04 30 48.0 30
+             C48.96 30 50.88 28.5 53.760000000000005 26.1
+             C62.400000000000006 21.0 73.92 17.7 96 16.8 Z"/>
+  </g>
+  <text x="48.0" y="17.25" text-anchor="middle" font-family="'IBM Plex Sans','Helvetica Neue',Arial,sans-serif" font-size="7.05" font-weight="700" letter-spacing="1.2899999999999998" fill="#A7702C">LIGHTYEAR</text>
+</g>
+<text x="152" y="47" class="ttl">Differential comparison</text>
+<text x="840" y="47" class="cap" text-anchor="end">field by field, keyed alignment</text>
+<line x1="40" y1="66" x2="840" y2="66" stroke="#E0D9CE" stroke-width="1"/>
+
+<text x="40" y="118" class="lane-h">LEGACY SYSTEM</text>
+<text x="424" y="118" class="lane-h">MODERN CANDIDATE</text>
+
+<rect class="scan" x="34" y="129" width="692" height="28"
+      rx="4" fill="none" stroke="#573A9C" stroke-width="1.4" opacity="0"/>
+
+  <g class="row" style="animation-delay:0.00s">
+    <rect x="40" y="132" width="296" height="26" rx="3" fill="#F1F7EE"/>
+    <text x="52" y="151" class="k">acct_id</text>
+    <text x="324" y="151" class="v" text-anchor="end"
+          fill="#181513">00000000011</text>
+  </g>
+  <g class="row" style="animation-delay:0.00s">
+    <rect x="424" y="132" width="296" height="26" rx="3" fill="#F1F7EE"/>
+    <text x="436" y="151" class="k">acct_id</text>
+    <text x="708" y="151" class="v" text-anchor="end"
+          fill="#181513">00000000011</text>
+  </g>
+  <g class="row" style="animation-delay:0.18s">
+    <text x="380.0" y="151" class="eq" fill="#2F6B3F">=</text>
+  </g>
+  <g class="row" style="animation-delay:0.90s">
+    <rect x="40" y="162" width="296" height="26" rx="3" fill="#F1F7EE"/>
+    <text x="52" y="181" class="k">balance</text>
+    <text x="324" y="181" class="v" text-anchor="end"
+          fill="#181513">194.00</text>
+  </g>
+  <g class="row" style="animation-delay:0.90s">
+    <rect x="424" y="162" width="296" height="26" rx="3" fill="#F1F7EE"/>
+    <text x="436" y="181" class="k">balance</text>
+    <text x="708" y="181" class="v" text-anchor="end"
+          fill="#181513">194.00</text>
+  </g>
+  <g class="row" style="animation-delay:1.08s">
+    <text x="380.0" y="181" class="eq" fill="#2F6B3F">=</text>
+  </g>
+  <g class="row" style="animation-delay:1.80s">
+    <rect x="40" y="192" width="296" height="26" rx="3" fill="#F1F7EE"/>
+    <text x="52" y="211" class="k">open_date</text>
+    <text x="324" y="211" class="v" text-anchor="end"
+          fill="#181513">2014-11-20</text>
+  </g>
+  <g class="row" style="animation-delay:1.80s">
+    <rect x="424" y="192" width="296" height="26" rx="3" fill="#F1F7EE"/>
+    <text x="436" y="211" class="k">open_date</text>
+    <text x="708" y="211" class="v" text-anchor="end"
+          fill="#181513">2014-11-20</text>
+  </g>
+  <g class="row" style="animation-delay:1.98s">
+    <text x="380.0" y="211" class="eq" fill="#2F6B3F">=</text>
+  </g>
+  <g class="row" style="animation-delay:2.70s">
+    <rect x="40" y="222" width="296" height="26" rx="3" fill="#FBEAE6"/>
+    <text x="52" y="241" class="k">interest</text>
+    <text x="324" y="241" class="v" text-anchor="end"
+          fill="#B03A28">67.80</text>
+  </g>
+  <g class="row" style="animation-delay:2.70s">
+    <rect x="424" y="222" width="296" height="26" rx="3" fill="#FBEAE6"/>
+    <text x="436" y="241" class="k">interest</text>
+    <text x="708" y="241" class="v" text-anchor="end"
+          fill="#B03A28">67.79</text>
+  </g>
+  <g class="row" style="animation-delay:2.88s">
+    <text x="380.0" y="241" class="eq" fill="#B03A28">≠</text>
+  </g>
+  <g class="row" style="animation-delay:3.60s">
+    <rect x="40" y="252" width="296" height="26" rx="3" fill="#F1F7EE"/>
+    <text x="52" y="271" class="k">status</text>
+    <text x="324" y="271" class="v" text-anchor="end"
+          fill="#181513">A</text>
+  </g>
+  <g class="row" style="animation-delay:3.60s">
+    <rect x="424" y="252" width="296" height="26" rx="3" fill="#F1F7EE"/>
+    <text x="436" y="271" class="k">status</text>
+    <text x="708" y="271" class="v" text-anchor="end"
+          fill="#181513">A</text>
+  </g>
+  <g class="row" style="animation-delay:3.78s">
+    <text x="380.0" y="271" class="eq" fill="#2F6B3F">=</text>
+  </g>
+
+<g class="verdict">
+  <rect x="40" y="300" width="680" height="46" rx="5"
+        fill="#FBEAE6" stroke="#B03A28" stroke-width="1"/>
+  <rect x="40" y="300" width="3.5" height="46" fill="#B03A28"/>
+  <text x="56" y="320" class="v" fill="#B03A28"
+        font-size="11" letter-spacing="1.3">DIVERGENT</text>
+  <text x="56" y="336" class="k" fill="#3C3730"
+        font-size="10.5">interest &#183; rounding_suspect &#183; 1 of 5 fields &#183; exit 1</text>
+  <text x="704" y="329" class="cap"
+        text-anchor="end" fill="#6E6459">receipt written</text>
+</g>
+</svg></div>
+      <p class="figcap">The verdict names the field and the cause, not just pass or fail.</p>
+    </div>
+  </div>
+
 
   <div class="band sunk">
     <div class="wrap">
@@ -415,11 +575,16 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
       <div class="eyebrow">Enterprise risk and audit</div>
       <h2 style="margin:16px 0 0;max-width:24ch">Built for regulated estates</h2>
       <div class="rule"></div>
-      <p class="lead">A regulated institution cannot take an AI's word for anything. The platform assumes that from the start: your data stays inside your perimeter, and generative models never grade their own work.</p>
-      <div class="grid3" style="margin-top:24px">
-        <div class="card"><h3>Read-only integration</h3><p>We connect strictly to observe. Nothing is written back to your legacy estate at any point.</p></div>
-        <div class="card"><h3>Blind deterministic gates</h3><p>Verification is not performed by a model. It is a deterministic engine holding expected values the builder never sees.</p></div>
-        <div class="card"><h3>Data sovereignty</h3><p>Access control, classification and retention stay locked inside your own perimeter and under your own policy.</p></div>
+      <p class="lead" style="margin-bottom:24px">A regulated institution cannot take an AI's word for anything. The platform assumes that from the start.</p>
+      <div class="panel" style="padding:6px 24px">
+        <table>
+          <tr><th>Control</th><th>How it works</th></tr>
+          <tr><td>Integration</td><td>Read-only. We connect strictly to observe, and nothing is written back to your legacy estate at any point.</td></tr>
+          <tr><td>Verification</td><td>Not performed by a model. A deterministic engine holds expected values the builder never sees.</td></tr>
+          <tr><td>Data residency</td><td>Access control, classification and retention stay inside your perimeter, under your policy.</td></tr>
+          <tr><td>Execution</td><td>Digest-pinned containers with a read-only host bind. Nothing runs outside the declared scope.</td></tr>
+          <tr><td>Audit trail</td><td>Every verification writes a content-addressed receipt that can be replayed next quarter.</td></tr>
+        </table>
       </div>
     </div>
   </div>
@@ -630,7 +795,145 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
     </div>
   </div>
 
-  <div class="band sunk">
+  
+  <div class="band">
+    <div class="wrap">
+      <div class="eyebrow">How the work is done</div>
+      <h2 style="margin:16px 0 0;max-width:26ch">Three agents propose. One gate disposes.</h2>
+      <div class="rule"></div>
+      <p class="lead" style="margin-bottom:24px">The factory runs unattended because the station that decides correctness is not a model. It cannot be prompted, and it holds expected values the other stations never see.</p>
+<svg class="diagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" 
+     role="img" aria-label="LIGHTYEAR agent loop: planner, builder, verifier and analyst, with a holdout boundary">
+<defs>
+  <marker id="arA" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M0 0 L8 4 L0 8 z" fill="#CFC5B6"/>
+  </marker>
+  <marker id="arRA" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M0 0 L8 4 L0 8 z" fill="#B4531F"/>
+  </marker>
+</defs>
+<style>
+  text{font-family:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif}
+  .ttl{font-size:15px;font-weight:600;fill:#181513}
+  .cap{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:10px;fill:#9A9086}
+  .num{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:9px;letter-spacing:1.2px}
+  .nm{font-size:16px;font-weight:600;fill:#181513}
+  .sub{font-size:11.5px;fill:#3C3730}
+  .sees{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:9.5px;fill:#9A9086}
+  .flag{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:9.5px;fill:#573A9C;font-weight:500}
+  .memb{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:9.5px;letter-spacing:1.3px;fill:#B4531F}
+  .ret{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:10px;fill:#B4531F}
+  .lit{animation:lit 6.820000000000001s linear infinite}
+  .arrow{opacity:.35;animation:flow 6.820000000000001s linear infinite}
+  .back{opacity:0;animation:back 6.820000000000001s linear infinite;animation-delay:4.40s}
+  @keyframes lit{
+    0%,2%{opacity:0} 6%,12%{opacity:1} 17%,100%{opacity:0} }
+  @keyframes flow{
+    0%,4%{opacity:.3} 8%,14%{opacity:1;stroke:#B4531F} 19%,100%{opacity:.3} }
+  @keyframes back{
+    0%{opacity:0} 5%,26%{opacity:1} 32%,100%{opacity:0} }
+  @media (prefers-reduced-motion: reduce){
+    .lit,.arrow,.back{animation:none} .lit{opacity:0} .back{opacity:1} }
+</style>
+
+<rect width="880" height="400" fill="#FAF8F4"/>
+<g transform="translate(40,26)">
+  <defs><mask id="m67289A">
+    <rect x="-2" y="-2" width="100" height="34" fill="#fff"/>
+    <rect x="-2" y="11.4" width="100" height="7.199999999999999" fill="#000"/>
+  </mask></defs>
+  <g mask="url(#m67289A)" fill="#573A9C">
+    <path d="M0 13.2 C22.080000000000002 12.299999999999999 33.599999999999994 9.0 42.24 3.9000000000000004
+             C45.12 1.5 47.04 0 48.0 0
+             C48.96 0 50.88 1.5 53.760000000000005 3.9000000000000004
+             C62.400000000000006 9.0 73.92 12.299999999999999 96 13.2 Z"/>
+    <path d="M0 16.8 C22.080000000000002 17.7 33.599999999999994 21.0 42.24 26.1
+             C45.12 28.5 47.04 30 48.0 30
+             C48.96 30 50.88 28.5 53.760000000000005 26.1
+             C62.400000000000006 21.0 73.92 17.7 96 16.8 Z"/>
+  </g>
+  <text x="48.0" y="17.25" text-anchor="middle" font-family="'IBM Plex Sans','Helvetica Neue',Arial,sans-serif" font-size="7.05" font-weight="700" letter-spacing="1.2899999999999998" fill="#A7702C">LIGHTYEAR</text>
+</g>
+<text x="152" y="47" class="ttl">Four workers. One of them is not a model.</text>
+<text x="840" y="47" class="cap" text-anchor="end">autonomous work cell</text>
+<line x1="40" y1="66" x2="840" y2="66" stroke="#E0D9CE" stroke-width="1"/>
+<text x="40" y="94" class="sub" fill="#6E6459">Three agents propose. A deterministic gate disposes.</text>
+
+
+  <g>
+    <rect x="40" y="120" width="186" height="108" rx="6" fill="#FFFFFF"
+          stroke="#CFC5B6" stroke-width="1"/>
+    <text x="56" y="144" class="num" fill="#6E6459">STATION 01</text>
+    <text x="56" y="170" class="nm">Planner</text>
+    <text x="56" y="190" class="sub">bounds the work</text>
+    <text x="56" y="212" class="sees">never sees the answer</text>
+    <rect class="lit" style="animation-delay:0.00s"
+          x="40" y="120" width="186" height="108" rx="6"
+          fill="none" stroke="#B4531F" stroke-width="2.2" opacity="0"/>
+  </g>
+  <path class="arrow" style="animation-delay:0.55s"
+        d="M229.0 174.0 L244.0 174.0" stroke="#CFC5B6" stroke-width="1.6"
+        marker-end="url(#arA)"/>
+  <g>
+    <rect x="248" y="120" width="186" height="108" rx="6" fill="#FFFFFF"
+          stroke="#CFC5B6" stroke-width="1"/>
+    <text x="264" y="144" class="num" fill="#6E6459">STATION 02</text>
+    <text x="264" y="170" class="nm">Builder</text>
+    <text x="264" y="190" class="sub">writes the candidate</text>
+    <text x="264" y="212" class="sees">never sees the answer</text>
+    <rect class="lit" style="animation-delay:1.10s"
+          x="248" y="120" width="186" height="108" rx="6"
+          fill="none" stroke="#B4531F" stroke-width="2.2" opacity="0"/>
+  </g>
+  <path class="arrow" style="animation-delay:1.65s"
+        d="M437.0 174.0 L452.0 174.0" stroke="#CFC5B6" stroke-width="1.6"
+        marker-end="url(#arA)"/>
+  <g>
+    <rect x="456" y="120" width="186" height="108" rx="6" fill="#F3EFFA"
+          stroke="#573A9C" stroke-width="1.6"/>
+    <text x="472" y="144" class="num" fill="#573A9C">STATION 03</text>
+    <text x="472" y="170" class="nm">Verifier</text>
+    <text x="472" y="190" class="sub">not a model</text>
+    <text x="472" y="212" class="flag">deterministic gate</text>
+    <rect class="lit" style="animation-delay:2.20s"
+          x="456" y="120" width="186" height="108" rx="6"
+          fill="none" stroke="#B4531F" stroke-width="2.2" opacity="0"/>
+  </g>
+  <path class="arrow" style="animation-delay:2.75s"
+        d="M645.0 174.0 L660.0 174.0" stroke="#CFC5B6" stroke-width="1.6"
+        marker-end="url(#arA)"/>
+  <g>
+    <rect x="664" y="120" width="186" height="108" rx="6" fill="#FFFFFF"
+          stroke="#CFC5B6" stroke-width="1"/>
+    <text x="680" y="144" class="num" fill="#6E6459">STATION 04</text>
+    <text x="680" y="170" class="nm">Analyst</text>
+    <text x="680" y="190" class="sub">locates the fault</text>
+    <text x="680" y="212" class="sees">never sees the answer</text>
+    <rect class="lit" style="animation-delay:3.30s"
+          x="664" y="120" width="186" height="108" rx="6"
+          fill="none" stroke="#B4531F" stroke-width="2.2" opacity="0"/>
+  </g>
+
+<g class="back">
+  <path d="M757.0 262 L341.0 262"
+        stroke="#B4531F" stroke-width="1.6" marker-end="url(#arRA)" fill="none"/>
+  <text x="530.4" y="253" class="ret" text-anchor="middle">
+    failure routes back &#183; which field, not which value</text>
+</g>
+
+<line x1="40" y1="308" x2="318" y2="308" stroke="#B4531F" stroke-width="1.4" opacity=".75"/>
+<line x1="562" y1="308" x2="840" y2="308" stroke="#B4531F" stroke-width="1.4" opacity=".75"/>
+<text x="440.0" y="312" class="memb" text-anchor="middle">HOLDOUT BOUNDARY</text>
+
+<rect x="40" y="330" width="800" height="46" rx="5" fill="#F2EEE7" stroke="#E0D9CE"/>
+<text x="58" y="350" class="num" fill="#A7702C">GROUND TRUTH</text>
+<text x="58" y="367" class="sub" font-size="11">captured corpus &#183; synthetic reject paths &#183; coverage &#183; equivalence policy</text>
+<text x="822" y="360" class="cap" text-anchor="end">expected values never cross upward</text>
+</svg>
+      <p class="figcap">Failure routes back carrying which field diverged, never the value it should have had.</p>
+    </div>
+  </div>
+<div class="band sunk">
     <div class="wrap">
       <div class="eyebrow">What a receipt answers</div>
       <h2 style="margin:16px 0 0;max-width:26ch">Four questions, answered without the original engineers</h2>
@@ -906,7 +1209,7 @@ lightyr scripts              <span class="c"># every entry point owned, roled an
         <div class="eyebrow">Not finding it</div>
         <h2 style="margin:14px 0 14px;max-width:24ch">These docs describe the shape. Your estate decides the detail.</h2>
         <p class="lead" style="margin-bottom:26px">Copybook dialects, screen conventions and clock injection all differ by site. Send us a program and we will tell you what the harness would need.</p>
-        <a class="btn solid" href="mailto:hello@lightyr.ai">Ask an engineer</a>
+        <a class="btn solid" href="mailto:sales@lightyr.ai">Ask an engineer</a>
       </div>
     </div>
   </div>
@@ -965,6 +1268,120 @@ lightyr scripts              <span class="c"># every entry point owned, roled an
     </div>
   </div>
 
+  
+  <div class="band sunk">
+    <div class="wrap">
+      <div class="eyebrow">Where it runs</div>
+      <h2 style="margin:16px 0 0;max-width:26ch">Inside your cloud, reading only</h2>
+      <div class="rule"></div>
+      <p class="lead" style="margin-bottom:24px">Both systems stay where they are. We observe each, compare them, and write a receipt. Nothing is written back to your estate at any point.</p>
+<svg class="diagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" 
+     role="img" aria-label="LIGHTYEAR cloud platform: Oracle and PostgreSQL lanes observed live, compared, and receipted">
+<defs>
+  <marker id="dE" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M0 0 L8 4 L0 8 z" fill="#573A9C"/>
+  </marker>
+</defs>
+<style>
+  text{font-family:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif}
+  .ttl{font-size:15px;font-weight:600;fill:#181513}
+  .cap{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:10px;fill:#9A9086}
+  .lh{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:10px;letter-spacing:1.2px;font-weight:500}
+  .sub{font-size:11.5px;fill:#3C3730}
+  .li{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:10.5px;fill:#6E6459}
+  .cl{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:9.5px;letter-spacing:1.2px;fill:#573A9C}
+  .lane{opacity:0;animation:in 7.4s linear infinite}
+  .pipe{opacity:0;animation:in 7.4s linear infinite;animation-delay:2.30s}
+  .comp{opacity:0;animation:in 7.4s linear infinite;animation-delay:2.88s}
+  .rec{opacity:0;animation:in 7.4s linear infinite;animation-delay:4.14s}
+  .pulse{animation:pulse 7.4s linear infinite;animation-delay:2.99s}
+  @keyframes in{
+    0%{opacity:0;transform:translateY(5px)}
+    5%,94%{opacity:1;transform:none}
+    100%{opacity:1;transform:none} }
+  @keyframes pulse{
+    0%,3%{opacity:0} 8%{opacity:.9} 16%{opacity:.15} 24%{opacity:.9}
+    32%,100%{opacity:.15} }
+  @media (prefers-reduced-motion: reduce){
+    .lane,.pipe,.comp,.rec{opacity:1;animation:none} .pulse{animation:none;opacity:.3} }
+</style>
+
+<rect width="880" height="400" fill="#FAF8F4"/>
+<g transform="translate(40,26)">
+  <defs><mask id="m67289E">
+    <rect x="-2" y="-2" width="100" height="34" fill="#fff"/>
+    <rect x="-2" y="11.4" width="100" height="7.199999999999999" fill="#000"/>
+  </mask></defs>
+  <g mask="url(#m67289E)" fill="#573A9C">
+    <path d="M0 13.2 C22.080000000000002 12.299999999999999 33.599999999999994 9.0 42.24 3.9000000000000004
+             C45.12 1.5 47.04 0 48.0 0
+             C48.96 0 50.88 1.5 53.760000000000005 3.9000000000000004
+             C62.400000000000006 9.0 73.92 12.299999999999999 96 13.2 Z"/>
+    <path d="M0 16.8 C22.080000000000002 17.7 33.599999999999994 21.0 42.24 26.1
+             C45.12 28.5 47.04 30 48.0 30
+             C48.96 30 50.88 28.5 53.760000000000005 26.1
+             C62.400000000000006 21.0 73.92 17.7 96 16.8 Z"/>
+  </g>
+  <text x="48.0" y="17.25" text-anchor="middle" font-family="'IBM Plex Sans','Helvetica Neue',Arial,sans-serif" font-size="7.05" font-weight="700" letter-spacing="1.2899999999999998" fill="#A7702C">LIGHTYEAR</text>
+</g>
+<text x="152" y="47" class="ttl">Both lanes observed. One comparator between them.</text>
+<text x="840" y="47" class="cap" text-anchor="end">google cloud</text>
+<line x1="40" y1="66" x2="840" y2="66" stroke="#E0D9CE" stroke-width="1"/>
+<text x="40" y="96" class="cl">MANAGED PLATFORM &#183; DIGEST-PINNED WORKLOADS &#183; NO WRITE PATH TO SOURCE</text>
+
+
+  <g class="lane" style="animation-delay:0.00s">
+    <rect x="40" y="118" width="328" height="96" rx="6" fill="#FFFFFF"
+          stroke="#CFC5B6" stroke-width="1"/>
+    <rect x="40" y="118" width="3.5" height="96" rx="1.5" fill="#B4531F"/>
+    <text x="56" y="140" class="lh" fill="#B4531F">SOURCE LANE</text>
+    <text x="56" y="155" class="sub">Oracle, read-only</text>
+    <text x="56" y="170" class="li">schema and stored logic</text><text x="56" y="187" class="li">captured behaviour</text><text x="56" y="204" class="li">session controls pinned</text>
+  </g>
+
+  <g class="lane" style="animation-delay:1.15s">
+    <rect x="512" y="118" width="328" height="96" rx="6" fill="#FFFFFF"
+          stroke="#CFC5B6" stroke-width="1"/>
+    <rect x="512" y="118" width="3.5" height="96" rx="1.5" fill="#573A9C"/>
+    <text x="528" y="140" class="lh" fill="#573A9C">TARGET LANE</text>
+    <text x="528" y="155" class="sub">PostgreSQL, managed</text>
+    <text x="528" y="170" class="li">projected schema</text><text x="528" y="187" class="li">durable work queue</text><text x="528" y="204" class="li">observed behaviour</text>
+  </g>
+
+<g class="pipe">
+  <path d="M204.0 214 L204.0 226 L440.0 226"
+        stroke="#CFC5B6" stroke-width="1.4" fill="none"/>
+  <path d="M676.0 214 L676.0 226 L440.0 226"
+        stroke="#CFC5B6" stroke-width="1.4" fill="none"/>
+  <path d="M440.0 226 L440.0 243" stroke="#573A9C" stroke-width="1.8"
+        marker-end="url(#dE)" fill="none"/>
+</g>
+
+<g class="comp">
+  <rect x="300" y="246" width="280" height="58" rx="6" fill="#F3EFFA"
+        stroke="#573A9C" stroke-width="1.6"/>
+  <circle class="pulse" cx="322" cy="275.0" r="5" fill="#573A9C"/>
+  <text x="340" y="270" class="lh" fill="#573A9C">COMPARATOR</text>
+  <text x="340" y="288" class="sub" font-size="11">typed, keyed, policy-governed</text>
+</g>
+
+<g class="rec">
+  <path d="M440.0 304 L440.0 325" stroke="#A7702C" stroke-width="1.4"
+        fill="none" opacity=".6"/>
+  <rect x="240" y="328" width="400" height="44" rx="5"
+        fill="#F2EEE7" stroke="#E0D9CE"/>
+  <rect x="240" y="328" width="3.5" height="44" fill="#A7702C"/>
+  <text x="258" y="347" class="lh" fill="#A7702C">RECEIPT</text>
+  <text x="258" y="363" class="li">content-addressed &#183; replayable &#183; chained to the audit ledger</text>
+</g>
+
+<text x="40" y="366" class="cap">source</text>
+<text x="840" y="366" class="cap" text-anchor="end">target</text>
+</svg>
+      <p class="figcap">The comparator is the only component that sees both sides.</p>
+    </div>
+  </div>
+
   <div class="band sunk">
     <div class="wrap">
       <div class="eyebrow">Questions we get asked</div>
@@ -985,7 +1402,7 @@ lightyr scripts              <span class="c"># every entry point owned, roled an
         <h2 style="margin:14px 0 14px;max-width:22ch">Start with the number nobody has given you</h2>
         <p class="lead" style="margin-bottom:26px">Four weeks. One system. One number that changes how you plan everything after it: how much of what your system actually does has ever been tested.</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <a class="btn solid" href="mailto:hello@lightyr.ai">Talk to an engineer</a>
+          <a class="btn solid" href="mailto:sales@lightyr.ai">Talk to an engineer</a>
           <button class="btn" onclick="go('proof')">Technical proof</button>
         </div>
       </div>
@@ -1017,7 +1434,7 @@ lightyr scripts              <span class="c"># every entry point owned, roled an
       <div>
         <div class="fhead">Company</div>
         <a href="https://calendly.com/lightyr" target="_blank" rel="noopener">Book a call</a>
-        <a href="mailto:hello@lightyr.ai">hello@lightyr.ai</a>
+        <a href="mailto:sales@lightyr.ai">sales@lightyr.ai</a>
       </div>
     </div>
     <p class="note" style="margin-top:28px">&copy; 2026 LIGHTYEAR. Figures are measured on the code that ships. Nothing on this page is an unqualified claim of equivalence.</p>
