@@ -337,13 +337,13 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
     <div class="wrap grid2">
       <div>
         <div class="eyebrow">Enterprise legacy modernization</div>
-        <h1>De-risk your cutover with evidence, not judgement.</h1>
-        <p class="lead">Three in four modernization programmes never finish, and those that fail run about 2.5&times; over budget. LIGHTYEAR automates the most expensive phase &mdash; testing and verification &mdash; and produces auditor-ready evidence that your new system behaves the way the legacy core does.</p>
+        <h1>Anyone can rewrite it. We prove it behaves the same.</h1>
+        <p class="lead">Whoever writes the replacement &mdash; your team, a systems integrator, a code generation tool &mdash; we verify it against the system it replaces, field by field, on real infrastructure, with evidence an auditor can replay. Last month we proved it across a complete core banking application running live.</p>
         <div class="cta" style="margin-top:22px">
           <a class="btn solid" href="https://calendly.com/lightyr" target="_blank" rel="noopener">Quantify your risk</a>
           <a class="btn" href="#proof" onclick="go('proof')">Review the technical proof</a>
         </div>
-        <p class="note" style="margin-top:20px">Database: Oracle&rarr;PostgreSQL core banking on GCP &middot; SAP ASE &middot; Db2.<br>Mainframe: COBOL, CICS, VSAM, IMS, HLASM, PL/I, JCL.</p>
+        <p class="note" style="margin-top:20px">COBOL &middot; CICS &middot; VSAM &middot; IMS &middot; HLASM &middot; PL/I &middot; JCL &middot; Db2<br>Oracle &middot; PostgreSQL &middot; SAP ASE &middot; and the applications that sit on them.</p>
       </div>
       <div class="receipt" id="heroReceipt" aria-label="Example comparison receipt">
         <div class="rhead"><span>comparison receipt</span><span>run 8f3c1a &middot; posttran</span></div>
@@ -358,6 +358,23 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
           <p class="note">The candidate produced no output. Most tools would report this as a pass.<br>We return <span style="color:var(--unknown)">indeterminate</span>, because nothing was verified.</p>
         </div>
       </div>
+    </div>
+  </div>
+
+  
+  <div class="band feature">
+    <div class="wrap">
+      <div class="eyebrow">Proven at full scale</div>
+      <h2 style="margin:16px 0 0;max-width:26ch">A complete banking application. Two databases. Running at the same time.</h2>
+      <div class="rule"></div>
+      <p class="lead" style="margin-bottom:28px">We took an entire core banking system, stood the old and new versions up side by side on production-grade cloud infrastructure, and ran them together. Every service. Every transaction. Every field compared.</p>
+      <div class="grid4">
+        <div class="card" style="padding:20px"><h3 style="font-size:16px">The original, watched live</h3><p style="font-size:14.5px">Not a model of how the legacy system behaves. The legacy system itself, running, with every account movement recorded.</p></div>
+        <div class="card" style="padding:20px"><h3 style="font-size:16px">The replacement, watched live</h3><p style="font-size:14.5px">Transactions, messaging, crash recovery and concurrent balance handling &mdash; all exercised, not assumed.</p></div>
+        <div class="card" style="padding:20px"><h3 style="font-size:16px">Nothing left out</h3><p style="font-size:14.5px">Every one of the eight services in the application, compared across both systems. No sampling, no representative subset.</p></div>
+        <div class="card" style="padding:20px"><h3 style="font-size:16px">Ready for the real thing</h3><p style="font-size:14.5px">Failover, backup and restore, zero-downtime release, secrets, security and a rehearsed cutover with rollback. Ten of the fourteen things a bank asks before go-live.</p></div>
+      </div>
+      <p class="note" style="margin-top:24px">Every claim above is backed by evidence you can replay yourself, published alongside the four things still outstanding.</p>
     </div>
   </div>
 
@@ -390,7 +407,7 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
       <h2 style="margin:16px 0 0;max-width:26ch">It compares the two systems field by field</h2>
       <div class="rule"></div>
       <p class="lead" style="margin-bottom:24px">Every record, every field, aligned by key and judged against your equivalence policy. A one-cent difference halts the run and names the field that caused it.</p>
-      <div style="background:#FAF8F4;border-radius:10px;padding:10px"><svg class="diagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" 
+      <div style="background:#FAF8F4;border-radius:10px;padding:10px"><svg class="diagram dg0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" 
      role="img" aria-label="LIGHTYEAR comparator: two lanes compared field by field until one diverges">
 <style>
   .bg{fill:#FAF8F4}
@@ -563,9 +580,9 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
       <div class="rule"></div>
       <p class="lead">The verification engine runs unattended across your estate. It refuses to certify a release until it can show the replacement behaves the same &mdash; and where it cannot show that, it says so rather than passing.</p>
       <div class="grid3" style="margin-top:26px">
-        <div class="card"><h3>Unattended execution</h3><p>Process millions of transactions automatically, removing the bottleneck of engineers verifying outputs by hand.</p></div>
+        <div class="card"><h3>Runs without supervision</h3><p>Millions of transactions checked automatically, removing the bottleneck of engineers comparing outputs by hand.</p></div>
         <div class="card"><h3>Deterministic halts</h3><p>If the target diverges from the legacy baseline by a single cent, the run halts and names the exact field and rule.</p></div>
-        <div class="card"><h3>Replayable audit trail</h3><p>Every verification produces a content-addressed receipt that can be replayed next quarter. Sign-off becomes a compliance review.</p></div>
+        <div class="card"><h3>A record that holds up</h3><p>Every check leaves a permanent record your auditors can re-run months later. Sign-off becomes a review, not a leap of faith.</p></div>
       </div>
     </div>
   </div>
@@ -605,8 +622,8 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
   <div class="band tight">
     <div class="wrap grid4">
       <div class="stat"><div class="n">2,000</div><div class="l">behaviour cases, each with its<br>required evidence declared</div></div>
-      <div class="stat"><div class="n">67</div><div class="l">shipped milestones, each with<br>a published evidence boundary</div></div>
-      <div class="stat"><div class="n">626</div><div class="l">tests, every guard verified<br>by breaking what it protects</div></div>
+      <div class="stat"><div class="n">10</div><div class="l">platform dimensions qualified<br>on live infrastructure</div></div>
+      <div class="stat"><div class="n">1,081</div><div class="l">tests, every guard verified<br>by breaking what it protects</div></div>
       <div class="stat"><div class="n" style="color:var(--fail)">0</div><div class="l">third-party runtime<br>dependencies</div></div>
     </div>
   </div>
@@ -622,7 +639,7 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
         <div class="card" style="padding:20px"><h3 style="font-size:17px">Identity</h3><p style="font-size:15px">OAuth2/OIDC with client-credentials service identity and the JWT subject preserved through to account authorization. No static shared headers.</p></div>
         <div class="card" style="padding:20px"><h3 style="font-size:17px">Platform</h3><p style="font-size:15px">Kubernetes on GKE with immutable sha256 digest image policy, Cloud SQL PostgreSQL 16, and a cutover rehearsal contract that makes rollback mandatory and observed rather than documented.</p></div>
       </div>
-      <div style="margin-top:26px;background:#FAF8F4;border-radius:10px;padding:10px"><svg class="diagram diagram-plat" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" 
+      <div style="margin-top:26px;background:#FAF8F4;border-radius:10px;padding:10px"><svg class="diagram diagram-plat dg3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" 
      role="img" aria-label="LIGHTYEAR cloud platform: Oracle and PostgreSQL lanes observed live, compared, and receipted">
 <defs>
   <marker id="d-plat" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
@@ -726,34 +743,35 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
 <text x="840" y="366" class="cap" text-anchor="end">target</text>
 </svg></div>
       <p class="figcap">Both lanes run in Google Cloud. The comparator sits between them and neither can write to the other.</p>
-      <p class="note" style="margin-top:22px">Every artefact above is a contract plus a receipt. Every claim in this programme carries one.</p>
+      <p class="note" style="margin-top:22px">Every item above is backed by evidence you can inspect. No claim here stands on our word alone.</p>
     </div>
   </div>
 <div class="band sunk">
     <div class="wrap">
       <div class="eyebrow">Production readiness</div>
-      <h2 style="margin:16px 0 0;max-width:28ch">Thirteen things that have to be true, and where each one stands today</h2>
+      <h2 style="margin:16px 0 0;max-width:28ch">Fourteen things a bank asks before go-live. Ten are done.</h2>
       <div class="rule"></div>
-      <p class="lead" style="margin-bottom:24px">A migration is not finished when the data moves. This is the checklist we hold ourselves to on CloudBank, published as it currently reads. Nothing here is aspirational — it is the receipt.</p>
+      <p class="lead" style="margin-bottom:24px">A migration is not finished when the data moves. This is the checklist we hold ourselves to, published exactly as it stands today.</p>
       <div class="panel" style="padding:6px 24px">
         <table>
-          <tr><th>Dimension</th><th>What it requires</th><th style="text-align:right">State</th></tr>
-          <tr><td>Non-production platform</td><td>Real authorised cluster, not a local emulation</td><td class="mono" style="text-align:right;color:var(--unknown)">eligible</td></tr>
-          <tr><td>TLS</td><td>External termination and internal service identity</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
-          <tr><td>High availability</td><td>Regional failover exercised, not configured</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
-          <tr><td>Backup and restore</td><td>Restore to an exact normalized state hash</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
-          <tr><td>Cutover and rollback</td><td>Rollback mandatory and observed, not documented</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
-          <tr><td>Observability</td><td>Evidence emitted, not dashboards installed</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
-          <tr><td>Performance</td><td>Representative data volume, not synthetic minimums</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
-          <tr><td>External secrets</td><td>Managed store, no operator-ephemeral keys</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
-          <tr><td>Customer identity</td><td>Your IdP, not our authorization server</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
-          <tr><td>Security</td><td>Workload identity and least privilege, exercised</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
-          <tr><td>Rolling deployment</td><td>Zero-downtime release path proven under load</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
+          <tr><th>What</th><th>What it takes</th><th style="text-align:right">State</th></tr>
+          <tr><td>Real infrastructure</td><td>An authorised cluster, not a laptop simulation</td><td class="mono" style="text-align:right;color:var(--pass)">done</td></tr>
+          <tr><td>TLS</td><td>External termination and internal service identity</td><td class="mono" style="text-align:right;color:var(--pass)">done</td></tr>
+          <tr><td>High availability</td><td>Regional failover exercised, not configured</td><td class="mono" style="text-align:right;color:var(--pass)">done</td></tr>
+          <tr><td>Backup and restore</td><td>Restore to an exact normalized state hash</td><td class="mono" style="text-align:right;color:var(--pass)">done</td></tr>
+          <tr><td>Cutover and rollback</td><td>Rollback mandatory and observed, not documented</td><td class="mono" style="text-align:right;color:var(--pass)">done</td></tr>
+          <tr><td>Monitoring</td><td>Evidence emitted, not dashboards installed</td><td class="mono" style="text-align:right;color:var(--pass)">done</td></tr>
+          <tr><td>Performance</td><td>Sustained business load, errors and latency bounded</td><td class="mono" style="text-align:right;color:var(--pass)">done</td></tr>
+          <tr><td>External secrets</td><td>Managed store, rotation exercised, no static keys</td><td class="mono" style="text-align:right;color:var(--pass)">done</td></tr>
+          <tr><td>Security</td><td>Workload identity and least privilege, exercised</td><td class="mono" style="text-align:right;color:var(--pass)">done</td></tr>
+          <tr><td>Rolling deployment</td><td>Zero-downtime release path proven under load</td><td class="mono" style="text-align:right;color:var(--pass)">done</td></tr>
           <tr><td>Representative data</td><td>Production-shaped volume, not synthetic minimums</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
+          <tr><td>Customer identity</td><td>Your IdP, not our authorization server</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
           <tr><td>Customer approval</td><td>Your sign-off on the evidence, not ours</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
+          <tr><td>Production deployment</td><td>Running your business, not a rehearsal</td><td class="mono" style="text-align:right;color:var(--fail)">not yet</td></tr>
         </table>
       </div>
-      <p class="note" style="margin-top:18px">Most vendors reach this list in month four of a programme. You get it before the contract.</p>
+      <p class="note" style="margin-top:18px">The four that remain need your environment, your data and your sign-off. They are not things we can complete alone, and we will not claim them until you have.</p>
     </div>
   </div>
 
@@ -799,10 +817,10 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
   <div class="band">
     <div class="wrap">
       <div class="eyebrow">How the work is done</div>
-      <h2 style="margin:16px 0 0;max-width:26ch">Three agents propose. One gate disposes.</h2>
+      <h2 style="margin:16px 0 0;max-width:26ch">Three agents propose. One judge decides.</h2>
       <div class="rule"></div>
       <p class="lead" style="margin-bottom:24px">The factory runs unattended because the station that decides correctness is not a model. It cannot be prompted, and it holds expected values the other stations never see.</p>
-<svg class="diagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" 
+<svg class="diagram dg1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" 
      role="img" aria-label="LIGHTYEAR agent loop: planner, builder, verifier and analyst, with a holdout boundary">
 <defs>
   <marker id="arA" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
@@ -935,7 +953,7 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
   </div>
 <div class="band sunk">
     <div class="wrap">
-      <div class="eyebrow">What a receipt answers</div>
+      <div class="eyebrow">What the record shows</div>
       <h2 style="margin:16px 0 0;max-width:26ch">Four questions, answered without the original engineers</h2>
       <div class="rule"></div>
       <div class="panel" style="padding:6px 24px;margin-top:20px">
@@ -1274,8 +1292,8 @@ lightyr scripts              <span class="c"># every entry point owned, roled an
       <div class="eyebrow">Where it runs</div>
       <h2 style="margin:16px 0 0;max-width:26ch">Inside your cloud, reading only</h2>
       <div class="rule"></div>
-      <p class="lead" style="margin-bottom:24px">Both systems stay where they are. We observe each, compare them, and write a receipt. Nothing is written back to your estate at any point.</p>
-<svg class="diagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" 
+      <p class="lead" style="margin-bottom:24px">Both systems stay exactly where they are. We watch each one, compare them, and leave a record. Nothing is ever written back to your estate.</p>
+<svg class="diagram dg2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" 
      role="img" aria-label="LIGHTYEAR cloud platform: Oracle and PostgreSQL lanes observed live, compared, and receipted">
 <defs>
   <marker id="dE" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
