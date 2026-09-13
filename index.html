@@ -320,7 +320,7 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
       <button role="tab" id="tab-proof" aria-controls="p-proof" data-t="proof" aria-selected="false" onclick="go('proof')">Technical proof</button>
       <button role="tab" id="tab-docs" aria-controls="p-docs" data-t="docs" aria-selected="false" onclick="go('docs')">Docs</button>
       <button role="tab" id="tab-engage" aria-controls="p-engage" data-t="engage" aria-selected="false" onclick="go('engage')">Engagements</button>
-      <a class="tablink" href="https://github.com/howardweale/lightyear-carddemo-modernization/tree/main/docs/milestones" target="_blank" rel="noopener">Milestones</a>
+      <a class="tablink" href="https://github.com/howardweale/lightyear-carddemo-modernization/tree/main/docs/milestones" target="_blank" rel="noopener">Evidence</a>
     </nav>
     <div class="navcta">
       <button class="btn" onclick="go('proof')">Technical proof</button>
@@ -795,11 +795,12 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
       <div class="rule"></div>
       <p class="lead">Today a modernization programme verifies at milestones. Someone runs a comparison, writes a report, and a committee reads it weeks later &mdash; by which point the code has moved on and the evidence describes a system that no longer exists.</p>
       <p class="lead"><strong style="color:var(--paper)">In a pipeline, every commit carries its own evidence.</strong> Sign-off becomes an accumulated record rather than a meeting, and the question at go-live changes from &ldquo;can someone check this?&rdquo; to &ldquo;read what we already have.&rdquo;</p>
+      <p class="lead"><strong style="color:var(--paper)">We run it on ourselves this way.</strong> Every push to our own repository runs the engine in GitHub Actions &mdash; the same command, the same exit codes, on public code you can read. It is one step in a workflow file, not an integration project.</p>
       <p class="lead">Every verdict produces work with a named owner. Six kinds of work run unattended, because none of them can turn a difference into an acceptance: re-run the comparison, escalate to a deeper lane, extend the corpus, re-parse with a wider grammar, widen observation, and apply a normalization your team already approved.</p>
       <p class="lead" style="margin-bottom:26px">Proposing a <em>new</em> normalization, classifying a change as intentional, promoting a claim &mdash; these stop and ask. Not by convention. <strong style="color:var(--paper)">A configuration that would let them run unattended is rejected by the software.</strong> Authority can be reduced. It cannot be increased.</p>
       <div class="panel" style="background:#1B1725;border-color:#3A3348;padding:20px 24px">
         <div class="mono" style="font-size:12.5px;line-height:1.9;color:var(--paper)">
-          <span style="color:#9A9086">$</span> lightyear verify --estate core-banking --policy ci.json<br>
+          <span style="color:#9A9086"># .github/workflows/release.yml</span><br><span style="color:#9A9086">- name:</span> Verify behaviour against the legacy system<br>&nbsp;&nbsp;<span style="color:#9A9086">run:</span> lightyear verify --estate core-banking --policy ci.json<br><br>
           <span style="color:#8FBF6F">round 1</span>&nbsp; 412 resolved &nbsp;<span style="color:#9A9086">rerun, escalate-lane, widen-observation</span><br>
           <span style="color:#8FBF6F">round 2</span>&nbsp; 106 resolved &nbsp;<span style="color:#9A9086">reparse, extend-corpus, apply-ledger-entry</span><br>
           <span style="color:#E8B44A">halted</span>&nbsp;&nbsp; human-decision-required<br>
@@ -1239,12 +1240,12 @@ lightyr audit verify        <span class="c"># replay the hash-chained ledger</sp
 
         <div class="docsec" id="d-record">
           <h3>Body of record</h3>
-          <p>Every milestone ships with a published document: what it delivered, what evidence supports it, and — the part that matters — what it explicitly does not claim. Forty-nine of them, generated from the same catalog the platform validates against, so the narrative and the code cannot drift apart.</p>
+          <p>Every capability ships with a published record: what it delivered, what evidence supports it, and &mdash; the part that matters &mdash; what it explicitly does not claim. Generated from the repository, so the record cannot drift from the code.</p>
           <pre>lightyr milestones build     <span class="c"># regenerate the record from source</span>
 lightyr milestones verify    <span class="c"># catalog, hashes and boundaries</span>
 lightyr receipt-claims       <span class="c"># reject literal promotion anywhere in the tree</span>
 lightyr scripts              <span class="c"># every entry point owned, roled and twinned</span></pre>
-          <p>Each boundary statement is deliberately unflattering. MS-45, for example, records that ASE catalog, rows, replication and transactions are fixtures rather than live observations. If you are evaluating us, read the boundaries before the deliverables.</p>
+          <p>Each boundary statement is deliberately unflattering. One records that ASE catalog, rows, replication and transactions are fixtures rather than live observations. If you are evaluating us, read the boundaries before the deliverables.</p>
         </div>
         <p class="doc-empty" id="doc-empty">No documentation sections match that filter.</p>
       </div>
@@ -1461,7 +1462,7 @@ lightyr scripts              <span class="c"># every entry point owned, roled an
       </div>
       <div>
         <div class="fhead">Evidence</div>
-        <a href="https://github.com/howardweale/lightyear-carddemo-modernization/tree/main/docs/milestones" target="_blank" rel="noopener">Milestone library</a>
+        <a href="https://github.com/howardweale/lightyear-carddemo-modernization/tree/main/docs/milestones" target="_blank" rel="noopener">The full evidence record</a>
         <a href="#docs" onclick="go('docs')">Coverage method</a>
         <a href="#docs" onclick="go('docs')">Normalization ledger</a>
         <a href="#docs" onclick="go('docs')">Audit trail</a>
