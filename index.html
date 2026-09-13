@@ -425,7 +425,7 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
       <div class="rule"></div>
       <p class="lead" style="margin-bottom:24px">Every record, every field, aligned by key and judged against your equivalence policy. A one-cent difference halts the run and names the field that caused it.</p>
       <div style="background:#FAF8F4;border-radius:10px;padding:10px"><svg class="diagram dg0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" 
-     role="img" aria-label="LIGHTYEAR comparator: two lanes compared field by field until one diverges">
+     role="img" aria-label="LIGHTYEAR Verdict Engine: two lanes compared field by field until one diverges">
 <style>
   .bg{fill:#FAF8F4}
   text{font-family:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif;}
@@ -705,7 +705,7 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
   </g>
   <text x="48.0" y="17.25" text-anchor="middle" font-family="'IBM Plex Sans','Helvetica Neue',Arial,sans-serif" font-size="7.05" font-weight="700" letter-spacing="1.2899999999999998" fill="#A7702C">LIGHTYEAR</text>
 </g>
-<text x="152" y="47" class="ttl">Both lanes observed. One comparator between them.</text>
+<text x="152" y="47" class="ttl">Both lanes observed. One Verdict Engine between them.</text>
 <text x="840" y="47" class="cap" text-anchor="end">google cloud</text>
 <line x1="40" y1="66" x2="840" y2="66" stroke="#E0D9CE" stroke-width="1"/>
 <text x="40" y="96" class="cl">MANAGED PLATFORM &#183; DIGEST-PINNED WORKLOADS &#183; NO WRITE PATH TO SOURCE</text>
@@ -742,7 +742,7 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
   <rect x="300" y="246" width="280" height="58" rx="6" fill="#F3EFFA"
         stroke="#573A9C" stroke-width="1.6"/>
   <circle class="pulse" cx="322" cy="275.0" r="5" fill="#573A9C"/>
-  <text x="340" y="270" class="lh" fill="#573A9C">COMPARATOR</text>
+  <text x="340" y="270" class="lh" fill="#573A9C">VERDICT ENGINE</text>
   <text x="340" y="288" class="sub" font-size="11">typed, keyed, policy-governed</text>
 </g>
 
@@ -759,7 +759,7 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
 <text x="40" y="366" class="cap">source</text>
 <text x="840" y="366" class="cap" text-anchor="end">target</text>
 </svg></div>
-      <p class="figcap">Both lanes run in Google Cloud. The comparator sits between them and neither can write to the other.</p>
+      <p class="figcap">Both lanes run in Google Cloud. The Verdict Engine sits between them, and neither can write to the other.</p>
       <p class="note" style="margin-top:22px">Every item above is backed by evidence you can inspect. No claim here stands on our word alone.</p>
     </div>
   </div>
@@ -792,15 +792,34 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
     </div>
   </div>
 
+  
+  <div class="band">
+    <div class="wrap">
+      <div class="eyebrow">The Verdict Engine</div>
+      <h2 style="margin:16px 0 0;max-width:24ch">Three verdicts, not two</h2>
+      <div class="rule"></div>
+      <p class="lead" style="margin-bottom:24px">Every comparison tool returns pass or fail. That is the problem. A tool with only two answers has to pick one even when it has verified nothing &mdash; and it will pick pass, because nothing went wrong.</p>
+      <div class="panel" style="padding:6px 24px">
+        <table>
+          <tr><th>Verdict</th><th>What it means</th><th style="text-align:right">Exit</th></tr>
+          <tr><td class="mono" style="color:var(--pass)">equivalent</td><td>Both systems produced the same result, within the policy you approved.</td><td class="mono" style="text-align:right">0</td></tr>
+          <tr><td class="mono" style="color:var(--fail)">divergent</td><td>They differ. The receipt names the field and the cause.</td><td class="mono" style="text-align:right">1</td></tr>
+          <tr><td class="mono" style="color:var(--unknown)">indeterminate</td><td><strong style="color:var(--ink)">We could not verify this, and we will not pretend otherwise.</strong> Nothing comparable was produced, or the construct is outside what we can decide.</td><td class="mono" style="text-align:right">2</td></tr>
+        </table>
+      </div>
+      <p class="note" style="margin-top:20px">The third verdict is the one no other tool returns, and it is the reason the first two can be trusted. An engine that never says <span class="mono">indeterminate</span> is not more capable. It is less honest.</p>
+    </div>
+  </div>
+
   <div class="band feature">
     <div class="wrap">
       <div class="eyebrow">Failure injection</div>
-      <h2 style="margin:16px 0 0;max-width:24ch">We attack our own comparator on every build</h2>
+      <h2 style="margin:16px 0 0;max-width:24ch">We attack our own Verdict Engine on every build</h2>
       <div class="rule"></div>
       <p class="lead">A tool that reports success having checked nothing looks exactly like a tool that works. It ships, and you find out when the numbers stop reconciling. So each guard is verified by breaking the thing it protects and confirming the suite goes red.</p>
       <div class="panel" style="padding:6px 24px;margin-top:22px">
         <table>
-          <tr><th>Injected defect</th><th>A naive comparator</th><th style="text-align:right">LIGHTYEAR</th></tr>
+          <tr><th>Injected defect</th><th>A naive comparison tool</th><th style="text-align:right">LIGHTYEAR</th></tr>
           <tr><td>Candidate writes nothing</td><td>reports passed, exit 0</td><td class="mono" style="text-align:right;color:var(--unknown)">indeterminate</td></tr>
           <tr><td>Balance drifts one cent</td><td>ignored within float tolerance</td><td class="mono" style="text-align:right;color:var(--fail)">halted, failed</td></tr>
           <tr><td>Statement rows reordered</td><td>set comparison passes</td><td class="mono" style="text-align:right;color:var(--fail)">halted, failed</td></tr>
@@ -814,10 +833,10 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
       <div class="eyebrow">What we test for</div>
       <h2 style="margin:16px 0 0;max-width:30ch">The dangerous answer is not a wrong one. It is a confident empty one.</h2>
       <div class="rule"></div>
-      <p class="lead" style="margin-bottom:28px">A tool that reports success having checked nothing looks exactly like a tool that works. It ships, and you find out when the numbers stop reconciling. We attack our own comparator on every build to make sure it cannot do that.</p>
+      <p class="lead" style="margin-bottom:28px">A tool that reports success having checked nothing looks exactly like a tool that works. It ships, and you find out when the numbers stop reconciling. We attack our own Verdict Engine on every build to make sure it cannot do that.</p>
       <div class="panel" style="padding:26px">
         <table>
-          <tr><th>Injected defect</th><th>What a naive comparator does</th><th style="text-align:right">Ours</th></tr>
+          <tr><th>Injected defect</th><th>What a naive comparison tool does</th><th style="text-align:right">Ours</th></tr>
           <tr><td>Candidate writes nothing</td><td>reports passed, exit 0</td><td class="mono" style="text-align:right;color:var(--unknown)">indeterminate</td></tr>
           <tr><td>Transaction posted twice</td><td>key collapses, reports passed</td><td class="mono" style="text-align:right;color:var(--fail)">failed</td></tr>
           <tr><td>Balance drifts one cent</td><td>within float tolerance</td><td class="mono" style="text-align:right;color:var(--fail)">failed</td></tr>
@@ -1213,7 +1232,7 @@ lightyr audit verify        <span class="c"># replay the hash-chained ledger</sp
 
         <div class="docsec" id="d-integrate">
           <h3>CI integration</h3>
-          <p>The comparator is designed to be a gate, so exit codes route directly. Treat <code>2</code> as a pipeline error rather than a test failure — it means the run proved nothing.</p>
+          <p>The Verdict Engine is designed to be a gate, so exit codes route directly. Treat <code>2</code> as a pipeline error rather than a test failure — it means the run proved nothing.</p>
           <pre><span class="k">- name:</span> Differential verification
   <span class="k">run:</span> |
     lightyr compare --expected ref/ --actual out/ --report r.json
@@ -1359,7 +1378,7 @@ lightyr scripts              <span class="c"># every entry point owned, roled an
   </g>
   <text x="48.0" y="17.25" text-anchor="middle" font-family="'IBM Plex Sans','Helvetica Neue',Arial,sans-serif" font-size="7.05" font-weight="700" letter-spacing="1.2899999999999998" fill="#A7702C">LIGHTYEAR</text>
 </g>
-<text x="152" y="47" class="ttl">Both lanes observed. One comparator between them.</text>
+<text x="152" y="47" class="ttl">Both lanes observed. One Verdict Engine between them.</text>
 <text x="840" y="47" class="cap" text-anchor="end">google cloud</text>
 <line x1="40" y1="66" x2="840" y2="66" stroke="#E0D9CE" stroke-width="1"/>
 <text x="40" y="96" class="cl">MANAGED PLATFORM &#183; DIGEST-PINNED WORKLOADS &#183; NO WRITE PATH TO SOURCE</text>
@@ -1396,7 +1415,7 @@ lightyr scripts              <span class="c"># every entry point owned, roled an
   <rect x="300" y="246" width="280" height="58" rx="6" fill="#F3EFFA"
         stroke="#573A9C" stroke-width="1.6"/>
   <circle class="pulse" cx="322" cy="275.0" r="5" fill="#573A9C"/>
-  <text x="340" y="270" class="lh" fill="#573A9C">COMPARATOR</text>
+  <text x="340" y="270" class="lh" fill="#573A9C">VERDICT ENGINE</text>
   <text x="340" y="288" class="sub" font-size="11">typed, keyed, policy-governed</text>
 </g>
 
@@ -1413,7 +1432,7 @@ lightyr scripts              <span class="c"># every entry point owned, roled an
 <text x="40" y="366" class="cap">source</text>
 <text x="840" y="366" class="cap" text-anchor="end">target</text>
 </svg>
-      <p class="figcap">The comparator is the only component that sees both sides.</p>
+      <p class="figcap">The Verdict Engine is the only component that sees both sides.</p>
     </div>
   </div>
 
