@@ -811,6 +811,34 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
     </div>
   </div>
 
+  
+  <div class="band feature">
+    <div class="wrap">
+      <div class="eyebrow">It runs in your pipeline</div>
+      <h2 style="margin:16px 0 0;max-width:27ch">Sign-off stops being an event at the end</h2>
+      <div class="rule"></div>
+      <p class="lead">Today a modernization programme verifies at milestones. Someone runs a comparison, writes a report, and a committee reads it weeks later &mdash; by which point the code has moved on and the evidence describes a system that no longer exists.</p>
+      <p class="lead"><strong style="color:var(--paper)">In a pipeline, every commit carries its own evidence.</strong> Sign-off becomes an accumulated record rather than a meeting, and the question at go-live changes from &ldquo;can someone check this?&rdquo; to &ldquo;read what we already have.&rdquo;</p>
+      <p class="lead">Every verdict produces work with a named owner. Six kinds of work run unattended, because none of them can turn a difference into an acceptance: re-run the comparison, escalate to a deeper lane, extend the corpus, re-parse with a wider grammar, widen observation, and apply a normalization your team already approved.</p>
+      <p class="lead" style="margin-bottom:26px">Proposing a <em>new</em> normalization, classifying a change as intentional, promoting a claim &mdash; these stop and ask. Not by convention. <strong style="color:var(--paper)">A configuration that would let them run unattended is rejected by the software.</strong> Authority can be reduced. It cannot be increased.</p>
+      <div class="panel" style="background:#1B1725;border-color:#3A3348;padding:20px 24px">
+        <div class="mono" style="font-size:12.5px;line-height:1.9;color:var(--paper)">
+          <span style="color:#9A9086">$</span> lightyear verify --estate core-banking --policy ci.json<br>
+          <span style="color:#8FBF6F">round 1</span>&nbsp; 412 resolved &nbsp;<span style="color:#9A9086">rerun, escalate-lane, widen-observation</span><br>
+          <span style="color:#8FBF6F">round 2</span>&nbsp; 106 resolved &nbsp;<span style="color:#9A9086">reparse, extend-corpus, apply-ledger-entry</span><br>
+          <span style="color:#E8B44A">halted</span>&nbsp;&nbsp; human-decision-required<br>
+          <br>
+          &nbsp;&nbsp;96 awaiting your decision &nbsp;&nbsp;&nbsp;<span style="color:#9A9086">queued to named owners</span><br>
+          &nbsp;&nbsp;27 blocked on access &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#9A9086">authorised baseline required</span><br>
+          &nbsp;542 blocked on our backlog &nbsp;<span style="color:#9A9086">our parser, not your system</span><br>
+          <br>
+          <span style="color:#9A9086">exit 2</span>
+        </div>
+      </div>
+      <p class="note" style="margin-top:22px">Exit 0 lets the release proceed. Exit 1 halts it on a divergence. Exit 2 halts it because something could not be verified &mdash; which is the exit code most tools do not have, and the reason a gate is worth putting in a pipeline at all.</p>
+    </div>
+  </div>
+
   <div class="band feature">
     <div class="wrap">
       <div class="eyebrow">Failure injection</div>
