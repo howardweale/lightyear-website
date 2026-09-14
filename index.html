@@ -311,7 +311,7 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
 
 <header>
   <div class="wrap navbar">
-    <a class="brand" href="#how" onclick="go('how');return false" aria-label="Lightyear home">
+    <a class="brand" href="#exec" onclick="go('exec')" onclick="go('how');return false" aria-label="Lightyear home">
       <svg class="brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 150" role="img" aria-labelledby="lyT"> <title id="lyT">Lightyear</title> <defs> <!-- cuts a clear channel through the wings so the wordmark never sits on violet, and leaves no visible band on any background colour --> <mask id="lyBand"> <rect x="0" y="0" width="360" height="150" fill="#fff"/> <rect x="10" y="57" width="340" height="36" fill="#000"/> </mask> </defs> <g mask="url(#lyBand)"> <path fill="#573A9C" d="M24 66C84 62 125 46 156 20C166 12 173 5 179 4C179.5 3.7 179.8 3.2 180 3C180.2 3.2 180.5 3.7 181 4C187 5 194 12 204 20C235 46 276 62 336 66H24Z"/> <path fill="#573A9C" d="M24 84C84 88 125 104 156 130C166 138 173 145 179 146C179.5 146.3 179.8 146.8 180 147C180.2 146.8 180.5 146.3 181 146C187 145 194 138 204 130C235 104 276 88 336 84H24Z"/> </g> <text x="180" y="84" fill="#A7702C" font-family="Archivo, Arial, sans-serif" font-size="30" font-weight="800" letter-spacing="7" text-anchor="middle">LIGHTYEAR</text> </svg>
     </a>
     <button class="menu" aria-label="Toggle navigation menu" aria-expanded="false" onclick="const n=document.querySelector('nav.tabs');this.setAttribute('aria-expanded', n.classList.toggle('open'));">≡</button>
@@ -1478,7 +1478,7 @@ lightyr scripts              <span class="c"># every entry point owned, roled an
 </footer>
 
 <script>
-const panes=['how','where','proof','trust','docs','engage'];
+const panes=['exec','proof','docs','engage'];
 function activatePane(t,resetScroll){
   document.querySelectorAll('.pane').forEach(p=>p.classList.toggle('on', p.id==='p-'+t));
   document.querySelectorAll('nav.tabs button').forEach(b=>b.setAttribute('aria-selected', b.dataset.t===t));
@@ -1486,6 +1486,7 @@ function activatePane(t,resetScroll){
   if(resetScroll) window.scrollTo({top:0,behavior:'instant'});
 }
 function activate(t){
+  if(!document.getElementById('p-'+t)) t='exec';
   document.querySelectorAll('.pane').forEach(p=>p.classList.toggle('on', p.id==='p-'+t));
   document.querySelectorAll('nav.tabs button').forEach(b=>b.setAttribute('aria-selected', b.dataset.t===t));
   const nav=document.querySelector('nav.tabs'); nav.classList.remove('open');
@@ -1496,8 +1497,13 @@ function go(t, push){
   activate(t);
   if(push!==false && location.hash!=='#'+t) history.pushState(null,'','#'+t);
 }
+window.addEventListener('hashchange', ()=>{
+  const h=(location.hash||'#exec').replace('#','');
+  if(document.getElementById('p-'+h)) activate(h);
+  else if(!document.querySelector('.pane.on')) activate('exec');
+});
 window.addEventListener('popstate', ()=>{
-  const t=(location.hash||'#how').replace('#','');
+  const t=(location.hash||'#exec').replace('#','');
   if(document.getElementById('p-'+t)) activate(t);
 });
 const start=location.hash.replace('#','');
@@ -1505,6 +1511,11 @@ if(panes.includes(start)) go(start);
 else if(start.startsWith('d-')){
   activatePane('docs',false);
   requestAnimationFrame(()=>document.getElementById(start)?.scrollIntoView());
+}
+else {
+  // unknown or stale hash (old #how, #where, #trust links) — never blank the page
+  activate('exec');
+  if(start) history.replaceState(null,'','#exec');
 }
 
 const docSearch=document.getElementById('doc-search');
