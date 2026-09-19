@@ -760,6 +760,102 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
 </div>
 <p class="note" style="margin-top:20px">The third verdict is the one no other tool returns, and it is the reason the first two can be trusted. An engine that never says <span class="mono">indeterminate</span> is not more capable. It is less honest.</p>
 </div>
+</div><div class="band">
+<div class="wrap">
+<div class="eyebrow">How the work gets done</div>
+<h2 style="margin:16px 0 0;max-width:26ch">We build the factory. We also build what stops it.</h2>
+<div class="rule"></div>
+<p class="lead">We run an autonomous factory. It generates database transformations, it runs unattended, and it is gated by an engine that has refused its own output. That is how we know what a generator gets wrong — we watch ours get it wrong every week.</p><p class="lead"><strong style="color:var(--ink)">We do not sell the factory. We sell what stops it.</strong> Three agents propose. One deterministic judge, which never sees the expected values, decides whether the result counted. A person approves anything the judge is not permitted to.</p>
+<svg aria-label="Lightyear agent loop: planner, builder, verifier and analyst, with a holdout boundary" class="diagram dg1" role="img" viewbox="0 0 880 400" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arA" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="4" viewbox="0 0 8 8">
+<path d="M0 0 L8 4 L0 8 z" fill="#CFC5B6"></path>
+</marker>
+<marker id="arRA" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="4" viewbox="0 0 8 8">
+<path d="M0 0 L8 4 L0 8 z" fill="#B4531F"></path>
+</marker>
+</defs>
+<style>.dg1 text{font-family:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif}.dg1 .ttl{font-size:15px;font-weight:600;fill:#181513}.dg1 .cap{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:10px;fill:#9A9086}.dg1 .num{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:9px;letter-spacing:1.2px}.dg1 .nm{font-size:16px;font-weight:600;fill:#181513}.dg1 .sub{font-size:11.5px;fill:#3C3730}.dg1 .sees{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:9.5px;fill:#9A9086}.dg1 .flag{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:9.5px;fill:#573A9C;font-weight:500}.dg1 .memb{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:9.5px;letter-spacing:1.3px;fill:#B4531F}.dg1 .ret{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:10px;fill:#B4531F}.dg1 .lit{animation:lit 6.820000000000001s linear infinite}.dg1 .arrow{opacity:.35;animation:flow 6.820000000000001s linear infinite}.dg1 .back{opacity:0;animation:back 6.820000000000001s linear infinite;animation-delay:4.40s}
+  @keyframes lit{
+    0%,2%{opacity:0} 6%,12%{opacity:1} 17%,100%{opacity:0} }
+  @keyframes flow{
+    0%,4%{opacity:.3} 8%,14%{opacity:1;stroke:#B4531F} 19%,100%{opacity:.3} }
+  @keyframes back{
+    0%{opacity:0} 5%,26%{opacity:1} 32%,100%{opacity:0} }
+  @media (prefers-reduced-motion: reduce){.dg1 .lit,.dg1 .arrow,.dg1 .back{animation:none}.dg1 .lit{opacity:0}.dg1 .back{opacity:1} }
+</style>
+<rect fill="#FAF8F4" height="400" width="880"></rect>
+<g transform="translate(40,26)">
+<defs><mask id="m67289A">
+<rect fill="#fff" height="34" width="100" x="-2" y="-2"></rect>
+<rect fill="#000" height="7.199999999999999" width="100" x="-2" y="11.4"></rect>
+</mask></defs>
+<g fill="#573A9C" mask="url(#m67289A)">
+<path d="M0 13.2 C22.080000000000002 12.299999999999999 33.599999999999994 9.0 42.24 3.9000000000000004
+             C45.12 1.5 47.04 0 48.0 0
+             C48.96 0 50.88 1.5 53.760000000000005 3.9000000000000004
+             C62.400000000000006 9.0 73.92 12.299999999999999 96 13.2 Z"></path>
+<path d="M0 16.8 C22.080000000000002 17.7 33.599999999999994 21.0 42.24 26.1
+             C45.12 28.5 47.04 30 48.0 30
+             C48.96 30 50.88 28.5 53.760000000000005 26.1
+             C62.400000000000006 21.0 73.92 17.7 96 16.8 Z"></path>
+</g>
+<text fill="#A7702C" font-family="'IBM Plex Sans','Helvetica Neue',Arial,sans-serif" font-size="7.05" font-weight="700" letter-spacing="1.2899999999999998" text-anchor="middle" x="48.0" y="17.25">LIGHTYEAR</text>
+</g>
+<text class="ttl" x="152" y="47">Four workers. One of them is not a model.</text>
+<text class="cap" text-anchor="end" x="840" y="47">autonomous work cell</text>
+<line stroke="#E0D9CE" stroke-width="1" x1="40" x2="840" y1="66" y2="66"></line>
+<text class="sub" fill="#6E6459" x="40" y="94">Three agents propose. A deterministic gate disposes.</text>
+<g>
+<rect fill="#FFFFFF" height="108" rx="6" stroke="#CFC5B6" stroke-width="1" width="186" x="40" y="120"></rect>
+<text class="num" fill="#6E6459" x="56" y="144">STATION 01</text>
+<text class="nm" x="56" y="170">Planner</text>
+<text class="sub" x="56" y="190">bounds the work</text>
+<text class="sees" x="56" y="212">never sees the answer</text>
+<rect class="lit" fill="none" height="108" opacity="0" rx="6" stroke="#B4531F" stroke-width="2.2" style="animation-delay:0.00s" width="186" x="40" y="120"></rect>
+</g>
+<path class="arrow" d="M229.0 174.0 L244.0 174.0" marker-end="url(#arA)" stroke="#CFC5B6" stroke-width="1.6" style="animation-delay:0.55s"></path>
+<g>
+<rect fill="#FFFFFF" height="108" rx="6" stroke="#CFC5B6" stroke-width="1" width="186" x="248" y="120"></rect>
+<text class="num" fill="#6E6459" x="264" y="144">STATION 02</text>
+<text class="nm" x="264" y="170">Builder</text>
+<text class="sub" x="264" y="190">writes the candidate</text>
+<text class="sees" x="264" y="212">never sees the answer</text>
+<rect class="lit" fill="none" height="108" opacity="0" rx="6" stroke="#B4531F" stroke-width="2.2" style="animation-delay:1.10s" width="186" x="248" y="120"></rect>
+</g>
+<path class="arrow" d="M437.0 174.0 L452.0 174.0" marker-end="url(#arA)" stroke="#CFC5B6" stroke-width="1.6" style="animation-delay:1.65s"></path>
+<g>
+<rect fill="#F3EFFA" height="108" rx="6" stroke="#573A9C" stroke-width="1.6" width="186" x="456" y="120"></rect>
+<text class="num" fill="#573A9C" x="472" y="144">STATION 03</text>
+<text class="nm" x="472" y="170">Verifier</text>
+<text class="sub" x="472" y="190">not a model</text>
+<text class="flag" x="472" y="212">deterministic gate</text>
+<rect class="lit" fill="none" height="108" opacity="0" rx="6" stroke="#B4531F" stroke-width="2.2" style="animation-delay:2.20s" width="186" x="456" y="120"></rect>
+</g>
+<path class="arrow" d="M645.0 174.0 L660.0 174.0" marker-end="url(#arA)" stroke="#CFC5B6" stroke-width="1.6" style="animation-delay:2.75s"></path>
+<g>
+<rect fill="#FFFFFF" height="108" rx="6" stroke="#CFC5B6" stroke-width="1" width="186" x="664" y="120"></rect>
+<text class="num" fill="#6E6459" x="680" y="144">STATION 04</text>
+<text class="nm" x="680" y="170">Analyst</text>
+<text class="sub" x="680" y="190">locates the fault</text>
+<text class="sees" x="680" y="212">never sees the answer</text>
+<rect class="lit" fill="none" height="108" opacity="0" rx="6" stroke="#B4531F" stroke-width="2.2" style="animation-delay:3.30s" width="186" x="664" y="120"></rect>
+</g>
+<g class="back">
+<path d="M757.0 262 L341.0 262" fill="none" marker-end="url(#arRA)" stroke="#B4531F" stroke-width="1.6"></path>
+<text class="ret" text-anchor="middle" x="530.4" y="253">
+    failure routes back · which field, not which value</text>
+</g>
+<line opacity=".75" stroke="#B4531F" stroke-width="1.4" x1="40" x2="318" y1="308" y2="308"></line>
+<line opacity=".75" stroke="#B4531F" stroke-width="1.4" x1="562" x2="840" y1="308" y2="308"></line>
+<text class="memb" text-anchor="middle" x="440.0" y="312">HOLDOUT BOUNDARY</text>
+<rect fill="#F2EEE7" height="46" rx="5" stroke="#E0D9CE" width="800" x="40" y="330"></rect>
+<text class="num" fill="#A7702C" x="58" y="350">GROUND TRUTH</text>
+<text class="sub" font-size="11" x="58" y="367">captured corpus · synthetic reject paths · coverage · equivalence policy</text>
+<text class="cap" text-anchor="end" x="822" y="360">expected values never cross upward</text>
+</svg>
+<p class="figcap">Failure routes back carrying which field diverged, never the value it should have had.</p>
+</div>
 </div>
 <div class="band feature">
 <div class="wrap">
@@ -1034,102 +1130,6 @@ lightyr scripts              <span class="c"># every entry point owned, roled an
 </table>
 </div>
 <p class="note" style="margin-top:18px">Each row is a defect we deliberately introduced into our own code to check the alarm sounds. A test that cannot fail is not evidence, so every safeguard is verified by breaking the thing it protects.</p>
-</div>
-</div><div class="band">
-<div class="wrap">
-<div class="eyebrow">How the work is done</div>
-<h2 style="margin:16px 0 0;max-width:26ch">Three agents propose. One judge decides.</h2>
-<div class="rule"></div>
-<p class="lead" style="margin-bottom:24px">The factory runs unattended because the station that decides correctness is not a model. It cannot be prompted, and it holds expected values the other stations never see.</p>
-<svg aria-label="Lightyear agent loop: planner, builder, verifier and analyst, with a holdout boundary" class="diagram dg1" role="img" viewbox="0 0 880 400" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<marker id="arA" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="4" viewbox="0 0 8 8">
-<path d="M0 0 L8 4 L0 8 z" fill="#CFC5B6"></path>
-</marker>
-<marker id="arRA" markerheight="6" markerwidth="6" orient="auto" refx="7" refy="4" viewbox="0 0 8 8">
-<path d="M0 0 L8 4 L0 8 z" fill="#B4531F"></path>
-</marker>
-</defs>
-<style>.dg1 text{font-family:'IBM Plex Sans','Helvetica Neue',Arial,sans-serif}.dg1 .ttl{font-size:15px;font-weight:600;fill:#181513}.dg1 .cap{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:10px;fill:#9A9086}.dg1 .num{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:9px;letter-spacing:1.2px}.dg1 .nm{font-size:16px;font-weight:600;fill:#181513}.dg1 .sub{font-size:11.5px;fill:#3C3730}.dg1 .sees{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:9.5px;fill:#9A9086}.dg1 .flag{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:9.5px;fill:#573A9C;font-weight:500}.dg1 .memb{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:9.5px;letter-spacing:1.3px;fill:#B4531F}.dg1 .ret{font-family:'IBM Plex Mono','SF Mono',Menlo,monospace;font-size:10px;fill:#B4531F}.dg1 .lit{animation:lit 6.820000000000001s linear infinite}.dg1 .arrow{opacity:.35;animation:flow 6.820000000000001s linear infinite}.dg1 .back{opacity:0;animation:back 6.820000000000001s linear infinite;animation-delay:4.40s}
-  @keyframes lit{
-    0%,2%{opacity:0} 6%,12%{opacity:1} 17%,100%{opacity:0} }
-  @keyframes flow{
-    0%,4%{opacity:.3} 8%,14%{opacity:1;stroke:#B4531F} 19%,100%{opacity:.3} }
-  @keyframes back{
-    0%{opacity:0} 5%,26%{opacity:1} 32%,100%{opacity:0} }
-  @media (prefers-reduced-motion: reduce){.dg1 .lit,.dg1 .arrow,.dg1 .back{animation:none}.dg1 .lit{opacity:0}.dg1 .back{opacity:1} }
-</style>
-<rect fill="#FAF8F4" height="400" width="880"></rect>
-<g transform="translate(40,26)">
-<defs><mask id="m67289A">
-<rect fill="#fff" height="34" width="100" x="-2" y="-2"></rect>
-<rect fill="#000" height="7.199999999999999" width="100" x="-2" y="11.4"></rect>
-</mask></defs>
-<g fill="#573A9C" mask="url(#m67289A)">
-<path d="M0 13.2 C22.080000000000002 12.299999999999999 33.599999999999994 9.0 42.24 3.9000000000000004
-             C45.12 1.5 47.04 0 48.0 0
-             C48.96 0 50.88 1.5 53.760000000000005 3.9000000000000004
-             C62.400000000000006 9.0 73.92 12.299999999999999 96 13.2 Z"></path>
-<path d="M0 16.8 C22.080000000000002 17.7 33.599999999999994 21.0 42.24 26.1
-             C45.12 28.5 47.04 30 48.0 30
-             C48.96 30 50.88 28.5 53.760000000000005 26.1
-             C62.400000000000006 21.0 73.92 17.7 96 16.8 Z"></path>
-</g>
-<text fill="#A7702C" font-family="'IBM Plex Sans','Helvetica Neue',Arial,sans-serif" font-size="7.05" font-weight="700" letter-spacing="1.2899999999999998" text-anchor="middle" x="48.0" y="17.25">LIGHTYEAR</text>
-</g>
-<text class="ttl" x="152" y="47">Four workers. One of them is not a model.</text>
-<text class="cap" text-anchor="end" x="840" y="47">autonomous work cell</text>
-<line stroke="#E0D9CE" stroke-width="1" x1="40" x2="840" y1="66" y2="66"></line>
-<text class="sub" fill="#6E6459" x="40" y="94">Three agents propose. A deterministic gate disposes.</text>
-<g>
-<rect fill="#FFFFFF" height="108" rx="6" stroke="#CFC5B6" stroke-width="1" width="186" x="40" y="120"></rect>
-<text class="num" fill="#6E6459" x="56" y="144">STATION 01</text>
-<text class="nm" x="56" y="170">Planner</text>
-<text class="sub" x="56" y="190">bounds the work</text>
-<text class="sees" x="56" y="212">never sees the answer</text>
-<rect class="lit" fill="none" height="108" opacity="0" rx="6" stroke="#B4531F" stroke-width="2.2" style="animation-delay:0.00s" width="186" x="40" y="120"></rect>
-</g>
-<path class="arrow" d="M229.0 174.0 L244.0 174.0" marker-end="url(#arA)" stroke="#CFC5B6" stroke-width="1.6" style="animation-delay:0.55s"></path>
-<g>
-<rect fill="#FFFFFF" height="108" rx="6" stroke="#CFC5B6" stroke-width="1" width="186" x="248" y="120"></rect>
-<text class="num" fill="#6E6459" x="264" y="144">STATION 02</text>
-<text class="nm" x="264" y="170">Builder</text>
-<text class="sub" x="264" y="190">writes the candidate</text>
-<text class="sees" x="264" y="212">never sees the answer</text>
-<rect class="lit" fill="none" height="108" opacity="0" rx="6" stroke="#B4531F" stroke-width="2.2" style="animation-delay:1.10s" width="186" x="248" y="120"></rect>
-</g>
-<path class="arrow" d="M437.0 174.0 L452.0 174.0" marker-end="url(#arA)" stroke="#CFC5B6" stroke-width="1.6" style="animation-delay:1.65s"></path>
-<g>
-<rect fill="#F3EFFA" height="108" rx="6" stroke="#573A9C" stroke-width="1.6" width="186" x="456" y="120"></rect>
-<text class="num" fill="#573A9C" x="472" y="144">STATION 03</text>
-<text class="nm" x="472" y="170">Verifier</text>
-<text class="sub" x="472" y="190">not a model</text>
-<text class="flag" x="472" y="212">deterministic gate</text>
-<rect class="lit" fill="none" height="108" opacity="0" rx="6" stroke="#B4531F" stroke-width="2.2" style="animation-delay:2.20s" width="186" x="456" y="120"></rect>
-</g>
-<path class="arrow" d="M645.0 174.0 L660.0 174.0" marker-end="url(#arA)" stroke="#CFC5B6" stroke-width="1.6" style="animation-delay:2.75s"></path>
-<g>
-<rect fill="#FFFFFF" height="108" rx="6" stroke="#CFC5B6" stroke-width="1" width="186" x="664" y="120"></rect>
-<text class="num" fill="#6E6459" x="680" y="144">STATION 04</text>
-<text class="nm" x="680" y="170">Analyst</text>
-<text class="sub" x="680" y="190">locates the fault</text>
-<text class="sees" x="680" y="212">never sees the answer</text>
-<rect class="lit" fill="none" height="108" opacity="0" rx="6" stroke="#B4531F" stroke-width="2.2" style="animation-delay:3.30s" width="186" x="664" y="120"></rect>
-</g>
-<g class="back">
-<path d="M757.0 262 L341.0 262" fill="none" marker-end="url(#arRA)" stroke="#B4531F" stroke-width="1.6"></path>
-<text class="ret" text-anchor="middle" x="530.4" y="253">
-    failure routes back · which field, not which value</text>
-</g>
-<line opacity=".75" stroke="#B4531F" stroke-width="1.4" x1="40" x2="318" y1="308" y2="308"></line>
-<line opacity=".75" stroke="#B4531F" stroke-width="1.4" x1="562" x2="840" y1="308" y2="308"></line>
-<text class="memb" text-anchor="middle" x="440.0" y="312">HOLDOUT BOUNDARY</text>
-<rect fill="#F2EEE7" height="46" rx="5" stroke="#E0D9CE" width="800" x="40" y="330"></rect>
-<text class="num" fill="#A7702C" x="58" y="350">GROUND TRUTH</text>
-<text class="sub" font-size="11" x="58" y="367">captured corpus · synthetic reject paths · coverage · equivalence policy</text>
-<text class="cap" text-anchor="end" x="822" y="360">expected values never cross upward</text>
-</svg>
-<p class="figcap">Failure routes back carrying which field diverged, never the value it should have had.</p>
 </div>
 </div><div class="band sunk">
 <div class="wrap">
