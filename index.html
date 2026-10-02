@@ -470,6 +470,38 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
   .fx-lane .ck,.fx-term.js .ln{opacity:1!important;transform:none!important}
   .fx-replay{display:none}
 }
+
+/* ---------- coverage catalogue ---------- */
+.cv-arch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
+.cv-arch .panel{padding:22px 24px}
+.cv-arch h3{margin:8px 0 8px}
+.cv-arch .tag{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
+.cv-legend{display:flex;flex-wrap:wrap;gap:14px 26px;margin:22px 0 6px}
+.cv-legend div{display:flex;gap:10px;align-items:baseline;font-size:15.5px;color:var(--dim);max-width:30em}
+.pill{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid;white-space:nowrap}
+.pill.q{color:var(--pass);border-color:var(--pass);background:#EAF3EC}
+.pill.i{color:var(--unknown);border-color:var(--unknown);background:#FAF3DF}
+.pill.r{color:var(--faint);border-color:var(--hair2);background:var(--panel2)}
+.cv-table{width:100%;border-collapse:collapse;font-size:16px;min-width:760px}
+.cv-table th{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);text-align:left;font-weight:500;padding:14px 14px;border-bottom:1px solid var(--hair2)}
+.cv-table td{padding:16px 14px;border-bottom:1px solid var(--hair);vertical-align:top;color:var(--body)}
+.cv-table td b{color:var(--ink);font-weight:600}
+.cv-table tr:last-child td{border-bottom:none}
+.cv-table .ev{font-family:var(--mono);font-size:13.5px;color:var(--dim);font-variant-numeric:tabular-nums}
+.cv-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.cv-chips span{font-family:var(--mono);font-size:13px;padding:5px 11px;border:1px solid var(--hair2);border-radius:6px;background:var(--panel)}
+.cv-band{background:var(--panel2)}
+.cv-band .grid2{align-items:center}
+.cv-mini{display:flex;flex-direction:column;gap:10px}
+.cv-mini div{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:12px 16px;background:var(--panel);border:1px solid var(--hair);border-radius:8px;font-size:16px}
+.cv-mini b{color:var(--ink);font-weight:600}
+@media(max-width:940px){.cv-arch{grid-template-columns:minmax(0,1fr)}}
+
+/* animated explainers: each is a self-contained dark stage in an iframe, sized to its content */
+.ly-anim{margin-top:28px;border-radius:16px;overflow:hidden;background:#06061A;box-shadow:0 1px 0 var(--hair),0 18px 40px -24px rgba(24,21,19,.45)}
+.ly-anim iframe{display:block;width:100%;border:0;background:#06061A}
+.ly-anim-note{margin-top:14px}
+.ly-anim-note a{color:var(--amber);font-weight:500;border-bottom:1px solid currentColor}
 </style>
 <link href="https://lightyr.ai/" rel="canonical"/>
 <link href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMy42OCAxMy41MiBMMTYuMCA1LjQ0IEwyOC4zMiAxMy41MiBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0zLjY4IDE4LjQ4IEwxNi4wIDI2LjU2IEwyOC4zMiAxOC40OCBaIi8+PC9zdmc+" rel="icon" type="image/svg+xml"/>
@@ -507,13 +539,13 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
 <nav class="tabs" role="tablist">
 <button aria-controls="p-exec" aria-selected="true" data-t="exec" id="tab-exec" onclick="go('exec')" role="tab">Executive summary</button>
 <button aria-controls="p-factory" aria-selected="false" data-t="factory" id="tab-factory" onclick="go('factory')" role="tab">Factory run</button>
+<button aria-controls="p-coverage" aria-selected="false" data-t="coverage" id="tab-coverage" onclick="go('coverage')" role="tab">Coverage</button>
 <button aria-controls="p-proof" aria-selected="false" data-t="proof" id="tab-proof" onclick="go('proof')" role="tab">Technical proof</button>
 <button aria-controls="p-docs" aria-selected="false" data-t="docs" id="tab-docs" onclick="go('docs')" role="tab">Docs</button>
 <button aria-controls="p-engage" aria-selected="false" data-t="engage" id="tab-engage" onclick="go('engage')" role="tab">Engagements</button>
 <a class="tablink" href="https://github.com/howardweale/lightyear-carddemo-modernization/tree/main/docs/milestones" rel="noopener" target="_blank">Evidence</a>
 </nav>
 <div class="navcta">
-<button class="btn" onclick="go('proof')">Technical proof</button>
 <a class="btn solid" href="https://calendly.com/lightyr" rel="noopener" target="_blank">Schedule assessment</a>
 </div>
 </div>
@@ -545,6 +577,281 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
 <p class="note">The candidate produced no output. Most tools would report this as a pass.<br/>We return <span style="color:var(--unknown)">indeterminate</span>, because nothing was verified.</p>
 </div>
 </div>
+</div>
+</div>
+<div class="band cv-band">
+<div class="wrap grid2">
+<div>
+<div class="eyebrow">Any system in. Proof out.</div>
+<h2 style="margin-top:14px;max-width:22ch">One judge for every technology you are leaving behind.</h2>
+<div class="rule"></div>
+<p class="lead">Mainframe, Oracle, Db2, Sybase or the services on top of them: every modernization comes down to the same inputs, run through the old system and the new one, compared and signed. We publish exactly which platforms our judge is qualified on, and the evidence behind each one.</p>
+<a class="btn solid" href="#coverage" onclick="go('coverage');return false" style="margin-top:8px;display:inline-block">See the coverage catalogue <span aria-hidden="true">→</span></a>
+</div>
+<div class="cv-mini" aria-label="Coverage at a glance">
+<div><b>Oracle → PostgreSQL</b><span class="pill q">Qualified · limited</span></div>
+<div><b>Oracle → AlloyDB</b><span class="pill q">Qualified · limited</span></div>
+<div><b>z/OS batch → Java</b><span class="pill i">In qualification</span></div>
+<div><b>SAP ASE → PostgreSQL</b><span class="pill i">In qualification</span></div>
+<div><b>Db2 → PostgreSQL</b><span class="pill i">In qualification</span></div>
+</div>
+</div>
+</div>
+<div class="band ly-cut">
+<div class="wrap">
+<div class="eyebrow">The loop in ten seconds</div>
+<h2 style="margin-top:14px;max-width:24ch">The AI fixes its own work. A fixed program decides.</h2>
+<p class="lead" style="margin-top:18px">One field fails, the builder AI repairs its own code, and the run passes. The judge is the Verdict Engine: deterministic, pre-tested rules rather than a model, so every verdict replays the same way.</p>
+<div class="ly-anim"><iframe title="Animation: the repair loop in ten seconds" loading="lazy" style="height:520px" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;title&gt;The Loop in 10 Seconds&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&amp;family=IBM+Plex+Mono:wght@400;600&amp;family=IBM+Plex+Sans:wght@400;500&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* The repair loop only: one field differs, the AI fixes it, the engine proves it. 10 s, loops. */
+:root{
+  --void:#06061A; --panel:#0E0D26; --line:#2A2850; --fg:#F4F2FF; --muted:#A9A5C8;
+  --violet:#8B5CFF; --filament:#FFB547; --ok:#2BD4A0; --bad:#FF5A4E;
+  --display:&#x27;Archivo&#x27;,&#x27;Arial Narrow&#x27;,sans-serif; --body:&#x27;IBM Plex Sans&#x27;,system-ui,sans-serif; --mono:&#x27;IBM Plex Mono&#x27;,ui-monospace,monospace;
+  --T:10s;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--void);color:var(--fg)}
+body{font-family:var(--body);padding:16px}
+.wrap{max-width:none;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.stage{position:relative;border:1px solid var(--line);border-radius:14px;background:var(--void);overflow:hidden}
+.stage svg{display:block;width:100%;height:auto}
+.toggle{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px;min-height:40px;cursor:pointer}
+.toggle:hover{border-color:var(--violet)}
+.toggle:focus-visible{outline:2px solid var(--filament);outline-offset:2px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.caps{display:grid;flex:1 1 360px;min-height:1.3em}
+.cap{grid-area:1/1;margin:0;font-family:var(--display);font-stretch:85%;font-weight:700;font-size:clamp(18px,2.4vw,24px);line-height:1.25;opacity:0}
+.tag{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+
+.run .anim{animation-duration:var(--T);animation-iteration-count:infinite;animation-timing-function:ease-in-out;animation-fill-mode:both}
+.paused .anim,.paused .eyes,.paused .gear,.paused .bob{animation-play-state:paused}
+.fb{transform-box:fill-box;transform-origin:center}
+.bob{animation:bob 2.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.eyes{transform-box:fill-box;transform-origin:center;animation:blink 3.7s infinite}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.gear{transform-box:fill-box;transform-origin:center;animation:spin 2.4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.k0{animation-name:k0}.k1{animation-name:k1}.k2{animation-name:k2}.k3{animation-name:k3}
+@keyframes k0{0%,14.5%{opacity:1}16%,100%{opacity:0}}
+@keyframes k1{0%,15%{opacity:0}16.5%,32%{opacity:1}34%,100%{opacity:0}}
+@keyframes k2{0%,33%{opacity:0}35%,69%{opacity:1}71%,100%{opacity:0}}
+@keyframes k3{0%,70%{opacity:0}72%,98%{opacity:1}100%{opacity:0}}
+
+.tA{animation-name:tA}.tB1{animation-name:tB1}.tB2{animation-name:tB2}
+@keyframes tA{0%{opacity:1;transform:translate(0,0)}6%,30%{opacity:1;transform:translate(56px,84px)}33%,55%{opacity:0;transform:translate(0,0)}56%{opacity:1;transform:translate(0,0)}62%,95%{opacity:1;transform:translate(56px,84px)}98%,100%{opacity:0;transform:translate(56px,84px)}}
+@keyframes tB1{0%{opacity:1;transform:translate(0,0)}6%,30%{opacity:1;transform:translate(56px,4px)}33%,100%{opacity:0;transform:translate(56px,4px)}}
+@keyframes tB2{0%,55%{opacity:0;transform:translate(0,0)}56%{opacity:1;transform:translate(0,0)}62%,95%{opacity:1;transform:translate(56px,4px)}98%,100%{opacity:0;transform:translate(56px,4px)}}
+.scan{animation-name:scan}
+@keyframes scan{0%,5.5%{opacity:0;transform:translateY(0)}6%{opacity:.9;transform:translateY(0)}11%{opacity:.9;transform:translateY(62px)}15.5%{opacity:.9;transform:translateY(0)}16%,61.5%{opacity:0;transform:translateY(0)}62%{opacity:.9;transform:translateY(0)}67%{opacity:.9;transform:translateY(62px)}71.5%{opacity:.9;transform:translateY(0)}72%,100%{opacity:0;transform:translateY(0)}}
+.lampA{animation-name:lampA}.lampR{animation-name:lampR}.lampG{animation-name:lampG}
+@keyframes lampA{0%,5.5%{fill:#2A2850}6%,8%{fill:#FFB547}9%,11%{fill:#2A2850}12%,14%{fill:#FFB547}15%,61.5%{fill:#2A2850}62%,64%{fill:#FFB547}65%,67%{fill:#2A2850}68%,70%{fill:#FFB547}71%,100%{fill:#2A2850}}
+@keyframes lampR{0%,15.5%{fill:#2A2850}16.5%,33%{fill:#FF5A4E}34%,100%{fill:#2A2850}}
+@keyframes lampG{0%,71.5%{fill:#2A2850}72.5%,96%{fill:#2BD4A0}98%,100%{fill:#2A2850}}
+.r1{animation-name:r1}.r2{animation-name:r2}.r3{animation-name:r3}.r4{animation-name:r4}
+@keyframes r1{0%,5.5%{opacity:0}6.5%,15%{opacity:1}16%,100%{opacity:0}}
+@keyframes r2{0%,15.5%{opacity:0}16.5%,33%{opacity:1}34%,100%{opacity:0}}
+@keyframes r3{0%,61.5%{opacity:0}62.5%,71%{opacity:1}72%,100%{opacity:0}}
+@keyframes r4{0%,71.5%{opacity:0}72.5%,96%{opacity:1}98%,100%{opacity:0}}
+.stampRed{animation-name:stampRed}
+@keyframes stampRed{0%,15.5%{opacity:0;transform:scale(2.2) rotate(5deg)}18%,31%{opacity:1;transform:scale(1) rotate(5deg)}34%,100%{opacity:0;transform:scale(1) rotate(5deg)}}
+.stamp{animation-name:stamp}
+@keyframes stamp{0%,71.5%{opacity:0;transform:scale(2.2) rotate(-6deg)}74%,95%{opacity:1;transform:scale(1) rotate(-6deg)}98%,100%{opacity:0;transform:scale(1) rotate(-6deg)}}
+.note{animation-name:note}
+@keyframes note{0%,18%{opacity:0;transform:translate(0,0)}20%{opacity:1;transform:translate(0,0)}30%,36%{opacity:1;transform:translate(-326px,-108px)}39%,100%{opacity:0;transform:translate(-326px,-108px)}}
+.aha{animation-name:aha}
+@keyframes aha{0%,29%{opacity:0;transform:scale(0)}31%{opacity:1;transform:scale(1.2)}32.5%,38%{opacity:1;transform:scale(1)}40%,100%{opacity:0;transform:scale(0)}}
+.bFix{animation-name:bFix}
+@keyframes bFix{0%,32%{opacity:0;transform:translateY(6px)}34%,45%{opacity:1;transform:translateY(0)}47%,100%{opacity:0}}
+.bYes{animation-name:bYes}
+@keyframes bYes{0%,75%{opacity:0;transform:translateY(6px)}77%,94%{opacity:1;transform:translateY(0)}97%,100%{opacity:0}}
+.type{animation-name:type}
+@keyframes type{0%,35%{transform:translateY(0)}36.5%{transform:translateY(-4px)}38%{transform:translateY(0)}39.5%{transform:translateY(-4px)}41%{transform:translateY(0)}42.5%{transform:translateY(-4px)}44%,100%{transform:translateY(0)}}
+.bolt{animation-name:boltK}
+@keyframes boltK{0%,19%{transform:translate(0,0) rotate(0)}22%,29%{transform:translate(0,5px) rotate(-5deg)}32%{transform:translate(0,-7px) rotate(0)}35%,74%{transform:translate(0,0)}77%{transform:translate(0,-16px)}80%{transform:translate(0,0)}83%{transform:translate(0,-8px)}86%,100%{transform:translate(0,0)}}
+.cA{animation-name:cA}.cB{animation-name:cB}
+@keyframes cA{0%,44%{opacity:0;transform:translate(0,0)}46%{opacity:1;transform:translate(0,0)}53%{opacity:1;transform:translate(230px,-200px)}55%,100%{opacity:0;transform:translate(230px,-200px)}}
+@keyframes cB{0%,44%{opacity:0;transform:translate(0,0)}46%{opacity:1;transform:translate(0,0)}53%{opacity:1;transform:translate(230px,-80px)}55%,100%{opacity:0;transform:translate(230px,-80px)}}
+.lamp{animation-name:lamp}
+@keyframes lamp{0%,4%{fill:#2BD4A0}5%,52.5%{fill:#2A2850}53.5%{fill:#FFB547}54.5%{fill:#2A2850}55.5%{fill:#FFB547}56.5%,62%{fill:#2BD4A0}63%,100%{fill:#2A2850}}
+.shake{animation-name:shake}
+@keyframes shake{0%,52.5%{transform:translate(0,0)}53.5%{transform:translate(1px,-1px)}54.5%{transform:translate(-1px,1px)}55.5%{transform:translate(1px,1px)}56.5%,100%{transform:translate(0,0)}}
+.rcpt{animation-name:rcpt;transform-box:fill-box;transform-origin:50% 0}
+@keyframes rcpt{0%,73%{opacity:0;transform:scaleY(0)}77%,95%{opacity:1;transform:scaleY(1)}98%,100%{opacity:0;transform:scaleY(1)}}
+.spark{animation-name:spark}
+@keyframes spark{0%,72%{opacity:0;transform:scale(0)}75%{opacity:1;transform:scale(1.2)}79%{opacity:1;transform:scale(.9)}85%,100%{opacity:0;transform:scale(0)}}
+.beamglow{animation-name:beam}
+@keyframes beam{0%,72%{opacity:.25}75%,93%{opacity:1}97%,100%{opacity:.25}}
+
+@media (prefers-reduced-motion: reduce){
+  .anim,.eyes,.gear,.bob{animation:none!important}
+  .k0,.k1,.k2,.tB1,.scan,.r1,.r2,.r3,.stampRed,.note,.aha,.bFix,.cA,.cB,.spark{opacity:0}
+  .k3,.tA,.tB2,.r4,.stamp,.rcpt,.bYes{opacity:1}
+  .tA{transform:translate(56px,84px)}.tB2{transform:translate(56px,4px)}
+  .stamp{transform:rotate(-6deg)}
+  .lampG{fill:#2BD4A0}
+  .toggle{display:none}
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;wrap run&quot; id=&quot;player&quot;&gt;
+  &lt;div class=&quot;stage&quot;&gt;
+    &lt;svg viewBox=&quot;156 104 804 404&quot; role=&quot;img&quot; aria-label=&quot;Ten-second loop. The Verdict Engine finds one field that differs and reports which field. Bolt, the builder AI, fixes its own code. The same inputs run again on both systems, the engine reports equivalent, and prints a signed receipt.&quot;&gt;
+      &lt;g fill=&quot;none&quot; stroke=&quot;#2A2850&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;4 6&quot;&gt;
+        &lt;path d=&quot;M372 400C450 400 470 220 540 216&quot;/&gt;
+        &lt;path d=&quot;M372 410C450 410 470 346 540 346&quot;/&gt;
+        &lt;path d=&quot;M680 216C720 216 720 300 740 300&quot;/&gt;
+        &lt;path d=&quot;M680 346C720 346 720 350 740 350&quot;/&gt;
+      &lt;/g&gt;
+      &lt;line x1=&quot;156&quot; y1=&quot;470&quot; x2=&quot;960&quot; y2=&quot;470&quot; stroke=&quot;#FFB547&quot; stroke-width=&quot;2&quot; opacity=&quot;.35&quot;/&gt;
+      &lt;line class=&quot;anim beamglow&quot; x1=&quot;156&quot; y1=&quot;470&quot; x2=&quot;960&quot; y2=&quot;470&quot; stroke=&quot;#FFB547&quot; stroke-width=&quot;3&quot; style=&quot;filter:drop-shadow(0 0 6px #FFB547)&quot;/&gt;
+
+      &lt;g class=&quot;anim shake&quot;&gt;
+        &lt;rect x=&quot;540&quot; y=&quot;168&quot; width=&quot;140&quot; height=&quot;96&quot; rx=&quot;14&quot; fill=&quot;#14132E&quot; stroke=&quot;#3A3760&quot; stroke-width=&quot;2&quot;/&gt;
+        &lt;text x=&quot;556&quot; y=&quot;192&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;11&quot; letter-spacing=&quot;1.5&quot; fill=&quot;#A9A5C8&quot;&gt;ORIGINAL&lt;/text&gt;
+        &lt;text x=&quot;556&quot; y=&quot;216&quot; font-family=&quot;Archivo, sans-serif&quot; font-size=&quot;17&quot; font-weight=&quot;800&quot; fill=&quot;#F4F2FF&quot;&gt;Oracle&lt;/text&gt;
+        &lt;circle class=&quot;anim lamp&quot; cx=&quot;563&quot; cy=&quot;242&quot; r=&quot;6&quot; fill=&quot;#2A2850&quot;/&gt;
+        &lt;g class=&quot;gear&quot;&gt;&lt;circle cx=&quot;652&quot; cy=&quot;244&quot; r=&quot;14&quot; fill=&quot;none&quot; stroke=&quot;#8B5CFF&quot; stroke-width=&quot;7&quot; stroke-dasharray=&quot;5 4&quot;/&gt;&lt;circle cx=&quot;652&quot; cy=&quot;244&quot; r=&quot;5.5&quot; fill=&quot;#8B5CFF&quot;/&gt;&lt;/g&gt;
+      &lt;/g&gt;
+      &lt;g class=&quot;anim shake&quot;&gt;
+        &lt;rect x=&quot;540&quot; y=&quot;298&quot; width=&quot;140&quot; height=&quot;96&quot; rx=&quot;14&quot; fill=&quot;#14132E&quot; stroke=&quot;#3A3760&quot; stroke-width=&quot;2&quot;/&gt;
+        &lt;text x=&quot;556&quot; y=&quot;322&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;11&quot; letter-spacing=&quot;1.5&quot; fill=&quot;#A9A5C8&quot;&gt;MODERNIZED&lt;/text&gt;
+        &lt;text x=&quot;556&quot; y=&quot;346&quot; font-family=&quot;Archivo, sans-serif&quot; font-size=&quot;17&quot; font-weight=&quot;800&quot; fill=&quot;#F4F2FF&quot;&gt;PostgreSQL&lt;/text&gt;
+        &lt;circle class=&quot;anim lamp&quot; cx=&quot;563&quot; cy=&quot;372&quot; r=&quot;6&quot; fill=&quot;#2A2850&quot;/&gt;
+        &lt;g class=&quot;gear&quot;&gt;&lt;circle cx=&quot;652&quot; cy=&quot;374&quot; r=&quot;14&quot; fill=&quot;none&quot; stroke=&quot;#8B5CFF&quot; stroke-width=&quot;7&quot; stroke-dasharray=&quot;5 4&quot;/&gt;&lt;circle cx=&quot;652&quot; cy=&quot;374&quot; r=&quot;5.5&quot; fill=&quot;#8B5CFF&quot;/&gt;&lt;/g&gt;
+      &lt;/g&gt;
+
+      &lt;!-- Bolt, the builder AI --&gt;
+      &lt;g transform=&quot;translate(300 466)&quot;&gt;&lt;g class=&quot;bob&quot;&gt;&lt;g class=&quot;anim bolt&quot; style=&quot;transform-box:fill-box;transform-origin:50% 100%&quot;&gt;
+        &lt;rect x=&quot;-32&quot; y=&quot;-96&quot; width=&quot;64&quot; height=&quot;52&quot; rx=&quot;18&quot; fill=&quot;#FFB547&quot;/&gt;
+        &lt;rect x=&quot;-24&quot; y=&quot;-88&quot; width=&quot;48&quot; height=&quot;32&quot; rx=&quot;12&quot; fill=&quot;#14132E&quot;/&gt;
+        &lt;g class=&quot;eyes&quot;&gt;&lt;ellipse cx=&quot;-8&quot; cy=&quot;-73&quot; rx=&quot;5&quot; ry=&quot;6&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;ellipse cx=&quot;12&quot; cy=&quot;-73&quot; rx=&quot;5&quot; ry=&quot;6&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;/g&gt;
+        &lt;path d=&quot;M-2 -63Q4 -59 10 -63&quot; stroke=&quot;#F4F2FF&quot; stroke-width=&quot;2&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot;/&gt;
+        &lt;circle cx=&quot;-27&quot; cy=&quot;-56&quot; r=&quot;3.5&quot; fill=&quot;#FF8FB1&quot; opacity=&quot;.75&quot;/&gt;&lt;circle cx=&quot;27&quot; cy=&quot;-56&quot; r=&quot;3.5&quot; fill=&quot;#FF8FB1&quot; opacity=&quot;.75&quot;/&gt;
+        &lt;rect x=&quot;-26&quot; y=&quot;-42&quot; width=&quot;52&quot; height=&quot;38&quot; rx=&quot;14&quot; fill=&quot;#E2902A&quot;/&gt;
+        &lt;rect x=&quot;18&quot; y=&quot;-40&quot; width=&quot;46&quot; height=&quot;28&quot; rx=&quot;4&quot; fill=&quot;#14132E&quot; stroke=&quot;#FFB547&quot; stroke-width=&quot;2&quot;/&gt;
+        &lt;rect x=&quot;24&quot; y=&quot;-33&quot; width=&quot;22&quot; height=&quot;2.5&quot; fill=&quot;#B9A3FF&quot;/&gt;&lt;rect x=&quot;24&quot; y=&quot;-27&quot; width=&quot;30&quot; height=&quot;2.5&quot; fill=&quot;#FFB547&quot;/&gt;&lt;rect x=&quot;24&quot; y=&quot;-21&quot; width=&quot;16&quot; height=&quot;2.5&quot; fill=&quot;#B9A3FF&quot;/&gt;
+        &lt;rect x=&quot;12&quot; y=&quot;-12&quot; width=&quot;58&quot; height=&quot;5&quot; rx=&quot;2&quot; fill=&quot;#3A3760&quot;/&gt;
+        &lt;rect class=&quot;anim type&quot; x=&quot;10&quot; y=&quot;-22&quot; width=&quot;14&quot; height=&quot;7&quot; rx=&quot;3.5&quot; fill=&quot;#E2902A&quot;/&gt;
+        &lt;rect x=&quot;-20&quot; y=&quot;-6&quot; width=&quot;14&quot; height=&quot;10&quot; rx=&quot;4&quot; fill=&quot;#9A5F12&quot;/&gt;&lt;rect x=&quot;6&quot; y=&quot;-6&quot; width=&quot;14&quot; height=&quot;10&quot; rx=&quot;4&quot; fill=&quot;#9A5F12&quot;/&gt;
+        &lt;path d=&quot;M-29 -95Q-28 -121 0 -122Q28 -121 29 -95Z&quot; fill=&quot;#FFD48A&quot;/&gt;&lt;rect x=&quot;-36&quot; y=&quot;-98&quot; width=&quot;72&quot; height=&quot;6&quot; rx=&quot;3&quot; fill=&quot;#F4C46A&quot;/&gt;&lt;rect x=&quot;-4&quot; y=&quot;-121&quot; width=&quot;8&quot; height=&quot;24&quot; rx=&quot;3&quot; fill=&quot;#F4C46A&quot;/&gt;
+      &lt;/g&gt;&lt;/g&gt;&lt;/g&gt;
+
+      &lt;g class=&quot;anim cA&quot;&gt;
+        &lt;rect x=&quot;322&quot; y=&quot;384&quot; width=&quot;40&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#8B5CFF&quot;/&gt;&lt;rect x=&quot;322&quot; y=&quot;397&quot; width=&quot;30&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#FFB547&quot;/&gt;&lt;rect x=&quot;322&quot; y=&quot;410&quot; width=&quot;36&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#B9A3FF&quot;/&gt;
+      &lt;/g&gt;
+      &lt;g class=&quot;anim cB&quot;&gt;
+        &lt;rect x=&quot;322&quot; y=&quot;384&quot; width=&quot;40&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#8B5CFF&quot;/&gt;&lt;rect x=&quot;322&quot; y=&quot;397&quot; width=&quot;30&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#FFB547&quot;/&gt;&lt;rect x=&quot;322&quot; y=&quot;410&quot; width=&quot;36&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#B9A3FF&quot;/&gt;
+      &lt;/g&gt;
+
+      &lt;!-- the Verdict Engine --&gt;
+      &lt;g&gt;
+        &lt;rect x=&quot;812&quot; y=&quot;250&quot; width=&quot;96&quot; height=&quot;14&quot; rx=&quot;4&quot; fill=&quot;#2A2850&quot;/&gt;
+        &lt;rect x=&quot;790&quot; y=&quot;262&quot; width=&quot;140&quot; height=&quot;204&quot; rx=&quot;12&quot; fill=&quot;#14132E&quot; stroke=&quot;#8B5CFF&quot; stroke-width=&quot;2&quot;/&gt;
+        &lt;rect x=&quot;802&quot; y=&quot;276&quot; width=&quot;116&quot; height=&quot;76&quot; rx=&quot;6&quot; fill=&quot;#06061A&quot; stroke=&quot;#3A3760&quot; stroke-width=&quot;1.5&quot;/&gt;
+        &lt;g fill=&quot;#2A2850&quot;&gt;&lt;rect x=&quot;812&quot; y=&quot;288&quot; width=&quot;44&quot; height=&quot;3&quot;/&gt;&lt;rect x=&quot;864&quot; y=&quot;288&quot; width=&quot;44&quot; height=&quot;3&quot;/&gt;&lt;rect x=&quot;812&quot; y=&quot;296&quot; width=&quot;36&quot; height=&quot;3&quot;/&gt;&lt;rect x=&quot;864&quot; y=&quot;296&quot; width=&quot;36&quot; height=&quot;3&quot;/&gt;&lt;rect x=&quot;812&quot; y=&quot;304&quot; width=&quot;40&quot; height=&quot;3&quot;/&gt;&lt;rect x=&quot;864&quot; y=&quot;304&quot; width=&quot;40&quot; height=&quot;3&quot;/&gt;&lt;/g&gt;
+        &lt;line x1=&quot;860&quot; y1=&quot;284&quot; x2=&quot;860&quot; y2=&quot;312&quot; stroke=&quot;#2A2850&quot; stroke-width=&quot;1&quot;/&gt;
+        &lt;rect class=&quot;anim scan&quot; x=&quot;804&quot; y=&quot;280&quot; width=&quot;112&quot; height=&quot;2&quot; fill=&quot;#FFB547&quot;/&gt;
+        &lt;g font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;10.5&quot; font-weight=&quot;600&quot; letter-spacing=&quot;1&quot; text-anchor=&quot;middle&quot;&gt;
+          &lt;text class=&quot;anim r1&quot; x=&quot;860&quot; y=&quot;336&quot; fill=&quot;#FFB547&quot;&gt;COMPARING&lt;/text&gt;
+          &lt;text class=&quot;anim r2&quot; x=&quot;860&quot; y=&quot;336&quot; fill=&quot;#FF5A4E&quot;&gt;1 FIELD DIFFERS&lt;/text&gt;
+          &lt;text class=&quot;anim r3&quot; x=&quot;860&quot; y=&quot;336&quot; fill=&quot;#FFB547&quot;&gt;RE-CHECKING&lt;/text&gt;
+          &lt;text class=&quot;anim r4&quot; x=&quot;860&quot; y=&quot;336&quot; fill=&quot;#2BD4A0&quot;&gt;EQUIVALENT&lt;/text&gt;
+        &lt;/g&gt;
+        &lt;circle class=&quot;anim lampA&quot; cx=&quot;836&quot; cy=&quot;370&quot; r=&quot;6&quot; fill=&quot;#2A2850&quot;/&gt;
+        &lt;circle class=&quot;anim lampR&quot; cx=&quot;860&quot; cy=&quot;370&quot; r=&quot;6&quot; fill=&quot;#2A2850&quot;/&gt;
+        &lt;circle class=&quot;anim lampG&quot; cx=&quot;884&quot; cy=&quot;370&quot; r=&quot;6&quot; fill=&quot;#2A2850&quot;/&gt;
+        &lt;text x=&quot;860&quot; y=&quot;398&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;10.5&quot; letter-spacing=&quot;1.5&quot; font-weight=&quot;600&quot; fill=&quot;#F4F2FF&quot;&gt;VERDICT ENGINE&lt;/text&gt;
+        &lt;text x=&quot;860&quot; y=&quot;413&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;9.5&quot; fill=&quot;#A9A5C8&quot;&gt;fixed rules · no AI&lt;/text&gt;
+        &lt;rect x=&quot;828&quot; y=&quot;424&quot; width=&quot;64&quot; height=&quot;5&quot; rx=&quot;2&quot; fill=&quot;#06061A&quot;/&gt;
+        &lt;g class=&quot;anim rcpt&quot;&gt;
+          &lt;rect x=&quot;832&quot; y=&quot;427&quot; width=&quot;56&quot; height=&quot;34&quot; rx=&quot;2&quot; fill=&quot;#F4F2FF&quot;/&gt;
+          &lt;rect x=&quot;838&quot; y=&quot;433&quot; width=&quot;30&quot; height=&quot;2.5&quot; fill=&quot;#8B5CFF&quot;/&gt;&lt;rect x=&quot;838&quot; y=&quot;439&quot; width=&quot;40&quot; height=&quot;2.5&quot; fill=&quot;#A9A5C8&quot;/&gt;&lt;rect x=&quot;838&quot; y=&quot;445&quot; width=&quot;24&quot; height=&quot;2.5&quot; fill=&quot;#A9A5C8&quot;/&gt;
+          &lt;path d=&quot;M866 452l4 4 8-9&quot; fill=&quot;none&quot; stroke=&quot;#2BD4A0&quot; stroke-width=&quot;2.5&quot; stroke-linecap=&quot;round&quot;/&gt;
+        &lt;/g&gt;
+        &lt;g class=&quot;gear&quot;&gt;&lt;circle cx=&quot;912&quot; cy=&quot;446&quot; r=&quot;9&quot; fill=&quot;none&quot; stroke=&quot;#8B5CFF&quot; stroke-width=&quot;5&quot; stroke-dasharray=&quot;4 3&quot;/&gt;&lt;circle cx=&quot;912&quot; cy=&quot;446&quot; r=&quot;3.5&quot; fill=&quot;#8B5CFF&quot;/&gt;&lt;/g&gt;
+      &lt;/g&gt;
+
+      &lt;g class=&quot;anim tA&quot;&gt;
+        &lt;rect x=&quot;684&quot; y=&quot;200&quot; width=&quot;54&quot; height=&quot;34&quot; rx=&quot;5&quot; fill=&quot;#1C1B3A&quot; stroke=&quot;#8B5CFF&quot; stroke-width=&quot;1.5&quot;/&gt;
+        &lt;rect x=&quot;691&quot; y=&quot;207&quot; width=&quot;40&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;&lt;rect x=&quot;691&quot; y=&quot;215&quot; width=&quot;30&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;&lt;rect x=&quot;691&quot; y=&quot;223&quot; width=&quot;36&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;
+      &lt;/g&gt;
+      &lt;g class=&quot;anim tB1&quot;&gt;
+        &lt;rect x=&quot;684&quot; y=&quot;330&quot; width=&quot;54&quot; height=&quot;34&quot; rx=&quot;5&quot; fill=&quot;#1C1B3A&quot; stroke=&quot;#FF5A4E&quot; stroke-width=&quot;1.5&quot;/&gt;
+        &lt;rect x=&quot;691&quot; y=&quot;337&quot; width=&quot;40&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;&lt;rect x=&quot;691&quot; y=&quot;345&quot; width=&quot;18&quot; height=&quot;3&quot; fill=&quot;#FF5A4E&quot;/&gt;&lt;rect x=&quot;691&quot; y=&quot;353&quot; width=&quot;36&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;
+      &lt;/g&gt;
+      &lt;g class=&quot;anim tB2&quot;&gt;
+        &lt;rect x=&quot;684&quot; y=&quot;330&quot; width=&quot;54&quot; height=&quot;34&quot; rx=&quot;5&quot; fill=&quot;#1C1B3A&quot; stroke=&quot;#8B5CFF&quot; stroke-width=&quot;1.5&quot;/&gt;
+        &lt;rect x=&quot;691&quot; y=&quot;337&quot; width=&quot;40&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;&lt;rect x=&quot;691&quot; y=&quot;345&quot; width=&quot;30&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;&lt;rect x=&quot;691&quot; y=&quot;353&quot; width=&quot;36&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;
+      &lt;/g&gt;
+
+      &lt;g class=&quot;anim stampRed fb&quot;&gt;
+        &lt;rect x=&quot;752&quot; y=&quot;140&quot; width=&quot;166&quot; height=&quot;46&quot; rx=&quot;5&quot; fill=&quot;#06061A&quot; stroke=&quot;#FF5A4E&quot; stroke-width=&quot;3&quot;/&gt;
+        &lt;text x=&quot;835&quot; y=&quot;164&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-weight=&quot;600&quot; font-size=&quot;17&quot; letter-spacing=&quot;2&quot; fill=&quot;#FF5A4E&quot;&gt;DIVERGENT&lt;/text&gt;
+        &lt;text x=&quot;835&quot; y=&quot;179&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;10.5&quot; letter-spacing=&quot;1&quot; fill=&quot;#A9A5C8&quot;&gt;1 FIELD DIFFERS&lt;/text&gt;
+      &lt;/g&gt;
+      &lt;g class=&quot;anim note&quot;&gt;
+        &lt;rect x=&quot;636&quot; y=&quot;410&quot; width=&quot;150&quot; height=&quot;40&quot; rx=&quot;6&quot; fill=&quot;#2A0F1A&quot; stroke=&quot;#FF5A4E&quot; stroke-width=&quot;1.5&quot;/&gt;
+        &lt;text x=&quot;648&quot; y=&quot;427&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;10.5&quot; fill=&quot;#FFB3AC&quot;&gt;FIELD: invoice type&lt;/text&gt;
+        &lt;text x=&quot;648&quot; y=&quot;442&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;10.5&quot; fill=&quot;#A9A5C8&quot;&gt;value: not shared&lt;/text&gt;
+      &lt;/g&gt;
+      &lt;g class=&quot;anim aha fb&quot;&gt;
+        &lt;circle cx=&quot;342&quot; cy=&quot;356&quot; r=&quot;14&quot; fill=&quot;#FFB547&quot;/&gt;
+        &lt;text x=&quot;342&quot; y=&quot;363&quot; text-anchor=&quot;middle&quot; font-family=&quot;Archivo, sans-serif&quot; font-weight=&quot;900&quot; font-size=&quot;20&quot; fill=&quot;#06061A&quot;&gt;!&lt;/text&gt;
+      &lt;/g&gt;
+      &lt;g class=&quot;anim stamp fb&quot;&gt;
+        &lt;rect x=&quot;752&quot; y=&quot;140&quot; width=&quot;166&quot; height=&quot;46&quot; rx=&quot;5&quot; fill=&quot;#06061A&quot; stroke=&quot;#2BD4A0&quot; stroke-width=&quot;3&quot;/&gt;
+        &lt;text x=&quot;835&quot; y=&quot;164&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-weight=&quot;600&quot; font-size=&quot;17&quot; letter-spacing=&quot;2&quot; fill=&quot;#2BD4A0&quot;&gt;EQUIVALENT&lt;/text&gt;
+        &lt;text x=&quot;835&quot; y=&quot;179&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;10.5&quot; letter-spacing=&quot;1&quot; fill=&quot;#A9A5C8&quot;&gt;SIGNED · REPLAYABLE&lt;/text&gt;
+      &lt;/g&gt;
+      &lt;path class=&quot;anim spark fb&quot; d=&quot;M748 118l4 10 10 4-10 4-4 10-4-10-10-4 10-4z&quot; fill=&quot;#FFB547&quot;/&gt;
+      &lt;path class=&quot;anim spark fb&quot; d=&quot;M934 206l3 8 8 3-8 3-3 8-3-8-8-3 8-3z&quot; fill=&quot;#2BD4A0&quot;/&gt;
+      &lt;path class=&quot;anim spark fb&quot; d=&quot;M770 222l3 7 7 3-7 3-3 7-3-7-7-3 7-3z&quot; fill=&quot;#B9A3FF&quot;/&gt;
+
+      &lt;g class=&quot;anim bFix&quot;&gt;&lt;rect x=&quot;170&quot; y=&quot;307&quot; width=&quot;128&quot; height=&quot;28&quot; rx=&quot;14&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;path d=&quot;M228 335l6 9l6 -9z&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;text x=&quot;234&quot; y=&quot;326.5&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Sans, sans-serif&quot; font-weight=&quot;500&quot; font-size=&quot;13&quot; fill=&quot;#06061A&quot;&gt;Got it. Fixing!&lt;/text&gt;&lt;/g&gt;
+      &lt;g class=&quot;anim bYes&quot;&gt;&lt;rect x=&quot;272&quot; y=&quot;307&quot; width=&quot;56&quot; height=&quot;28&quot; rx=&quot;14&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;path d=&quot;M294 335l6 9l6 -9z&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;text x=&quot;300&quot; y=&quot;326.5&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Sans, sans-serif&quot; font-weight=&quot;500&quot; font-size=&quot;13&quot; fill=&quot;#06061A&quot;&gt;Yes!&lt;/text&gt;&lt;/g&gt;
+
+      &lt;g font-family=&quot;Archivo, sans-serif&quot; font-size=&quot;15&quot; font-weight=&quot;700&quot; fill=&quot;#C9C5E6&quot; text-anchor=&quot;middle&quot;&gt;
+        &lt;text x=&quot;300&quot; y=&quot;498&quot;&gt;Bolt · builder AI&lt;/text&gt;&lt;text x=&quot;860&quot; y=&quot;498&quot;&gt;The Verdict Engine&lt;/text&gt;
+      &lt;/g&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;caps&quot; aria-live=&quot;off&quot;&gt;
+      &lt;p class=&quot;cap anim k0&quot;&gt;Both systems ran. The engine compares every field.&lt;/p&gt;
+      &lt;p class=&quot;cap anim k1&quot;&gt;One field differs. The engine names it, not the answer.&lt;/p&gt;
+      &lt;p class=&quot;cap anim k2&quot;&gt;The AI fixes its own code and runs it again.&lt;/p&gt;
+      &lt;p class=&quot;cap anim k3&quot;&gt;Equivalent. Signed. Anyone can replay it.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;span class=&quot;tag&quot;&gt;Built lights-out. Proven in plain sight.&lt;/span&gt;
+    &lt;button type=&quot;button&quot; class=&quot;toggle&quot; id=&quot;pause&quot; aria-pressed=&quot;false&quot;&gt;Pause&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+(function(){
+  var player=document.getElementById(&#x27;player&#x27;),pause=document.getElementById(&#x27;pause&#x27;);
+  pause.addEventListener(&#x27;click&#x27;,function(){
+    var on=player.classList.toggle(&#x27;paused&#x27;);
+    pause.setAttribute(&#x27;aria-pressed&#x27;,on?&#x27;true&#x27;:&#x27;false&#x27;);
+    pause.textContent=on?&#x27;Play&#x27;:&#x27;Pause&#x27;;
+  });
+})();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe></div>
+<p class="small ly-anim-note"><a href="#factory" onclick="go('factory');return false">See the whole factory at work</a></p>
 </div>
 </div>
 <div class="band fx-teaser">
@@ -917,6 +1224,395 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
 </div>
 </div>
 
+<!-- ============ the crew ============ -->
+<div class="band sunk ly-full">
+<div class="wrap">
+<div class="eyebrow">Meet the crew</div>
+<h2 style="margin:16px 0 0;max-width:24ch">Two AI agents build. The Verdict Engine decides.</h2>
+<p class="lead" style="margin-top:18px">Pip plans and Bolt builds, and both are AI. The Verdict Engine is not: it is a fixed program, qualified before use, that compares every field and names what differs without revealing the right answer. Each technology pair is shown with its status in the qualified-lane catalogue.</p>
+<div class="ly-anim"><iframe title="Animation: the dark factory at work" loading="lazy" style="height:760px" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;title&gt;Dark Factory at Work&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&amp;family=IBM+Plex+Mono:wght@400;600&amp;family=IBM+Plex+Sans:wght@400;500&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* One stage, a caption that changes with the scene, and the six steps underneath. Lights-Out brand, dark by design. */
+:root{
+  --void:#06061A; --panel:#0E0D26; --line:#2A2850; --fg:#F4F2FF; --muted:#A9A5C8;
+  --violet:#8B5CFF; --filament:#FFB547; --ok:#2BD4A0; --bad:#FF5A4E;
+  --display:&#x27;Archivo&#x27;,&#x27;Arial Narrow&#x27;,sans-serif; --body:&#x27;IBM Plex Sans&#x27;,system-ui,sans-serif; --mono:&#x27;IBM Plex Mono&#x27;,ui-monospace,monospace;
+  --T:28s;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--void);color:var(--fg)}
+body{font-family:var(--body);padding:16px}
+.wrap{max-width:none;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.pair{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:14px;color:var(--muted)}
+.pair b{color:var(--fg);font-weight:600}
+.chip{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px solid currentColor}
+.chip.q{color:var(--ok)}.chip.i{color:var(--filament)}
+.controls{display:flex;gap:10px}
+button{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 16px;min-height:44px;cursor:pointer}
+button:hover{border-color:var(--violet)}
+button:focus-visible{outline:2px solid var(--filament);outline-offset:2px}
+.stage{border:1px solid var(--line);border-radius:14px;background:var(--void);overflow:hidden}
+.stage svg{display:block;width:100%;height:auto}
+.caps{display:grid;min-height:2.6em}
+.cap{grid-area:1/1;margin:0;font-family:var(--display);font-stretch:85%;font-weight:700;font-size:clamp(19px,2.6vw,26px);line-height:1.2;opacity:0}
+ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+li{min-width:0;border:1px solid var(--line);border-radius:10px;padding:12px;font-size:14px;line-height:1.4;color:var(--muted)}
+li b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;margin-bottom:4px}
+.fine{margin:0;font-family:var(--mono);font-size:12px;line-height:1.5;color:var(--muted)}
+@media (max-width:720px){ol{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* personality: idle bob, speech bubbles, reactions (the two AI agents only; the engine is a machine) */
+.bob{animation:bob 2.6s ease-in-out infinite}
+.bob.b2{animation-delay:-.9s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.paused .bob{animation-play-state:paused}
+.s1{animation-name:s1}.s2{animation-name:s2}.s3{animation-name:s3}.s4{animation-name:s4}.s5{animation-name:s5}.s6{animation-name:s6}.s7{animation-name:s7}.s8{animation-name:s8}.s9{animation-name:s9}.s10{animation-name:s10}
+@keyframes s1{0%,0.5%{opacity:0;transform:translateY(6px)}1.5%,7.5%{opacity:1;transform:translateY(0)}8.5%,100%{opacity:0}}
+@keyframes s2{0%,9.5%{opacity:0;transform:translateY(6px)}10.5%,16.5%{opacity:1;transform:translateY(0)}17.5%,100%{opacity:0}}
+@keyframes s3{0%,29.5%{opacity:0}30.5%,37.5%{opacity:1}38.5%,100%{opacity:0}}
+@keyframes s4{0%,39%{opacity:0}40%,48.5%{opacity:1}49.5%,100%{opacity:0}}
+@keyframes s5{0%,44%{opacity:0;transform:translateY(6px)}45%,49%{opacity:1;transform:translateY(0)}50%,100%{opacity:0}}
+@keyframes s6{0%,50.5%{opacity:0;transform:translateY(6px)}51.5%,57%{opacity:1;transform:translateY(0)}58%,100%{opacity:0}}
+@keyframes s7{0%,75.5%{opacity:0}76.5%,84%{opacity:1}85%,100%{opacity:0}}
+@keyframes s8{0%,85%{opacity:0}86%,97%{opacity:1}98.5%,100%{opacity:0}}
+@keyframes s9{0%,87%{opacity:0;transform:translateY(6px)}88%,96%{opacity:1;transform:translateY(0)}97.5%,100%{opacity:0}}
+@keyframes s10{0%,87.5%{opacity:0;transform:translateY(6px)}88.5%,96%{opacity:1;transform:translateY(0)}97.5%,100%{opacity:0}}
+.boltAct{animation-name:boltAct}
+@keyframes boltAct{0%,43%{transform:translate(0,0) rotate(0)}45%,49%{transform:translate(0,5px) rotate(-5deg)}51%{transform:translate(0,-7px) rotate(0)}53%,86%{transform:translate(0,0)}88%{transform:translate(0,-16px)}90%{transform:translate(0,0)}92%{transform:translate(0,-8px)}94%,100%{transform:translate(0,0)}}
+.pipAct{animation-name:pipAct}
+@keyframes pipAct{0%,86.5%{transform:translateY(0)}88.5%{transform:translateY(-14px)}90.5%{transform:translateY(0)}92.5%{transform:translateY(-6px)}94.5%,100%{transform:translateY(0)}}
+.sweat{animation-name:sweat}
+@keyframes sweat{0%,43.5%{opacity:0;transform:translateY(0)}45%{opacity:1;transform:translateY(0)}49%{opacity:1;transform:translateY(8px)}50.5%,100%{opacity:0;transform:translateY(10px)}}
+.fade{transition:opacity .4s}
+
+/* the timeline: one 28 s loop in two acts (catch a difference, then repair and pass) */
+.run .anim{animation-duration:var(--T);animation-iteration-count:infinite;animation-timing-function:ease-in-out;animation-fill-mode:both}
+.paused .anim,.paused .eyes,.paused .gear,.paused .glowdot{animation-play-state:paused}
+.fb{transform-box:fill-box;transform-origin:center}
+
+.c1{animation-name:cap1}.c2{animation-name:cap2}.c3{animation-name:cap3}.c4{animation-name:cap4}.c5{animation-name:cap5}.c6{animation-name:cap6}.c7{animation-name:cap7}.c8{animation-name:cap8}
+@keyframes cap1{0%,8%{opacity:1}9%,100%{opacity:0}}
+@keyframes cap2{0%,9%{opacity:0}10%,17%{opacity:1}18%,100%{opacity:0}}
+@keyframes cap3{0%,18%{opacity:0}19%,28%{opacity:1}29%,100%{opacity:0}}
+@keyframes cap4{0%,29%{opacity:0}30%,37%{opacity:1}38%,100%{opacity:0}}
+@keyframes cap5{0%,38%{opacity:0}39%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes cap6{0%,50%{opacity:0}51%,63%{opacity:1}64%,100%{opacity:0}}
+@keyframes cap7{0%,64%{opacity:0}65%,83%{opacity:1}84%,100%{opacity:0}}
+@keyframes cap8{0%,84%{opacity:0}85%,98%{opacity:1}100%{opacity:0}}
+.l1{animation-name:hl1}.l2{animation-name:hl2}.l3{animation-name:hl3}.l4{animation-name:hl4}.l5{animation-name:hl5}.l6{animation-name:hl6}
+@keyframes hl1{0%,8.5%{color:var(--fg);border-color:var(--filament)}9%,100%{color:var(--muted);border-color:var(--line)}}
+@keyframes hl2{0%,9%{color:var(--muted);border-color:var(--line)}9.5%,17.5%{color:var(--fg);border-color:var(--filament)}18%,100%{color:var(--muted);border-color:var(--line)}}
+@keyframes hl3{0%,18%{color:var(--muted);border-color:var(--line)}18.5%,28.5%{color:var(--fg);border-color:var(--filament)}29%,64%{color:var(--muted);border-color:var(--line)}64.5%,74.5%{color:var(--fg);border-color:var(--filament)}75%,100%{color:var(--muted);border-color:var(--line)}}
+@keyframes hl4{0%,29%{color:var(--muted);border-color:var(--line)}29.5%,37.5%{color:var(--fg);border-color:var(--filament)}38%,75%{color:var(--muted);border-color:var(--line)}75.5%,83.5%{color:var(--fg);border-color:var(--filament)}84%,100%{color:var(--muted);border-color:var(--line)}}
+@keyframes hl5{0%,38%{color:var(--muted);border-color:var(--line)}38.5%,63.5%{color:var(--fg);border-color:var(--bad)}64%,100%{color:var(--muted);border-color:var(--line)}}
+@keyframes hl6{0%,84%{color:var(--muted);border-color:var(--line)}84.5%,99%{color:var(--fg);border-color:var(--ok)}100%{color:var(--muted);border-color:var(--line)}}
+
+.card{animation-name:card}
+@keyframes card{0%{opacity:0;transform:translate(0,0)}2%,3%{opacity:1;transform:translate(0,0)}8%{opacity:1;transform:translate(105px,0)}10%,100%{opacity:0;transform:translate(105px,0)}}
+.wave{animation-name:wave}
+@keyframes wave{0%,1.5%{transform:rotate(0)}3%,7%{transform:rotate(-28deg)}9%,100%{transform:rotate(0)}}
+.type{animation-name:type}
+@keyframes type{0%,10%{transform:translateY(0)}11%{transform:translateY(-4px)}12%{transform:translateY(0)}13%{transform:translateY(-4px)}14%{transform:translateY(0)}15%{transform:translateY(-4px)}16%{transform:translateY(0)}17%{transform:translateY(-4px)}18%,56%{transform:translateY(0)}57%{transform:translateY(-4px)}58%{transform:translateY(0)}59%{transform:translateY(-4px)}60%{transform:translateY(0)}61%{transform:translateY(-4px)}62%{transform:translateY(0)}63%{transform:translateY(-4px)}64%,100%{transform:translateY(0)}}
+.p1{animation-name:p1}.p2{animation-name:p2}.p3{animation-name:p3}
+@keyframes p1{0%,10%{opacity:0;transform:scale(.2)}11.5%{opacity:1;transform:scale(1.2)}12.5%,23%{opacity:1;transform:scale(1)}24.5%,56%{opacity:0;transform:scale(.2)}57.5%{opacity:1;transform:scale(1.2)}58.5%,69%{opacity:1;transform:scale(1)}70.5%,100%{opacity:0;transform:scale(.2)}}
+@keyframes p2{0%,12.5%{opacity:0;transform:scale(.2)}14%{opacity:1;transform:scale(1.2)}15%,23%{opacity:1;transform:scale(1)}24.5%,58.5%{opacity:0;transform:scale(.2)}60%{opacity:1;transform:scale(1.2)}61%,69%{opacity:1;transform:scale(1)}70.5%,100%{opacity:0;transform:scale(.2)}}
+@keyframes p3{0%,15%{opacity:0;transform:scale(.2)}16.5%{opacity:1;transform:scale(1.2)}17.5%,23%{opacity:1;transform:scale(1)}24.5%,61%{opacity:0;transform:scale(.2)}62.5%{opacity:1;transform:scale(1.2)}63.5%,69%{opacity:1;transform:scale(1)}70.5%,100%{opacity:0;transform:scale(.2)}}
+.flyA{animation-name:flyA}.flyB{animation-name:flyB}
+@keyframes flyA{0%,18%{transform:translate(0,0)}23.5%,24.9%{transform:translate(230px,-200px)}25%,64%{transform:translate(0,0)}69.5%,100%{transform:translate(230px,-200px)}}
+@keyframes flyB{0%,18%{transform:translate(0,0)}23.5%,24.9%{transform:translate(230px,-80px)}25%,64%{transform:translate(0,0)}69.5%,100%{transform:translate(230px,-80px)}}
+.lamp{animation-name:lamp}
+@keyframes lamp{0%,23.5%{fill:#2A2850}24.5%{fill:#FFB547}25.5%{fill:#2A2850}26.5%{fill:#FFB547}27.5%{fill:#2A2850}28.5%{fill:#FFB547}29%,48%{fill:#2BD4A0}49%,69.5%{fill:#2A2850}70.5%{fill:#FFB547}71.5%{fill:#2A2850}72.5%{fill:#FFB547}73.5%{fill:#2A2850}74.5%{fill:#FFB547}75%,98%{fill:#2BD4A0}99.5%,100%{fill:#2A2850}}
+.shake{animation-name:shake}
+@keyframes shake{0%,23.5%{transform:translate(0,0)}24.5%{transform:translate(1px,-1px)}25.5%{transform:translate(-1px,1px)}26.5%{transform:translate(1px,1px)}27.5%{transform:translate(-1px,-1px)}28.5%,69.5%{transform:translate(0,0)}70.5%{transform:translate(1px,-1px)}71.5%{transform:translate(-1px,1px)}72.5%{transform:translate(1px,1px)}73.5%{transform:translate(-1px,-1px)}74.5%,100%{transform:translate(0,0)}}
+.tileA{animation-name:tileA}.tileB1{animation-name:tileB1}.tileB2{animation-name:tileB2}
+@keyframes tileA{0%,28.5%{opacity:0;transform:translate(0,0)}29.5%{opacity:1;transform:translate(0,0)}33.5%,47%{opacity:1;transform:translate(56px,84px)}49%{opacity:0;transform:translate(56px,84px)}49.5%,74.5%{opacity:0;transform:translate(0,0)}75.5%{opacity:1;transform:translate(0,0)}79.5%,97%{opacity:1;transform:translate(56px,84px)}99.5%,100%{opacity:0;transform:translate(56px,84px)}}
+@keyframes tileB1{0%,28.5%{opacity:0;transform:translate(0,0)}29.5%{opacity:1;transform:translate(0,0)}33.5%,47%{opacity:1;transform:translate(56px,4px)}49%,100%{opacity:0;transform:translate(56px,4px)}}
+@keyframes tileB2{0%,74.5%{opacity:0;transform:translate(0,0)}75.5%{opacity:1;transform:translate(0,0)}79.5%,97%{opacity:1;transform:translate(56px,4px)}99.5%,100%{opacity:0;transform:translate(56px,4px)}}
+.stampRed{animation-name:stampRed}
+@keyframes stampRed{0%,38%{opacity:0;transform:scale(2.2) rotate(5deg)}40%,46%{opacity:1;transform:scale(1) rotate(5deg)}48%,100%{opacity:0;transform:scale(1) rotate(5deg)}}
+.stamp{animation-name:stamp}
+@keyframes stamp{0%,84%{opacity:0;transform:scale(2.2) rotate(-6deg)}86%,97%{opacity:1;transform:scale(1) rotate(-6deg)}99.5%,100%{opacity:0;transform:scale(1) rotate(-6deg)}}
+.note{animation-name:note}
+@keyframes note{0%,41%{opacity:0;transform:translate(0,0)}42.5%{opacity:1;transform:translate(0,0)}48%,53%{opacity:1;transform:translate(-326px,-108px)}55.5%,100%{opacity:0;transform:translate(-326px,-108px)}}
+.aha{animation-name:aha}
+@keyframes aha{0%,48.5%{opacity:0;transform:scale(0)}50%{opacity:1;transform:scale(1.2)}51%,54%{opacity:1;transform:scale(1)}55.5%,100%{opacity:0;transform:scale(0)}}
+.spark{animation-name:spark}
+@keyframes spark{0%,85.5%{opacity:0;transform:scale(0)}88%{opacity:1;transform:scale(1.2)}91%{opacity:1;transform:scale(.9)}95%,100%{opacity:0;transform:scale(0)}}
+.beamglow{animation-name:beam}
+@keyframes beam{0%,85%{opacity:.25}87%,95%{opacity:1}98%,100%{opacity:.25}}
+
+/* the Verdict Engine: a machine, not a character. It scans, lights a lamp and prints a receipt. */
+.scan{animation-name:scan}
+@keyframes scan{0%,29.5%{opacity:0;transform:translateY(0)}30%{opacity:.9;transform:translateY(0)}33.5%{opacity:.9;transform:translateY(62px)}37%{opacity:.9;transform:translateY(0)}38%,75.5%{opacity:0;transform:translateY(0)}76%{opacity:.9;transform:translateY(0)}79.5%{opacity:.9;transform:translateY(62px)}83%{opacity:.9;transform:translateY(0)}84%,100%{opacity:0;transform:translateY(0)}}
+.lampA{animation-name:lampA}.lampR{animation-name:lampR}.lampG{animation-name:lampG}
+@keyframes lampA{0%,29.5%{fill:#2A2850}30%,31.5%{fill:#FFB547}32%,33.5%{fill:#2A2850}34%,35.5%{fill:#FFB547}36%,37.5%{fill:#2A2850}38%{fill:#FFB547}38.5%,75.5%{fill:#2A2850}76%,77.5%{fill:#FFB547}78%,79.5%{fill:#2A2850}80%,81.5%{fill:#FFB547}82%,83.5%{fill:#2A2850}84%{fill:#FFB547}84.5%,100%{fill:#2A2850}}
+@keyframes lampR{0%,38.5%{fill:#2A2850}39.5%,48.5%{fill:#FF5A4E}49.5%,100%{fill:#2A2850}}
+@keyframes lampG{0%,84.5%{fill:#2A2850}85.5%,97.5%{fill:#2BD4A0}98.5%,100%{fill:#2A2850}}
+.rcpt{animation-name:rcpt;transform-box:fill-box;transform-origin:50% 0}
+@keyframes rcpt{0%,85.5%{opacity:0;transform:scaleY(0)}88.5%,97%{opacity:1;transform:scaleY(1)}99%,100%{opacity:0;transform:scaleY(1)}}
+
+.eyes{transform-box:fill-box;transform-origin:center;animation:blink 3.7s infinite}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.gear{transform-box:fill-box;transform-origin:center;animation:spin 2.4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.glowdot{animation:pulse 1.6s ease-in-out infinite alternate}
+@keyframes pulse{from{opacity:.55}to{opacity:1}}
+
+@media (prefers-reduced-motion: reduce){
+  .anim,.eyes,.gear,.glowdot,.bob{animation:none!important}
+  .cap{opacity:0}.c8{opacity:1}
+  li{color:var(--fg)}
+  .card,.p1,.p2,.p3,.tileB1,.stampRed,.note,.aha,.scan,.sweat{opacity:0}
+  .s1,.s2,.s3,.s4,.s5,.s6,.s7{opacity:0}
+  .s8,.s9,.s10,.stamp,.tileA,.tileB2,.rcpt{opacity:1}
+  .tileA{transform:translate(56px,84px)}.tileB2{transform:translate(56px,4px)}
+  .stamp{transform:rotate(-6deg)}
+  .lampG{fill:#2BD4A0}
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;wrap player run&quot; id=&quot;player&quot;&gt;
+  &lt;div class=&quot;top&quot;&gt;
+    &lt;div class=&quot;pair&quot;&gt;&lt;span&gt;Now showing&lt;/span&gt;&lt;b id=&quot;pairNote&quot;&gt;Oracle to PostgreSQL&lt;/b&gt;&lt;span class=&quot;chip q&quot; id=&quot;pairStatus&quot;&gt;Qualified (limited)&lt;/span&gt;&lt;/div&gt;
+    &lt;div class=&quot;controls&quot;&gt;
+      &lt;button type=&quot;button&quot; id=&quot;pause&quot; aria-pressed=&quot;false&quot;&gt;Pause&lt;/button&gt;
+      &lt;button type=&quot;button&quot; id=&quot;replay&quot;&gt;Replay&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;stage&quot;&gt;
+    &lt;svg viewBox=&quot;0 100 960 420&quot; role=&quot;img&quot; aria-label=&quot;Two AI agents, Pip the planner and Bolt the builder, modernize a legacy system. The same inputs run on the original and the modernized system. The Verdict Engine, a deterministic program rather than an AI, finds one differing field and reports which field, not the right value. Bolt fixes the code, the second run matches, and the engine prints a signed receipt.&quot;&gt;
+      &lt;!-- routes --&gt;
+      &lt;g fill=&quot;none&quot; stroke=&quot;#2A2850&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;4 6&quot;&gt;
+        &lt;path d=&quot;M372 400C450 400 470 220 540 216&quot;/&gt;
+        &lt;path d=&quot;M372 410C450 410 470 346 540 346&quot;/&gt;
+        &lt;path d=&quot;M680 216C720 216 720 300 740 300&quot;/&gt;
+        &lt;path d=&quot;M680 346C720 346 720 350 740 350&quot;/&gt;
+      &lt;/g&gt;
+
+      &lt;!-- beam floor --&gt;
+      &lt;line x1=&quot;0&quot; y1=&quot;470&quot; x2=&quot;960&quot; y2=&quot;470&quot; stroke=&quot;#FFB547&quot; stroke-width=&quot;2&quot; opacity=&quot;.35&quot;/&gt;
+      &lt;line class=&quot;anim beamglow&quot; x1=&quot;0&quot; y1=&quot;470&quot; x2=&quot;960&quot; y2=&quot;470&quot; stroke=&quot;#FFB547&quot; stroke-width=&quot;3&quot; style=&quot;filter:drop-shadow(0 0 6px #FFB547)&quot;/&gt;
+
+      &lt;!-- original system --&gt;
+      &lt;g class=&quot;anim shake&quot;&gt;
+        &lt;rect x=&quot;540&quot; y=&quot;168&quot; width=&quot;140&quot; height=&quot;96&quot; rx=&quot;14&quot; fill=&quot;#14132E&quot; stroke=&quot;#3A3760&quot; stroke-width=&quot;2&quot;/&gt;
+        &lt;text x=&quot;556&quot; y=&quot;192&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;11&quot; letter-spacing=&quot;1.5&quot; fill=&quot;#A9A5C8&quot;&gt;ORIGINAL&lt;/text&gt;
+        &lt;text id=&quot;oldName&quot; class=&quot;fade&quot; x=&quot;556&quot; y=&quot;216&quot; font-family=&quot;Archivo, sans-serif&quot; font-size=&quot;17&quot; font-weight=&quot;800&quot; fill=&quot;#F4F2FF&quot;&gt;Oracle&lt;/text&gt;
+        &lt;circle class=&quot;anim lamp&quot; cx=&quot;563&quot; cy=&quot;242&quot; r=&quot;6&quot; fill=&quot;#2A2850&quot;/&gt;
+        &lt;g class=&quot;gear&quot;&gt;&lt;circle cx=&quot;652&quot; cy=&quot;244&quot; r=&quot;14&quot; fill=&quot;none&quot; stroke=&quot;#8B5CFF&quot; stroke-width=&quot;7&quot; stroke-dasharray=&quot;5 4&quot;/&gt;&lt;circle cx=&quot;652&quot; cy=&quot;244&quot; r=&quot;5.5&quot; fill=&quot;#8B5CFF&quot;/&gt;&lt;/g&gt;
+      &lt;/g&gt;
+      &lt;!-- modernized system --&gt;
+      &lt;g class=&quot;anim shake&quot;&gt;
+        &lt;rect x=&quot;540&quot; y=&quot;298&quot; width=&quot;140&quot; height=&quot;96&quot; rx=&quot;14&quot; fill=&quot;#14132E&quot; stroke=&quot;#3A3760&quot; stroke-width=&quot;2&quot;/&gt;
+        &lt;text x=&quot;556&quot; y=&quot;322&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;11&quot; letter-spacing=&quot;1.5&quot; fill=&quot;#A9A5C8&quot;&gt;MODERNIZED&lt;/text&gt;
+        &lt;text id=&quot;newName&quot; class=&quot;fade&quot; x=&quot;556&quot; y=&quot;346&quot; font-family=&quot;Archivo, sans-serif&quot; font-size=&quot;17&quot; font-weight=&quot;800&quot; fill=&quot;#F4F2FF&quot;&gt;PostgreSQL&lt;/text&gt;
+        &lt;circle class=&quot;anim lamp&quot; cx=&quot;563&quot; cy=&quot;372&quot; r=&quot;6&quot; fill=&quot;#2A2850&quot;/&gt;
+        &lt;g class=&quot;gear&quot;&gt;&lt;circle cx=&quot;652&quot; cy=&quot;374&quot; r=&quot;14&quot; fill=&quot;none&quot; stroke=&quot;#8B5CFF&quot; stroke-width=&quot;7&quot; stroke-dasharray=&quot;5 4&quot;/&gt;&lt;circle cx=&quot;652&quot; cy=&quot;374&quot; r=&quot;5.5&quot; fill=&quot;#8B5CFF&quot;/&gt;&lt;/g&gt;
+      &lt;/g&gt;
+
+      &lt;!-- Pip, the planner agent --&gt;
+      &lt;g transform=&quot;translate(120 466)&quot;&gt;&lt;g class=&quot;bob b1&quot;&gt;&lt;g class=&quot;anim pipAct&quot;&gt;
+        &lt;line x1=&quot;0&quot; y1=&quot;-94&quot; x2=&quot;0&quot; y2=&quot;-108&quot; stroke=&quot;#B9A3FF&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot;/&gt;
+        &lt;circle class=&quot;glowdot&quot; cx=&quot;0&quot; cy=&quot;-112&quot; r=&quot;6&quot; fill=&quot;#FFB547&quot;/&gt;
+        &lt;rect x=&quot;-32&quot; y=&quot;-96&quot; width=&quot;64&quot; height=&quot;52&quot; rx=&quot;18&quot; fill=&quot;#8B5CFF&quot;/&gt;
+        &lt;rect x=&quot;-24&quot; y=&quot;-88&quot; width=&quot;48&quot; height=&quot;32&quot; rx=&quot;12&quot; fill=&quot;#14132E&quot;/&gt;
+        &lt;g class=&quot;eyes&quot;&gt;&lt;ellipse cx=&quot;-10&quot; cy=&quot;-73&quot; rx=&quot;5&quot; ry=&quot;6&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;ellipse cx=&quot;10&quot; cy=&quot;-73&quot; rx=&quot;5&quot; ry=&quot;6&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;/g&gt;
+        &lt;path d=&quot;M-6 -63Q0 -59 6 -63&quot; stroke=&quot;#F4F2FF&quot; stroke-width=&quot;2&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot;/&gt;
+        &lt;circle cx=&quot;-27&quot; cy=&quot;-56&quot; r=&quot;3.5&quot; fill=&quot;#FF8FB1&quot; opacity=&quot;.75&quot;/&gt;&lt;circle cx=&quot;27&quot; cy=&quot;-56&quot; r=&quot;3.5&quot; fill=&quot;#FF8FB1&quot; opacity=&quot;.75&quot;/&gt;
+        &lt;rect x=&quot;-26&quot; y=&quot;-42&quot; width=&quot;52&quot; height=&quot;38&quot; rx=&quot;14&quot; fill=&quot;#7146F0&quot;/&gt;
+        &lt;g class=&quot;anim wave fb&quot; style=&quot;transform-origin:0 0&quot;&gt;&lt;rect x=&quot;22&quot; y=&quot;-34&quot; width=&quot;22&quot; height=&quot;28&quot; rx=&quot;3&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;rect x=&quot;26&quot; y=&quot;-28&quot; width=&quot;14&quot; height=&quot;2.5&quot; fill=&quot;#8B5CFF&quot;/&gt;&lt;rect x=&quot;26&quot; y=&quot;-22&quot; width=&quot;10&quot; height=&quot;2.5&quot; fill=&quot;#8B5CFF&quot;/&gt;&lt;rect x=&quot;26&quot; y=&quot;-16&quot; width=&quot;12&quot; height=&quot;2.5&quot; fill=&quot;#8B5CFF&quot;/&gt;&lt;/g&gt;
+        &lt;rect x=&quot;-20&quot; y=&quot;-6&quot; width=&quot;14&quot; height=&quot;10&quot; rx=&quot;4&quot; fill=&quot;#4B2FB8&quot;/&gt;&lt;rect x=&quot;6&quot; y=&quot;-6&quot; width=&quot;14&quot; height=&quot;10&quot; rx=&quot;4&quot; fill=&quot;#4B2FB8&quot;/&gt;
+        &lt;g fill=&quot;none&quot; stroke=&quot;#FFD48A&quot; stroke-width=&quot;2&quot;&gt;&lt;circle cx=&quot;-10&quot; cy=&quot;-73&quot; r=&quot;8.5&quot;/&gt;&lt;circle cx=&quot;10&quot; cy=&quot;-73&quot; r=&quot;8.5&quot;/&gt;&lt;path d=&quot;M-1.5 -74H1.5&quot;/&gt;&lt;/g&gt;
+      &lt;/g&gt;&lt;/g&gt;&lt;/g&gt;
+      &lt;!-- the work order, flying planner to builder --&gt;
+      &lt;g class=&quot;anim card&quot;&gt;
+        &lt;rect x=&quot;150&quot; y=&quot;424&quot; width=&quot;30&quot; height=&quot;22&quot; rx=&quot;3&quot; fill=&quot;#F4F2FF&quot;/&gt;
+        &lt;rect x=&quot;155&quot; y=&quot;430&quot; width=&quot;18&quot; height=&quot;2.5&quot; fill=&quot;#FFB547&quot;/&gt;&lt;rect x=&quot;155&quot; y=&quot;436&quot; width=&quot;12&quot; height=&quot;2.5&quot; fill=&quot;#8B5CFF&quot;/&gt;
+      &lt;/g&gt;
+
+      &lt;!-- Bolt, the builder agent --&gt;
+      &lt;g transform=&quot;translate(300 466)&quot;&gt;&lt;g class=&quot;bob b2&quot;&gt;&lt;g class=&quot;anim boltAct&quot; style=&quot;transform-box:fill-box;transform-origin:50% 100%&quot;&gt;
+        &lt;rect x=&quot;-32&quot; y=&quot;-96&quot; width=&quot;64&quot; height=&quot;52&quot; rx=&quot;18&quot; fill=&quot;#FFB547&quot;/&gt;
+        &lt;rect x=&quot;-24&quot; y=&quot;-88&quot; width=&quot;48&quot; height=&quot;32&quot; rx=&quot;12&quot; fill=&quot;#14132E&quot;/&gt;
+        &lt;g class=&quot;eyes&quot;&gt;&lt;ellipse cx=&quot;-8&quot; cy=&quot;-73&quot; rx=&quot;5&quot; ry=&quot;6&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;ellipse cx=&quot;12&quot; cy=&quot;-73&quot; rx=&quot;5&quot; ry=&quot;6&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;/g&gt;
+        &lt;path d=&quot;M-2 -63Q4 -59 10 -63&quot; stroke=&quot;#F4F2FF&quot; stroke-width=&quot;2&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot;/&gt;
+        &lt;circle cx=&quot;-27&quot; cy=&quot;-56&quot; r=&quot;3.5&quot; fill=&quot;#FF8FB1&quot; opacity=&quot;.75&quot;/&gt;&lt;circle cx=&quot;27&quot; cy=&quot;-56&quot; r=&quot;3.5&quot; fill=&quot;#FF8FB1&quot; opacity=&quot;.75&quot;/&gt;
+        &lt;rect x=&quot;-26&quot; y=&quot;-42&quot; width=&quot;52&quot; height=&quot;38&quot; rx=&quot;14&quot; fill=&quot;#E2902A&quot;/&gt;
+        &lt;rect x=&quot;18&quot; y=&quot;-40&quot; width=&quot;46&quot; height=&quot;28&quot; rx=&quot;4&quot; fill=&quot;#14132E&quot; stroke=&quot;#FFB547&quot; stroke-width=&quot;2&quot;/&gt;
+        &lt;rect x=&quot;24&quot; y=&quot;-33&quot; width=&quot;22&quot; height=&quot;2.5&quot; fill=&quot;#B9A3FF&quot;/&gt;&lt;rect x=&quot;24&quot; y=&quot;-27&quot; width=&quot;30&quot; height=&quot;2.5&quot; fill=&quot;#FFB547&quot;/&gt;&lt;rect x=&quot;24&quot; y=&quot;-21&quot; width=&quot;16&quot; height=&quot;2.5&quot; fill=&quot;#B9A3FF&quot;/&gt;
+        &lt;rect x=&quot;12&quot; y=&quot;-12&quot; width=&quot;58&quot; height=&quot;5&quot; rx=&quot;2&quot; fill=&quot;#3A3760&quot;/&gt;
+        &lt;rect class=&quot;anim type&quot; x=&quot;10&quot; y=&quot;-22&quot; width=&quot;14&quot; height=&quot;7&quot; rx=&quot;3.5&quot; fill=&quot;#E2902A&quot;/&gt;
+        &lt;rect x=&quot;-20&quot; y=&quot;-6&quot; width=&quot;14&quot; height=&quot;10&quot; rx=&quot;4&quot; fill=&quot;#9A5F12&quot;/&gt;&lt;rect x=&quot;6&quot; y=&quot;-6&quot; width=&quot;14&quot; height=&quot;10&quot; rx=&quot;4&quot; fill=&quot;#9A5F12&quot;/&gt;
+        &lt;path d=&quot;M-29 -95Q-28 -121 0 -122Q28 -121 29 -95Z&quot; fill=&quot;#FFD48A&quot;/&gt;&lt;rect x=&quot;-36&quot; y=&quot;-98&quot; width=&quot;72&quot; height=&quot;6&quot; rx=&quot;3&quot; fill=&quot;#F4C46A&quot;/&gt;&lt;rect x=&quot;-4&quot; y=&quot;-121&quot; width=&quot;8&quot; height=&quot;24&quot; rx=&quot;3&quot; fill=&quot;#F4C46A&quot;/&gt;
+        &lt;path class=&quot;anim sweat&quot; d=&quot;M-36 -78q-4 7 0 9q4 -2 0 -9z&quot; fill=&quot;#9AD8FF&quot;/&gt;
+      &lt;/g&gt;&lt;/g&gt;&lt;/g&gt;
+
+      &lt;!-- code blocks: one copy flies to each system --&gt;
+      &lt;g class=&quot;anim flyA&quot;&gt;
+        &lt;rect class=&quot;anim p1 fb&quot; x=&quot;322&quot; y=&quot;384&quot; width=&quot;40&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#8B5CFF&quot;/&gt;
+        &lt;rect class=&quot;anim p2 fb&quot; x=&quot;322&quot; y=&quot;397&quot; width=&quot;30&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#FFB547&quot;/&gt;
+        &lt;rect class=&quot;anim p3 fb&quot; x=&quot;322&quot; y=&quot;410&quot; width=&quot;36&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#B9A3FF&quot;/&gt;
+      &lt;/g&gt;
+      &lt;g class=&quot;anim flyB&quot;&gt;
+        &lt;rect class=&quot;anim p1 fb&quot; x=&quot;322&quot; y=&quot;384&quot; width=&quot;40&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#8B5CFF&quot;/&gt;
+        &lt;rect class=&quot;anim p2 fb&quot; x=&quot;322&quot; y=&quot;397&quot; width=&quot;30&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#FFB547&quot;/&gt;
+        &lt;rect class=&quot;anim p3 fb&quot; x=&quot;322&quot; y=&quot;410&quot; width=&quot;36&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#B9A3FF&quot;/&gt;
+      &lt;/g&gt;
+
+      &lt;!-- the Verdict Engine: a deterministic machine --&gt;
+      &lt;g&gt;
+        &lt;rect x=&quot;812&quot; y=&quot;250&quot; width=&quot;96&quot; height=&quot;14&quot; rx=&quot;4&quot; fill=&quot;#2A2850&quot;/&gt;
+        &lt;rect x=&quot;790&quot; y=&quot;262&quot; width=&quot;140&quot; height=&quot;204&quot; rx=&quot;12&quot; fill=&quot;#14132E&quot; stroke=&quot;#8B5CFF&quot; stroke-width=&quot;2&quot;/&gt;
+        &lt;rect x=&quot;802&quot; y=&quot;276&quot; width=&quot;116&quot; height=&quot;76&quot; rx=&quot;6&quot; fill=&quot;#06061A&quot; stroke=&quot;#3A3760&quot; stroke-width=&quot;1.5&quot;/&gt;
+        &lt;g fill=&quot;#2A2850&quot;&gt;&lt;rect x=&quot;812&quot; y=&quot;288&quot; width=&quot;44&quot; height=&quot;3&quot;/&gt;&lt;rect x=&quot;864&quot; y=&quot;288&quot; width=&quot;44&quot; height=&quot;3&quot;/&gt;&lt;rect x=&quot;812&quot; y=&quot;296&quot; width=&quot;36&quot; height=&quot;3&quot;/&gt;&lt;rect x=&quot;864&quot; y=&quot;296&quot; width=&quot;36&quot; height=&quot;3&quot;/&gt;&lt;rect x=&quot;812&quot; y=&quot;304&quot; width=&quot;40&quot; height=&quot;3&quot;/&gt;&lt;rect x=&quot;864&quot; y=&quot;304&quot; width=&quot;40&quot; height=&quot;3&quot;/&gt;&lt;/g&gt;
+        &lt;line x1=&quot;860&quot; y1=&quot;284&quot; x2=&quot;860&quot; y2=&quot;312&quot; stroke=&quot;#2A2850&quot; stroke-width=&quot;1&quot;/&gt;
+        &lt;rect class=&quot;anim scan&quot; x=&quot;804&quot; y=&quot;280&quot; width=&quot;112&quot; height=&quot;2&quot; fill=&quot;#FFB547&quot;/&gt;
+        &lt;g font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;10.5&quot; font-weight=&quot;600&quot; letter-spacing=&quot;1&quot; text-anchor=&quot;middle&quot;&gt;
+          &lt;text class=&quot;anim s3&quot; x=&quot;860&quot; y=&quot;336&quot; fill=&quot;#FFB547&quot;&gt;COMPARING&lt;/text&gt;
+          &lt;text class=&quot;anim s4&quot; x=&quot;860&quot; y=&quot;336&quot; fill=&quot;#FF5A4E&quot;&gt;1 FIELD DIFFERS&lt;/text&gt;
+          &lt;text class=&quot;anim s7&quot; x=&quot;860&quot; y=&quot;336&quot; fill=&quot;#FFB547&quot;&gt;RE-CHECKING&lt;/text&gt;
+          &lt;text class=&quot;anim s8&quot; x=&quot;860&quot; y=&quot;336&quot; fill=&quot;#2BD4A0&quot;&gt;EQUIVALENT&lt;/text&gt;
+        &lt;/g&gt;
+        &lt;circle class=&quot;anim lampA&quot; cx=&quot;836&quot; cy=&quot;370&quot; r=&quot;6&quot; fill=&quot;#2A2850&quot;/&gt;
+        &lt;circle class=&quot;anim lampR&quot; cx=&quot;860&quot; cy=&quot;370&quot; r=&quot;6&quot; fill=&quot;#2A2850&quot;/&gt;
+        &lt;circle class=&quot;anim lampG&quot; cx=&quot;884&quot; cy=&quot;370&quot; r=&quot;6&quot; fill=&quot;#2A2850&quot;/&gt;
+        &lt;text x=&quot;860&quot; y=&quot;398&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;10.5&quot; letter-spacing=&quot;1.5&quot; font-weight=&quot;600&quot; fill=&quot;#F4F2FF&quot;&gt;VERDICT ENGINE&lt;/text&gt;
+        &lt;text x=&quot;860&quot; y=&quot;413&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;9.5&quot; fill=&quot;#A9A5C8&quot;&gt;fixed rules · no AI&lt;/text&gt;
+        &lt;rect x=&quot;828&quot; y=&quot;424&quot; width=&quot;64&quot; height=&quot;5&quot; rx=&quot;2&quot; fill=&quot;#06061A&quot;/&gt;
+        &lt;g class=&quot;anim rcpt&quot;&gt;
+          &lt;rect x=&quot;832&quot; y=&quot;427&quot; width=&quot;56&quot; height=&quot;34&quot; rx=&quot;2&quot; fill=&quot;#F4F2FF&quot;/&gt;
+          &lt;rect x=&quot;838&quot; y=&quot;433&quot; width=&quot;30&quot; height=&quot;2.5&quot; fill=&quot;#8B5CFF&quot;/&gt;&lt;rect x=&quot;838&quot; y=&quot;439&quot; width=&quot;40&quot; height=&quot;2.5&quot; fill=&quot;#A9A5C8&quot;/&gt;&lt;rect x=&quot;838&quot; y=&quot;445&quot; width=&quot;24&quot; height=&quot;2.5&quot; fill=&quot;#A9A5C8&quot;/&gt;
+          &lt;path d=&quot;M866 452l4 4 8-9&quot; fill=&quot;none&quot; stroke=&quot;#2BD4A0&quot; stroke-width=&quot;2.5&quot; stroke-linecap=&quot;round&quot;/&gt;
+        &lt;/g&gt;
+        &lt;g class=&quot;gear&quot;&gt;&lt;circle cx=&quot;912&quot; cy=&quot;446&quot; r=&quot;9&quot; fill=&quot;none&quot; stroke=&quot;#8B5CFF&quot; stroke-width=&quot;5&quot; stroke-dasharray=&quot;4 3&quot;/&gt;&lt;circle cx=&quot;912&quot; cy=&quot;446&quot; r=&quot;3.5&quot; fill=&quot;#8B5CFF&quot;/&gt;&lt;/g&gt;
+      &lt;/g&gt;
+
+      &lt;!-- results, fed into the engine --&gt;
+      &lt;g class=&quot;anim tileA&quot;&gt;
+        &lt;rect x=&quot;684&quot; y=&quot;200&quot; width=&quot;54&quot; height=&quot;34&quot; rx=&quot;5&quot; fill=&quot;#1C1B3A&quot; stroke=&quot;#8B5CFF&quot; stroke-width=&quot;1.5&quot;/&gt;
+        &lt;rect x=&quot;691&quot; y=&quot;207&quot; width=&quot;40&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;&lt;rect x=&quot;691&quot; y=&quot;215&quot; width=&quot;30&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;&lt;rect x=&quot;691&quot; y=&quot;223&quot; width=&quot;36&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;
+      &lt;/g&gt;
+      &lt;g class=&quot;anim tileB1&quot;&gt;
+        &lt;rect x=&quot;684&quot; y=&quot;330&quot; width=&quot;54&quot; height=&quot;34&quot; rx=&quot;5&quot; fill=&quot;#1C1B3A&quot; stroke=&quot;#FF5A4E&quot; stroke-width=&quot;1.5&quot;/&gt;
+        &lt;rect x=&quot;691&quot; y=&quot;337&quot; width=&quot;40&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;&lt;rect x=&quot;691&quot; y=&quot;345&quot; width=&quot;18&quot; height=&quot;3&quot; fill=&quot;#FF5A4E&quot;/&gt;&lt;rect x=&quot;691&quot; y=&quot;353&quot; width=&quot;36&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;
+      &lt;/g&gt;
+      &lt;g class=&quot;anim tileB2&quot;&gt;
+        &lt;rect x=&quot;684&quot; y=&quot;330&quot; width=&quot;54&quot; height=&quot;34&quot; rx=&quot;5&quot; fill=&quot;#1C1B3A&quot; stroke=&quot;#8B5CFF&quot; stroke-width=&quot;1.5&quot;/&gt;
+        &lt;rect x=&quot;691&quot; y=&quot;337&quot; width=&quot;40&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;&lt;rect x=&quot;691&quot; y=&quot;345&quot; width=&quot;30&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;&lt;rect x=&quot;691&quot; y=&quot;353&quot; width=&quot;36&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;
+      &lt;/g&gt;
+
+      &lt;!-- act 1: the difference --&gt;
+      &lt;g class=&quot;anim stampRed fb&quot;&gt;
+        &lt;rect x=&quot;752&quot; y=&quot;140&quot; width=&quot;166&quot; height=&quot;46&quot; rx=&quot;5&quot; fill=&quot;#06061A&quot; stroke=&quot;#FF5A4E&quot; stroke-width=&quot;3&quot;/&gt;
+        &lt;text x=&quot;835&quot; y=&quot;164&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-weight=&quot;600&quot; font-size=&quot;17&quot; letter-spacing=&quot;2&quot; fill=&quot;#FF5A4E&quot;&gt;DIVERGENT&lt;/text&gt;
+        &lt;text x=&quot;835&quot; y=&quot;179&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;10.5&quot; letter-spacing=&quot;1&quot; fill=&quot;#A9A5C8&quot;&gt;1 FIELD DIFFERS&lt;/text&gt;
+      &lt;/g&gt;
+      &lt;g class=&quot;anim note&quot;&gt;
+        &lt;rect x=&quot;636&quot; y=&quot;410&quot; width=&quot;150&quot; height=&quot;40&quot; rx=&quot;6&quot; fill=&quot;#2A0F1A&quot; stroke=&quot;#FF5A4E&quot; stroke-width=&quot;1.5&quot;/&gt;
+        &lt;text x=&quot;648&quot; y=&quot;427&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;10.5&quot; fill=&quot;#FFB3AC&quot; id=&quot;fieldName&quot;&gt;FIELD: invoice type&lt;/text&gt;
+        &lt;text x=&quot;648&quot; y=&quot;442&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;10.5&quot; fill=&quot;#A9A5C8&quot;&gt;value: not shared&lt;/text&gt;
+      &lt;/g&gt;
+      &lt;g class=&quot;anim aha fb&quot;&gt;
+        &lt;circle cx=&quot;342&quot; cy=&quot;356&quot; r=&quot;14&quot; fill=&quot;#FFB547&quot;/&gt;
+        &lt;text x=&quot;342&quot; y=&quot;363&quot; text-anchor=&quot;middle&quot; font-family=&quot;Archivo, sans-serif&quot; font-weight=&quot;900&quot; font-size=&quot;20&quot; fill=&quot;#06061A&quot;&gt;!&lt;/text&gt;
+      &lt;/g&gt;
+      &lt;!-- act 2: the verdict --&gt;
+      &lt;g class=&quot;anim stamp fb&quot;&gt;
+        &lt;rect x=&quot;752&quot; y=&quot;140&quot; width=&quot;166&quot; height=&quot;46&quot; rx=&quot;5&quot; fill=&quot;#06061A&quot; stroke=&quot;#2BD4A0&quot; stroke-width=&quot;3&quot;/&gt;
+        &lt;text x=&quot;835&quot; y=&quot;164&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-weight=&quot;600&quot; font-size=&quot;17&quot; letter-spacing=&quot;2&quot; fill=&quot;#2BD4A0&quot;&gt;EQUIVALENT&lt;/text&gt;
+        &lt;text x=&quot;835&quot; y=&quot;179&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;10.5&quot; letter-spacing=&quot;1&quot; fill=&quot;#A9A5C8&quot;&gt;SIGNED · REPLAYABLE&lt;/text&gt;
+      &lt;/g&gt;
+      &lt;path class=&quot;anim spark fb&quot; d=&quot;M748 118l4 10 10 4-10 4-4 10-4-10-10-4 10-4z&quot; fill=&quot;#FFB547&quot;/&gt;
+      &lt;path class=&quot;anim spark fb&quot; d=&quot;M934 206l3 8 8 3-8 3-3 8-3-8-8-3 8-3z&quot; fill=&quot;#2BD4A0&quot;/&gt;
+      &lt;path class=&quot;anim spark fb&quot; d=&quot;M770 222l3 7 7 3-7 3-3 7-3-7-7-3 7-3z&quot; fill=&quot;#B9A3FF&quot;/&gt;
+
+      &lt;!-- speech bubbles (agents only) --&gt;
+      &lt;g class=&quot;anim s1&quot;&gt;&lt;rect x=&quot;36.5&quot; y=&quot;307&quot; width=&quot;167&quot; height=&quot;28&quot; rx=&quot;14&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;path d=&quot;M114 335l6 9l6 -9z&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;text x=&quot;120&quot; y=&quot;326.5&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Sans, sans-serif&quot; font-weight=&quot;500&quot; font-size=&quot;13&quot; fill=&quot;#06061A&quot;&gt;Work order #42. Go!&lt;/text&gt;&lt;/g&gt;
+      &lt;g class=&quot;anim s2&quot;&gt;&lt;rect x=&quot;265&quot; y=&quot;307&quot; width=&quot;70&quot; height=&quot;28&quot; rx=&quot;14&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;path d=&quot;M294 335l6 9l6 -9z&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;text x=&quot;300&quot; y=&quot;326.5&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Sans, sans-serif&quot; font-weight=&quot;500&quot; font-size=&quot;13&quot; fill=&quot;#06061A&quot;&gt;On it!&lt;/text&gt;&lt;/g&gt;
+      &lt;g class=&quot;anim s5&quot;&gt;&lt;rect x=&quot;218.5&quot; y=&quot;307&quot; width=&quot;63&quot; height=&quot;28&quot; rx=&quot;14&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;path d=&quot;M244 335l6 9l6 -9z&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;text x=&quot;250&quot; y=&quot;326.5&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Sans, sans-serif&quot; font-weight=&quot;500&quot; font-size=&quot;13&quot; fill=&quot;#06061A&quot;&gt;Oops.&lt;/text&gt;&lt;/g&gt;
+      &lt;g class=&quot;anim s6&quot;&gt;&lt;rect x=&quot;161.5&quot; y=&quot;307&quot; width=&quot;137&quot; height=&quot;28&quot; rx=&quot;14&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;path d=&quot;M224 335l6 9l6 -9z&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;text x=&quot;230&quot; y=&quot;326.5&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Sans, sans-serif&quot; font-weight=&quot;500&quot; font-size=&quot;13&quot; fill=&quot;#06061A&quot;&gt;Got it. Fixing!&lt;/text&gt;&lt;/g&gt;
+      &lt;g class=&quot;anim s9&quot;&gt;&lt;rect x=&quot;88.5&quot; y=&quot;307&quot; width=&quot;63&quot; height=&quot;28&quot; rx=&quot;14&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;path d=&quot;M114 335l6 9l6 -9z&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;text x=&quot;120&quot; y=&quot;326.5&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Sans, sans-serif&quot; font-weight=&quot;500&quot; font-size=&quot;13&quot; fill=&quot;#06061A&quot;&gt;Nice!&lt;/text&gt;&lt;/g&gt;
+      &lt;g class=&quot;anim s10&quot;&gt;&lt;rect x=&quot;272&quot; y=&quot;307&quot; width=&quot;56&quot; height=&quot;28&quot; rx=&quot;14&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;path d=&quot;M294 335l6 9l6 -9z&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;text x=&quot;300&quot; y=&quot;326.5&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Sans, sans-serif&quot; font-weight=&quot;500&quot; font-size=&quot;13&quot; fill=&quot;#06061A&quot;&gt;Yes!&lt;/text&gt;&lt;/g&gt;
+      &lt;!-- name tags --&gt;
+      &lt;g font-family=&quot;Archivo, sans-serif&quot; font-size=&quot;15&quot; font-weight=&quot;700&quot; fill=&quot;#C9C5E6&quot; text-anchor=&quot;middle&quot;&gt;
+        &lt;text x=&quot;120&quot; y=&quot;498&quot;&gt;Pip · planner AI&lt;/text&gt;&lt;text x=&quot;300&quot; y=&quot;498&quot;&gt;Bolt · builder AI&lt;/text&gt;&lt;text x=&quot;860&quot; y=&quot;498&quot;&gt;The Verdict Engine&lt;/text&gt;
+      &lt;/g&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;caps&quot; aria-live=&quot;off&quot;&gt;
+    &lt;p class=&quot;cap anim c1&quot;&gt;The planner AI writes a work order.&lt;/p&gt;
+    &lt;p class=&quot;cap anim c2&quot;&gt;The builder AI writes the code. It never sees the answers.&lt;/p&gt;
+    &lt;p class=&quot;cap anim c3&quot;&gt;The same inputs run on the original system and the modernized one.&lt;/p&gt;
+    &lt;p class=&quot;cap anim c4&quot;&gt;The Verdict Engine compares every field. It is a fixed program, not an AI.&lt;/p&gt;
+    &lt;p class=&quot;cap anim c5&quot;&gt;One field differs. The engine names the field, never the right value.&lt;/p&gt;
+    &lt;p class=&quot;cap anim c6&quot;&gt;The builder AI fixes its own code. No person touches it.&lt;/p&gt;
+    &lt;p class=&quot;cap anim c7&quot;&gt;Same inputs, both systems, compared again.&lt;/p&gt;
+    &lt;p class=&quot;cap anim c8&quot;&gt;They match. A signed receipt anyone can replay.&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;ol&gt;
+    &lt;li class=&quot;anim l1&quot;&gt;&lt;b&gt;PLAN&lt;/b&gt;A work order, fixed before any code is written&lt;/li&gt;
+    &lt;li class=&quot;anim l2&quot;&gt;&lt;b&gt;BUILD&lt;/b&gt;AI writes the code from the instructions only&lt;/li&gt;
+    &lt;li class=&quot;anim l3&quot;&gt;&lt;b&gt;RUN&lt;/b&gt;Original and modernized systems, identical inputs&lt;/li&gt;
+    &lt;li class=&quot;anim l4&quot;&gt;&lt;b&gt;JUDGE&lt;/b&gt;A deterministic engine, tested before use, compares results&lt;/li&gt;
+    &lt;li class=&quot;anim l5&quot;&gt;&lt;b&gt;REPAIR&lt;/b&gt;Told which field failed, the AI fixes its own work&lt;/li&gt;
+    &lt;li class=&quot;anim l6&quot;&gt;&lt;b&gt;PROVE&lt;/b&gt;A signed verdict anyone can replay&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;p class=&quot;fine&quot;&gt;Each pair is shown with its status in the qualified-lane catalogue. &quot;In qualification&quot; means the evidence is still being gathered.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  var player=document.getElementById(&#x27;player&#x27;);
+  var pause=document.getElementById(&#x27;pause&#x27;);
+  pause.addEventListener(&#x27;click&#x27;,function(){
+    var on=player.classList.toggle(&#x27;paused&#x27;);
+    pause.setAttribute(&#x27;aria-pressed&#x27;,on?&#x27;true&#x27;:&#x27;false&#x27;);
+    pause.textContent=on?&#x27;Play&#x27;:&#x27;Pause&#x27;;
+  });
+  // original, modernized, field, label, catalogue status, status class
+  var pairs=[
+    [&#x27;Oracle&#x27;,&#x27;PostgreSQL&#x27;,&#x27;FIELD: invoice type&#x27;,&#x27;Oracle to PostgreSQL&#x27;,&#x27;Qualified (limited)&#x27;,&#x27;q&#x27;],
+    [&#x27;Oracle&#x27;,&#x27;AlloyDB&#x27;,&#x27;FIELD: NUMBER scale&#x27;,&#x27;Oracle to AlloyDB&#x27;,&#x27;Qualified (limited)&#x27;,&#x27;q&#x27;],
+    [&#x27;COBOL · z/OS&#x27;,&#x27;Java services&#x27;,&#x27;FIELD: packed decimal&#x27;,&#x27;Mainframe COBOL to Java&#x27;,&#x27;In qualification&#x27;,&#x27;i&#x27;],
+    [&#x27;Sybase ASE&#x27;,&#x27;PostgreSQL&#x27;,&#x27;FIELD: empty string&#x27;,&#x27;SAP ASE to PostgreSQL&#x27;,&#x27;In qualification&#x27;,&#x27;i&#x27;],
+    [&#x27;Db2&#x27;,&#x27;PostgreSQL&#x27;,&#x27;FIELD: date boundary&#x27;,&#x27;Db2 to PostgreSQL&#x27;,&#x27;In qualification&#x27;,&#x27;i&#x27;]
+  ];
+  var idx=0;
+  function show(i){
+    var p=pairs[i%pairs.length];
+    [&#x27;oldName&#x27;,&#x27;newName&#x27;,&#x27;fieldName&#x27;,&#x27;pairNote&#x27;].forEach(function(id,k){var el=document.getElementById(id);if(el)el.textContent=p[k];});
+    var s=document.getElementById(&#x27;pairStatus&#x27;);if(s){s.textContent=p[4];s.className=&#x27;chip &#x27;+p[5];}
+  }
+  var clock=document.querySelector(&#x27;.c1&#x27;);
+  if(clock)clock.addEventListener(&#x27;animationiteration&#x27;,function(){idx++;show(idx);});
+  show(0);
+  document.getElementById(&#x27;replay&#x27;).addEventListener(&#x27;click&#x27;,function(){
+    idx=0;show(0);
+    player.classList.remove(&#x27;run&#x27;,&#x27;paused&#x27;);
+    pause.setAttribute(&#x27;aria-pressed&#x27;,&#x27;false&#x27;);pause.textContent=&#x27;Pause&#x27;;
+    void player.offsetWidth;
+    player.classList.add(&#x27;run&#x27;);
+  });
+})();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe></div>
+</div>
+</div>
+
 <!-- ============ how it ran ============ -->
 <div class="band">
 <div class="wrap">
@@ -1060,6 +1756,66 @@ code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--f
 
 </section>
 
+<section aria-labelledby="tab-coverage" class="pane" id="p-coverage" role="tabpanel">
+<div class="band hero">
+<div class="wrap">
+<div class="eyebrow">Coverage catalogue</div>
+<h1 style="max-width:20ch">Any system in. Proof out.</h1>
+<p class="lead" style="max-width:40em;margin-top:18px">The judge, the verdicts, the rules and the signed evidence are the same for every technology. What changes is how we run each system and observe what it did. We call that a lane, and we qualify every pair of lanes before we sell it: known-good references must pass, deliberately broken conversions must be caught, and anyone must be able to replay the evidence.</p>
+<div class="cv-arch">
+<div class="panel"><div class="tag">Same everywhere</div><h3>Verdict core</h3><p class="small">The qualified judge, three verdicts, hidden expected results, owned rules, signing and offline replay.</p></div>
+<div class="panel"><div class="tag">One per platform</div><h3>Lanes</h3><p class="small">Run the original and the replacement on real infrastructure and capture rows, files, messages and transactions in one canonical form.</p></div>
+<div class="panel"><div class="tag">Published per pair</div><h3>Qualification</h3><p class="small">A signed record for each source and target pair: controls passed, faults caught, the error bound, and the limits in plain words.</p></div>
+</div>
+</div>
+</div>
+<div class="band">
+<div class="wrap">
+<div class="eyebrow">Status as of October 2026</div>
+<h2 style="margin-top:14px">What our judge is qualified on today</h2>
+<div class="cv-legend">
+<div><span class="pill q">Qualified · limited</span>Complete, replayable qualification, with stated limits such as one workload family.</div>
+<div><span class="pill i">In qualification</span>Lane built; live qualification under way or partly complete.</div>
+<div><span class="pill r">Roadmap</span>Planned. Not offered until qualified.</div>
+</div>
+<div class="panel" style="margin-top:18px;padding:4px 10px">
+<table class="cv-table">
+<thead><tr><th scope="col">Source → target</th><th scope="col">Status</th><th scope="col">Evidence</th><th scope="col">Limits</th></tr></thead>
+<tbody>
+<tr><td><b>Oracle → PostgreSQL</b></td><td><span class="pill q">Qualified · limited</span></td><td class="ev">Reference 10/10 · 39/39 deliberate faults caught · 62/62 runs replayed offline · 260 datatype behaviours</td><td>One ERP operations and purchasing journey family; review is in-house</td></tr>
+<tr><td><b>Oracle → AlloyDB</b></td><td><span class="pill q">Qualified · limited</span></td><td class="ev">260 datatype behaviours compared on Oracle and AlloyDB</td><td>Datatype behaviour only; no application journey yet</td></tr>
+<tr><td><b>z/OS batch (COBOL, JCL) → Java</b></td><td><span class="pill i">In qualification</span></td><td class="ev">Read-only collection appliance and adapters; live z/OS runs with our capacity partner next</td><td>Not yet qualified on live mainframe execution</td></tr>
+<tr><td><b>SAP ASE (Sybase) → PostgreSQL</b></td><td><span class="pill i">In qualification</span></td><td class="ev">54 ASE behaviours and 187 conformance cases declared; live lane next</td><td>Declared behaviour, not yet observed on a live server</td></tr>
+<tr><td><b>Db2 → PostgreSQL</b></td><td><span class="pill i">In qualification</span></td><td class="ev">Semantic adapter with conformance receipt</td><td>Schema and data level; no live journey yet</td></tr>
+<tr><td><b>CICS → Java services</b></td><td><span class="pill r">Roadmap</span></td><td class="ev">—</td><td>—</td></tr>
+<tr><td><b>SQL Server → PostgreSQL</b></td><td><span class="pill r">Roadmap</span></td><td class="ev">—</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note" style="margin-top:16px">A qualification expires when the platform's major version, our lane or our judge changes, and is listed again only once requalified.</p>
+<div style="margin-top:34px">
+<h3>Read and map, today, across the whole estate</h3>
+<p class="small" style="margin-top:8px">Before any comparison runs, our source-only analysis inventories and maps the estate offline, without changing a file.</p>
+<div class="cv-chips"><span>COBOL</span><span>PL/I</span><span>JCL</span><span>HLASM</span><span>CICS</span><span>IMS</span><span>VSAM</span><span>Db2</span><span>Oracle PL/SQL</span><span>SAP ASE</span></div>
+</div>
+</div>
+</div>
+<div class="band">
+<div class="wrap grid2">
+<div>
+<div class="eyebrow">Bring any AI</div>
+<h2 style="margin-top:14px;max-width:20ch">The agents write the code. We tell you whether it's right.</h2>
+<div class="rule"></div>
+<p class="lead">Whoever does the conversion, your team, a systems integrator, or any AI coding agent, the judge stays the same and the evidence stays yours. Better models produce more code, faster. The question of whether it still behaves the same only gets bigger.</p>
+</div>
+<div class="panel" style="padding:24px 26px">
+<div class="eyebrow">Need a platform that isn't listed?</div>
+<p class="small" style="margin-top:10px">New lanes are qualified as milestones, with published evidence. Tell us your source and target and we'll show you the qualification plan.</p>
+<a class="btn solid" href="https://calendly.com/lightyr" rel="noopener" target="_blank" style="margin-top:16px;display:inline-block">Talk to us</a>
+</div>
+</div>
+</div>
+</section>
 <section aria-labelledby="tab-proof" class="pane" id="p-proof" role="tabpanel">
 <div class="band hero">
 <div class="wrap">
@@ -1881,7 +2637,7 @@ lightyr scripts              <span class="c"># every entry point owned, roled an
 </div>
 </footer>
 <script>
-const panes=['exec','factory','proof','docs','engage'];
+const panes=['exec','factory','coverage','proof','docs','engage'];
 function activatePane(t,resetScroll){
   document.querySelectorAll('.pane').forEach(p=>p.classList.toggle('on', p.id==='p-'+t));
   document.querySelectorAll('nav.tabs button').forEach(b=>b.setAttribute('aria-selected', b.dataset.t===t));
@@ -1998,6 +2754,18 @@ docSections.forEach(section=>observer.observe(section));
   blocks.forEach(function(b){ io.observe(b); });
   var rp=document.querySelector('.fx-replay'), pipe=document.querySelector('.fx-pipe');
   if(rp&&pipe) rp.addEventListener('click',function(){ pipe.classList.remove('play'); void pipe.getBoundingClientRect(); pipe.classList.add('play'); });
+})();
+</script>
+<script>
+/* size each animation iframe to its content; re-fit when a hidden tab is shown or the window resizes */
+(function(){
+  function fit(f){try{var b=f.contentDocument&&f.contentDocument.body;if(!b)return;var h=Math.ceil(b.getBoundingClientRect().height);if(h>60)f.style.height=h+'px';}catch(e){}}
+  var frames=[].slice.call(document.querySelectorAll('.ly-anim iframe'));
+  frames.forEach(function(f){
+    f.addEventListener('load',function(){fit(f);try{new ResizeObserver(function(){fit(f);}).observe(f.contentDocument.body);}catch(e){}});
+    if('ResizeObserver' in window)new ResizeObserver(function(){fit(f);}).observe(f);
+  });
+  window.addEventListener('resize',function(){frames.forEach(fit);});
 })();
 </script>
 </body>
