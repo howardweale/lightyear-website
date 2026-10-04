@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Agent, One Judge</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+/* Lightyear Verify over MCP: any agent submits code, the sealed judge names the field (never the value),
+   the agent repairs within a budget, the judge signs, the Control Tower records every attempt. 14 s, loops. */
+:root{
+  --void:#06061A; --panel:#0E0D26; --line:#2A2850; --fg:#F4F2FF; --muted:#A9A5C8;
+  --violet:#8B5CFF; --filament:#FFB547; --ok:#2BD4A0; --bad:#FF5A4E; --agent:#5CD0F5;
+  --display:'Archivo','Arial Narrow',sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --T:14s;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--void);color:var(--fg)}
+body{font-family:var(--body);padding:16px}
+.wrap{max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.stage{position:relative;border:1px solid var(--line);border-radius:14px;background:var(--void);overflow:hidden}
+.stage svg{display:block;width:100%;height:auto}
+.toggle{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px;min-height:40px;cursor:pointer}
+.toggle:hover{border-color:var(--violet)}
+.toggle:focus-visible{outline:2px solid var(--filament);outline-offset:2px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.caps{display:grid;flex:1 1 360px;min-height:1.3em}
+.cap{grid-area:1/1;margin:0;font-family:var(--display);font-stretch:85%;font-weight:700;font-size:clamp(18px,2.4vw,24px);line-height:1.25;opacity:0}
+.tag{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+
+.run .anim{animation-duration:var(--T);animation-iteration-count:infinite;animation-timing-function:ease-in-out;animation-fill-mode:both}
+.paused .anim,.paused .eyes,.paused .gear,.paused .bob{animation-play-state:paused}
+.fb{transform-box:fill-box;transform-origin:center}
+.bob{animation:bob 2.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.eyes{transform-box:fill-box;transform-origin:center;animation:blink 3.7s infinite}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.gear{transform-box:fill-box;transform-origin:center;animation:spin 2.4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* captions */
+.k0{animation-name:k0}.k1{animation-name:k1}.k2{animation-name:k2}.k3{animation-name:k3}
+@keyframes k0{0%,22%{opacity:1}24%,100%{opacity:0}}
+@keyframes k1{0%,23%{opacity:0}25%,45%{opacity:1}47%,100%{opacity:0}}
+@keyframes k2{0%,46%{opacity:0}48%,68%{opacity:1}70%,100%{opacity:0}}
+@keyframes k3{0%,69%{opacity:0}71%,97%{opacity:1}99%,100%{opacity:0}}
+
+/* harness chips: the highlight walks across them */
+.h1{animation-name:h1}.h2{animation-name:h2}.h3{animation-name:h3}.h4{animation-name:h4}
+@keyframes h1{0%,23%{stroke:#FFB547}25%,100%{stroke:#2A2850}}
+@keyframes h2{0%,24%{stroke:#2A2850}26%,48%{stroke:#FFB547}50%,100%{stroke:#2A2850}}
+@keyframes h3{0%,49%{stroke:#2A2850}51%,73%{stroke:#FFB547}75%,100%{stroke:#2A2850}}
+@keyframes h4{0%,74%{stroke:#2A2850}76%,98%{stroke:#FFB547}100%{stroke:#2A2850}}
+
+/* code packets: agent -> MCP port -> engine */
+.p1{animation-name:p1}.p2{animation-name:p2}
+@keyframes p1{0%,3%{opacity:0;transform:translate(0,0)}4%{opacity:1;transform:translate(0,0)}9%,10%{opacity:1;transform:translate(272px,-84px)}14%{opacity:1;transform:translate(434px,-92px)}16%,100%{opacity:0;transform:translate(434px,-92px)}}
+@keyframes p2{0%,47%{opacity:0;transform:translate(0,0)}48%{opacity:1;transform:translate(0,0)}53%,54%{opacity:1;transform:translate(272px,-84px)}58%{opacity:1;transform:translate(434px,-92px)}60%,100%{opacity:0;transform:translate(434px,-92px)}}
+.port{animation-name:port}
+@keyframes port{0%,8%{stroke:#FFB547;stroke-width:2}9%,11%{stroke:#FFF1D0;stroke-width:4}12%,29%{stroke:#FFB547;stroke-width:2}30%,32%{stroke:#FF5A4E;stroke-width:4}33%,52%{stroke:#FFB547;stroke-width:2}53%,55%{stroke:#FFF1D0;stroke-width:4}56%,100%{stroke:#FFB547;stroke-width:2}}
+
+/* engine readouts, scan, lamps */
+.scan{animation-name:scan}
+@keyframes scan{0%,15%{opacity:0;transform:translateY(0)}16%{opacity:.9;transform:translateY(0)}20%{opacity:.9;transform:translateY(54px)}23.5%{opacity:.9;transform:translateY(0)}24%,59%{opacity:0;transform:translateY(0)}60%{opacity:.9;transform:translateY(0)}64%{opacity:.9;transform:translateY(54px)}68.5%{opacity:.9;transform:translateY(0)}69%,100%{opacity:0;transform:translateY(0)}}
+.r1{animation-name:r1}.r2{animation-name:r2}.r3{animation-name:r3}.r4{animation-name:r4}
+@keyframes r1{0%,15%{opacity:0}16%,23.5%{opacity:1}24%,100%{opacity:0}}
+@keyframes r2{0%,23.5%{opacity:0}24.5%,44%{opacity:1}45%,100%{opacity:0}}
+@keyframes r3{0%,59%{opacity:0}60%,68.5%{opacity:1}69%,100%{opacity:0}}
+@keyframes r4{0%,69%{opacity:0}70%,96%{opacity:1}98%,100%{opacity:0}}
+.lampA{animation-name:lampA}.lampR{animation-name:lampR}.lampG{animation-name:lampG}
+@keyframes lampA{0%,15.5%{fill:#2A2850}16%,18%{fill:#FFB547}19%,20.5%{fill:#2A2850}21%,23%{fill:#FFB547}24%,59.5%{fill:#2A2850}60%,62%{fill:#FFB547}63%,64.5%{fill:#2A2850}65%,67.5%{fill:#FFB547}68.5%,100%{fill:#2A2850}}
+@keyframes lampR{0%,23.5%{fill:#2A2850}24.5%,44%{fill:#FF5A4E}45%,100%{fill:#2A2850}}
+@keyframes lampG{0%,69%{fill:#2A2850}70%,96%{fill:#2BD4A0}98%,100%{fill:#2A2850}}
+
+/* the hidden answers feed the engine, inside the seal only */
+.vb{animation-name:vb}
+@keyframes vb{0%,15%{opacity:.12}16.5%,23%{opacity:1}24.5%,59%{opacity:.12}60.5%,68%{opacity:1}69.5%,100%{opacity:.12}}
+.dial{animation-name:dial;transform-box:fill-box;transform-origin:center}
+@keyframes dial{0%,15%{transform:rotate(0)}23%{transform:rotate(200deg)}59%{transform:rotate(200deg)}68%{transform:rotate(400deg)}100%{transform:rotate(400deg)}}
+
+/* verdict stamps */
+.stampRed{animation-name:stampRed}
+@keyframes stampRed{0%,23.5%{opacity:0;transform:scale(2.2) rotate(5deg)}26%,43%{opacity:1;transform:scale(1) rotate(5deg)}46%,100%{opacity:0;transform:scale(1) rotate(5deg)}}
+.stamp{animation-name:stamp}
+@keyframes stamp{0%,69%{opacity:0;transform:scale(2.2) rotate(-6deg)}71.5%,95%{opacity:1;transform:scale(1) rotate(-6deg)}98%,100%{opacity:0;transform:scale(1) rotate(-6deg)}}
+
+/* the diagnostic travels back: field named, value withheld */
+.note{animation-name:note}
+@keyframes note{0%,25%{opacity:0;transform:translate(0,0)}26.5%{opacity:1;transform:translate(0,0)}30%,32%{opacity:1;transform:translate(-178px,-76px)}36%,44%{opacity:1;transform:translate(-360px,-40px)}46%,100%{opacity:0;transform:translate(-360px,-40px)}}
+
+/* the agent */
+.aha{animation-name:aha}
+@keyframes aha{0%,35%{opacity:0;transform:scale(0)}37%{opacity:1;transform:scale(1.2)}38.5%,43%{opacity:1;transform:scale(1)}45%,100%{opacity:0;transform:scale(0)}}
+.bFix{animation-name:bFix}
+@keyframes bFix{0%,38%{opacity:0;transform:translateY(6px)}40%,47%{opacity:1;transform:translateY(0)}49%,100%{opacity:0}}
+.bYes{animation-name:bYes}
+@keyframes bYes{0%,86%{opacity:0;transform:translateY(6px)}88%,96%{opacity:1;transform:translateY(0)}98%,100%{opacity:0}}
+.type{animation-name:type}
+@keyframes type{0%{transform:translateY(0)}1%{transform:translateY(-4px)}2%{transform:translateY(0)}3%{transform:translateY(-4px)}4%,40%{transform:translateY(0)}41.5%{transform:translateY(-4px)}43%{transform:translateY(0)}44.5%{transform:translateY(-4px)}46%{transform:translateY(0)}47%{transform:translateY(-4px)}48%,100%{transform:translateY(0)}}
+.agent{animation-name:agentK}
+@keyframes agentK{0%,33%{transform:translate(0,0) rotate(0)}35%,37%{transform:translate(0,4px) rotate(-4deg)}39%{transform:translate(0,-6px) rotate(0)}41%,85%{transform:translate(0,0)}87%{transform:translate(0,-14px)}89%{transform:translate(0,0)}91%{transform:translate(0,-7px)}93%,100%{transform:translate(0,0)}}
+
+/* attempt budget */
+.a1{animation-name:a1}.a2{animation-name:a2}
+@keyframes a1{0%,4%{opacity:0}5%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes a2{0%,49%{opacity:0}50%,97%{opacity:1}99%,100%{opacity:0}}
+.pip1{animation-name:pip1}.pip2{animation-name:pip2}
+@keyframes pip1{0%,4%{fill:#2A2850}5%,97%{fill:#FFB547}99%,100%{fill:#2A2850}}
+@keyframes pip2{0%,49%{fill:#2A2850}50%,97%{fill:#FFB547}99%,100%{fill:#2A2850}}
+
+/* receipt prints, then files itself in the Control Tower */
+.rcpt{animation-name:rcpt;transform-box:fill-box;transform-origin:50% 0}
+@keyframes rcpt{0%,71%{opacity:0;transform:translate(0,0) scaleY(0)}75%,79%{opacity:1;transform:translate(0,0) scaleY(1)}84%{opacity:1;transform:translate(-36px,96px) scale(.7)}86%,100%{opacity:0;transform:translate(-36px,96px) scale(.7)}}
+.t1{animation-name:t1}.t2{animation-name:t2}.tick{animation-name:tick}
+@keyframes t1{0%,27%{opacity:0}28.5%,97%{opacity:1}99%,100%{opacity:0}}
+@keyframes t2{0%,84%{opacity:0}85.5%,97%{opacity:1}99%,100%{opacity:0}}
+@keyframes tick{0%,86%{opacity:0;transform:scale(0)}88%{opacity:1;transform:scale(1.25)}90%,97%{opacity:1;transform:scale(1)}99%,100%{opacity:0;transform:scale(1)}}
+.spark{animation-name:spark}
+@keyframes spark{0%,70%{opacity:0;transform:scale(0)}73%{opacity:1;transform:scale(1.2)}77%{opacity:1;transform:scale(.9)}83%,100%{opacity:0;transform:scale(0)}}
+
+@media (prefers-reduced-motion: reduce){
+  .anim,.eyes,.gear,.bob{animation:none!important}
+  .k0,.k1,.k2,.p1,.p2,.scan,.r1,.r2,.r3,.stampRed,.note,.aha,.bFix,.a1,.spark,.rcpt,.bYes{opacity:0}
+  .k3,.r4,.stamp,.a2,.t1,.t2,.tick{opacity:1}
+  .stamp{transform:rotate(-6deg)}
+  .lampG{fill:#2BD4A0}.pip1,.pip2{fill:#FFB547}
+  .h1{stroke:#FFB547}
+  .toggle{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap run" id="player">
+  <div class="stage">
+    <svg viewBox="0 0 960 470" role="img" aria-label="Your agent, one judge. An AI coding agent, such as Claude Code, submits its code through a Lightyear MCP connection. The judge sits behind a sealed wall with the hidden answers and the signing key. It runs the code, reports that one field differs without revealing the value, and the agent fixes its code on attempt two of five. The judge returns equivalent, prints a signed receipt, and the Control Tower records both attempts for a human.">
+      <!-- zones -->
+      <rect x="20" y="100" width="462" height="280" rx="14" fill="#0B0A22" stroke="#2A2850" stroke-width="1.5" stroke-dasharray="5 6"/>
+      <rect x="518" y="100" width="422" height="280" rx="14" fill="#0E0D26" stroke="#8B5CFF" stroke-width="2"/>
+      <g font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.5">
+        <text x="40" y="44" fill="#A9A5C8">YOUR AGENT · MCP CLIENT</text>
+        <text x="538" y="44" fill="#B9A3FF">LIGHTYEAR JUDGE · SEALED</text>
+        <text x="538" y="62" font-size="10.5" letter-spacing=".5" fill="#A9A5C8">separate process · the agent can't read in</text>
+      </g>
+      <!-- harness chips -->
+      <g font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#F4F2FF" text-anchor="middle">
+        <rect class="anim h1" x="40" y="56" width="104" height="26" rx="13" fill="#14132E" stroke="#2A2850" stroke-width="1.5"/><text x="92" y="73">Claude Code</text>
+        <rect class="anim h2" x="152" y="56" width="84" height="26" rx="13" fill="#14132E" stroke="#2A2850" stroke-width="1.5"/><text x="194" y="73">CLI agent</text>
+        <rect class="anim h3" x="244" y="56" width="54" height="26" rx="13" fill="#14132E" stroke="#2A2850" stroke-width="1.5"/><text x="271" y="73">SDK</text>
+        <rect class="anim h4" x="306" y="56" width="64" height="26" rx="13" fill="#14132E" stroke="#2A2850" stroke-width="1.5"/><text x="338" y="73">Custom</text>
+        <text x="380" y="73" fill="#A9A5C8" text-anchor="start">…</text>
+      </g>
+
+      <!-- the seal: a wall with one port -->
+      <rect x="494" y="92" width="12" height="296" rx="3" fill="#2A2850"/>
+      <g stroke="#3A3760" stroke-width="2"><line x1="494" y1="120" x2="506" y2="108"/><line x1="494" y1="150" x2="506" y2="138"/><line x1="494" y1="300" x2="506" y2="288"/><line x1="494" y1="330" x2="506" y2="318"/><line x1="494" y1="360" x2="506" y2="348"/></g>
+      <g transform="translate(500 160)">
+        <rect x="-11" y="-4" width="22" height="18" rx="3" fill="#14132E" stroke="#B9A3FF" stroke-width="1.8"/>
+        <path d="M-6 -4v-5a6 6 0 0 1 12 0v5" fill="none" stroke="#B9A3FF" stroke-width="1.8"/>
+        <circle cx="0" cy="5" r="2" fill="#B9A3FF"/>
+      </g>
+      <!-- MCP port through the wall -->
+      <rect class="anim port" x="440" y="204" width="120" height="50" rx="10" fill="#1C1B3A" stroke="#FFB547" stroke-width="2"/>
+      <text x="500" y="226" text-anchor="middle" font-family="Archivo, sans-serif" font-size="17" font-weight="800" fill="#F4F2FF">MCP</text>
+      <text x="500" y="243" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#A9A5C8">lightyear-verify</text>
+      <!-- attempt budget -->
+      <g font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1" text-anchor="middle">
+        <text class="anim a1" x="424" y="276" fill="#FFB547">ATTEMPT 1 OF 5</text>
+        <text class="anim a2" x="424" y="276" fill="#FFB547">ATTEMPT 2 OF 5</text>
+      </g>
+      <g>
+        <circle class="anim pip1" cx="408" cy="290" r="4" fill="#2A2850"/><circle class="anim pip2" cx="420" cy="290" r="4" fill="#2A2850"/>
+        <circle cx="432" cy="290" r="4" fill="#2A2850"/><circle cx="444" cy="290" r="4" fill="#2A2850"/><circle cx="456" cy="290" r="4" fill="#2A2850"/>
+      </g>
+
+      <!-- your agent (not ours: any model, any harness) -->
+      <g transform="translate(170 352)"><g class="bob"><g class="anim agent" style="transform-box:fill-box;transform-origin:50% 100%">
+        <line x1="0" y1="-112" x2="0" y2="-98" stroke="#5CD0F5" stroke-width="3"/><circle cx="0" cy="-114" r="5" fill="#FFB547"/>
+        <rect x="-32" y="-98" width="64" height="52" rx="18" fill="#5CD0F5"/>
+        <rect x="-24" y="-90" width="48" height="32" rx="12" fill="#14132E"/>
+        <g class="eyes"><ellipse cx="-8" cy="-75" rx="5" ry="6" fill="#F4F2FF"/><ellipse cx="12" cy="-75" rx="5" ry="6" fill="#F4F2FF"/></g>
+        <path d="M-2 -65Q4 -61 10 -65" stroke="#F4F2FF" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <rect x="-26" y="-44" width="52" height="38" rx="14" fill="#2E9CC4"/>
+        <rect x="18" y="-42" width="46" height="28" rx="4" fill="#14132E" stroke="#5CD0F5" stroke-width="2"/>
+        <rect x="24" y="-35" width="22" height="2.5" fill="#B9A3FF"/><rect x="24" y="-29" width="30" height="2.5" fill="#5CD0F5"/><rect x="24" y="-23" width="16" height="2.5" fill="#B9A3FF"/>
+        <rect x="12" y="-14" width="58" height="5" rx="2" fill="#3A3760"/>
+        <rect class="anim type" x="10" y="-24" width="14" height="7" rx="3.5" fill="#2E9CC4"/>
+        <rect x="-20" y="-8" width="14" height="10" rx="4" fill="#1C6E8E"/><rect x="6" y="-8" width="14" height="10" rx="4" fill="#1C6E8E"/>
+      </g></g></g>
+      <text x="170" y="372" text-anchor="middle" font-family="Archivo, sans-serif" font-size="14" font-weight="700" fill="#C9C5E6">Your agent</text>
+
+      <!-- code packets -->
+      <g class="anim p1"><rect x="214" y="298" width="44" height="34" rx="5" fill="#1C1B3A" stroke="#5CD0F5" stroke-width="1.5"/><text x="236" y="320" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="#5CD0F5">{ }</text></g>
+      <g class="anim p2"><rect x="214" y="298" width="44" height="34" rx="5" fill="#1C1B3A" stroke="#5CD0F5" stroke-width="1.5"/><text x="236" y="320" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="#5CD0F5">{ }</text></g>
+
+      <!-- the Verdict Engine -->
+      <g>
+        <rect x="622" y="156" width="96" height="12" rx="4" fill="#2A2850"/>
+        <rect x="600" y="166" width="140" height="196" rx="12" fill="#14132E" stroke="#8B5CFF" stroke-width="2"/>
+        <rect x="612" y="178" width="116" height="70" rx="6" fill="#06061A" stroke="#3A3760" stroke-width="1.5"/>
+        <g fill="#2A2850"><rect x="622" y="190" width="44" height="3"/><rect x="674" y="190" width="44" height="3"/><rect x="622" y="198" width="36" height="3"/><rect x="674" y="198" width="36" height="3"/><rect x="622" y="206" width="40" height="3"/><rect x="674" y="206" width="40" height="3"/></g>
+        <line x1="670" y1="186" x2="670" y2="212" stroke="#2A2850" stroke-width="1"/>
+        <rect class="anim scan" x="614" y="182" width="112" height="2" fill="#FFB547"/>
+        <g font-family="IBM Plex Mono, monospace" font-size="10.5" font-weight="600" letter-spacing="1" text-anchor="middle">
+          <text class="anim r1" x="670" y="235" fill="#FFB547">COMPARING</text>
+          <text class="anim r2" x="670" y="235" fill="#FF5A4E">1 FIELD DIFFERS</text>
+          <text class="anim r3" x="670" y="235" fill="#FFB547">RE-CHECKING</text>
+          <text class="anim r4" x="670" y="235" fill="#2BD4A0">EQUIVALENT</text>
+        </g>
+        <circle class="anim lampA" cx="646" cy="266" r="6" fill="#2A2850"/>
+        <circle class="anim lampR" cx="670" cy="266" r="6" fill="#2A2850"/>
+        <circle class="anim lampG" cx="694" cy="266" r="6" fill="#2A2850"/>
+        <text x="670" y="294" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1.5" font-weight="600" fill="#F4F2FF">VERDICT ENGINE</text>
+        <text x="670" y="309" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#A9A5C8">fixed rules · no AI</text>
+        <rect x="638" y="320" width="64" height="5" rx="2" fill="#06061A"/>
+        <g class="gear"><circle cx="722" cy="342" r="9" fill="none" stroke="#8B5CFF" stroke-width="5" stroke-dasharray="4 3"/><circle cx="722" cy="342" r="3.5" fill="#8B5CFF"/></g>
+      </g>
+
+      <!-- hidden answers + signing key, sealed with the engine -->
+      <line class="anim vb" x1="790" y1="214" x2="742" y2="214" stroke="#FFB547" stroke-width="3" stroke-dasharray="6 4" style="filter:drop-shadow(0 0 5px #FFB547)"/>
+      <g>
+        <rect x="790" y="164" width="124" height="100" rx="10" fill="#14132E" stroke="#3A3760" stroke-width="2"/>
+        <rect x="798" y="172" width="108" height="84" rx="6" fill="none" stroke="#2A2850" stroke-width="1.5"/>
+        <circle cx="852" cy="214" r="24" fill="#0E0D26" stroke="#B9A3FF" stroke-width="2"/>
+        <g class="anim dial"><circle cx="852" cy="214" r="15" fill="none" stroke="#8B5CFF" stroke-width="2.5" stroke-dasharray="3 4"/><line x1="852" y1="214" x2="852" y2="201" stroke="#FFB547" stroke-width="3" stroke-linecap="round"/></g>
+        <circle cx="852" cy="214" r="4" fill="#B9A3FF"/>
+        <rect x="888" y="204" width="8" height="20" rx="3" fill="#3A3760"/>
+      </g>
+      <g font-family="IBM Plex Mono, monospace" text-anchor="middle">
+        <text x="852" y="282" font-size="10.5" letter-spacing="1.2" font-weight="600" fill="#F4F2FF">HIDDEN ANSWERS</text>
+        <text x="852" y="296" font-size="9.5" fill="#A9A5C8">never leave the seal</text>
+      </g>
+      <g transform="translate(836 330)">
+        <circle cx="0" cy="0" r="8" fill="none" stroke="#FFB547" stroke-width="3"/>
+        <path d="M8 0h22M24 0v7M30 0v5" stroke="#FFB547" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </g>
+      <text x="852" y="356" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1.2" fill="#A9A5C8">SIGNING KEY</text>
+
+      <!-- verdict stamps -->
+      <g class="anim stampRed fb">
+        <rect x="587" y="108" width="166" height="44" rx="5" fill="#06061A" stroke="#FF5A4E" stroke-width="3"/>
+        <text x="670" y="131" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="600" font-size="17" letter-spacing="2" fill="#FF5A4E">DIVERGENT</text>
+        <text x="670" y="145" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1" fill="#A9A5C8">1 FIELD DIFFERS</text>
+      </g>
+      <g class="anim stamp fb">
+        <rect x="587" y="108" width="166" height="44" rx="5" fill="#06061A" stroke="#2BD4A0" stroke-width="3"/>
+        <text x="670" y="131" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="600" font-size="17" letter-spacing="2" fill="#2BD4A0">EQUIVALENT</text>
+        <text x="670" y="145" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1" fill="#A9A5C8">SIGNED · REPLAYABLE</text>
+      </g>
+      <path class="anim spark fb" d="M586 92l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#FFB547"/>
+      <path class="anim spark fb" d="M764 160l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#2BD4A0"/>
+
+      <!-- the diagnostic: field named, value withheld -->
+      <g class="anim note">
+        <rect x="606" y="296" width="176" height="42" rx="6" fill="#2A0F1A" stroke="#FF5A4E" stroke-width="1.5"/>
+        <text x="618" y="313" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#FFB3AC">FIELD: interest amount</text>
+        <text x="618" y="329" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#A9A5C8">value: not shared</text>
+      </g>
+
+      <!-- agent reactions -->
+      <g class="anim aha fb"><circle cx="214" cy="242" r="14" fill="#FFB547"/><text x="214" y="249" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="900" font-size="20" fill="#06061A">!</text></g>
+      <g class="anim bFix"><rect x="94" y="196" width="128" height="28" rx="14" fill="#F4F2FF"/><path d="M150 224l6 9l6 -9z" fill="#F4F2FF"/><text x="158" y="215.5" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="500" font-size="13" fill="#06061A">Got it. Fixing!</text></g>
+      <g class="anim bYes"><rect x="140" y="196" width="56" height="28" rx="14" fill="#F4F2FF"/><path d="M162 224l6 9l6 -9z" fill="#F4F2FF"/><text x="168" y="215.5" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="500" font-size="13" fill="#06061A">Yes!</text></g>
+
+      <!-- Control Tower -->
+      <rect x="300" y="396" width="400" height="66" rx="10" fill="#0E0D26" stroke="#3A3760" stroke-width="1.5"/>
+      <text x="316" y="414" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1.3" fill="#A9A5C8">CONTROL TOWER · EVERY ATTEMPT ON THE RECORD</text>
+      <g font-family="IBM Plex Mono, monospace" font-size="10.5">
+        <text class="anim t1" x="316" y="434" fill="#FFB3AC">#1  divergent · interest amount</text>
+        <text class="anim t2" x="316" y="452" fill="#2BD4A0">#2  equivalent · signed receipt</text>
+      </g>
+      <g transform="translate(664 436)">
+        <circle cx="0" cy="-10" r="7" fill="#C9C5E6"/>
+        <path d="M-12 14q0-14 12-14t12 14z" fill="#C9C5E6"/>
+        <g class="anim tick fb"><circle cx="15" cy="-12" r="8" fill="#2BD4A0"/><path d="M11 -12l3 3 6-6" fill="none" stroke="#06061A" stroke-width="2.2" stroke-linecap="round"/></g>
+      </g>
+      <g class="anim rcpt">
+        <rect x="642" y="323" width="56" height="34" rx="2" fill="#F4F2FF"/>
+        <rect x="648" y="329" width="30" height="2.5" fill="#8B5CFF"/><rect x="648" y="335" width="40" height="2.5" fill="#A9A5C8"/><rect x="648" y="341" width="24" height="2.5" fill="#A9A5C8"/>
+        <path d="M676 348l4 4 8-9" fill="none" stroke="#2BD4A0" stroke-width="2.5" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </div>
+  <div class="row">
+    <div class="caps" aria-live="off">
+      <p class="cap anim k0">Your agent sends its code through an MCP connection.</p>
+      <p class="cap anim k1">The sealed judge runs it on hidden data and names the field, never the answer.</p>
+      <p class="cap anim k2">The agent fixes its code and tries again, within a fixed budget.</p>
+      <p class="cap anim k3">Equivalent. Signed, replayable, every attempt on the record.</p>
+    </div>
+    <span class="tag">Your agent builds. Our judge decides.</span>
+    <button type="button" class="toggle" id="pause" aria-pressed="false">Pause</button>
+  </div>
+</div>
+<script>
+(function(){
+  var player=document.getElementById('player'),pause=document.getElementById('pause');
+  pause.addEventListener('click',function(){
+    var on=player.classList.toggle('paused');
+    pause.setAttribute('aria-pressed',on?'true':'false');
+    pause.textContent=on?'Play':'Pause';
+  });
+})();
+</script>
+</body>
+</html>

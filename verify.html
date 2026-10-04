@@ -4,8 +4,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Lightyear Verify (preview): an independent judge your AI agent can call | Lightyear</title>
-<meta content="Lightyear Verify is an MCP server. Your coding agent submits code; a sealed judge runs it on held-out data and returns a signed, replayable verdict. Preview." name="description"/>
+<title>Lightyear Verify (preview): an independent verdict on AI-written code | Lightyear</title>
+<meta content="Whatever AI your team uses to modernize legacy code, Lightyear Verify gives its work an independent, signed verdict inside your environment. Preview." name="description"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
@@ -528,7 +528,7 @@ ul.plain li::before{content:"";position:absolute;left:2px;top:17px;width:8px;hei
 .cta{display:flex;flex-wrap:wrap;gap:12px}
 .anim-frame{border-radius:14px;overflow:hidden;background:#06061A;border:1px solid var(--hair)}
 .anim-frame iframe{display:block;width:100%;aspect-ratio:960/560;border:0}
-@media(max-width:600px){.anim-frame iframe{aspect-ratio:960/940}#tools table{min-width:0}#tools td.mono{font-size:12.5px;word-break:break-all}}
+@media(max-width:600px){.anim-frame iframe{aspect-ratio:960/940}#for-engineers table{min-width:0}#for-engineers td.mono{font-size:12.5px;word-break:break-all}}
 .stepno{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--amber-d);margin-bottom:8px}
 </style>
 <link href="https://lightyr.ai/verify.html" rel="canonical"/>
@@ -576,119 +576,137 @@ ul.plain li::before{content:"";position:absolute;left:2px;top:17px;width:8px;hei
 <div class="band hero page-hero">
 <div class="wrap">
 <div class="eyebrow">Lightyear Verify · Preview</div>
-<h1 style="margin:18px 0 22px;max-width:22ch">A judge your AI agent can call, and can't talk round</h1>
-<p class="lead" style="max-width:40em">Lightyear Verify is an MCP server. Your coding agent submits the code it wrote. A sealed judge runs it on held-out data, compares every field with what the original system produced, and returns a signed verdict. The agent never sees the expected results.</p>
-<div class="cta" style="margin-top:22px"><a class="btn solid" href="mailto:sales@lightyr.ai?subject=Lightyear%20Verify%20preview%20access">Request preview access</a><a class="btn" href="#how">How it works</a></div>
+<h1 style="margin:18px 0 22px;max-width:22ch">Whatever AI your team uses, get an independent verdict on its work</h1>
+<p class="lead" style="max-width:40em">Your developers and vendors are already using AI agents to rewrite legacy code: Claude, Codex, Google's ADK or their own. Lightyear Verify lets any of them hand what they've built to an independent judge, inside your environment, and get back a signed verdict your risk committee can rely on.</p>
+<div class="cta" style="margin-top:22px"><a class="btn solid" href="mailto:sales@lightyr.ai?subject=Lightyear%20Verify%20preview%20access">Request preview access</a><a class="btn" href="#how">See how it works</a></div>
 </div>
 </div>
-<div class="band" id="tested">
+<div class="band" id="why">
 <div class="wrap grid2" style="align-items:start">
 <div>
-<div class="eyebrow">Tested live</div>
-<h2 style="margin:16px 0 0;max-width:22ch">Claude Code connected, submitted, and was judged</h2>
+<div class="eyebrow">The problem</div>
+<h2 style="margin:16px 0 0;max-width:20ch">AI writes the code fast. Nobody can prove it's right.</h2>
 <div class="rule"></div>
-<p class="lead">On October 4, 2026 we gave Claude Code one instruction: connect to Lightyear Verify over MCP and submit four programs, one correct and three with a planted bug. The judge passed the correct one and caught every bug, naming the field each time and never the right value.</p>
-<p class="lead" style="margin-top:14px">Claude Code stayed inside its workspace, used four of its five attempts, and saved a signed receipt for each. The whole run cost $0.76 in model usage at API rates.</p>
-<p class="note" style="margin-top:16px">Public rehearsal data on a Linux virtual machine. A compatibility test of the MCP connection, not a qualification on customer data. Codex, Google ADK and Strands tests are planned; we'll add each one here once it has passed.</p>
+<p class="lead">An AI agent can rewrite a COBOL batch job in an afternoon. The hard question comes after: does the new version produce exactly the same results as the system your business has run on for thirty years?</p>
+<p class="lead" style="margin-top:14px">Today the answer usually comes from the same team, or the same AI, that wrote the code. That's not evidence a risk committee, an auditor or a regulator will accept.</p>
 </div>
-<div class="panel">
-<table>
-<thead><tr><th>Program submitted</th><th>Verdict</th><th>What the judge named</th></tr></thead>
-<tbody>
-<tr><td>Correct build</td><td class="mono">equivalent</td><td>Nothing</td></tr>
-<tr><td>Adds one cent of interest</td><td class="mono">divergent</td><td>Transaction amount and account balance</td></tr>
-<tr><td>Leaves out one account</td><td class="mono">divergent</td><td>One account record missing</td></tr>
-<tr><td>Wrong transaction date</td><td class="mono">divergent</td><td>Both transaction timestamps</td></tr>
-</tbody>
-</table>
+<div class="card" style="margin-top:8px">
+<h3>What decision makers need to know</h3>
+<ul class="plain">
+<li>Does the replacement behave exactly like the original?</li>
+<li>If not, where does it differ, and why?</li>
+<li>Who checked, and can someone else check it again?</li>
+<li>Did our data stay inside our walls?</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="band sunk" id="how">
 <div class="wrap">
-<div class="eyebrow">How it works</div>
-<h2 style="margin:16px 0 0;max-width:24ch">The agent writes. The judge decides.</h2>
+<div class="eyebrow">How a customer uses it</div>
+<h2 style="margin:16px 0 0;max-width:26ch">Your team keeps its AI. We provide the judge.</h2>
 <div class="rule"></div>
-<div class="anim-frame"><iframe src="animation/verify-how-it-works.html" title="Animation: an AI agent submits code over MCP; the sealed judge reports which field differs without the value; the agent fixes it; the judge signs an equivalent verdict" loading="lazy" onload="fitFrame(this)"></iframe></div>
+<div class="grid4" style="margin-bottom:30px">
+<div class="card"><div class="stepno">01</div><h3>Work as usual</h3><p>Your team, or your modernization vendor, rewrites a legacy program with whichever AI agent they prefer.</p></div>
+<div class="card"><div class="stepno">02</div><h3>The agent asks for a verdict</h3><p>It connects to Lightyear Verify through MCP, the open standard most AI agents already use, and submits the new program.</p></div>
+<div class="card"><div class="stepno">03</div><h3>The judge checks it independently</h3><p>Inside your environment, it runs the program on your own test data and compares every field with what the legacy system produced.</p></div>
+<div class="card"><div class="stepno">04</div><h3>You get signed evidence</h3><p>A pass, or exactly where the results differ. Every attempt is recorded and can be re-checked by anyone, months later.</p></div>
+</div>
+<div class="anim-frame"><iframe src="verify-animation.html" title="Animation: an AI agent submits code to Lightyear Verify; the independent judge reports where it differs without revealing the answer; the agent fixes it; the judge signs the verdict" loading="lazy" onload="fitFrame(this)"></iframe></div>
 <script>
 function fitFrame(f){
   function fit(){try{var b=f.contentDocument&&f.contentDocument.body;if(b){f.style.aspectRatio='auto';f.style.height=Math.ceil(b.getBoundingClientRect().height)+'px';}}catch(e){}}
   fit(); if(!f._fit){f._fit=1; window.addEventListener('resize',function(){f.style.height='';f.style.aspectRatio='';requestAnimationFrame(fit);});}
 }
 </script>
-<p class="note" style="margin-top:12px">Shown in development mode on public data, where the judge names the field that differs. On confidential data it says only which output file differs.</p>
-<div class="grid4" style="margin-top:30px">
-<div class="card"><div class="stepno">01</div><h3>Submit code, not answers</h3><p>The agent sends a runnable program, never output records, so it can't hand the judge what it wants to hear.</p></div>
-<div class="card"><div class="stepno">02</div><h3>The judge runs it sealed</h3><p>On held-out inputs, in a sandbox with no network, under a separate account the agent can't read.</p></div>
-<div class="card"><div class="stepno">03</div><h3>A limited answer back</h3><p>Equivalent, divergent or indeterminate, and where it differs. Never the right value. A fixed number of attempts.</p></div>
-<div class="card"><div class="stepno">04</div><h3>Signed and on the record</h3><p>Every attempt gets a signed receipt that replays offline. People, not agents, approve any accepted difference.</p></div>
+</div>
+</div>
+<div class="band" id="value">
+<div class="wrap">
+<div class="eyebrow">Why it matters</div>
+<h2 style="margin:16px 0 0;max-width:26ch">Proof you can take to the committee</h2>
+<div class="rule"></div>
+<div class="grid4">
+<div class="card"><h3>Any AI, one standard of proof</h3><p>Claude, Codex, Google's ADK or an in-house agent: all are checked against the same judge. Change AI vendors without changing how you sign off.</p></div>
+<div class="card"><h3>The AI can't mark its own homework</h3><p>The agent never sees the expected results. It learns where it's wrong, never the right answer, and gets a fixed number of attempts.</p></div>
+<div class="card"><h3>Your data stays with you</h3><p>The judge runs in your environment. On confidential data, the agent learns only pass or fail and which output differs.</p></div>
+<div class="card"><h3>Evidence that survives an audit</h3><p>Every attempt is signed and kept. Your auditor can replay any verdict offline, without us in the room.</p></div>
 </div>
 </div>
 </div>
-<div class="band" id="tools">
+<div class="band sunk" id="tested">
 <div class="wrap grid2" style="align-items:start">
 <div>
-<div class="eyebrow">What the agent can do</div>
-<h2 style="margin:16px 0 0;max-width:20ch">Ten tools. None of them reveal the answers.</h2>
+<div class="eyebrow">Tested live</div>
+<h2 style="margin:16px 0 0;max-width:22ch">We tested it with Claude Code</h2>
 <div class="rule"></div>
-<p class="lead">Four tools help the agent understand the legacy system from public development data. The rest let it submit work and read the result. None of them opens the held-out data, the evaluation logs or the signing key.</p>
-<p class="lead" style="margin-top:14px">The agent can't raise its own budget or approve its own exceptions. It can only draft a request, and a person decides in the Control Tower.</p>
+<p class="lead">On October 4, 2026, we gave Claude Code one instruction: connect to Lightyear Verify and submit four versions of a mainframe interest calculation, one correct and three with a deliberate mistake.</p>
+<p class="lead" style="margin-top:14px">The judge passed the correct version and caught all three mistakes, naming where each one differed but never giving away the right answer. Every attempt was signed and recorded. The test cost less than a dollar in AI usage.</p>
+<p class="note" style="margin-top:16px">Public test data on a Linux virtual machine: this test proves the connection, not a qualification on customer data. Tests with Codex, Google ADK and Strands are planned, and we'll add each one here once it has passed.</p>
 </div>
 <div class="panel">
 <table>
-<thead><tr><th>Tool</th><th>What it does</th></tr></thead>
+<thead><tr><th>Version submitted</th><th>Verdict</th><th>What the judge pointed to</th></tr></thead>
 <tbody>
-<tr><td class="mono">describe_copybook</td><td>Field names, offsets and lengths of a legacy record layout</td></tr>
-<tr><td class="mono">decode_records</td><td>Reads public development records as named fields</td></tr>
-<tr><td class="mono">read_job_log</td><td>Parses a public development job log</td></tr>
-<tr><td class="mono">lane_status</td><td>What the judge is qualified to compare, and its limits</td></tr>
-<tr><td class="mono">get_task</td><td>The work order, development inputs and attempt budget</td></tr>
-<tr><td class="mono">submit_candidate</td><td>Submits the program and returns an attempt ID straight away</td></tr>
-<tr><td class="mono">get_verdict</td><td>Pending, or the verdict with its limited diagnostics</td></tr>
-<tr><td class="mono">get_budget</td><td>Attempts left. Read-only</td></tr>
-<tr><td class="mono">get_receipt</td><td>The signed receipt, for checking offline</td></tr>
-<tr><td class="mono">propose_normalization</td><td>Drafts a request for a person to review. It can't apply it</td></tr>
+<tr><td>Correct</td><td>Pass</td><td>Nothing</td></tr>
+<tr><td>Adds a cent of interest</td><td>Fail</td><td>Transaction amount and account balance</td></tr>
+<tr><td>Skips one account</td><td>Fail</td><td>A missing account record</td></tr>
+<tr><td>Wrong posting date</td><td>Fail</td><td>The transaction timestamps</td></tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
-<div class="band sunk" id="confidential">
-<div class="wrap">
-<div class="eyebrow">For data you can't share</div>
-<h2 style="margin:16px 0 0;max-width:26ch">Built so an outside agent can be tested on your data</h2>
-<div class="rule"></div>
-<p class="lead" style="margin-bottom:26px">An agent that reads a diagnostic learns a little about the data behind it. So on anything that isn't public, Verify narrows what comes back and caps how often the agent can ask.</p>
-<div class="grid3">
-<div class="card"><h3>Confidential by default</h3><p>On non-public data the agent gets the verdict and which output file differs. No field names, no counts. That can't be switched off for that data.</p></div>
-<div class="card"><h3>A budget that doesn't reset</h3><p>Attempts are counted against the data itself, across every task. Starting a new task doesn't buy more tries. Only a signed human decision raises the limit.</p></div>
-<div class="card"><h3>Runs in your environment</h3><p>The judge runs on Linux inside your environment, under its own account, with the candidate in a sandbox. Your held-out data stays with you.</p></div>
-</div>
-<p class="note" style="margin-top:22px">We publish the limits too. Confidential mode caps what a deliberately hostile agent could learn from the verdicts, but the cap isn't zero, and timing falls outside it. The <a href="https://github.com/howardweale/lightyear-carddemo-modernization/blob/main/docs/verify/README.md" rel="noopener" target="_blank">operator guide</a> sets out the threat model.</p>
-</div>
-</div>
 <div class="band" id="preview">
 <div class="wrap">
 <div class="eyebrow">What's in the preview</div>
-<h2 style="margin:16px 0 0;max-width:24ch">What works today, and what doesn't yet</h2>
+<h2 style="margin:16px 0 0;max-width:24ch">What you can use today, and what's coming</h2>
 <div class="rule"></div>
 <div class="grid2" style="align-items:start;gap:28px">
-<div class="card"><h3>In the preview</h3>
+<div class="card"><h3>Available in the preview</h3>
 <ul class="plain">
-<li>First lane: COBOL batch to Java, starting with the CardDemo interest-calculation job</li>
-<li>Tested live with Claude Code, and with the MCP SDK, with the agent and the judge under separate accounts</li>
-<li>Confidential mode, durable attempt budgets and a sandbox with no network</li>
-<li>Signed receipts that replay offline, with no database, no AI and no network</li>
-<li>Human decisions in the Control Tower for retries and accepted differences</li>
+<li>Mainframe batch (COBOL) to Java, starting with the CardDemo interest calculation</li>
+<li>Tested live with Claude Code</li>
+<li>Runs inside your environment, with confidential mode for sensitive data</li>
+<li>Signed, replayable evidence for every attempt</li>
+<li>People approve every exception; the AI can only propose</li>
 </ul></div>
-<div class="card"><h3>Not yet</h3>
+<div class="card"><h3>Coming next</h3>
 <ul class="plain">
-<li>More lanes, including the Oracle-to-PostgreSQL ERP processes our factory is measured on</li>
-<li>Live tests with Codex, Google ADK and Strands. Planned; we'll name each one once it has passed</li>
-<li>Qualification on captures from a live mainframe</li>
-<li>A packaged install or a hosted judge. Today it's a guided Linux setup</li>
+<li>Live tests with Codex, Google ADK and Strands</li>
+<li>More programs and platforms, including Oracle-to-PostgreSQL business processes</li>
+<li>Qualification on output from a live mainframe</li>
+<li>A packaged install or a hosted judge</li>
 <li>Self-serve pricing</li>
 </ul></div>
+</div>
+</div>
+</div>
+<div class="band sunk" id="for-engineers">
+<div class="wrap grid2" style="align-items:start">
+<div>
+<div class="eyebrow">For your technical team</div>
+<h2 style="margin:16px 0 0;max-width:20ch">Ten tools. None of them reveal the answers.</h2>
+<div class="rule"></div>
+<p class="lead">Verify is an MCP server with two trust levels. The tools beside the agent hold no secrets. The judge runs as a separate account, with the expected results, the signing key and the attempt budget out of the agent's reach.</p>
+<p class="lead" style="margin-top:14px">On non-public data, confidential mode limits what an agent can learn from each verdict, and attempts are counted against the data itself. We publish the limits, too: the <a href="https://github.com/howardweale/lightyear-carddemo-modernization/blob/main/docs/verify/README.md" rel="noopener" target="_blank">operator guide</a> sets out the threat model.</p>
+</div>
+<div class="panel">
+<table>
+<thead><tr><th>Tool</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td class="mono">describe_copybook</td><td>Field layout of a legacy record</td></tr>
+<tr><td class="mono">decode_records</td><td>Reads public development records</td></tr>
+<tr><td class="mono">read_job_log</td><td>Parses a public job log</td></tr>
+<tr><td class="mono">lane_status</td><td>What the judge is qualified to compare</td></tr>
+<tr><td class="mono">get_task</td><td>The work order and attempt budget</td></tr>
+<tr><td class="mono">submit_candidate</td><td>Submits the new program</td></tr>
+<tr><td class="mono">get_verdict</td><td>Pass, fail, and where it differs</td></tr>
+<tr><td class="mono">get_budget</td><td>Attempts left</td></tr>
+<tr><td class="mono">get_receipt</td><td>The signed receipt</td></tr>
+<tr><td class="mono">propose_normalization</td><td>Drafts a request for a person to decide</td></tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -696,8 +714,8 @@ function fitFrame(f){
 <div class="wrap">
 <div class="cta-band">
 <div class="eyebrow">Preview access</div>
-<h2 style="margin:14px 0 14px;max-width:24ch">Point your agent at the judge</h2>
-<p class="lead" style="margin-bottom:26px">Tell us which agent you use, what it's modernizing, and whether the data is public or confidential. We'll set up the judge with you.</p>
+<h2 style="margin:14px 0 14px;max-width:24ch">Put your AI agent in front of an independent judge</h2>
+<p class="lead" style="margin-bottom:26px">Tell us which AI your team or vendor uses and which system you're modernizing. We'll set up the judge in your environment and run your first verdicts with you.</p>
 <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn solid" href="mailto:sales@lightyr.ai?subject=Lightyear%20Verify%20preview%20access">Request preview access</a><a class="btn" href="pricing.html">Or start with a Verification Sprint</a></div>
 </div>
 </div>
