@@ -4,8 +4,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>For engineers | Lightyear</title>
-<meta content="How a Lightyear engagement runs: verdicts and exit codes, accepted differences, evidence classes, the command line and CI integration." name="description"/>
+<title>Lightyear Verify (preview): an independent judge your AI agent can call | Lightyear</title>
+<meta content="Lightyear Verify is an MCP server. Your coding agent submits code; a sealed judge runs it on held-out data and returns a signed, replayable verdict. Preview." name="description"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
@@ -531,7 +531,7 @@ ul.plain li::before{content:"";position:absolute;left:2px;top:17px;width:8px;hei
 @media(max-width:600px){.anim-frame iframe{aspect-ratio:960/940}#tools table{min-width:0}#tools td.mono{font-size:12.5px;word-break:break-all}}
 .stepno{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--amber-d);margin-bottom:8px}
 </style>
-<link href="https://lightyr.ai/engineers.html" rel="canonical"/>
+<link href="https://lightyr.ai/verify.html" rel="canonical"/>
 <link href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMy42OCAxMy41MiBMMTYuMCA1LjQ0IEwyOC4zMiAxMy41MiBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0zLjY4IDE4LjQ4IEwxNi4wIDI2LjU2IEwyOC4zMiAxOC40OCBaIi8+PC9zdmc+" rel="icon" type="image/svg+xml"/>
 <link href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iMCIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMjAuNyA3Ni4wNSBMOTAuMCAzMC42IEwxNTkuMyA3Ni4wNSBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0yMC43IDEwMy45NSBMOTAuMCAxNDkuNCBMMTU5LjMgMTAzLjk1IFoiLz48L3N2Zz4=" rel="apple-touch-icon"/>
 <link color="#573A9C" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMy42OCAxMy41MiBMMTYuMCA1LjQ0IEwyOC4zMiAxMy41MiBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0zLjY4IDE4LjQ4IEwxNi4wIDI2LjU2IEwyOC4zMiAxOC40OCBaIi8+PC9zdmc+" rel="mask-icon"/>
@@ -551,7 +551,7 @@ ul.plain li::before{content:"";position:absolute;left:2px;top:17px;width:8px;hei
 <meta content="https://lightyr.ai/og-card.png" name="twitter:image"/>
 
 </head>
-<body data-page="engineers">
+<body data-page="verify">
 <header>
 <div class="wrap navbar">
 <a aria-label="Lightyear home" class="brand" href="index.html">
@@ -560,12 +560,12 @@ ul.plain li::before{content:"";position:absolute;left:2px;top:17px;width:8px;hei
 <button aria-expanded="false" aria-label="Toggle navigation menu" class="menu" onclick="const n=document.querySelector('nav.tabs');this.setAttribute('aria-expanded', n.classList.toggle('open'));">≡</button>
 <nav aria-label="Main" class="tabs">
 <a class="tablink" href="product.html">Product</a>
-<a class="tablink" href="verify.html">Verify</a>
+<a class="tablink" href="verify.html" aria-current="page">Verify</a>
 <a class="tablink" href="solutions.html">Solutions</a>
 <a class="tablink" href="proof.html">Proof</a>
 <a class="tablink" href="pricing.html">Pricing</a>
 <a class="tablink" href="resources.html">Resources</a>
-<a class="tablink" href="engineers.html" aria-current="page">For engineers</a>
+<a class="tablink" href="engineers.html">For engineers</a>
 </nav>
 <div class="navcta">
 <a class="btn solid" href="https://calendly.com/lightyr" rel="noopener" target="_blank">Book a sprint</a>
@@ -573,187 +573,132 @@ ul.plain li::before{content:"";position:absolute;left:2px;top:17px;width:8px;hei
 </div>
 </header>
 <main>
-<div class="band hero" id="docs">
+<div class="band hero page-hero">
 <div class="wrap">
-<div class="eyebrow">For engineers</div>
-<h1 style="margin:18px 0 22px;max-width:20ch">How an engagement actually runs</h1>
-<p class="lead">Written for the engineers who will operate this, not for the people who sign the contract. If you are evaluating us, this is the page to send to your platform team.</p>
+<div class="eyebrow">Lightyear Verify · Preview</div>
+<h1 style="margin:18px 0 22px;max-width:22ch">A judge your AI agent can call, and can't talk round</h1>
+<p class="lead" style="max-width:40em">Lightyear Verify is an MCP server. Your coding agent submits the code it wrote. A sealed judge runs it on held-out data, compares every field with what the original system produced, and returns a signed verdict. The agent never sees the expected results.</p>
+<div class="cta" style="margin-top:22px"><a class="btn solid" href="mailto:sales@lightyr.ai?subject=Lightyear%20Verify%20preview%20access">Request preview access</a><a class="btn" href="#how">How it works</a></div>
 </div>
 </div>
-<div class="band">
-<div class="wrap docwrap">
-<nav class="docnav">
-<h5>Contents</h5>
-<label class="eyebrow" for="doc-search" style="position:absolute;left:-9999px">Filter documentation</label>
-<input autocomplete="off" class="docsearch" id="doc-search" placeholder="Filter docs…" type="search"/>
-<a href="#d-start">Getting started</a>
-<a href="#d-order">Work orders</a>
-<a href="#d-verdicts">Verdicts</a>
-<a href="#d-norm">Accepted differences</a>
-<a href="#d-evidence">Evidence classes</a>
-<a href="#d-coverage">Coverage</a>
-<a href="#d-cli">CLI reference</a>
-<a href="#d-integrate">CI integration</a>
-<a href="#d-record">The evidence record</a>
-</nav>
+<div class="band" id="tested">
+<div class="wrap grid2" style="align-items:start">
 <div>
-<div class="docsec" id="d-start">
-<h3>Getting started</h3>
-<p>An engagement begins read-only. We take source and, where available, captured input and output from the running system. Nothing is written back to your estate at any point.</p>
-<pre><span class="c"># 1 — build a typed graph of the estate</span>
-lightyr graph build --source ./estate --out knowledge/graph.json
-
-<span class="c"># 2 — measure what your existing corpus actually reaches</span>
-lightyr coverage report --program CBTRN02C --corpus ./captured
-
-<span class="c"># 3 — run one bounded proof cell end to end</span>
-lightyr factory run --work-order work-orders/intcalc.json</pre>
-<p>Step 2 is usually the one that changes the conversation. It answers a question nobody has asked before: how much of this program's decision surface has any test you own ever exercised.</p>
+<div class="eyebrow">Tested live</div>
+<h2 style="margin:16px 0 0;max-width:22ch">Claude Code connected, submitted, and was judged</h2>
+<div class="rule"></div>
+<p class="lead">On October 4, 2026 we gave Claude Code one instruction: connect to Lightyear Verify over MCP and submit four programs, one correct and three with a planted bug. The judge passed the correct one and caught every bug, naming the field each time and never the right value.</p>
+<p class="lead" style="margin-top:14px">Claude Code stayed inside its workspace, used four of its five attempts, and saved a signed receipt for each. The whole run cost $0.76 in model usage at API rates.</p>
+<p class="note" style="margin-top:16px">Public rehearsal data on a Linux virtual machine. A compatibility test of the MCP connection, not a qualification on customer data. Codex, Google ADK and Strands tests are planned; we'll add each one here once it has passed.</p>
 </div>
-<div class="docsec" id="d-order">
-<h3>Work orders</h3>
-<p>A work order is a contract, not a prompt. It declares the paths an agent may touch, the slice of the graph it may read, the gates that must pass, and the timeouts. Scope is a precondition — an agent cannot widen it at run time.</p>
-<pre>{
-  <span class="k">"id"</span>: <span class="s">"intcalc-repair"</span>,
-  <span class="k">"allowed_paths"</span>: [<span class="s">"src/interest/**"</span>],
-  <span class="k">"graph_scope"</span>: [<span class="s">"CBACT04C"</span>, <span class="s">"TCATBAL"</span>],
-  <span class="k">"gates"</span>: [
-    { <span class="k">"id"</span>: <span class="s">"unit"</span>,    <span class="k">"expose_output_to_builder"</span>: true  },
-    { <span class="k">"id"</span>: <span class="s">"holdout"</span>, <span class="k">"expose_output_to_builder"</span>: false }
-  ]
-}</pre>
-<p><code>expose_output_to_builder</code> defaults to <code>false</code> and must be a real JSON boolean — a quoted <code>"false"</code> is rejected rather than coerced, because in Python it would evaluate as true and silently open the holdout boundary.</p>
-</div>
-<div class="docsec" id="d-verdicts">
-<h3>Verdicts and exit codes</h3>
-<p>Three verdicts, and the third is the one most tools do not have.</p>
-<div class="panel" style="padding:6px 24px;margin:16px 0">
+<div class="panel">
 <table>
-<tr><th>Verdict</th><th>Exit</th><th>Meaning</th></tr>
-<tr><td class="mono" style="color:var(--pass)">faithful</td><td class="mono">0</td><td>Every compared field matched under the equivalence policy.</td></tr>
-<tr><td class="mono" style="color:var(--fail)">failed</td><td class="mono">1</td><td>A real divergence, classified by cause and located by field.</td></tr>
-<tr><td class="mono" style="color:var(--unknown)">indeterminate</td><td class="mono">2</td><td>Nothing was verified. An operator error, never routed back to a builder as a defect.</td></tr>
+<thead><tr><th>Program submitted</th><th>Verdict</th><th>What the judge named</th></tr></thead>
+<tbody>
+<tr><td>Correct build</td><td class="mono">equivalent</td><td>Nothing</td></tr>
+<tr><td>Adds one cent of interest</td><td class="mono">divergent</td><td>Transaction amount and account balance</td></tr>
+<tr><td>Leaves out one account</td><td class="mono">divergent</td><td>One account record missing</td></tr>
+<tr><td>Wrong transaction date</td><td class="mono">divergent</td><td>Both transaction timestamps</td></tr>
+</tbody>
 </table>
 </div>
-<p>The separation of <code>1</code> and <code>2</code> matters operationally. A failed run means the candidate is wrong. An indeterminate run means the harness could not tell, which is a configuration problem and must not be handed to an agent as "your code is broken."</p>
-</div>
-<div class="docsec" id="d-norm">
-<h3>Accepted differences</h3>
-<p>Some differences are genuinely meaningless — a run timestamp, a padding convention. Each permitted one is a controlled entry with a written reason, a named owner, and a review date. The validator fails closed on a missing owner, an expired review, an undocumented rule, or a rule whose text no longer matches the code.</p>
-<pre>lightyr validate-normalizations --ledger spec/normalizations.json
-
-<span class="c"># NORMALIZATION_REVIEW_EXPIRED:fixed-width-padding:2026-02-22</span>
-<span class="c"># NORMALIZATION_GOVERNANCE_MISSING:decimal-canonical:owner</span>
-<span class="c"># NORMALIZATION_RUNTIME_MISMATCH:copybook-filler:behavior</span></pre>
-<p>Prefer a shape-preserving normalization over an outright ignore. Ignoring a timestamp lets a candidate that never writes one pass; collapsing its digits still asserts format, length and punctuation.</p>
-</div>
-<div class="docsec" id="d-evidence">
-<h3>Evidence classes</h3>
-<p>Every artifact carries a class, and the class governs what may be claimed from it.</p>
-<div class="panel" style="padding:6px 24px;margin:16px 0">
-<table>
-<tr><th>Class</th><th>Source</th><th>Can close an equivalence gate</th></tr>
-<tr><td class="mono">simulated</td><td>Synthetic replay of the machinery</td><td>no</td></tr>
-<tr><td class="mono">local_observed</td><td>Real execution, local environment</td><td>no</td></tr>
-<tr><td class="mono">recorded</td><td>Replay of a prior capture</td><td>no</td></tr>
-<tr><td class="mono">zos_observed</td><td>Captured from the authorised baseline</td><td>yes</td></tr>
-</table>
-</div>
-<p>Replaying a live capture yields <code>recorded</code>, never <code>live</code>. Weak evidence cannot be promoted by round-tripping it through a mechanism, and that demotion is enforced in code rather than convention.</p>
-</div>
-<div class="docsec" id="d-coverage">
-<h3>Coverage</h3>
-<p>We measure <em style="color:var(--ink);font-style:normal">arc</em> coverage, not statement coverage. A corpus can execute every line of a validation paragraph and never once take the reject branch — and reject branches are where modernization defects survive to go-live.</p>
-<p>Arcs are classified into three populations with three different owners, because blending them produces a number that sends teams to chase the wrong work:</p>
-<div class="panel" style="padding:6px 24px;margin:16px 0">
-<table>
-<tr><th>Population</th><th>Owner</th><th>Acceptance</th></tr>
-<tr><td>Business</td><td>the harness</td><td>output matches legacy under the policy</td></tr>
-<tr><td>Resilience</td><td>NFR suite</td><td>fails safe, no partial commit, alert raised</td></tr>
-<tr><td>Infrastructure</td><td>out of scope</td><td>documented, so it is not re-raised</td></tr>
-</table>
-</div>
-<p>Fidelity coverage is reported over business arcs only. Where the corpus misses one, we generate the input that reaches it — then run it through the legacy system first, because a synthetic case whose expected output a human decided is not evidence.</p>
-</div>
-<div class="docsec" id="d-cli">
-<h3>CLI reference</h3>
-<pre>lightyr graph build         <span class="c"># typed estate graph from source</span>
-lightyr graph capabilities  <span class="c"># technology readiness and gate status</span>
-lightyr coverage report     <span class="c"># arc coverage for a program</span>
-lightyr coverage close-gaps <span class="c"># synthesize inputs for unreached arcs</span>
-lightyr compare             <span class="c"># differential run, emits a receipt</span>
-lightyr validate-normalizations
-lightyr factory run         <span class="c"># one bounded work cell</span>
-lightyr portfolio-plan      <span class="c"># schedule non-conflicting cells</span>
-lightyr audit verify        <span class="c"># replay the hash-chained ledger</span></pre>
-</div>
-<div class="docsec" id="d-integrate">
-<h3>CI integration</h3>
-<p>The Verdict Engine is designed to be a gate, so exit codes route directly. Treat <code>2</code> as a pipeline error rather than a test failure — it means the run proved nothing.</p>
-<pre><span class="k">- name:</span> Differential verification
-  <span class="k">run:</span> |
-    lightyr compare --expected ref/ --actual out/ --report r.json
-    <span class="c"># 0 faithful · 1 divergent · 2 indeterminate</span>
-
-<span class="k">- name:</span> Reject runs that mutate tracked evidence
-  <span class="k">run:</span> git diff --exit-code</pre>
-<p>That second step is worth copying whatever tooling you use. It asserts that a verification run is side-effect free, so a suite can never quietly rewrite the evidence it is checking against.</p>
-</div>
-<div class="docsec" id="d-record">
-<h3>The evidence record</h3>
-<p>Every capability ships with a published record: what it delivered, what evidence supports it, and — the part that matters — what it explicitly does not claim. Generated from the repository, so the record cannot drift from the code.</p>
-<pre>lightyr milestones build     <span class="c"># regenerate the record from source</span>
-lightyr milestones verify    <span class="c"># catalog, hashes and boundaries</span>
-lightyr receipt-claims       <span class="c"># reject literal promotion anywhere in the tree</span>
-lightyr scripts              <span class="c"># every entry point owned, roled and twinned</span></pre>
-<p>Each boundary statement is deliberately unflattering. One records that ASE catalog, rows, replication and transactions are fixtures rather than live observations. If you are evaluating us, read the boundaries before the deliverables.</p>
-</div>
-<p class="doc-empty" id="doc-empty">No documentation sections match that filter.</p>
 </div>
 </div>
-</div>
-<div class="band hero">
+<div class="band sunk" id="how">
 <div class="wrap">
-<div class="eyebrow">Trust</div>
-<h2 style="margin:18px 0 22px;max-width:21ch">Built for organisations that cannot take a risk on us</h2>
-<p class="lead">We are asking a regulated business to let software work unattended on its most sensitive code. Everything here assumes you will not take that on trust after a demo.</p>
+<div class="eyebrow">How it works</div>
+<h2 style="margin:16px 0 0;max-width:24ch">The agent writes. The judge decides.</h2>
+<div class="rule"></div>
+<div class="anim-frame"><iframe src="animation/verify-how-it-works.html" title="Animation: an AI agent submits code over MCP; the sealed judge reports which field differs without the value; the agent fixes it; the judge signs an equivalent verdict" loading="lazy" onload="fitFrame(this)"></iframe></div>
+<script>
+function fitFrame(f){
+  function fit(){try{var b=f.contentDocument&&f.contentDocument.body;if(b){f.style.aspectRatio='auto';f.style.height=Math.ceil(b.getBoundingClientRect().height)+'px';}}catch(e){}}
+  fit(); if(!f._fit){f._fit=1; window.addEventListener('resize',function(){f.style.height='';f.style.aspectRatio='';requestAnimationFrame(fit);});}
+}
+</script>
+<p class="note" style="margin-top:12px">Shown in development mode on public data, where the judge names the field that differs. On confidential data it says only which output file differs.</p>
+<div class="grid4" style="margin-top:30px">
+<div class="card"><div class="stepno">01</div><h3>Submit code, not answers</h3><p>The agent sends a runnable program, never output records, so it can't hand the judge what it wants to hear.</p></div>
+<div class="card"><div class="stepno">02</div><h3>The judge runs it sealed</h3><p>On held-out inputs, in a sandbox with no network, under a separate account the agent can't read.</p></div>
+<div class="card"><div class="stepno">03</div><h3>A limited answer back</h3><p>Equivalent, divergent or indeterminate, and where it differs. Never the right value. A fixed number of attempts.</p></div>
+<div class="card"><div class="stepno">04</div><h3>Signed and on the record</h3><p>Every attempt gets a signed receipt that replays offline. People, not agents, approve any accepted difference.</p></div>
+</div>
+</div>
+</div>
+<div class="band" id="tools">
+<div class="wrap grid2" style="align-items:start">
+<div>
+<div class="eyebrow">What the agent can do</div>
+<h2 style="margin:16px 0 0;max-width:20ch">Ten tools. None of them reveal the answers.</h2>
+<div class="rule"></div>
+<p class="lead">Four tools help the agent understand the legacy system from public development data. The rest let it submit work and read the result. None of them opens the held-out data, the evaluation logs or the signing key.</p>
+<p class="lead" style="margin-top:14px">The agent can't raise its own budget or approve its own exceptions. It can only draft a request, and a person decides in the Control Tower.</p>
+</div>
+<div class="panel">
+<table>
+<thead><tr><th>Tool</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td class="mono">describe_copybook</td><td>Field names, offsets and lengths of a legacy record layout</td></tr>
+<tr><td class="mono">decode_records</td><td>Reads public development records as named fields</td></tr>
+<tr><td class="mono">read_job_log</td><td>Parses a public development job log</td></tr>
+<tr><td class="mono">lane_status</td><td>What the judge is qualified to compare, and its limits</td></tr>
+<tr><td class="mono">get_task</td><td>The work order, development inputs and attempt budget</td></tr>
+<tr><td class="mono">submit_candidate</td><td>Submits the program and returns an attempt ID straight away</td></tr>
+<tr><td class="mono">get_verdict</td><td>Pending, or the verdict with its limited diagnostics</td></tr>
+<tr><td class="mono">get_budget</td><td>Attempts left. Read-only</td></tr>
+<tr><td class="mono">get_receipt</td><td>The signed receipt, for checking offline</td></tr>
+<tr><td class="mono">propose_normalization</td><td>Drafts a request for a person to review. It can't apply it</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="band sunk" id="confidential">
+<div class="wrap">
+<div class="eyebrow">For data you can't share</div>
+<h2 style="margin:16px 0 0;max-width:26ch">Built so an outside agent can be tested on your data</h2>
+<div class="rule"></div>
+<p class="lead" style="margin-bottom:26px">An agent that reads a diagnostic learns a little about the data behind it. So on anything that isn't public, Verify narrows what comes back and caps how often the agent can ask.</p>
+<div class="grid3">
+<div class="card"><h3>Confidential by default</h3><p>On non-public data the agent gets the verdict and which output file differs. No field names, no counts. That can't be switched off for that data.</p></div>
+<div class="card"><h3>A budget that doesn't reset</h3><p>Attempts are counted against the data itself, across every task. Starting a new task doesn't buy more tries. Only a signed human decision raises the limit.</p></div>
+<div class="card"><h3>Runs in your environment</h3><p>The judge runs on Linux inside your environment, under its own account, with the candidate in a sandbox. Your held-out data stays with you.</p></div>
+</div>
+<p class="note" style="margin-top:22px">We publish the limits too. Confidential mode caps what a deliberately hostile agent could learn from the verdicts, but the cap isn't zero, and timing falls outside it. The <a href="https://github.com/howardweale/lightyear-carddemo-modernization/blob/main/docs/verify/README.md" rel="noopener" target="_blank">operator guide</a> sets out the threat model.</p>
+</div>
+</div>
+<div class="band" id="preview">
+<div class="wrap">
+<div class="eyebrow">What's in the preview</div>
+<h2 style="margin:16px 0 0;max-width:24ch">What works today, and what doesn't yet</h2>
+<div class="rule"></div>
+<div class="grid2" style="align-items:start;gap:28px">
+<div class="card"><h3>In the preview</h3>
+<ul class="plain">
+<li>First lane: COBOL batch to Java, starting with the CardDemo interest-calculation job</li>
+<li>Tested live with Claude Code, and with the MCP SDK, with the agent and the judge under separate accounts</li>
+<li>Confidential mode, durable attempt budgets and a sandbox with no network</li>
+<li>Signed receipts that replay offline, with no database, no AI and no network</li>
+<li>Human decisions in the Control Tower for retries and accepted differences</li>
+</ul></div>
+<div class="card"><h3>Not yet</h3>
+<ul class="plain">
+<li>More lanes, including the Oracle-to-PostgreSQL ERP processes our factory is measured on</li>
+<li>Live tests with Codex, Google ADK and Strands. Planned; we'll name each one once it has passed</li>
+<li>Qualification on captures from a live mainframe</li>
+<li>A packaged install or a hosted judge. Today it's a guided Linux setup</li>
+<li>Self-serve pricing</li>
+</ul></div>
+</div>
 </div>
 </div>
 <div class="band">
-<div class="wrap">
-<div class="grid3">
-<div class="card"><h3>Read-only by default</h3><p>Collection is read-only. Live capture carries operator attestation and verified TLS with certificate and hostname validation, and writes nothing back to your estate.</p></div>
-<div class="card"><h3>Evidence cannot be laundered</h3><p>Simulated evidence cannot satisfy an equivalence claim. Replaying a live capture yields <span class="mono" style="color:var(--ink)">recorded</span>, never <span class="mono" style="color:var(--ink)">live</span> — weak evidence cannot be promoted by round-tripping it.</p></div>
-<div class="card"><h3>Nothing runs loose</h3><p>Checks run in a digest-pinned container with a read-only host bind. Work orders are signed, expiring, and replay-safe. Agent identities are short-lived and action-scoped.</p></div>
-<div class="card"><h3>Every step is on the record</h3><p>Every event binds actor, action, subject, policy decision and evidence receipt to an exact graph identity. A reviewer can replay the evidence behind any release decision.</p></div>
-<div class="card"><h3>Your data stays yours</h3><p>Comparison output contains real record values by design — that is what makes it evidence. Classification, access control and retention on run directories are agreed before the first capture, not after.</p></div>
-<div class="card"><h3>No borrowed code in the core</h3><p>The verification core has zero external runtime dependencies. For a tool whose product is evidence, the dependency tree is part of what your auditor has to trust.</p></div>
-</div>
-</div>
-</div>
-<div class="band sunk">
-<div class="wrap">
-<div class="eyebrow">What the record shows</div>
-<h2 style="margin:16px 0 0;max-width:26ch">Four questions, answered without the original engineers</h2>
-<div class="rule"></div>
-<div class="panel" style="padding:6px 24px;margin-top:20px">
-<table>
-<tr><td style="width:34%">What changed, exactly?</td><td class="mono">brokered patch + workspace hash</td></tr>
-<tr><td>What proved it?</td><td class="mono">gate result + output digest</td></tr>
-<tr><td>What was the agent told?</td><td class="mono">redacted diagnosis envelope</td></tr>
-<tr><td>Can we replay it?</td><td class="mono">content-addressed run receipt</td></tr>
-</table>
-</div>
-<p class="note" style="margin-top:18px">Replayable next quarter, by someone who was not in the room when it ran.</p>
-</div>
-</div>
-<div class="band sunk">
 <div class="wrap">
 <div class="cta-band">
-<div class="eyebrow">Not finding it</div>
-<h2 style="margin:14px 0 14px;max-width:24ch">These docs describe the shape. Your estate decides the detail.</h2>
-<p class="lead" style="margin-bottom:26px">Copybook dialects, screen conventions and clock injection all differ by site. Send us a program and we will tell you what the harness would need.</p>
-<a class="btn solid" href="mailto:sales@lightyr.ai">Ask an engineer</a>
+<div class="eyebrow">Preview access</div>
+<h2 style="margin:14px 0 14px;max-width:24ch">Point your agent at the judge</h2>
+<p class="lead" style="margin-bottom:26px">Tell us which agent you use, what it's modernizing, and whether the data is public or confidential. We'll set up the judge with you.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn solid" href="mailto:sales@lightyr.ai?subject=Lightyear%20Verify%20preview%20access">Request preview access</a><a class="btn" href="pricing.html">Or start with a Verification Sprint</a></div>
 </div>
 </div>
 </div>
@@ -861,29 +806,5 @@ lightyr scripts              <span class="c"># every entry point owned, roled an
   window.addEventListener('resize',function(){frames.forEach(fit);});
 })();
 </script>
-<script>
-(function(){
-const docSearch=document.getElementById('doc-search'); if(!docSearch) return;
-const docSections=[...document.querySelectorAll('.docsec')];
-const docLinks=[...document.querySelectorAll('.docnav a')];
-docSearch.addEventListener('input',()=>{
-  const query=docSearch.value.trim().toLowerCase();
-  let visible=0;
-  docSections.forEach(section=>{
-    const match=!query||section.textContent.toLowerCase().includes(query);
-    section.hidden=!match;
-    const link=document.querySelector(`.docnav a[href="#${section.id}"]`);
-    if(link) link.hidden=!match;
-    if(match) visible++;
-  });
-  document.getElementById('doc-empty').style.display=visible?'none':'block';
-});
-const observer=new IntersectionObserver(entries=>{
-  const current=entries.filter(entry=>entry.isIntersecting&&!entry.target.hidden).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top)[0];
-  if(!current) return;
-  docLinks.forEach(link=>link.classList.toggle('active',link.getAttribute('href')==='#'+current.target.id));
-},{rootMargin:'-110px 0px -65% 0px',threshold:0});
-docSections.forEach(section=>observer.observe(section));
-})();
-</script></body>
+</body>
 </html>

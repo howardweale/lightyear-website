@@ -526,6 +526,10 @@ ul.plain li::before{content:"";position:absolute;left:2px;top:17px;width:8px;hei
 @media(max-width:600px){.fgrid{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:600px){.founder{flex-direction:column;padding:22px}.btn{white-space:normal;max-width:100%;text-align:center}}
 .cta{display:flex;flex-wrap:wrap;gap:12px}
+.anim-frame{border-radius:14px;overflow:hidden;background:#06061A;border:1px solid var(--hair)}
+.anim-frame iframe{display:block;width:100%;aspect-ratio:960/560;border:0}
+@media(max-width:600px){.anim-frame iframe{aspect-ratio:960/940}#tools table{min-width:0}#tools td.mono{font-size:12.5px;word-break:break-all}}
+.stepno{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--amber-d);margin-bottom:8px}
 </style>
 <link href="https://lightyr.ai/proof.html" rel="canonical"/>
 <link href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMy42OCAxMy41MiBMMTYuMCA1LjQ0IEwyOC4zMiAxMy41MiBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0zLjY4IDE4LjQ4IEwxNi4wIDI2LjU2IEwyOC4zMiAxOC40OCBaIi8+PC9zdmc+" rel="icon" type="image/svg+xml"/>
@@ -556,6 +560,7 @@ ul.plain li::before{content:"";position:absolute;left:2px;top:17px;width:8px;hei
 <button aria-expanded="false" aria-label="Toggle navigation menu" class="menu" onclick="const n=document.querySelector('nav.tabs');this.setAttribute('aria-expanded', n.classList.toggle('open'));">≡</button>
 <nav aria-label="Main" class="tabs">
 <a class="tablink" href="product.html">Product</a>
+<a class="tablink" href="verify.html">Verify</a>
 <a class="tablink" href="solutions.html">Solutions</a>
 <a class="tablink" href="proof.html" aria-current="page">Proof</a>
 <a class="tablink" href="pricing.html">Pricing</a>
@@ -1407,6 +1412,7 @@ li b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;m
 <div class="fhead">Product</div>
 <a href="product.html">The Verdict Engine</a>
 <a href="product.html#coverage">Coverage catalogue</a>
+<a href="verify.html">Lightyear Verify (preview)</a>
 <a href="proof.html">Proof</a>
 <a href="pricing.html">Pricing</a>
 </div>

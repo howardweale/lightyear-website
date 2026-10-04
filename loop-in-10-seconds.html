@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Loop in 10 Seconds</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+/* The repair loop only: one field differs, the AI fixes it, the engine proves it. 10 s, loops. */
+:root{
+  --void:#06061A; --panel:#0E0D26; --line:#2A2850; --fg:#F4F2FF; --muted:#A9A5C8;
+  --violet:#8B5CFF; --filament:#FFB547; --ok:#2BD4A0; --bad:#FF5A4E;
+  --display:'Archivo','Arial Narrow',sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --T:10s;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--void);color:var(--fg)}
+body{font-family:var(--body);padding:16px}
+.wrap{max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.stage{position:relative;border:1px solid var(--line);border-radius:14px;background:var(--void);overflow:hidden}
+.stage svg{display:block;width:100%;height:auto}
+.toggle{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px;min-height:40px;cursor:pointer}
+.toggle:hover{border-color:var(--violet)}
+.toggle:focus-visible{outline:2px solid var(--filament);outline-offset:2px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.caps{display:grid;flex:1 1 360px;min-height:1.3em}
+.cap{grid-area:1/1;margin:0;font-family:var(--display);font-stretch:85%;font-weight:700;font-size:clamp(18px,2.4vw,24px);line-height:1.25;opacity:0}
+.tag{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+
+.run .anim{animation-duration:var(--T);animation-iteration-count:infinite;animation-timing-function:ease-in-out;animation-fill-mode:both}
+.paused .anim,.paused .eyes,.paused .gear,.paused .bob{animation-play-state:paused}
+.fb{transform-box:fill-box;transform-origin:center}
+.bob{animation:bob 2.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.eyes{transform-box:fill-box;transform-origin:center;animation:blink 3.7s infinite}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.gear{transform-box:fill-box;transform-origin:center;animation:spin 2.4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.k0{animation-name:k0}.k1{animation-name:k1}.k2{animation-name:k2}.k3{animation-name:k3}
+@keyframes k0{0%,14.5%{opacity:1}16%,100%{opacity:0}}
+@keyframes k1{0%,15%{opacity:0}16.5%,32%{opacity:1}34%,100%{opacity:0}}
+@keyframes k2{0%,33%{opacity:0}35%,69%{opacity:1}71%,100%{opacity:0}}
+@keyframes k3{0%,70%{opacity:0}72%,98%{opacity:1}100%{opacity:0}}
+
+.tA{animation-name:tA}.tB1{animation-name:tB1}.tB2{animation-name:tB2}
+@keyframes tA{0%{opacity:1;transform:translate(0,0)}6%,30%{opacity:1;transform:translate(56px,84px)}33%,55%{opacity:0;transform:translate(0,0)}56%{opacity:1;transform:translate(0,0)}62%,95%{opacity:1;transform:translate(56px,84px)}98%,100%{opacity:0;transform:translate(56px,84px)}}
+@keyframes tB1{0%{opacity:1;transform:translate(0,0)}6%,30%{opacity:1;transform:translate(56px,4px)}33%,100%{opacity:0;transform:translate(56px,4px)}}
+@keyframes tB2{0%,55%{opacity:0;transform:translate(0,0)}56%{opacity:1;transform:translate(0,0)}62%,95%{opacity:1;transform:translate(56px,4px)}98%,100%{opacity:0;transform:translate(56px,4px)}}
+.scan{animation-name:scan}
+@keyframes scan{0%,5.5%{opacity:0;transform:translateY(0)}6%{opacity:.9;transform:translateY(0)}11%{opacity:.9;transform:translateY(62px)}15.5%{opacity:.9;transform:translateY(0)}16%,61.5%{opacity:0;transform:translateY(0)}62%{opacity:.9;transform:translateY(0)}67%{opacity:.9;transform:translateY(62px)}71.5%{opacity:.9;transform:translateY(0)}72%,100%{opacity:0;transform:translateY(0)}}
+.lampA{animation-name:lampA}.lampR{animation-name:lampR}.lampG{animation-name:lampG}
+@keyframes lampA{0%,5.5%{fill:#2A2850}6%,8%{fill:#FFB547}9%,11%{fill:#2A2850}12%,14%{fill:#FFB547}15%,61.5%{fill:#2A2850}62%,64%{fill:#FFB547}65%,67%{fill:#2A2850}68%,70%{fill:#FFB547}71%,100%{fill:#2A2850}}
+@keyframes lampR{0%,15.5%{fill:#2A2850}16.5%,33%{fill:#FF5A4E}34%,100%{fill:#2A2850}}
+@keyframes lampG{0%,71.5%{fill:#2A2850}72.5%,96%{fill:#2BD4A0}98%,100%{fill:#2A2850}}
+.r1{animation-name:r1}.r2{animation-name:r2}.r3{animation-name:r3}.r4{animation-name:r4}
+@keyframes r1{0%,5.5%{opacity:0}6.5%,15%{opacity:1}16%,100%{opacity:0}}
+@keyframes r2{0%,15.5%{opacity:0}16.5%,33%{opacity:1}34%,100%{opacity:0}}
+@keyframes r3{0%,61.5%{opacity:0}62.5%,71%{opacity:1}72%,100%{opacity:0}}
+@keyframes r4{0%,71.5%{opacity:0}72.5%,96%{opacity:1}98%,100%{opacity:0}}
+.stampRed{animation-name:stampRed}
+@keyframes stampRed{0%,15.5%{opacity:0;transform:scale(2.2) rotate(5deg)}18%,31%{opacity:1;transform:scale(1) rotate(5deg)}34%,100%{opacity:0;transform:scale(1) rotate(5deg)}}
+.stamp{animation-name:stamp}
+@keyframes stamp{0%,71.5%{opacity:0;transform:scale(2.2) rotate(-6deg)}74%,95%{opacity:1;transform:scale(1) rotate(-6deg)}98%,100%{opacity:0;transform:scale(1) rotate(-6deg)}}
+.note{animation-name:note}
+@keyframes note{0%,18%{opacity:0;transform:translate(0,0)}20%{opacity:1;transform:translate(0,0)}30%,36%{opacity:1;transform:translate(-326px,-108px)}39%,100%{opacity:0;transform:translate(-326px,-108px)}}
+.aha{animation-name:aha}
+@keyframes aha{0%,29%{opacity:0;transform:scale(0)}31%{opacity:1;transform:scale(1.2)}32.5%,38%{opacity:1;transform:scale(1)}40%,100%{opacity:0;transform:scale(0)}}
+.bFix{animation-name:bFix}
+@keyframes bFix{0%,32%{opacity:0;transform:translateY(6px)}34%,45%{opacity:1;transform:translateY(0)}47%,100%{opacity:0}}
+.bYes{animation-name:bYes}
+@keyframes bYes{0%,75%{opacity:0;transform:translateY(6px)}77%,94%{opacity:1;transform:translateY(0)}97%,100%{opacity:0}}
+.type{animation-name:type}
+@keyframes type{0%,35%{transform:translateY(0)}36.5%{transform:translateY(-4px)}38%{transform:translateY(0)}39.5%{transform:translateY(-4px)}41%{transform:translateY(0)}42.5%{transform:translateY(-4px)}44%,100%{transform:translateY(0)}}
+.bolt{animation-name:boltK}
+@keyframes boltK{0%,19%{transform:translate(0,0) rotate(0)}22%,29%{transform:translate(0,5px) rotate(-5deg)}32%{transform:translate(0,-7px) rotate(0)}35%,74%{transform:translate(0,0)}77%{transform:translate(0,-16px)}80%{transform:translate(0,0)}83%{transform:translate(0,-8px)}86%,100%{transform:translate(0,0)}}
+.cA{animation-name:cA}.cB{animation-name:cB}
+@keyframes cA{0%,44%{opacity:0;transform:translate(0,0)}46%{opacity:1;transform:translate(0,0)}53%{opacity:1;transform:translate(230px,-200px)}55%,100%{opacity:0;transform:translate(230px,-200px)}}
+@keyframes cB{0%,44%{opacity:0;transform:translate(0,0)}46%{opacity:1;transform:translate(0,0)}53%{opacity:1;transform:translate(230px,-80px)}55%,100%{opacity:0;transform:translate(230px,-80px)}}
+.lamp{animation-name:lamp}
+@keyframes lamp{0%,4%{fill:#2BD4A0}5%,52.5%{fill:#2A2850}53.5%{fill:#FFB547}54.5%{fill:#2A2850}55.5%{fill:#FFB547}56.5%,62%{fill:#2BD4A0}63%,100%{fill:#2A2850}}
+.shake{animation-name:shake}
+@keyframes shake{0%,52.5%{transform:translate(0,0)}53.5%{transform:translate(1px,-1px)}54.5%{transform:translate(-1px,1px)}55.5%{transform:translate(1px,1px)}56.5%,100%{transform:translate(0,0)}}
+.rcpt{animation-name:rcpt;transform-box:fill-box;transform-origin:50% 0}
+@keyframes rcpt{0%,73%{opacity:0;transform:scaleY(0)}77%,95%{opacity:1;transform:scaleY(1)}98%,100%{opacity:0;transform:scaleY(1)}}
+.spark{animation-name:spark}
+@keyframes spark{0%,72%{opacity:0;transform:scale(0)}75%{opacity:1;transform:scale(1.2)}79%{opacity:1;transform:scale(.9)}85%,100%{opacity:0;transform:scale(0)}}
+.beamglow{animation-name:beam}
+@keyframes beam{0%,72%{opacity:.25}75%,93%{opacity:1}97%,100%{opacity:.25}}
+
+@media (prefers-reduced-motion: reduce){
+  .anim,.eyes,.gear,.bob{animation:none!important}
+  .k0,.k1,.k2,.tB1,.scan,.r1,.r2,.r3,.stampRed,.note,.aha,.bFix,.cA,.cB,.spark{opacity:0}
+  .k3,.tA,.tB2,.r4,.stamp,.rcpt,.bYes{opacity:1}
+  .tA{transform:translate(56px,84px)}.tB2{transform:translate(56px,4px)}
+  .stamp{transform:rotate(-6deg)}
+  .lampG{fill:#2BD4A0}
+  .toggle{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap run" id="player">
+  <div class="stage">
+    <svg viewBox="156 104 804 404" role="img" aria-label="Ten-second loop. The Verdict Engine finds one field that differs and reports which field. Bolt, the builder AI, fixes its own code. The same inputs run again on both systems, the engine reports equivalent, and prints a signed receipt.">
+      <g fill="none" stroke="#2A2850" stroke-width="2" stroke-dasharray="4 6">
+        <path d="M372 400C450 400 470 220 540 216"/>
+        <path d="M372 410C450 410 470 346 540 346"/>
+        <path d="M680 216C720 216 720 300 740 300"/>
+        <path d="M680 346C720 346 720 350 740 350"/>
+      </g>
+      <line x1="156" y1="470" x2="960" y2="470" stroke="#FFB547" stroke-width="2" opacity=".35"/>
+      <line class="anim beamglow" x1="156" y1="470" x2="960" y2="470" stroke="#FFB547" stroke-width="3" style="filter:drop-shadow(0 0 6px #FFB547)"/>
+
+      <g class="anim shake">
+        <rect x="540" y="168" width="140" height="96" rx="14" fill="#14132E" stroke="#3A3760" stroke-width="2"/>
+        <text x="556" y="192" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.5" fill="#A9A5C8">ORIGINAL</text>
+        <text x="556" y="216" font-family="Archivo, sans-serif" font-size="17" font-weight="800" fill="#F4F2FF">Oracle</text>
+        <circle class="anim lamp" cx="563" cy="242" r="6" fill="#2A2850"/>
+        <g class="gear"><circle cx="652" cy="244" r="14" fill="none" stroke="#8B5CFF" stroke-width="7" stroke-dasharray="5 4"/><circle cx="652" cy="244" r="5.5" fill="#8B5CFF"/></g>
+      </g>
+      <g class="anim shake">
+        <rect x="540" y="298" width="140" height="96" rx="14" fill="#14132E" stroke="#3A3760" stroke-width="2"/>
+        <text x="556" y="322" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.5" fill="#A9A5C8">MODERNIZED</text>
+        <text x="556" y="346" font-family="Archivo, sans-serif" font-size="17" font-weight="800" fill="#F4F2FF">PostgreSQL</text>
+        <circle class="anim lamp" cx="563" cy="372" r="6" fill="#2A2850"/>
+        <g class="gear"><circle cx="652" cy="374" r="14" fill="none" stroke="#8B5CFF" stroke-width="7" stroke-dasharray="5 4"/><circle cx="652" cy="374" r="5.5" fill="#8B5CFF"/></g>
+      </g>
+
+      <!-- Bolt, the builder AI -->
+      <g transform="translate(300 466)"><g class="bob"><g class="anim bolt" style="transform-box:fill-box;transform-origin:50% 100%">
+        <rect x="-32" y="-96" width="64" height="52" rx="18" fill="#FFB547"/>
+        <rect x="-24" y="-88" width="48" height="32" rx="12" fill="#14132E"/>
+        <g class="eyes"><ellipse cx="-8" cy="-73" rx="5" ry="6" fill="#F4F2FF"/><ellipse cx="12" cy="-73" rx="5" ry="6" fill="#F4F2FF"/></g>
+        <path d="M-2 -63Q4 -59 10 -63" stroke="#F4F2FF" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <circle cx="-27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"/><circle cx="27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"/>
+        <rect x="-26" y="-42" width="52" height="38" rx="14" fill="#E2902A"/>
+        <rect x="18" y="-40" width="46" height="28" rx="4" fill="#14132E" stroke="#FFB547" stroke-width="2"/>
+        <rect x="24" y="-33" width="22" height="2.5" fill="#B9A3FF"/><rect x="24" y="-27" width="30" height="2.5" fill="#FFB547"/><rect x="24" y="-21" width="16" height="2.5" fill="#B9A3FF"/>
+        <rect x="12" y="-12" width="58" height="5" rx="2" fill="#3A3760"/>
+        <rect class="anim type" x="10" y="-22" width="14" height="7" rx="3.5" fill="#E2902A"/>
+        <rect x="-20" y="-6" width="14" height="10" rx="4" fill="#9A5F12"/><rect x="6" y="-6" width="14" height="10" rx="4" fill="#9A5F12"/>
+        <path d="M-29 -95Q-28 -121 0 -122Q28 -121 29 -95Z" fill="#FFD48A"/><rect x="-36" y="-98" width="72" height="6" rx="3" fill="#F4C46A"/><rect x="-4" y="-121" width="8" height="24" rx="3" fill="#F4C46A"/>
+      </g></g></g>
+
+      <g class="anim cA">
+        <rect x="322" y="384" width="40" height="9" rx="4" fill="#8B5CFF"/><rect x="322" y="397" width="30" height="9" rx="4" fill="#FFB547"/><rect x="322" y="410" width="36" height="9" rx="4" fill="#B9A3FF"/>
+      </g>
+      <g class="anim cB">
+        <rect x="322" y="384" width="40" height="9" rx="4" fill="#8B5CFF"/><rect x="322" y="397" width="30" height="9" rx="4" fill="#FFB547"/><rect x="322" y="410" width="36" height="9" rx="4" fill="#B9A3FF"/>
+      </g>
+
+      <!-- the Verdict Engine -->
+      <g>
+        <rect x="812" y="250" width="96" height="14" rx="4" fill="#2A2850"/>
+        <rect x="790" y="262" width="140" height="204" rx="12" fill="#14132E" stroke="#8B5CFF" stroke-width="2"/>
+        <rect x="802" y="276" width="116" height="76" rx="6" fill="#06061A" stroke="#3A3760" stroke-width="1.5"/>
+        <g fill="#2A2850"><rect x="812" y="288" width="44" height="3"/><rect x="864" y="288" width="44" height="3"/><rect x="812" y="296" width="36" height="3"/><rect x="864" y="296" width="36" height="3"/><rect x="812" y="304" width="40" height="3"/><rect x="864" y="304" width="40" height="3"/></g>
+        <line x1="860" y1="284" x2="860" y2="312" stroke="#2A2850" stroke-width="1"/>
+        <rect class="anim scan" x="804" y="280" width="112" height="2" fill="#FFB547"/>
+        <g font-family="IBM Plex Mono, monospace" font-size="10.5" font-weight="600" letter-spacing="1" text-anchor="middle">
+          <text class="anim r1" x="860" y="336" fill="#FFB547">COMPARING</text>
+          <text class="anim r2" x="860" y="336" fill="#FF5A4E">1 FIELD DIFFERS</text>
+          <text class="anim r3" x="860" y="336" fill="#FFB547">RE-CHECKING</text>
+          <text class="anim r4" x="860" y="336" fill="#2BD4A0">EQUIVALENT</text>
+        </g>
+        <circle class="anim lampA" cx="836" cy="370" r="6" fill="#2A2850"/>
+        <circle class="anim lampR" cx="860" cy="370" r="6" fill="#2A2850"/>
+        <circle class="anim lampG" cx="884" cy="370" r="6" fill="#2A2850"/>
+        <text x="860" y="398" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1.5" font-weight="600" fill="#F4F2FF">VERDICT ENGINE</text>
+        <text x="860" y="413" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#A9A5C8">fixed rules · no AI</text>
+        <rect x="828" y="424" width="64" height="5" rx="2" fill="#06061A"/>
+        <g class="anim rcpt">
+          <rect x="832" y="427" width="56" height="34" rx="2" fill="#F4F2FF"/>
+          <rect x="838" y="433" width="30" height="2.5" fill="#8B5CFF"/><rect x="838" y="439" width="40" height="2.5" fill="#A9A5C8"/><rect x="838" y="445" width="24" height="2.5" fill="#A9A5C8"/>
+          <path d="M866 452l4 4 8-9" fill="none" stroke="#2BD4A0" stroke-width="2.5" stroke-linecap="round"/>
+        </g>
+        <g class="gear"><circle cx="912" cy="446" r="9" fill="none" stroke="#8B5CFF" stroke-width="5" stroke-dasharray="4 3"/><circle cx="912" cy="446" r="3.5" fill="#8B5CFF"/></g>
+      </g>
+
+      <g class="anim tA">
+        <rect x="684" y="200" width="54" height="34" rx="5" fill="#1C1B3A" stroke="#8B5CFF" stroke-width="1.5"/>
+        <rect x="691" y="207" width="40" height="3" fill="#B9A3FF"/><rect x="691" y="215" width="30" height="3" fill="#B9A3FF"/><rect x="691" y="223" width="36" height="3" fill="#B9A3FF"/>
+      </g>
+      <g class="anim tB1">
+        <rect x="684" y="330" width="54" height="34" rx="5" fill="#1C1B3A" stroke="#FF5A4E" stroke-width="1.5"/>
+        <rect x="691" y="337" width="40" height="3" fill="#B9A3FF"/><rect x="691" y="345" width="18" height="3" fill="#FF5A4E"/><rect x="691" y="353" width="36" height="3" fill="#B9A3FF"/>
+      </g>
+      <g class="anim tB2">
+        <rect x="684" y="330" width="54" height="34" rx="5" fill="#1C1B3A" stroke="#8B5CFF" stroke-width="1.5"/>
+        <rect x="691" y="337" width="40" height="3" fill="#B9A3FF"/><rect x="691" y="345" width="30" height="3" fill="#B9A3FF"/><rect x="691" y="353" width="36" height="3" fill="#B9A3FF"/>
+      </g>
+
+      <g class="anim stampRed fb">
+        <rect x="752" y="140" width="166" height="46" rx="5" fill="#06061A" stroke="#FF5A4E" stroke-width="3"/>
+        <text x="835" y="164" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="600" font-size="17" letter-spacing="2" fill="#FF5A4E">DIVERGENT</text>
+        <text x="835" y="179" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1" fill="#A9A5C8">1 FIELD DIFFERS</text>
+      </g>
+      <g class="anim note">
+        <rect x="636" y="410" width="150" height="40" rx="6" fill="#2A0F1A" stroke="#FF5A4E" stroke-width="1.5"/>
+        <text x="648" y="427" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#FFB3AC">FIELD: invoice type</text>
+        <text x="648" y="442" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#A9A5C8">value: not shared</text>
+      </g>
+      <g class="anim aha fb">
+        <circle cx="342" cy="356" r="14" fill="#FFB547"/>
+        <text x="342" y="363" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="900" font-size="20" fill="#06061A">!</text>
+      </g>
+      <g class="anim stamp fb">
+        <rect x="752" y="140" width="166" height="46" rx="5" fill="#06061A" stroke="#2BD4A0" stroke-width="3"/>
+        <text x="835" y="164" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="600" font-size="17" letter-spacing="2" fill="#2BD4A0">EQUIVALENT</text>
+        <text x="835" y="179" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1" fill="#A9A5C8">SIGNED · REPLAYABLE</text>
+      </g>
+      <path class="anim spark fb" d="M748 118l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#FFB547"/>
+      <path class="anim spark fb" d="M934 206l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#2BD4A0"/>
+      <path class="anim spark fb" d="M770 222l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#B9A3FF"/>
+
+      <g class="anim bFix"><rect x="170" y="307" width="128" height="28" rx="14" fill="#F4F2FF"/><path d="M228 335l6 9l6 -9z" fill="#F4F2FF"/><text x="234" y="326.5" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="500" font-size="13" fill="#06061A">Got it. Fixing!</text></g>
+      <g class="anim bYes"><rect x="272" y="307" width="56" height="28" rx="14" fill="#F4F2FF"/><path d="M294 335l6 9l6 -9z" fill="#F4F2FF"/><text x="300" y="326.5" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="500" font-size="13" fill="#06061A">Yes!</text></g>
+
+      <g font-family="Archivo, sans-serif" font-size="15" font-weight="700" fill="#C9C5E6" text-anchor="middle">
+        <text x="300" y="498">Bolt · builder AI</text><text x="860" y="498">The Verdict Engine</text>
+      </g>
+    </svg>
+  </div>
+  <div class="row">
+    <div class="caps" aria-live="off">
+      <p class="cap anim k0">Both systems ran. The engine compares every field.</p>
+      <p class="cap anim k1">One field differs. The engine names it, not the answer.</p>
+      <p class="cap anim k2">The AI fixes its own code and runs it again.</p>
+      <p class="cap anim k3">Equivalent. Signed. Anyone can replay it.</p>
+    </div>
+    <span class="tag">Built lights-out. Proven in plain sight.</span>
+    <button type="button" class="toggle" id="pause" aria-pressed="false">Pause</button>
+  </div>
+</div>
+<script>
+(function(){
+  var player=document.getElementById('player'),pause=document.getElementById('pause');
+  pause.addEventListener('click',function(){
+    var on=player.classList.toggle('paused');
+    pause.setAttribute('aria-pressed',on?'true':'false');
+    pause.textContent=on?'Play':'Pause';
+  });
+})();
+</script>
+</body>
+</html>

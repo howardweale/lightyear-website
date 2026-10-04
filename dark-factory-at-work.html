@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dark Factory at Work</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+/* One stage, a caption that changes with the scene, and the six steps underneath. Lights-Out brand, dark by design. */
+:root{
+  --void:#06061A; --panel:#0E0D26; --line:#2A2850; --fg:#F4F2FF; --muted:#A9A5C8;
+  --violet:#8B5CFF; --filament:#FFB547; --ok:#2BD4A0; --bad:#FF5A4E;
+  --display:'Archivo','Arial Narrow',sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --T:28s;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--void);color:var(--fg)}
+body{font-family:var(--body);padding:16px}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.pair{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:14px;color:var(--muted)}
+.pair b{color:var(--fg);font-weight:600}
+.chip{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px solid currentColor}
+.chip.q{color:var(--ok)}.chip.i{color:var(--filament)}
+.controls{display:flex;gap:10px}
+button{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 16px;min-height:44px;cursor:pointer}
+button:hover{border-color:var(--violet)}
+button:focus-visible{outline:2px solid var(--filament);outline-offset:2px}
+.stage{border:1px solid var(--line);border-radius:14px;background:var(--void);overflow:hidden}
+.stage svg{display:block;width:100%;height:auto}
+.caps{display:grid;min-height:2.6em}
+.cap{grid-area:1/1;margin:0;font-family:var(--display);font-stretch:85%;font-weight:700;font-size:clamp(19px,2.6vw,26px);line-height:1.2;opacity:0}
+ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+li{min-width:0;border:1px solid var(--line);border-radius:10px;padding:12px;font-size:14px;line-height:1.4;color:var(--muted)}
+li b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;margin-bottom:4px}
+.fine{margin:0;font-family:var(--mono);font-size:12px;line-height:1.5;color:var(--muted)}
+@media (max-width:720px){ol{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* personality: idle bob, speech bubbles, reactions (the two AI agents only; the engine is a machine) */
+.bob{animation:bob 2.6s ease-in-out infinite}
+.bob.b2{animation-delay:-.9s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.paused .bob{animation-play-state:paused}
+.s1{animation-name:s1}.s2{animation-name:s2}.s3{animation-name:s3}.s4{animation-name:s4}.s5{animation-name:s5}.s6{animation-name:s6}.s7{animation-name:s7}.s8{animation-name:s8}.s9{animation-name:s9}.s10{animation-name:s10}
+@keyframes s1{0%,0.5%{opacity:0;transform:translateY(6px)}1.5%,7.5%{opacity:1;transform:translateY(0)}8.5%,100%{opacity:0}}
+@keyframes s2{0%,9.5%{opacity:0;transform:translateY(6px)}10.5%,16.5%{opacity:1;transform:translateY(0)}17.5%,100%{opacity:0}}
+@keyframes s3{0%,29.5%{opacity:0}30.5%,37.5%{opacity:1}38.5%,100%{opacity:0}}
+@keyframes s4{0%,39%{opacity:0}40%,48.5%{opacity:1}49.5%,100%{opacity:0}}
+@keyframes s5{0%,44%{opacity:0;transform:translateY(6px)}45%,49%{opacity:1;transform:translateY(0)}50%,100%{opacity:0}}
+@keyframes s6{0%,50.5%{opacity:0;transform:translateY(6px)}51.5%,57%{opacity:1;transform:translateY(0)}58%,100%{opacity:0}}
+@keyframes s7{0%,75.5%{opacity:0}76.5%,84%{opacity:1}85%,100%{opacity:0}}
+@keyframes s8{0%,85%{opacity:0}86%,97%{opacity:1}98.5%,100%{opacity:0}}
+@keyframes s9{0%,87%{opacity:0;transform:translateY(6px)}88%,96%{opacity:1;transform:translateY(0)}97.5%,100%{opacity:0}}
+@keyframes s10{0%,87.5%{opacity:0;transform:translateY(6px)}88.5%,96%{opacity:1;transform:translateY(0)}97.5%,100%{opacity:0}}
+.boltAct{animation-name:boltAct}
+@keyframes boltAct{0%,43%{transform:translate(0,0) rotate(0)}45%,49%{transform:translate(0,5px) rotate(-5deg)}51%{transform:translate(0,-7px) rotate(0)}53%,86%{transform:translate(0,0)}88%{transform:translate(0,-16px)}90%{transform:translate(0,0)}92%{transform:translate(0,-8px)}94%,100%{transform:translate(0,0)}}
+.pipAct{animation-name:pipAct}
+@keyframes pipAct{0%,86.5%{transform:translateY(0)}88.5%{transform:translateY(-14px)}90.5%{transform:translateY(0)}92.5%{transform:translateY(-6px)}94.5%,100%{transform:translateY(0)}}
+.sweat{animation-name:sweat}
+@keyframes sweat{0%,43.5%{opacity:0;transform:translateY(0)}45%{opacity:1;transform:translateY(0)}49%{opacity:1;transform:translateY(8px)}50.5%,100%{opacity:0;transform:translateY(10px)}}
+.fade{transition:opacity .4s}
+
+/* the timeline: one 28 s loop in two acts (catch a difference, then repair and pass) */
+.run .anim{animation-duration:var(--T);animation-iteration-count:infinite;animation-timing-function:ease-in-out;animation-fill-mode:both}
+.paused .anim,.paused .eyes,.paused .gear,.paused .glowdot{animation-play-state:paused}
+.fb{transform-box:fill-box;transform-origin:center}
+
+.c1{animation-name:cap1}.c2{animation-name:cap2}.c3{animation-name:cap3}.c4{animation-name:cap4}.c5{animation-name:cap5}.c6{animation-name:cap6}.c7{animation-name:cap7}.c8{animation-name:cap8}
+@keyframes cap1{0%,8%{opacity:1}9%,100%{opacity:0}}
+@keyframes cap2{0%,9%{opacity:0}10%,17%{opacity:1}18%,100%{opacity:0}}
+@keyframes cap3{0%,18%{opacity:0}19%,28%{opacity:1}29%,100%{opacity:0}}
+@keyframes cap4{0%,29%{opacity:0}30%,37%{opacity:1}38%,100%{opacity:0}}
+@keyframes cap5{0%,38%{opacity:0}39%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes cap6{0%,50%{opacity:0}51%,63%{opacity:1}64%,100%{opacity:0}}
+@keyframes cap7{0%,64%{opacity:0}65%,83%{opacity:1}84%,100%{opacity:0}}
+@keyframes cap8{0%,84%{opacity:0}85%,98%{opacity:1}100%{opacity:0}}
+.l1{animation-name:hl1}.l2{animation-name:hl2}.l3{animation-name:hl3}.l4{animation-name:hl4}.l5{animation-name:hl5}.l6{animation-name:hl6}
+@keyframes hl1{0%,8.5%{color:var(--fg);border-color:var(--filament)}9%,100%{color:var(--muted);border-color:var(--line)}}
+@keyframes hl2{0%,9%{color:var(--muted);border-color:var(--line)}9.5%,17.5%{color:var(--fg);border-color:var(--filament)}18%,100%{color:var(--muted);border-color:var(--line)}}
+@keyframes hl3{0%,18%{color:var(--muted);border-color:var(--line)}18.5%,28.5%{color:var(--fg);border-color:var(--filament)}29%,64%{color:var(--muted);border-color:var(--line)}64.5%,74.5%{color:var(--fg);border-color:var(--filament)}75%,100%{color:var(--muted);border-color:var(--line)}}
+@keyframes hl4{0%,29%{color:var(--muted);border-color:var(--line)}29.5%,37.5%{color:var(--fg);border-color:var(--filament)}38%,75%{color:var(--muted);border-color:var(--line)}75.5%,83.5%{color:var(--fg);border-color:var(--filament)}84%,100%{color:var(--muted);border-color:var(--line)}}
+@keyframes hl5{0%,38%{color:var(--muted);border-color:var(--line)}38.5%,63.5%{color:var(--fg);border-color:var(--bad)}64%,100%{color:var(--muted);border-color:var(--line)}}
+@keyframes hl6{0%,84%{color:var(--muted);border-color:var(--line)}84.5%,99%{color:var(--fg);border-color:var(--ok)}100%{color:var(--muted);border-color:var(--line)}}
+
+.card{animation-name:card}
+@keyframes card{0%{opacity:0;transform:translate(0,0)}2%,3%{opacity:1;transform:translate(0,0)}8%{opacity:1;transform:translate(105px,0)}10%,100%{opacity:0;transform:translate(105px,0)}}
+.wave{animation-name:wave}
+@keyframes wave{0%,1.5%{transform:rotate(0)}3%,7%{transform:rotate(-28deg)}9%,100%{transform:rotate(0)}}
+.type{animation-name:type}
+@keyframes type{0%,10%{transform:translateY(0)}11%{transform:translateY(-4px)}12%{transform:translateY(0)}13%{transform:translateY(-4px)}14%{transform:translateY(0)}15%{transform:translateY(-4px)}16%{transform:translateY(0)}17%{transform:translateY(-4px)}18%,56%{transform:translateY(0)}57%{transform:translateY(-4px)}58%{transform:translateY(0)}59%{transform:translateY(-4px)}60%{transform:translateY(0)}61%{transform:translateY(-4px)}62%{transform:translateY(0)}63%{transform:translateY(-4px)}64%,100%{transform:translateY(0)}}
+.p1{animation-name:p1}.p2{animation-name:p2}.p3{animation-name:p3}
+@keyframes p1{0%,10%{opacity:0;transform:scale(.2)}11.5%{opacity:1;transform:scale(1.2)}12.5%,23%{opacity:1;transform:scale(1)}24.5%,56%{opacity:0;transform:scale(.2)}57.5%{opacity:1;transform:scale(1.2)}58.5%,69%{opacity:1;transform:scale(1)}70.5%,100%{opacity:0;transform:scale(.2)}}
+@keyframes p2{0%,12.5%{opacity:0;transform:scale(.2)}14%{opacity:1;transform:scale(1.2)}15%,23%{opacity:1;transform:scale(1)}24.5%,58.5%{opacity:0;transform:scale(.2)}60%{opacity:1;transform:scale(1.2)}61%,69%{opacity:1;transform:scale(1)}70.5%,100%{opacity:0;transform:scale(.2)}}
+@keyframes p3{0%,15%{opacity:0;transform:scale(.2)}16.5%{opacity:1;transform:scale(1.2)}17.5%,23%{opacity:1;transform:scale(1)}24.5%,61%{opacity:0;transform:scale(.2)}62.5%{opacity:1;transform:scale(1.2)}63.5%,69%{opacity:1;transform:scale(1)}70.5%,100%{opacity:0;transform:scale(.2)}}
+.flyA{animation-name:flyA}.flyB{animation-name:flyB}
+@keyframes flyA{0%,18%{transform:translate(0,0)}23.5%,24.9%{transform:translate(230px,-200px)}25%,64%{transform:translate(0,0)}69.5%,100%{transform:translate(230px,-200px)}}
+@keyframes flyB{0%,18%{transform:translate(0,0)}23.5%,24.9%{transform:translate(230px,-80px)}25%,64%{transform:translate(0,0)}69.5%,100%{transform:translate(230px,-80px)}}
+.lamp{animation-name:lamp}
+@keyframes lamp{0%,23.5%{fill:#2A2850}24.5%{fill:#FFB547}25.5%{fill:#2A2850}26.5%{fill:#FFB547}27.5%{fill:#2A2850}28.5%{fill:#FFB547}29%,48%{fill:#2BD4A0}49%,69.5%{fill:#2A2850}70.5%{fill:#FFB547}71.5%{fill:#2A2850}72.5%{fill:#FFB547}73.5%{fill:#2A2850}74.5%{fill:#FFB547}75%,98%{fill:#2BD4A0}99.5%,100%{fill:#2A2850}}
+.shake{animation-name:shake}
+@keyframes shake{0%,23.5%{transform:translate(0,0)}24.5%{transform:translate(1px,-1px)}25.5%{transform:translate(-1px,1px)}26.5%{transform:translate(1px,1px)}27.5%{transform:translate(-1px,-1px)}28.5%,69.5%{transform:translate(0,0)}70.5%{transform:translate(1px,-1px)}71.5%{transform:translate(-1px,1px)}72.5%{transform:translate(1px,1px)}73.5%{transform:translate(-1px,-1px)}74.5%,100%{transform:translate(0,0)}}
+.tileA{animation-name:tileA}.tileB1{animation-name:tileB1}.tileB2{animation-name:tileB2}
+@keyframes tileA{0%,28.5%{opacity:0;transform:translate(0,0)}29.5%{opacity:1;transform:translate(0,0)}33.5%,47%{opacity:1;transform:translate(56px,84px)}49%{opacity:0;transform:translate(56px,84px)}49.5%,74.5%{opacity:0;transform:translate(0,0)}75.5%{opacity:1;transform:translate(0,0)}79.5%,97%{opacity:1;transform:translate(56px,84px)}99.5%,100%{opacity:0;transform:translate(56px,84px)}}
+@keyframes tileB1{0%,28.5%{opacity:0;transform:translate(0,0)}29.5%{opacity:1;transform:translate(0,0)}33.5%,47%{opacity:1;transform:translate(56px,4px)}49%,100%{opacity:0;transform:translate(56px,4px)}}
+@keyframes tileB2{0%,74.5%{opacity:0;transform:translate(0,0)}75.5%{opacity:1;transform:translate(0,0)}79.5%,97%{opacity:1;transform:translate(56px,4px)}99.5%,100%{opacity:0;transform:translate(56px,4px)}}
+.stampRed{animation-name:stampRed}
+@keyframes stampRed{0%,38%{opacity:0;transform:scale(2.2) rotate(5deg)}40%,46%{opacity:1;transform:scale(1) rotate(5deg)}48%,100%{opacity:0;transform:scale(1) rotate(5deg)}}
+.stamp{animation-name:stamp}
+@keyframes stamp{0%,84%{opacity:0;transform:scale(2.2) rotate(-6deg)}86%,97%{opacity:1;transform:scale(1) rotate(-6deg)}99.5%,100%{opacity:0;transform:scale(1) rotate(-6deg)}}
+.note{animation-name:note}
+@keyframes note{0%,41%{opacity:0;transform:translate(0,0)}42.5%{opacity:1;transform:translate(0,0)}48%,53%{opacity:1;transform:translate(-326px,-108px)}55.5%,100%{opacity:0;transform:translate(-326px,-108px)}}
+.aha{animation-name:aha}
+@keyframes aha{0%,48.5%{opacity:0;transform:scale(0)}50%{opacity:1;transform:scale(1.2)}51%,54%{opacity:1;transform:scale(1)}55.5%,100%{opacity:0;transform:scale(0)}}
+.spark{animation-name:spark}
+@keyframes spark{0%,85.5%{opacity:0;transform:scale(0)}88%{opacity:1;transform:scale(1.2)}91%{opacity:1;transform:scale(.9)}95%,100%{opacity:0;transform:scale(0)}}
+.beamglow{animation-name:beam}
+@keyframes beam{0%,85%{opacity:.25}87%,95%{opacity:1}98%,100%{opacity:.25}}
+
+/* the Verdict Engine: a machine, not a character. It scans, lights a lamp and prints a receipt. */
+.scan{animation-name:scan}
+@keyframes scan{0%,29.5%{opacity:0;transform:translateY(0)}30%{opacity:.9;transform:translateY(0)}33.5%{opacity:.9;transform:translateY(62px)}37%{opacity:.9;transform:translateY(0)}38%,75.5%{opacity:0;transform:translateY(0)}76%{opacity:.9;transform:translateY(0)}79.5%{opacity:.9;transform:translateY(62px)}83%{opacity:.9;transform:translateY(0)}84%,100%{opacity:0;transform:translateY(0)}}
+.lampA{animation-name:lampA}.lampR{animation-name:lampR}.lampG{animation-name:lampG}
+@keyframes lampA{0%,29.5%{fill:#2A2850}30%,31.5%{fill:#FFB547}32%,33.5%{fill:#2A2850}34%,35.5%{fill:#FFB547}36%,37.5%{fill:#2A2850}38%{fill:#FFB547}38.5%,75.5%{fill:#2A2850}76%,77.5%{fill:#FFB547}78%,79.5%{fill:#2A2850}80%,81.5%{fill:#FFB547}82%,83.5%{fill:#2A2850}84%{fill:#FFB547}84.5%,100%{fill:#2A2850}}
+@keyframes lampR{0%,38.5%{fill:#2A2850}39.5%,48.5%{fill:#FF5A4E}49.5%,100%{fill:#2A2850}}
+@keyframes lampG{0%,84.5%{fill:#2A2850}85.5%,97.5%{fill:#2BD4A0}98.5%,100%{fill:#2A2850}}
+.rcpt{animation-name:rcpt;transform-box:fill-box;transform-origin:50% 0}
+@keyframes rcpt{0%,85.5%{opacity:0;transform:scaleY(0)}88.5%,97%{opacity:1;transform:scaleY(1)}99%,100%{opacity:0;transform:scaleY(1)}}
+
+.eyes{transform-box:fill-box;transform-origin:center;animation:blink 3.7s infinite}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.gear{transform-box:fill-box;transform-origin:center;animation:spin 2.4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.glowdot{animation:pulse 1.6s ease-in-out infinite alternate}
+@keyframes pulse{from{opacity:.55}to{opacity:1}}
+
+@media (prefers-reduced-motion: reduce){
+  .anim,.eyes,.gear,.glowdot,.bob{animation:none!important}
+  .cap{opacity:0}.c8{opacity:1}
+  li{color:var(--fg)}
+  .card,.p1,.p2,.p3,.tileB1,.stampRed,.note,.aha,.scan,.sweat{opacity:0}
+  .s1,.s2,.s3,.s4,.s5,.s6,.s7{opacity:0}
+  .s8,.s9,.s10,.stamp,.tileA,.tileB2,.rcpt{opacity:1}
+  .tileA{transform:translate(56px,84px)}.tileB2{transform:translate(56px,4px)}
+  .stamp{transform:rotate(-6deg)}
+  .lampG{fill:#2BD4A0}
+}
+</style>
+</head>
+<body>
+<div class="wrap player run" id="player">
+  <div class="top">
+    <div class="pair"><span>Now showing</span><b id="pairNote">Oracle to PostgreSQL</b><span class="chip q" id="pairStatus">Qualified (limited)</span></div>
+    <div class="controls">
+      <button type="button" id="pause" aria-pressed="false">Pause</button>
+      <button type="button" id="replay">Replay</button>
+    </div>
+  </div>
+
+  <div class="stage">
+    <svg viewBox="0 100 960 420" role="img" aria-label="Two AI agents, Pip the planner and Bolt the builder, modernize a legacy system. The same inputs run on the original and the modernized system. The Verdict Engine, a deterministic program rather than an AI, finds one differing field and reports which field, not the right value. Bolt fixes the code, the second run matches, and the engine prints a signed receipt.">
+      <!-- routes -->
+      <g fill="none" stroke="#2A2850" stroke-width="2" stroke-dasharray="4 6">
+        <path d="M372 400C450 400 470 220 540 216"/>
+        <path d="M372 410C450 410 470 346 540 346"/>
+        <path d="M680 216C720 216 720 300 740 300"/>
+        <path d="M680 346C720 346 720 350 740 350"/>
+      </g>
+
+      <!-- beam floor -->
+      <line x1="0" y1="470" x2="960" y2="470" stroke="#FFB547" stroke-width="2" opacity=".35"/>
+      <line class="anim beamglow" x1="0" y1="470" x2="960" y2="470" stroke="#FFB547" stroke-width="3" style="filter:drop-shadow(0 0 6px #FFB547)"/>
+
+      <!-- original system -->
+      <g class="anim shake">
+        <rect x="540" y="168" width="140" height="96" rx="14" fill="#14132E" stroke="#3A3760" stroke-width="2"/>
+        <text x="556" y="192" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.5" fill="#A9A5C8">ORIGINAL</text>
+        <text id="oldName" class="fade" x="556" y="216" font-family="Archivo, sans-serif" font-size="17" font-weight="800" fill="#F4F2FF">Oracle</text>
+        <circle class="anim lamp" cx="563" cy="242" r="6" fill="#2A2850"/>
+        <g class="gear"><circle cx="652" cy="244" r="14" fill="none" stroke="#8B5CFF" stroke-width="7" stroke-dasharray="5 4"/><circle cx="652" cy="244" r="5.5" fill="#8B5CFF"/></g>
+      </g>
+      <!-- modernized system -->
+      <g class="anim shake">
+        <rect x="540" y="298" width="140" height="96" rx="14" fill="#14132E" stroke="#3A3760" stroke-width="2"/>
+        <text x="556" y="322" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.5" fill="#A9A5C8">MODERNIZED</text>
+        <text id="newName" class="fade" x="556" y="346" font-family="Archivo, sans-serif" font-size="17" font-weight="800" fill="#F4F2FF">PostgreSQL</text>
+        <circle class="anim lamp" cx="563" cy="372" r="6" fill="#2A2850"/>
+        <g class="gear"><circle cx="652" cy="374" r="14" fill="none" stroke="#8B5CFF" stroke-width="7" stroke-dasharray="5 4"/><circle cx="652" cy="374" r="5.5" fill="#8B5CFF"/></g>
+      </g>
+
+      <!-- Pip, the planner agent -->
+      <g transform="translate(120 466)"><g class="bob b1"><g class="anim pipAct">
+        <line x1="0" y1="-94" x2="0" y2="-108" stroke="#B9A3FF" stroke-width="3" stroke-linecap="round"/>
+        <circle class="glowdot" cx="0" cy="-112" r="6" fill="#FFB547"/>
+        <rect x="-32" y="-96" width="64" height="52" rx="18" fill="#8B5CFF"/>
+        <rect x="-24" y="-88" width="48" height="32" rx="12" fill="#14132E"/>
+        <g class="eyes"><ellipse cx="-10" cy="-73" rx="5" ry="6" fill="#F4F2FF"/><ellipse cx="10" cy="-73" rx="5" ry="6" fill="#F4F2FF"/></g>
+        <path d="M-6 -63Q0 -59 6 -63" stroke="#F4F2FF" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <circle cx="-27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"/><circle cx="27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"/>
+        <rect x="-26" y="-42" width="52" height="38" rx="14" fill="#7146F0"/>
+        <g class="anim wave fb" style="transform-origin:0 0"><rect x="22" y="-34" width="22" height="28" rx="3" fill="#F4F2FF"/><rect x="26" y="-28" width="14" height="2.5" fill="#8B5CFF"/><rect x="26" y="-22" width="10" height="2.5" fill="#8B5CFF"/><rect x="26" y="-16" width="12" height="2.5" fill="#8B5CFF"/></g>
+        <rect x="-20" y="-6" width="14" height="10" rx="4" fill="#4B2FB8"/><rect x="6" y="-6" width="14" height="10" rx="4" fill="#4B2FB8"/>
+        <g fill="none" stroke="#FFD48A" stroke-width="2"><circle cx="-10" cy="-73" r="8.5"/><circle cx="10" cy="-73" r="8.5"/><path d="M-1.5 -74H1.5"/></g>
+      </g></g></g>
+      <!-- the work order, flying planner to builder -->
+      <g class="anim card">
+        <rect x="150" y="424" width="30" height="22" rx="3" fill="#F4F2FF"/>
+        <rect x="155" y="430" width="18" height="2.5" fill="#FFB547"/><rect x="155" y="436" width="12" height="2.5" fill="#8B5CFF"/>
+      </g>
+
+      <!-- Bolt, the builder agent -->
+      <g transform="translate(300 466)"><g class="bob b2"><g class="anim boltAct" style="transform-box:fill-box;transform-origin:50% 100%">
+        <rect x="-32" y="-96" width="64" height="52" rx="18" fill="#FFB547"/>
+        <rect x="-24" y="-88" width="48" height="32" rx="12" fill="#14132E"/>
+        <g class="eyes"><ellipse cx="-8" cy="-73" rx="5" ry="6" fill="#F4F2FF"/><ellipse cx="12" cy="-73" rx="5" ry="6" fill="#F4F2FF"/></g>
+        <path d="M-2 -63Q4 -59 10 -63" stroke="#F4F2FF" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <circle cx="-27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"/><circle cx="27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"/>
+        <rect x="-26" y="-42" width="52" height="38" rx="14" fill="#E2902A"/>
+        <rect x="18" y="-40" width="46" height="28" rx="4" fill="#14132E" stroke="#FFB547" stroke-width="2"/>
+        <rect x="24" y="-33" width="22" height="2.5" fill="#B9A3FF"/><rect x="24" y="-27" width="30" height="2.5" fill="#FFB547"/><rect x="24" y="-21" width="16" height="2.5" fill="#B9A3FF"/>
+        <rect x="12" y="-12" width="58" height="5" rx="2" fill="#3A3760"/>
+        <rect class="anim type" x="10" y="-22" width="14" height="7" rx="3.5" fill="#E2902A"/>
+        <rect x="-20" y="-6" width="14" height="10" rx="4" fill="#9A5F12"/><rect x="6" y="-6" width="14" height="10" rx="4" fill="#9A5F12"/>
+        <path d="M-29 -95Q-28 -121 0 -122Q28 -121 29 -95Z" fill="#FFD48A"/><rect x="-36" y="-98" width="72" height="6" rx="3" fill="#F4C46A"/><rect x="-4" y="-121" width="8" height="24" rx="3" fill="#F4C46A"/>
+        <path class="anim sweat" d="M-36 -78q-4 7 0 9q4 -2 0 -9z" fill="#9AD8FF"/>
+      </g></g></g>
+
+      <!-- code blocks: one copy flies to each system -->
+      <g class="anim flyA">
+        <rect class="anim p1 fb" x="322" y="384" width="40" height="9" rx="4" fill="#8B5CFF"/>
+        <rect class="anim p2 fb" x="322" y="397" width="30" height="9" rx="4" fill="#FFB547"/>
+        <rect class="anim p3 fb" x="322" y="410" width="36" height="9" rx="4" fill="#B9A3FF"/>
+      </g>
+      <g class="anim flyB">
+        <rect class="anim p1 fb" x="322" y="384" width="40" height="9" rx="4" fill="#8B5CFF"/>
+        <rect class="anim p2 fb" x="322" y="397" width="30" height="9" rx="4" fill="#FFB547"/>
+        <rect class="anim p3 fb" x="322" y="410" width="36" height="9" rx="4" fill="#B9A3FF"/>
+      </g>
+
+      <!-- the Verdict Engine: a deterministic machine -->
+      <g>
+        <rect x="812" y="250" width="96" height="14" rx="4" fill="#2A2850"/>
+        <rect x="790" y="262" width="140" height="204" rx="12" fill="#14132E" stroke="#8B5CFF" stroke-width="2"/>
+        <rect x="802" y="276" width="116" height="76" rx="6" fill="#06061A" stroke="#3A3760" stroke-width="1.5"/>
+        <g fill="#2A2850"><rect x="812" y="288" width="44" height="3"/><rect x="864" y="288" width="44" height="3"/><rect x="812" y="296" width="36" height="3"/><rect x="864" y="296" width="36" height="3"/><rect x="812" y="304" width="40" height="3"/><rect x="864" y="304" width="40" height="3"/></g>
+        <line x1="860" y1="284" x2="860" y2="312" stroke="#2A2850" stroke-width="1"/>
+        <rect class="anim scan" x="804" y="280" width="112" height="2" fill="#FFB547"/>
+        <g font-family="IBM Plex Mono, monospace" font-size="10.5" font-weight="600" letter-spacing="1" text-anchor="middle">
+          <text class="anim s3" x="860" y="336" fill="#FFB547">COMPARING</text>
+          <text class="anim s4" x="860" y="336" fill="#FF5A4E">1 FIELD DIFFERS</text>
+          <text class="anim s7" x="860" y="336" fill="#FFB547">RE-CHECKING</text>
+          <text class="anim s8" x="860" y="336" fill="#2BD4A0">EQUIVALENT</text>
+        </g>
+        <circle class="anim lampA" cx="836" cy="370" r="6" fill="#2A2850"/>
+        <circle class="anim lampR" cx="860" cy="370" r="6" fill="#2A2850"/>
+        <circle class="anim lampG" cx="884" cy="370" r="6" fill="#2A2850"/>
+        <text x="860" y="398" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1.5" font-weight="600" fill="#F4F2FF">VERDICT ENGINE</text>
+        <text x="860" y="413" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#A9A5C8">fixed rules · no AI</text>
+        <rect x="828" y="424" width="64" height="5" rx="2" fill="#06061A"/>
+        <g class="anim rcpt">
+          <rect x="832" y="427" width="56" height="34" rx="2" fill="#F4F2FF"/>
+          <rect x="838" y="433" width="30" height="2.5" fill="#8B5CFF"/><rect x="838" y="439" width="40" height="2.5" fill="#A9A5C8"/><rect x="838" y="445" width="24" height="2.5" fill="#A9A5C8"/>
+          <path d="M866 452l4 4 8-9" fill="none" stroke="#2BD4A0" stroke-width="2.5" stroke-linecap="round"/>
+        </g>
+        <g class="gear"><circle cx="912" cy="446" r="9" fill="none" stroke="#8B5CFF" stroke-width="5" stroke-dasharray="4 3"/><circle cx="912" cy="446" r="3.5" fill="#8B5CFF"/></g>
+      </g>
+
+      <!-- results, fed into the engine -->
+      <g class="anim tileA">
+        <rect x="684" y="200" width="54" height="34" rx="5" fill="#1C1B3A" stroke="#8B5CFF" stroke-width="1.5"/>
+        <rect x="691" y="207" width="40" height="3" fill="#B9A3FF"/><rect x="691" y="215" width="30" height="3" fill="#B9A3FF"/><rect x="691" y="223" width="36" height="3" fill="#B9A3FF"/>
+      </g>
+      <g class="anim tileB1">
+        <rect x="684" y="330" width="54" height="34" rx="5" fill="#1C1B3A" stroke="#FF5A4E" stroke-width="1.5"/>
+        <rect x="691" y="337" width="40" height="3" fill="#B9A3FF"/><rect x="691" y="345" width="18" height="3" fill="#FF5A4E"/><rect x="691" y="353" width="36" height="3" fill="#B9A3FF"/>
+      </g>
+      <g class="anim tileB2">
+        <rect x="684" y="330" width="54" height="34" rx="5" fill="#1C1B3A" stroke="#8B5CFF" stroke-width="1.5"/>
+        <rect x="691" y="337" width="40" height="3" fill="#B9A3FF"/><rect x="691" y="345" width="30" height="3" fill="#B9A3FF"/><rect x="691" y="353" width="36" height="3" fill="#B9A3FF"/>
+      </g>
+
+      <!-- act 1: the difference -->
+      <g class="anim stampRed fb">
+        <rect x="752" y="140" width="166" height="46" rx="5" fill="#06061A" stroke="#FF5A4E" stroke-width="3"/>
+        <text x="835" y="164" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="600" font-size="17" letter-spacing="2" fill="#FF5A4E">DIVERGENT</text>
+        <text x="835" y="179" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1" fill="#A9A5C8">1 FIELD DIFFERS</text>
+      </g>
+      <g class="anim note">
+        <rect x="636" y="410" width="150" height="40" rx="6" fill="#2A0F1A" stroke="#FF5A4E" stroke-width="1.5"/>
+        <text x="648" y="427" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#FFB3AC" id="fieldName">FIELD: invoice type</text>
+        <text x="648" y="442" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#A9A5C8">value: not shared</text>
+      </g>
+      <g class="anim aha fb">
+        <circle cx="342" cy="356" r="14" fill="#FFB547"/>
+        <text x="342" y="363" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="900" font-size="20" fill="#06061A">!</text>
+      </g>
+      <!-- act 2: the verdict -->
+      <g class="anim stamp fb">
+        <rect x="752" y="140" width="166" height="46" rx="5" fill="#06061A" stroke="#2BD4A0" stroke-width="3"/>
+        <text x="835" y="164" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="600" font-size="17" letter-spacing="2" fill="#2BD4A0">EQUIVALENT</text>
+        <text x="835" y="179" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1" fill="#A9A5C8">SIGNED · REPLAYABLE</text>
+      </g>
+      <path class="anim spark fb" d="M748 118l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#FFB547"/>
+      <path class="anim spark fb" d="M934 206l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#2BD4A0"/>
+      <path class="anim spark fb" d="M770 222l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#B9A3FF"/>
+
+      <!-- speech bubbles (agents only) -->
+      <g class="anim s1"><rect x="36.5" y="307" width="167" height="28" rx="14" fill="#F4F2FF"/><path d="M114 335l6 9l6 -9z" fill="#F4F2FF"/><text x="120" y="326.5" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="500" font-size="13" fill="#06061A">Work order #42. Go!</text></g>
+      <g class="anim s2"><rect x="265" y="307" width="70" height="28" rx="14" fill="#F4F2FF"/><path d="M294 335l6 9l6 -9z" fill="#F4F2FF"/><text x="300" y="326.5" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="500" font-size="13" fill="#06061A">On it!</text></g>
+      <g class="anim s5"><rect x="218.5" y="307" width="63" height="28" rx="14" fill="#F4F2FF"/><path d="M244 335l6 9l6 -9z" fill="#F4F2FF"/><text x="250" y="326.5" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="500" font-size="13" fill="#06061A">Oops.</text></g>
+      <g class="anim s6"><rect x="161.5" y="307" width="137" height="28" rx="14" fill="#F4F2FF"/><path d="M224 335l6 9l6 -9z" fill="#F4F2FF"/><text x="230" y="326.5" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="500" font-size="13" fill="#06061A">Got it. Fixing!</text></g>
+      <g class="anim s9"><rect x="88.5" y="307" width="63" height="28" rx="14" fill="#F4F2FF"/><path d="M114 335l6 9l6 -9z" fill="#F4F2FF"/><text x="120" y="326.5" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="500" font-size="13" fill="#06061A">Nice!</text></g>
+      <g class="anim s10"><rect x="272" y="307" width="56" height="28" rx="14" fill="#F4F2FF"/><path d="M294 335l6 9l6 -9z" fill="#F4F2FF"/><text x="300" y="326.5" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="500" font-size="13" fill="#06061A">Yes!</text></g>
+      <!-- name tags -->
+      <g font-family="Archivo, sans-serif" font-size="15" font-weight="700" fill="#C9C5E6" text-anchor="middle">
+        <text x="120" y="498">Pip · planner AI</text><text x="300" y="498">Bolt · builder AI</text><text x="860" y="498">The Verdict Engine</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="caps" aria-live="off">
+    <p class="cap anim c1">The planner AI writes a work order.</p>
+    <p class="cap anim c2">The builder AI writes the code. It never sees the answers.</p>
+    <p class="cap anim c3">The same inputs run on the original system and the modernized one.</p>
+    <p class="cap anim c4">The Verdict Engine compares every field. It is a fixed program, not an AI.</p>
+    <p class="cap anim c5">One field differs. The engine names the field, never the right value.</p>
+    <p class="cap anim c6">The builder AI fixes its own code. No person touches it.</p>
+    <p class="cap anim c7">Same inputs, both systems, compared again.</p>
+    <p class="cap anim c8">They match. A signed receipt anyone can replay.</p>
+  </div>
+
+  <ol>
+    <li class="anim l1"><b>PLAN</b>A work order, fixed before any code is written</li>
+    <li class="anim l2"><b>BUILD</b>AI writes the code from the instructions only</li>
+    <li class="anim l3"><b>RUN</b>Original and modernized systems, identical inputs</li>
+    <li class="anim l4"><b>JUDGE</b>A deterministic engine, tested before use, compares results</li>
+    <li class="anim l5"><b>REPAIR</b>Told which field failed, the AI fixes its own work</li>
+    <li class="anim l6"><b>PROVE</b>A signed verdict anyone can replay</li>
+  </ol>
+  <p class="fine">Each pair is shown with its status in the qualified-lane catalogue. "In qualification" means the evidence is still being gathered.</p>
+</div>
+
+<script>
+(function(){
+  var player=document.getElementById('player');
+  var pause=document.getElementById('pause');
+  pause.addEventListener('click',function(){
+    var on=player.classList.toggle('paused');
+    pause.setAttribute('aria-pressed',on?'true':'false');
+    pause.textContent=on?'Play':'Pause';
+  });
+  // original, modernized, field, label, catalogue status, status class
+  var pairs=[
+    ['Oracle','PostgreSQL','FIELD: invoice type','Oracle to PostgreSQL','Qualified (limited)','q'],
+    ['Oracle','AlloyDB','FIELD: NUMBER scale','Oracle to AlloyDB','Qualified (limited)','q'],
+    ['COBOL · z/OS','Java services','FIELD: packed decimal','Mainframe COBOL to Java','In qualification','i'],
+    ['Sybase ASE','PostgreSQL','FIELD: empty string','SAP ASE to PostgreSQL','In qualification','i'],
+    ['Db2','PostgreSQL','FIELD: date boundary','Db2 to PostgreSQL','In qualification','i']
+  ];
+  var idx=0;
+  function show(i){
+    var p=pairs[i%pairs.length];
+    ['oldName','newName','fieldName','pairNote'].forEach(function(id,k){var el=document.getElementById(id);if(el)el.textContent=p[k];});
+    var s=document.getElementById('pairStatus');if(s){s.textContent=p[4];s.className='chip '+p[5];}
+  }
+  var clock=document.querySelector('.c1');
+  if(clock)clock.addEventListener('animationiteration',function(){idx++;show(idx);});
+  show(0);
+  document.getElementById('replay').addEventListener('click',function(){
+    idx=0;show(0);
+    player.classList.remove('run','paused');
+    pause.setAttribute('aria-pressed','false');pause.textContent='Pause';
+    void player.offsetWidth;
+    player.classList.add('run');
+  });
+})();
+</script>
+</body>
+</html>
