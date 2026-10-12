@@ -530,6 +530,32 @@ ul.plain li::before{content:"";position:absolute;left:2px;top:17px;width:8px;hei
 .anim-frame iframe{display:block;width:100%;aspect-ratio:960/560;border:0}
 @media(max-width:600px){.anim-frame iframe{aspect-ratio:960/940}#for-engineers table{min-width:0}#for-engineers td.mono{font-size:12.5px;word-break:break-all}}
 .stepno{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--amber-d);margin-bottom:8px}
+
+/* ---------- AI factory (home) ---------- */
+#factory .lead{color:#D8D0C5}
+#factory .line{margin-top:34px}
+#factory .agent{display:flex;flex-direction:column}
+#factory .agent .av{width:54px;height:58px;display:block;margin:0 0 10px}
+#factory .agent .ic{width:54px;height:58px;display:flex;align-items:center;justify-content:center;margin:0 0 10px;color:#D6B78A}
+#factory .agent .sees{margin-top:auto;padding-top:12px}
+#factory .stepno{color:#D6B78A}
+.fac-foot{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:start;margin-top:40px}
+.fac-humans h3{font-size:21px;margin-bottom:10px}
+.fac-humans p{font-size:16.5px}
+.fac-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.fac-chips span{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:#EDE8E1;background:#2E2839;border:1px solid #4A4158;border-radius:999px;padding:6px 12px}
+.fac-chips span i{font-style:normal;color:#D6B78A;margin-right:6px}
+.band.feature .fx-tile{background:#2E2839;border-color:#3D3648}
+.band.feature .fx-tile .n{color:#FBF9F6}
+.band.feature .fx-tile .l{color:#A79E92}
+.fac-proof .hd{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#A79E92;margin-bottom:12px}
+.fac-proof .note{margin-top:12px}
+.fac-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.band.feature .btn{color:#FBF9F6;border-color:#5A5068}
+.band.feature .btn:hover{color:#D6B78A;border-color:#D6B78A}
+.band.feature .btn.solid{background:#D6B78A;border-color:#D6B78A;color:#241F2E}
+.band.feature .btn.solid:hover{background:#E5C99E;color:#241F2E}
+@media(max-width:940px){.fac-foot{grid-template-columns:minmax(0,1fr);gap:30px}}
 </style>
 <link href="https://lightyr.ai/" rel="canonical"/>
 <link href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMy42OCAxMy41MiBMMTYuMCA1LjQ0IEwyOC4zMiAxMy41MiBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0zLjY4IDE4LjQ4IEwxNi4wIDI2LjU2IEwyOC4zMiAxOC40OCBaIi8+PC9zdmc+" rel="icon" type="image/svg+xml"/>
@@ -618,11 +644,81 @@ ul.plain li::before{content:"";position:absolute;left:2px;top:17px;width:8px;hei
 <p class="note" style="margin-top:26px">This is why we are indifferent to who writes the code. Generation is cheap and getting cheaper. Telling a good change from a convincing one is the part that still has to be proved — and it is not something you can ask the writer to do for itself.</p>
 </div>
 </div>
+<div class="band feature" id="factory">
+<div class="wrap">
+<div class="eyebrow">The AI factory</div>
+<h2 style="margin:16px 0 0;max-width:26ch">AI agents do the conversion. A fixed program decides when it's done.</h2>
+<div class="rule"></div>
+<p class="lead">Lightyear's factory turns a legacy program into modern code with AI agents, then runs the old and new versions on the same data. Nothing is finished until the Verdict Engine, a deterministic program rather than a model, says the results match and the tests were strong enough to trust that match.</p>
+<div class="line" aria-label="The four stations of the factory">
+<div class="agent"><svg class="av" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="-50 -128 124 136"><line x1="0" y1="-94" x2="0" y2="-108" stroke="#B9A3FF" stroke-width="3" stroke-linecap="round"/>
+<circle cx="0" cy="-112" r="6" fill="#FFB547"/>
+<rect x="-32" y="-96" width="64" height="52" rx="18" fill="#8B5CFF"/>
+<rect x="-24" y="-88" width="48" height="32" rx="12" fill="#14132E"/>
+<ellipse cx="-10" cy="-73" rx="5" ry="6" fill="#F4F2FF"/><ellipse cx="10" cy="-73" rx="5" ry="6" fill="#F4F2FF"/>
+<path d="M-6 -63Q0 -59 6 -63" stroke="#F4F2FF" stroke-width="2" fill="none" stroke-linecap="round"/>
+<circle cx="-27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"/><circle cx="27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"/>
+<rect x="-26" y="-42" width="52" height="38" rx="14" fill="#7146F0"/>
+<rect x="22" y="-34" width="22" height="28" rx="3" fill="#F4F2FF" stroke="#7146F0" stroke-width="1.5"/><rect x="26" y="-28" width="14" height="2.5" fill="#8B5CFF"/><rect x="26" y="-22" width="10" height="2.5" fill="#8B5CFF"/><rect x="26" y="-16" width="12" height="2.5" fill="#8B5CFF"/>
+<rect x="-20" y="-6" width="14" height="10" rx="4" fill="#4B2FB8"/><rect x="6" y="-6" width="14" height="10" rx="4" fill="#4B2FB8"/>
+<g fill="none" stroke="#FFD48A" stroke-width="2"><circle cx="-10" cy="-73" r="8.5"/><circle cx="10" cy="-73" r="8.5"/><path d="M-1.5 -74H1.5"/></g></svg>
+<div class="stepno">1 · PLAN</div><div class="rolelab">Pip · planner AI</div>
+<h4>Scope the job</h4>
+<p>Works from a map of your estate: what the program reads and writes, which business rules it carries, and what "the same" means. The rules are locked before any code is written.</p>
+<div class="sees">Sees: source, layouts, the work order</div></div>
+<div class="agent"><svg class="av" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="-50 -128 124 136"><rect x="-32" y="-96" width="64" height="52" rx="18" fill="#FFB547"/>
+<rect x="-24" y="-88" width="48" height="32" rx="12" fill="#14132E"/>
+<ellipse cx="-8" cy="-73" rx="5" ry="6" fill="#F4F2FF"/><ellipse cx="12" cy="-73" rx="5" ry="6" fill="#F4F2FF"/>
+<path d="M-2 -63Q4 -59 10 -63" stroke="#F4F2FF" stroke-width="2" fill="none" stroke-linecap="round"/>
+<circle cx="-27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"/><circle cx="27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"/>
+<rect x="-26" y="-42" width="52" height="38" rx="14" fill="#E2902A"/>
+<rect x="18" y="-40" width="46" height="28" rx="4" fill="#14132E" stroke="#FFB547" stroke-width="2"/>
+<rect x="24" y="-33" width="22" height="2.5" fill="#B9A3FF"/><rect x="24" y="-27" width="30" height="2.5" fill="#FFB547"/><rect x="24" y="-21" width="16" height="2.5" fill="#B9A3FF"/>
+<rect x="12" y="-12" width="58" height="5" rx="2" fill="#3A3760"/>
+<rect x="10" y="-22" width="14" height="7" rx="3.5" fill="#E2902A"/>
+<rect x="-20" y="-6" width="14" height="10" rx="4" fill="#9A5F12"/><rect x="6" y="-6" width="14" height="10" rx="4" fill="#9A5F12"/>
+<path d="M-29 -95Q-28 -121 0 -122Q28 -121 29 -95Z" fill="#FFD48A"/><rect x="-36" y="-98" width="72" height="6" rx="3" fill="#F4C46A"/><rect x="-4" y="-121" width="8" height="24" rx="3" fill="#F4C46A"/></svg>
+<div class="stepno">2 · BUILD</div><div class="rolelab">Bolt · builder AI</div>
+<h4>Write the new code</h4>
+<p>Writes the replacement in a sealed workspace, with a fixed budget of attempts. It never sees the expected answers.</p>
+<div class="sees">Sees: source and interfaces, never the answers</div></div>
+<div class="agent judge"><div class="ic"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M7 21h10M5 7h14M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/></svg></div>
+<div class="stepno">3 · JUDGE</div><div class="rolelab">The Verdict Engine</div>
+<h4>Compare every field</h4>
+<p>Runs old and new on the same inputs and compares every field. The answer key is the legacy program itself, run for real, not someone's description of it.</p>
+<div class="sees">Holds: the answers and the signing key</div></div>
+<div class="agent"><div class="ic"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.6"/><path d="M20 4v7h-7"/></svg></div>
+<div class="stepno">4 · REPAIR OR STOP</div><div class="rolelab">The analyst</div>
+<h4>Fix it, or stop honestly</h4>
+<p>Differences go back to the builder by field name, never with the right value. When the budget is spent, the run stops and the failure is kept as evidence.</p>
+<div class="sees">Sees: which field differs, not why it should</div></div>
+</div>
+<div class="membrane" aria-hidden="true"><div class="l"></div><span>The expected answers never cross this line</span><div class="l"></div></div>
+<div class="fac-foot">
+<div class="fac-humans">
+<h3>People decide what machines shouldn't</h3>
+<p>The factory does the repetitive work on its own. The decisions that carry risk stay with a named person, and each one is signed and kept with the evidence.</p>
+<div class="fac-chips"><span><i>✓</i>Approve an exception</span><span><i>✓</i>Keep or fix a legacy quirk</span><span><i>✓</i>Release to production</span></div>
+</div>
+<div class="fac-proof">
+<div class="hd">On a real ERP running on Oracle</div>
+<div class="fx-tiles" data-fx-play="">
+<div class="fx-tile"><div class="n">12m 25s</div><div class="l">Locked rules to signed verdict</div></div>
+<div class="fx-tile"><div class="n">1st</div><div class="l">Attempt passed</div></div>
+<div class="fx-tile"><div class="n">0</div><div class="l">Lines written or fixed by a person</div></div>
+<div class="fx-tile"><div class="n">2.7M</div><div class="l">Values checked exactly</div></div>
+</div>
+<p class="note">One business process, run on Oracle and PostgreSQL. The whole run is public and replayable.</p>
+<div class="fac-links"><a class="btn solid" href="proof.html#factory-run">See the full factory run <span aria-hidden="true">→</span></a><a class="btn" href="product.html">How the judge works <span aria-hidden="true">→</span></a></div>
+</div>
+</div>
+</div>
+</div>
 <div class="band ly-cut">
 <div class="wrap">
-<div class="eyebrow">The loop in ten seconds</div>
-<h2 style="margin-top:14px;max-width:24ch">The AI fixes its own work. A fixed program decides.</h2>
-<p class="lead" style="margin-top:18px">One field fails, the builder AI repairs its own code, and the run passes. The judge is the Verdict Engine: deterministic, pre-tested rules rather than a model, so every verdict replays the same way.</p>
+<div class="eyebrow">Watch the loop · ten seconds</div>
+<h2 style="margin-top:14px;max-width:24ch">One field fails. The builder fixes it. The judge decides.</h2>
+<p class="lead" style="margin-top:18px">Here is stations 2 to 4 in motion. The judge reports which field differs, the builder AI repairs its own code, and the second run passes. Because the Verdict Engine is a fixed program, every verdict replays the same way.</p>
 <div class="ly-anim"><iframe loading="lazy" srcdoc="&lt;!doctype html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
@@ -1063,7 +1159,7 @@ body{font-family:var(--body);padding:16px}
 <script>
 (function(){
   var h=(location.hash||'').slice(1); if(!h) return;
-  var map={exec:'index.html',how:'index.html',factory:'proof.html#factory-run',coverage:'product.html#coverage',
+  var map={exec:'index.html',how:'index.html',coverage:'product.html#coverage',
            proof:'proof.html',docs:'engineers.html#docs',engage:'pricing.html',where:'pricing.html',trust:'index.html#trust'};
   if(h.indexOf('d-')===0){ location.replace('engineers.html#'+h); return; }
   if(map[h] && !document.getElementById(h)) location.replace(map[h]);
