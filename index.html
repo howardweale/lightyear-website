@@ -1,1168 +1,706 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Lightyear — Independent verification for modernization</title>
-<meta content="Independent proof, field by field, that your new system behaves like the old one. Whoever wrote it, including AI. Evidence your auditor can replay." name="description"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lightyear — Clear your modernization backlog. Prove every change.</title>
+<meta name="description" content="AI agents convert legacy code; an independent Verdict Engine proves field by field the new system behaves the same. Retire legacy sooner, with evidence your auditor can replay.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMy42OCAxMy41MiBMMTYuMCA1LjQ0IEwyOC4zMiAxMy41MiBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0zLjY4IDE4LjQ4IEwxNi4wIDI2LjU2IEwyOC4zMiAxOC40OCBaIi8+PC9zdmc+">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap">
 <style>
-:root{
-  --void:#FAF8F4; --floor:#F2EEE7; --panel:#FFFFFF; --panel2:#F7F4EF;
-  --hair:#E3DCD1; --hair2:#CFC5B6;
-  --amber:#B4531F; --amber-d:#8A4318; --amber-w:#FAEDE3;
-  --pass:#2F6B3F; --fail:#B03A28; --unknown:#8A6B12;
-  --ink:#181513; --body:#443E37; --dim:#5A5248; --faint:#6E6459;
-  --display:'Archivo',system-ui,sans-serif;
-  --sans:'IBM Plex Sans',system-ui,sans-serif;
-  --mono:'IBM Plex Mono',ui-monospace,monospace;
-  --wrap:1220px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--void);color:var(--body);font-family:var(--sans);font-size:19px;line-height:1.6;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-::selection{background:var(--amber);color:#FFF}
-:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:2px}
-
-.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
-.eyebrow{font-family:var(--mono);font-size:12.5px;line-height:1.5;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:500}
-h1,h2,h3{font-family:var(--display);color:var(--ink);letter-spacing:-.022em;line-height:1.08;font-weight:700}
-h1{font-size:clamp(36px,4.3vw,56px);font-weight:800;letter-spacing:-.03em;line-height:1.06}
-h2{font-size:clamp(26px,2.8vw,37px)}
-h3{font-size:22px;letter-spacing:-.012em}
-p{max-width:36em}
-.lead{font-size:clamp(18px,1.9vw,22.5px);color:var(--body);line-height:1.65}
-.small{font-size:16px;color:var(--dim);line-height:1.6}
-
-/* ---------- nav ---------- */
-header{position:sticky;top:0;z-index:60;background:rgba(250,248,244,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--hair)}
-.navbar{display:flex;align-items:center;gap:20px;min-height:74px}
-.brand{display:flex;align-items:center;gap:10px;flex:none}
-.primary-logo{display:block;object-fit:contain}
-.brand-logo{width:124px;height:52px;flex:none;display:block}
-nav.tabs{display:flex;gap:2px;margin-left:2px;flex:1}
-nav.tabs button{background:none;border:0;color:var(--dim);font-family:var(--sans);font-size:15.5px;padding:8px 11px;white-space:nowrap;cursor:pointer;border-radius:5px;transition:color .16s,background .16s}
-nav.tabs button:hover{color:var(--ink);background:var(--panel)}
-nav.tabs button[aria-selected="true"]{color:var(--amber);background:var(--amber-w)}
-nav.tabs .tablink{color:var(--dim);font-family:var(--sans);font-size:15.5px;padding:8px 11px;white-space:nowrap;border-radius:5px;transition:color .16s,background .16s}
-nav.tabs .tablink:hover{color:var(--ink);background:var(--panel)}
-.navcta{display:flex;gap:10px;align-items:center}
-.btn{font-family:var(--sans);font-size:15.5px;font-weight:500;padding:9px 17px;border-radius:5px;border:1px solid var(--hair2);color:var(--ink);cursor:pointer;background:none;transition:.16s;white-space:nowrap}
-.btn:hover{border-color:var(--amber-d);color:var(--amber)}
-.btn.solid{background:var(--amber);color:#FFF;border-color:var(--amber);font-weight:600}
-.btn.solid:hover{background:#9A4519;color:#FFF}
-.menu{display:none;background:none;border:1px solid var(--hair2);color:var(--ink);border-radius:5px;padding:7px 11px;cursor:pointer;font-size:17px}
-
-/* ---------- panels & receipts (the signature) ---------- */
-.panel{background:var(--panel);border:1px solid var(--hair);border-radius:10px}
-.receipt{background:var(--panel);border:1px solid var(--hair2);border-radius:10px;font-family:var(--mono);font-size:14.5px;overflow:hidden;box-shadow:0 18px 44px -26px rgba(60,45,30,.28)}
-.receipt .rhead{display:flex;justify-content:space-between;align-items:center;padding:12px 17px;border-bottom:1px solid var(--hair);color:var(--dim);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase}
-.receipt .rbody{padding:15px 16px}
-.kv{display:flex;justify-content:space-between;gap:16px;padding:5px 0;border-bottom:1px dashed var(--hair)}
-.kv:last-child{border-bottom:0}
-.kv b{color:var(--dim);font-weight:400}
-.kv span{color:var(--ink);text-align:right}
-.verdict{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;padding:5px 11px;border-radius:4px;font-weight:600}
-.v-pass{color:var(--pass);background:#79b86b18;border:1px solid #79b86b40}
-.v-fail{color:var(--fail);background:#e0664a18;border:1px solid #e0664a40}
-.v-unk{color:var(--unknown);background:#c9a22718;border:1px solid #c9a22745}
-.dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
-
-/* ---------- sections ---------- */
-main{min-height:60vh}
-.pane{display:none;animation:rise .42s cubic-bezier(.2,.7,.3,1)}
-.pane.on{display:block}
-@keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
-.band{padding:78px 0;border-bottom:1px solid var(--hair)}
-.band.tight{padding:54px 0}
-.band.hero{padding:86px 0 74px}
-.grid2{display:grid;grid-template-columns:1.08fr .92fr;gap:56px;align-items:center}
-.band.hero .grid2{align-items:start;grid-template-columns:1.22fr .78fr;gap:48px}
-.band.hero .receipt{margin-top:8px;font-size:13.5px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.card{background:var(--panel);border:1px solid var(--hair);border-radius:10px;padding:24px;transition:border-color .18s,transform .18s}
-.card:hover{border-color:var(--hair2);transform:translateY(-2px)}
-.card h3{margin-bottom:9px}
-.card p{font-size:17px;color:var(--body)}
-.rule{width:56px;height:2px;background:var(--amber);margin:18px 0 22px}
-
-/* stat plate */
-.stat{padding:22px 0}
-.stat .n{font-family:var(--display);font-size:clamp(33px,3.9vw,46px);font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1}
-.stat .n em{font-style:normal;color:var(--amber)}
-.stat .l{font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:9px;line-height:1.5}
-
-/* the agent line */
-.line{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px}
-.agent{background:var(--panel);border:1px solid var(--hair);border-radius:9px;padding:18px;position:relative}
-.agent.judge{border-color:var(--amber-d);background:linear-gradient(180deg,var(--panel2),var(--panel))}
-.agent .rolelab{font-family:var(--mono);font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--dim)}
-.agent.judge .rolelab{color:var(--amber)}
-.agent h4{font-family:var(--display);font-size:19.5px;color:var(--ink);margin:6px 0 8px;font-weight:700}
-.agent p{font-size:15.5px;color:var(--body);line-height:1.55}
-.agent .sees{margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--faint);line-height:1.5}
-.agent.judge .sees{color:var(--amber-d)}
-.membrane{margin:22px 0 0;display:flex;align-items:center;gap:14px}
-.membrane .l{flex:1;height:1px;background:var(--fail);opacity:.55}
-.membrane span{font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--fail)}
-
-/* table */
-table{width:100%;border-collapse:collapse;font-size:17px;min-width:520px}
-.panel{overflow-x:auto}
-th{font-family:var(--mono);font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--dim);text-align:left;padding:0 14px 11px;font-weight:500}
-td{padding:14px;border-top:1px solid var(--hair);color:var(--body);vertical-align:top}
-td:first-child{color:var(--ink);font-weight:500;white-space:nowrap}
-td.mono{font-family:var(--mono);font-size:14.5px}
-
-/* engagement tiers */
-.tier{background:var(--panel);border:1px solid var(--hair);border-radius:11px;padding:28px;display:flex;flex-direction:column}
-.tier.feature{border-color:var(--amber-d);background:linear-gradient(180deg,var(--panel2),var(--panel))}
-.tier .tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
-.tier.feature .tag{color:var(--amber)}
-.tier h3{font-size:23px;margin:9px 0 4px}
-.tier .price{font-family:var(--display);font-size:17px;color:var(--amber);font-weight:600;margin-bottom:16px}
-.tier ul{list-style:none;margin:6px 0 22px;flex:1}
-.tier li{font-size:16.5px;padding:8px 0 8px 21px;position:relative;border-bottom:1px dashed var(--hair);color:var(--body)}
-.tier li:before{content:"";position:absolute;left:0;top:15px;width:8px;height:2px;background:var(--amber)}
-.tier li:last-child{border-bottom:0}
-
-/* faq */
-details{border-bottom:1px solid var(--hair)}
-summary{cursor:pointer;padding:20px 0;font-family:var(--display);font-size:20.5px;color:var(--ink);list-style:none;display:flex;justify-content:space-between;gap:20px;align-items:center;font-weight:600}
-summary::-webkit-details-marker{display:none}
-summary:after{content:"+";color:var(--amber);font-family:var(--mono);font-size:19px;flex:none}
-details[open] summary:after{content:"–"}
-details p{padding:0 0 22px;font-size:17px;max-width:34em}
-
-
-/* Measured fix: .lead, .note and the 92ch inline overrides were running
-   84-112 characters per line. Comfortable prose sits at 55-75; anything past
-   about 78 forces the eye to hunt for the next line start. */
-.lead{max-width:34em}
-.note{max-width:34em}
-.docsec p{max-width:36em}
-
-/* --- hero receipt: plays once on load, then sits still ---------------- */
-#heroReceipt .verdict{transition:color .3s,background .3s,border-color .3s}
-#heroReceipt .verdict.running{color:#6E6459;background:var(--panel);border-color:var(--hair2)}
-#heroReceipt .verdict.running .dot{animation:rcPulse 1s ease-in-out infinite}
-@keyframes rcPulse{0%,100%{opacity:1}50%{opacity:.25}}
-#heroReceipt .kv{opacity:1;
-  transition:opacity .3s ease,transform .3s ease}
-#heroReceipt .kv.in{opacity:1;transform:none}
-#heroReceipt .note{opacity:1;transition:opacity .45s ease}
-#heroReceipt .note.in{opacity:1}
-@media(prefers-reduced-motion:reduce){
-  #heroReceipt .kv,#heroReceipt .note{opacity:1!important;transform:none!important}
-  #heroReceipt .verdict .dot{animation:none!important}
-}
-
-/* --- band rhythm --------------------------------------------------------
-   Every section was eyebrow -> heading -> rule -> prose on one background.
-   Three treatments, alternated, break the flatness with no JavaScript:
-     .band          paper, the default
-     .band.sunk     a half-step down, for supporting or tabular sections
-     .band.feature  full-bleed dark, reserved for one pivotal statement per
-                    tab. Used sparingly, it lands; used often, it is noise. */
-.band.sunk{background:var(--floor)}
-.band.sunk .eyebrow{color:var(--amber-d)}
-.band.sunk .agent.judge .rolelab{color:var(--amber-d)}
-.band.feature{background:#241F2E;border-bottom-color:#241F2E}
-.band.feature h2,.band.feature h3{color:#FBF9F6}
-.band.feature p,.band.feature .lead{color:#CFC7BC}
-.band.feature .eyebrow{color:#D6B78A}
-.band.feature .rule{background:#D6B78A}
-.band.feature .note{color:#9E958A}
-.band.feature .card{background:#2E2839;border-color:#3D3648}
-.band.feature .card h3{color:#FBF9F6}
-.band.feature .card p{color:#CFC7BC}
-.band.feature .agent{background:#2E2839;border-color:#3D3648}
-.band.feature .agent h4{color:#FBF9F6}
-.band.feature .agent p{color:#CFC7BC}
-.band.feature .agent .rolelab{color:#9E958A}
-.band.feature .agent .sees{color:#A79E92}
-/* verdict and status colours were tuned for paper; they need lifting on dark */
-.band.feature .mono,.band.feature td.mono{color:#CFC7BC}
-.band.feature td.mono[style*="--fail"],.band.feature [style*="var(--fail)"]{color:#F09478!important}
-.band.feature [style*="var(--unknown)"]{color:#E8C35E!important}
-.band.feature [style*="var(--pass)"]{color:#8FD08A!important}
-.band.feature .v-unk{color:#E8C35E;background:#3A3320;border-color:#5E5330}
-.band.feature .v-fail{color:#F09478;background:#3A2620;border-color:#5E3A30}
-.band.feature .v-pass{color:#8FD08A;background:#213524;border-color:#345239}
-.band.feature .receipt{background:#2E2839;border-color:#3D3648}
-.band.feature .receipt .rhead{color:#9E958A;border-bottom-color:#3D3648}
-.band.feature .kv{border-bottom-color:#3D3648}
-.band.feature .kv b{color:#9E958A}
-.band.feature .kv span{color:#EDE8E1}
-.band.feature .kv span[style]{color:#F09478!important}
-.band.feature .receipt .note{color:#B5ABA0!important}
-.band.feature .agent.judge{background:#38304A;border-color:#D6B78A}
-.band.feature .agent.judge .rolelab,.band.feature .agent.judge .sees{color:#D6B78A}
-.band.feature .membrane span{color:#E08A6E}
-.band.feature .membrane .l{background:#E08A6E}
-.band.feature .panel{background:#2E2839;border-color:#3D3648}
-.band.feature table td{color:#CFC7BC;border-top-color:#3D3648}
-.band.feature table td:first-child{color:#FBF9F6}
-.band.feature th{color:#9E958A}
-
-/* inline diagrams: scale to the column, never exceed their natural size */
-.diagram{display:block;width:100%;max-width:880px;height:auto;margin:6px auto 0}
-.band.feature .diagram{filter:none}
-.figcap{font-family:var(--mono);font-size:13.5px;color:var(--dim);text-align:center;
-        max-width:70ch;margin:10px auto 0}
-footer{padding:52px 0 38px;color:var(--dim);font-size:13.5px}
-.fgrid{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:34px;padding-bottom:34px;border-bottom:1px solid var(--hair)}
-.fgrid h5{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:13px;font-weight:500}
-.fgrid a{display:block;padding:6px 0;color:var(--body);font-size:16.5px}
-.fgrid a:hover{color:var(--amber)}
-.fbot{display:flex;justify-content:space-between;padding-top:22px;flex-wrap:wrap;gap:12px;font-size:14px}
-
-.note{font-family:var(--mono);font-size:13.8px;color:var(--faint);line-height:1.65}
-.docwrap{display:grid;grid-template-columns:212px minmax(0,1fr);gap:44px;align-items:start}
-.docnav{position:sticky;top:96px}
-.docnav h5{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:0 0 10px;font-weight:500}
-.docnav a{display:block;padding:7px 0;color:var(--body);font-size:16px;border-left:2px solid transparent;padding-left:12px;margin-left:-12px}
-.docnav a:hover{color:var(--amber);border-left-color:var(--amber)}
-.docnav a.active{color:var(--amber);border-left-color:var(--amber);font-weight:600}
-.docsearch{width:100%;margin:0 0 14px;padding:9px 10px;border:1px solid var(--hair2);border-radius:5px;background:var(--panel);color:var(--ink);font:14px var(--sans)}
-.docsearch::placeholder{color:var(--dim)}
-.doc-empty{display:none;padding:24px;border:1px dashed var(--hair2);border-radius:8px;color:var(--dim)}
-.docsec{padding-bottom:44px;margin-bottom:44px;border-bottom:1px solid var(--hair)}
-.docsec:last-child{border-bottom:0}
-.docsec h3{margin-bottom:12px}
-.docsec p{margin-bottom:14px}
-pre{background:var(--floor);border:1px solid var(--hair);border-radius:8px;padding:18px 20px;overflow-x:auto;max-width:100%;font-family:var(--mono);font-size:14.5px;line-height:1.7;color:var(--body);margin:16px 0}
-pre .c{color:var(--dim)}
-pre .k{color:var(--amber-d)}
-pre .s{color:var(--pass)}
-code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--floor);padding:2px 6px;border-radius:4px;border:1px solid var(--hair)}
-.cta-band{background:linear-gradient(160deg,#FFF,var(--floor));border:1px solid var(--hair2);border-radius:12px;padding:44px}
-
-@media(max-width:940px){
-  .navbar{gap:14px}
-  .brand{flex:1}
-  .brand-logo{width:96px;height:40px}
-  .brand{gap:8px}
-  .navbar{gap:10px;min-height:64px}
-  nav.tabs{position:fixed;inset:87px 0 auto;flex-direction:column;background:var(--floor);border-bottom:1px solid var(--hair);padding:10px 18px 16px;display:none}
-  nav.tabs.open{display:flex}
-  nav.tabs button{text-align:left;padding:12px}
-  nav.tabs .tablink{padding:12px}
-  .menu{display:block}
-  .navcta .btn:not(.solid){display:none}
-  .navcta .btn.solid{font-size:13px;padding:8px 13px}
-  .band.hero{padding:52px 0 44px}
-  .grid2,.grid3,.grid4,.line,.fgrid,.docwrap{grid-template-columns:minmax(0,1fr)}
-  .band.hero .grid2{grid-template-columns:minmax(0,1fr);gap:34px}
-  .docnav{position:static;width:100%}
-  .docnav a{margin-left:0;padding-left:10px}
-  table{font-size:15px;min-width:460px}
-  .wrap{padding:0 20px}
-  pre{font-size:13px;padding:14px 15px}
-  .docwrap{gap:26px}
-  .band{padding:54px 0}
-}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-
-/* CIO rewrite: a few additions to the existing system */
-.tablink{font-family:var(--sans);font-size:15px;color:var(--dim);text-decoration:none;
-  padding:8px 12px;border-radius:6px;white-space:nowrap}
-.tablink:hover{color:var(--amber-d);background:var(--amber-w)}
-.metric{font-family:var(--display);font-size:44px;font-weight:800;color:var(--ink);
-  letter-spacing:-.02em;line-height:1}
-.metric.warn{color:var(--fail)}
-.metriclab{font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:6px;line-height:1.5}
-.samplebar{font-family:var(--mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;
-  color:#7A4E06;background:#F5E1BD;border:1px solid #E2C68F;border-radius:4px;
-  padding:5px 10px;display:inline-block;margin-bottom:14px}
-
-/* ================= Factory run (MS-91 case study) ================= */
-.fx-pill{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--pass);background:#E9F2E7;border:1px solid #C3DBBF;border-radius:999px;padding:6px 15px 6px 11px;margin-bottom:20px;cursor:pointer;transition:border-color .16s,background .16s}
-.fx-pill:hover{background:#DFEEDC;border-color:#9CC596}
-.fx-pill b{font-weight:600}
-.fx-pulse{width:8px;height:8px;border-radius:50%;background:var(--pass);flex:none;animation:fxPulse 2.2s infinite}
-@keyframes fxPulse{0%{box-shadow:0 0 0 0 rgba(47,107,63,.45)}70%{box-shadow:0 0 0 9px rgba(47,107,63,0)}100%{box-shadow:0 0 0 0 rgba(47,107,63,0)}}
-
-/* home teaser */
-.fx-teaser{background:linear-gradient(180deg,var(--void),var(--panel2))}
-.fx-tgrid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
-.fx-tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.fx-tile{background:var(--panel);border:1px solid var(--hair);border-radius:12px;padding:22px 22px 18px;position:relative;overflow:hidden}
-.fx-tile:after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,var(--amber),#D6B78A);transform:scaleX(0);transform-origin:left;transition:transform .9s cubic-bezier(.3,.7,.3,1)}
-.play .fx-tile:after,.fx-tiles.play .fx-tile:after{transform:scaleX(1)}
-.fx-tile:nth-child(2):after{transition-delay:.12s}.fx-tile:nth-child(3):after{transition-delay:.24s}.fx-tile:nth-child(4):after{transition-delay:.36s}
-.fx-tile .n{font-family:var(--display);font-size:clamp(30px,3.2vw,40px);font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1}
-.fx-tile .l{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-top:9px;line-height:1.45}
-.fx-link{display:inline-flex;align-items:center;gap:8px;margin-top:24px}
-
-/* factory hero */
-.fx-hero{background:radial-gradient(900px 520px at 88% 12%,rgba(214,183,138,.14),transparent 62%),radial-gradient(700px 480px at 0% 100%,rgba(143,208,138,.07),transparent 60%),#241F2E!important}
-.fx-hero h1{color:#FBF9F6}
-.fx-hero .lead{color:#D8D0C5}
-.fx-hero .btn{color:#FBF9F6;border-color:#5A5068}
-.fx-hero .btn:hover{color:#D6B78A;border-color:#D6B78A}
-.fx-hero .btn.solid{background:#D6B78A;border-color:#D6B78A;color:#241F2E}
-.fx-hero .btn.solid:hover{background:#E5C99E;color:#241F2E}
-.fx-hgrid{display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:center}
-.fx-hgrid h1{font-size:clamp(34px,4vw,52px)}
-.fx-eyebrow-live{display:inline-flex;align-items:center;gap:10px}
-.fx-eyebrow-live .fx-pulse{background:#8FD08A;animation-name:fxPulseD}
-@keyframes fxPulseD{0%{box-shadow:0 0 0 0 rgba(143,208,138,.5)}70%{box-shadow:0 0 0 9px rgba(143,208,138,0)}100%{box-shadow:0 0 0 0 rgba(143,208,138,0)}}
-
-/* the animated pipeline */
-.fx-pipewrap{position:relative}
-.fx-pipe{display:block;width:100%;max-width:520px;height:auto;margin:0 auto}
-.fx-pipe text{font-family:var(--sans)}
-.fx-pipe .t-disp{font-family:var(--display);font-weight:700}
-.fx-pipe .t-mono{font-family:var(--mono);letter-spacing:.14em}
-.fx-replay{position:absolute;right:4px;bottom:-6px;background:none;border:1px solid #4A4158;color:#B5ABA0;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;padding:5px 10px;border-radius:5px;cursor:pointer}
-.fx-replay:hover{color:#D6B78A;border-color:#D6B78A}
-.fx-pipe.js .k{opacity:0}
-.fx-pipe.play .k{animation:fxFade .5s ease var(--d,0s) forwards}
-.fx-pipe.js .dr{stroke-dasharray:1;stroke-dashoffset:1}
-.fx-pipe.play .dr{animation:fxDraw .45s ease var(--d,0s) forwards}
-.fx-pipe .bar{transform-box:fill-box;transform-origin:left center}
-.fx-pipe.js .bar{transform:scaleX(0)}
-.fx-pipe.play .bar{animation:fxGrow 1.5s cubic-bezier(.35,.6,.3,1) var(--d,0s) forwards}
-.fx-pipe .pop{transform-box:fill-box;transform-origin:center}
-.fx-pipe.js .pop{opacity:0;transform:scale(.55)}
-.fx-pipe.play .pop{animation:fxPop .55s cubic-bezier(.2,1.5,.4,1) var(--d,0s) forwards}
-.fx-pipe.js .drop{opacity:0}
-.fx-pipe.play .drop{animation:fxDrop .6s ease-in var(--d,0s) forwards}
-.fx-pipe .glow{transform-box:fill-box;transform-origin:center}
-.fx-pipe.play .glow{animation:fxGlow 2.4s ease-in-out calc(var(--d,0s) + .6s) 2}
-@keyframes fxFade{from{opacity:0}to{opacity:1}}
-@keyframes fxDraw{to{stroke-dashoffset:0}}
-@keyframes fxGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-@keyframes fxPop{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:scale(1)}}
-@keyframes fxDrop{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(24px)}}
-@keyframes fxGlow{0%,100%{opacity:.25;transform:scale(1)}50%{opacity:.6;transform:scale(1.12)}}
-
-/* stats + time split */
-.fx-stats{display:grid;grid-template-columns:repeat(5,1fr);margin-top:58px;border-top:1px solid #3D3648}
-.fx-stat{padding:26px 20px 6px 0}
-.fx-stat+.fx-stat{padding-left:22px;border-left:1px solid #3D3648}
-.fx-stat .n{font-family:var(--display);font-size:clamp(30px,3.4vw,44px);font-weight:800;color:#FBF9F6;letter-spacing:-.03em;line-height:1;white-space:nowrap}
-.fx-stat .n em{font-style:normal;color:#D6B78A}
-.fx-stat .l{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#A79E92;margin-top:10px;line-height:1.5}
-.fx-time{margin-top:40px;background:#2E2839;border:1px solid #3D3648;border-radius:12px;padding:22px 24px}
-.fx-time .hd{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#A79E92}
-.fx-time .hd b{color:#FBF9F6;font-weight:600}
-.fx-track{display:flex;height:16px;border-radius:8px;overflow:hidden;background:#3D3648;margin:16px 0 14px}
-.fx-seg{height:100%;transform:scaleX(0);transform-origin:left;transition:transform 1.1s cubic-bezier(.35,.6,.3,1)}
-.fx-time.play .fx-seg{transform:scaleX(1)}
-.fx-time.play .fx-seg.s2{transition-delay:.9s}
-.fx-time.play .fx-seg.s3{transition-delay:1.8s}
-.fx-seg.s1{background:#D6B78A}.fx-seg.s2{background:#8FD08A}.fx-seg.s3{background:#8B8196}
-.fx-legend{display:flex;gap:26px;flex-wrap:wrap;font-size:15px;color:#CFC7BC}
-.fx-legend span{display:inline-flex;align-items:center;gap:9px}
-.fx-legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
-.fx-legend b{color:#FBF9F6;font-weight:600}
-
-/* how it ran */
-.fx-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px;position:relative}
-.fx-step{background:var(--panel);border:1px solid var(--hair);border-radius:14px;padding:28px 26px 26px;display:flex;flex-direction:column;position:relative}
-.fx-step .num{font-family:var(--display);font-size:15px;font-weight:800;color:#FFF;background:var(--amber);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
-.fx-step h3{font-size:21px;margin-bottom:10px}
-.fx-step p{font-size:16.5px;color:var(--body)}
-.fx-step .vis{margin-top:auto;padding-top:22px}
-.fx-steps:before{content:"";position:absolute;left:12%;right:12%;top:45px;height:2px;background:repeating-linear-gradient(90deg,var(--hair2) 0 6px,transparent 6px 12px);z-index:0}
-.fx-step{z-index:1}
-.fx-locks{list-style:none;border-top:1px dashed var(--hair);margin:0}
-.fx-locks li{display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px dashed var(--hair);font-family:var(--mono);font-size:13.5px;color:var(--ink)}
-.fx-locks svg{flex:none;color:var(--amber)}
-.fx-locks .shackle{transition:transform .35s ease;transform:translateY(-3px)}
-.fx-steps.play .fx-locks .shackle{transform:none}
-.fx-steps.play .fx-locks li:nth-child(2) .shackle{transition-delay:.2s}
-.fx-steps.play .fx-locks li:nth-child(3) .shackle{transition-delay:.4s}
-.fx-steps.play .fx-locks li:nth-child(4) .shackle{transition-delay:.6s}
-.fx-pips{display:flex;gap:7px;flex-wrap:wrap}
-.fx-pip{width:22px;height:22px;border-radius:50%;border:2px solid var(--hair2);background:var(--panel)}
-.fx-pip.on{border-color:var(--amber);background:var(--amber);transform:scale(.3);transition:transform .45s cubic-bezier(.2,1.5,.4,1) .3s}
-.fx-steps.play .fx-pip.on{transform:scale(1)}
-.fx-meter-l{font-family:var(--mono);font-size:13px;color:var(--dim);margin-top:12px;line-height:1.6}
-.fx-meter-l b{color:var(--ink);font-weight:600}
-.fx-lanes{display:grid;gap:9px}
-.fx-lane{display:grid;grid-template-columns:96px 1fr 22px;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;color:var(--ink)}
-.fx-lane .tr{height:8px;border-radius:4px;background:var(--floor);overflow:hidden}
-.fx-lane .tr i{display:block;height:100%;background:var(--pass);transform:scaleX(0);transform-origin:left;transition:transform 1.2s cubic-bezier(.35,.6,.3,1) .2s}
-.fx-steps.play .fx-lane .tr i{transform:scaleX(1)}
-.fx-lane .ck{color:var(--pass);font-weight:700;opacity:0;transition:opacity .3s 1.4s}
-.fx-steps.play .fx-lane .ck{opacity:1}
-.fx-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
-.fx-chips span{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--pass);background:#79b86b18;border:1px solid #79b86b40;border-radius:4px;padding:3px 8px}
-
-/* why it matters: trap cards */
-.fx-traps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:38px}
-.fx-trap{background:var(--panel);border:1px solid var(--hair);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform .18s,border-color .18s}
-.fx-trap:hover{transform:translateY(-3px);border-color:var(--hair2)}
-.fx-trap .hd{padding:20px 22px 6px}
-.fx-trap h3{font-size:19px;line-height:1.25}
-.fx-diff{margin:14px 22px 0;border:1px solid var(--hair);border-radius:8px;font-family:var(--mono);font-size:13.5px;overflow:hidden}
-.fx-diff div{display:grid;grid-template-columns:94px 1fr;gap:10px;padding:9px 12px}
-.fx-diff div+div{border-top:1px dashed var(--hair)}
-.fx-diff b{font-weight:500;color:var(--dim)}
-.fx-diff .bad{background:#e0664a12}
-.fx-diff .bad span{color:var(--fail);font-weight:600}
-.fx-trap .ft{margin-top:auto;padding:16px 22px 20px;display:flex;justify-content:space-between;align-items:center;gap:10px}
-.fx-trap .ft small{font-family:var(--mono);font-size:12px;color:var(--faint)}
-.fx-quote{margin-top:42px;display:flex;gap:22px;align-items:center;background:var(--panel);border:1px solid var(--hair2);border-radius:14px;padding:26px 30px}
-.fx-quote .ic{flex:none;width:56px;height:56px;border-radius:50%;background:var(--amber-w);color:var(--amber);display:flex;align-items:center;justify-content:center}
-.fx-quote p{font-family:var(--display);font-size:clamp(20px,2.1vw,26px);font-weight:700;color:var(--ink);letter-spacing:-.015em;line-height:1.3;max-width:none}
-
-/* evidence */
-.fx-egrid{display:grid;grid-template-columns:.95fr 1.05fr;gap:52px;align-items:start}
-.fx-term{background:#1B1722;border:1px solid #2E2839;border-radius:12px;overflow:hidden;box-shadow:0 24px 50px -30px rgba(30,20,40,.55)}
-.fx-term .bar{display:flex;align-items:center;gap:7px;padding:11px 14px;border-bottom:1px solid #2E2839;font-family:var(--mono);font-size:11.5px;color:#8B8196;letter-spacing:.08em}
-.fx-term .bar i{width:10px;height:10px;border-radius:50%;background:#3D3648;display:inline-block}
-.fx-term .bar span{margin-left:8px}
-.fx-term pre{background:none;border:0;margin:0;padding:18px 20px 20px;color:#EDE8E1;font-size:13.5px;line-height:1.75;white-space:pre-wrap;word-break:break-word}
-.fx-term .ln{display:block}
-.fx-term .p{color:#D6B78A}
-.fx-term .c{color:#8B8196}
-.fx-term .ok{color:#8FD08A}
-.fx-term.js .ln{opacity:0;transform:translateY(3px);transition:opacity .35s,transform .35s}
-.fx-term.play .ln{opacity:1;transform:none}
-.fx-manifest{margin-top:22px;background:var(--panel);border:1px solid var(--hair);border-radius:12px;padding:20px 22px}
-.fx-manifest .top{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1px solid var(--hair)}
-.fx-manifest .top b{font-family:var(--display);font-size:26px;font-weight:800;color:var(--ink);letter-spacing:-.02em}
-.fx-manifest .top span{font-family:var(--mono);font-size:12.5px;color:var(--dim)}
-.fx-manifest ul{list-style:none;margin:6px 0 0}
-.fx-manifest li{display:flex;gap:12px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--hair);font-size:16px;color:var(--body)}
-.fx-manifest li:last-child{border-bottom:0}
-.fx-manifest li svg{flex:none;color:var(--amber)}
-.fx-hash{font-family:var(--mono);font-size:12px;color:var(--faint);margin-top:10px;word-break:break-all}
-.fx-scope{margin-top:44px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start;border:1px dashed var(--hair2);border-radius:12px;padding:24px 26px;background:var(--panel2)}
-.fx-scope .ic{width:44px;height:44px;border-radius:10px;background:var(--panel);border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;color:var(--amber-d)}
-.fx-scope h3{font-size:19px;margin-bottom:6px}
-.fx-scope p{font-size:16.5px;max-width:60em}
-
-/* closing */
-.fx-cta{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
-.fx-mini{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:22px;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
-.fx-mini span{background:var(--panel);border:1px solid var(--hair);border-radius:999px;padding:6px 13px}
-.fx-mini i{color:var(--amber);font-style:normal}
-
-.fx-legend i{flex:none}.fx-legend b{white-space:nowrap}
-@media(max-width:600px){.fx-term pre{white-space:pre;overflow-x:auto;word-break:normal;font-size:12.5px}}
-@media(max-width:940px){
-  .fx-tgrid,.fx-hgrid,.fx-egrid,.fx-cta{grid-template-columns:minmax(0,1fr);gap:34px}
-  .fx-steps,.fx-traps{grid-template-columns:minmax(0,1fr)}
-  .fx-steps:before{display:none}
-  .fx-stats{grid-template-columns:1fr 1fr}
-  .fx-stat,.fx-stat+.fx-stat{padding:20px 12px 14px 0;border-left:0;border-bottom:1px solid #3D3648}
-  .fx-stat:nth-child(even){padding-left:16px;border-left:1px solid #3D3648}
-  .fx-stat:last-child{grid-column:1/-1;padding-left:0;border-left:0}
-  .fx-quote{flex-direction:column;align-items:flex-start;padding:22px}
-  .fx-scope{grid-template-columns:minmax(0,1fr)}
-  .fx-replay{position:static;display:block;margin:10px auto 0}
-}
-@media(prefers-reduced-motion:reduce){
-  .fx-pipe.js .k,.fx-pipe.js .pop,.fx-pipe.js .drop{opacity:1!important;transform:none!important}
-  .fx-pipe.js .dr{stroke-dashoffset:0!important}.fx-pipe.js .bar{transform:none!important}
-  .fx-pipe.js .drop{opacity:0!important}
-  .fx-seg,.fx-tile:after,.fx-lane .tr i,.fx-pip.on{transform:none!important}
-  .fx-lane .ck,.fx-term.js .ln{opacity:1!important;transform:none!important}
-  .fx-replay{display:none}
-}
-
-/* ---------- coverage catalogue ---------- */
-.cv-arch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
-.cv-arch .panel{padding:22px 24px}
-.cv-arch h3{margin:8px 0 8px}
-.cv-arch .tag{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
-.cv-legend{display:flex;flex-wrap:wrap;gap:14px 26px;margin:22px 0 6px}
-.cv-legend div{display:flex;gap:10px;align-items:baseline;font-size:15.5px;color:var(--dim);max-width:30em}
-.pill{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid;white-space:nowrap}
-.pill.q{color:var(--pass);border-color:var(--pass);background:#EAF3EC}
-.pill.i{color:var(--unknown);border-color:var(--unknown);background:#FAF3DF}
-.pill.r{color:var(--faint);border-color:var(--hair2);background:var(--panel2)}
-.cv-table{width:100%;border-collapse:collapse;font-size:16px;min-width:760px}
-.cv-table th{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);text-align:left;font-weight:500;padding:14px 14px;border-bottom:1px solid var(--hair2)}
-.cv-table td{padding:16px 14px;border-bottom:1px solid var(--hair);vertical-align:top;color:var(--body)}
-.cv-table td b{color:var(--ink);font-weight:600}
-.cv-table tr:last-child td{border-bottom:none}
-.cv-table .ev{font-family:var(--mono);font-size:13.5px;color:var(--dim);font-variant-numeric:tabular-nums}
-.cv-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.cv-chips span{font-family:var(--mono);font-size:13px;padding:5px 11px;border:1px solid var(--hair2);border-radius:6px;background:var(--panel)}
-.cv-band{background:var(--panel2)}
-.cv-band .grid2{align-items:center}
-.cv-mini{display:flex;flex-direction:column;gap:10px}
-.cv-mini div{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:12px 16px;background:var(--panel);border:1px solid var(--hair);border-radius:8px;font-size:16px}
-.cv-mini b{color:var(--ink);font-weight:600}
-@media(max-width:940px){.cv-arch{grid-template-columns:minmax(0,1fr)}}
-
-/* animated explainers: each is a self-contained dark stage in an iframe, sized to its content */
-.ly-anim{margin-top:28px;border-radius:16px;overflow:hidden;background:#06061A;box-shadow:0 1px 0 var(--hair),0 18px 40px -24px rgba(24,21,19,.45)}
-.ly-anim iframe{display:block;width:100%;border:0;background:#06061A}
-.ly-anim-note{margin-top:14px}
-.ly-anim-note a{color:var(--amber);font-weight:500;border-bottom:1px solid currentColor}
-
-/* ---------- multi-page additions ---------- */
-[id]{scroll-margin-top:100px}
-nav.tabs .tablink[aria-current="page"]{color:var(--amber);background:var(--amber-w)}
-.page-hero{padding:72px 0 56px}
-.jump{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:22px}
-.jump a{font-family:var(--sans);font-size:15px;color:var(--ink);text-decoration:none;border:1px solid var(--hair2);border-radius:999px;padding:7px 14px;background:var(--panel)}
-.jump a:hover{border-color:var(--amber-d);color:var(--amber-d)}
-ul.plain{list-style:none;margin:10px 0 0}
-ul.plain li{font-size:16.5px;padding:8px 0 8px 21px;position:relative;border-bottom:1px dashed var(--hair);color:var(--body)}
-ul.plain li::before{content:"";position:absolute;left:2px;top:17px;width:8px;height:8px;border-radius:50%;background:var(--amber)}
-.founder{display:flex;gap:22px;align-items:flex-start;margin-top:30px;background:var(--panel);border:1px solid var(--hair);border-radius:10px;padding:26px 28px}
-.founder h3{margin:8px 0 8px}
-.founder p{font-size:17px;color:var(--body);max-width:62ch}
-.founder-mark{flex:none;width:58px;height:58px;border-radius:50%;background:#573A9C;color:#FBF9F6;display:grid;place-items:center;font-family:var(--display);font-weight:800;letter-spacing:.06em}
-.linkcards a.card{text-decoration:none;display:block}
-.linkcards a.card h3{color:var(--ink)}
-.linkcards a.card:hover h3{color:var(--amber-d)}
-.fgrid{grid-template-columns:1.5fr repeat(4,1fr)}
-.band.hero h1 + .lead{margin-top:18px}
-@media(max-width:940px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){.fgrid{grid-template-columns:minmax(0,1fr)}}
-@media(max-width:600px){.founder{flex-direction:column;padding:22px}.btn{white-space:normal;max-width:100%;text-align:center}}
-.cta{display:flex;flex-wrap:wrap;gap:12px}
-.anim-frame{border-radius:14px;overflow:hidden;background:#06061A;border:1px solid var(--hair)}
-.anim-frame iframe{display:block;width:100%;aspect-ratio:960/560;border:0}
-@media(max-width:600px){.anim-frame iframe{aspect-ratio:960/940}#for-engineers table{min-width:0}#for-engineers td.mono{font-size:12.5px;word-break:break-all}}
-.stepno{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--amber-d);margin-bottom:8px}
-
-/* ---------- AI factory (home) ---------- */
-#factory .lead{color:#D8D0C5}
-#factory .line{margin-top:34px}
-#factory .agent{display:flex;flex-direction:column}
-#factory .agent .av{width:54px;height:58px;display:block;margin:0 0 10px}
-#factory .agent .ic{width:54px;height:58px;display:flex;align-items:center;justify-content:center;margin:0 0 10px;color:#D6B78A}
-#factory .agent .sees{margin-top:auto;padding-top:12px}
-#factory .stepno{color:#D6B78A}
-.fac-foot{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:start;margin-top:40px}
-.fac-humans h3{font-size:21px;margin-bottom:10px}
-.fac-humans p{font-size:16.5px}
-.fac-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.fac-chips span{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:#EDE8E1;background:#2E2839;border:1px solid #4A4158;border-radius:999px;padding:6px 12px}
-.fac-chips span i{font-style:normal;color:#D6B78A;margin-right:6px}
-.band.feature .fx-tile{background:#2E2839;border-color:#3D3648}
-.band.feature .fx-tile .n{color:#FBF9F6}
-.band.feature .fx-tile .l{color:#A79E92}
-.fac-proof .hd{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#A79E92;margin-bottom:12px}
-.fac-proof .note{margin-top:12px}
-.fac-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
-.band.feature .btn{color:#FBF9F6;border-color:#5A5068}
-.band.feature .btn:hover{color:#D6B78A;border-color:#D6B78A}
-.band.feature .btn.solid{background:#D6B78A;border-color:#D6B78A;color:#241F2E}
-.band.feature .btn.solid:hover{background:#E5C99E;color:#241F2E}
-@media(max-width:940px){.fac-foot{grid-template-columns:minmax(0,1fr);gap:30px}}
-</style>
-<link href="https://lightyr.ai/" rel="canonical"/>
-<link href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMy42OCAxMy41MiBMMTYuMCA1LjQ0IEwyOC4zMiAxMy41MiBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0zLjY4IDE4LjQ4IEwxNi4wIDI2LjU2IEwyOC4zMiAxOC40OCBaIi8+PC9zdmc+" rel="icon" type="image/svg+xml"/>
-<link href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iMCIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMjAuNyA3Ni4wNSBMOTAuMCAzMC42IEwxNTkuMyA3Ni4wNSBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0yMC43IDEwMy45NSBMOTAuMCAxNDkuNCBMMTU5LjMgMTAzLjk1IFoiLz48L3N2Zz4=" rel="apple-touch-icon"/>
-<link color="#573A9C" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMy42OCAxMy41MiBMMTYuMCA1LjQ0IEwyOC4zMiAxMy41MiBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0zLjY4IDE4LjQ4IEwxNi4wIDI2LjU2IEwyOC4zMiAxOC40OCBaIi8+PC9zdmc+" rel="mask-icon"/>
-<meta content="#FAF8F4" name="theme-color"/>
-<meta content="website" property="og:type"/>
-<meta content="https://lightyr.ai/" property="og:url"/>
-<meta content="Lightyear — De-risk your cutover with evidence, not judgement" property="og:title"/>
-<meta content="The autonomous factory for systems you cannot afford to break. We manufacture ground truth for systems that have no tests, then prove the replacement behaves identically." property="og:description"/>
-<meta content="Lightyear" property="og:site_name"/>
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="Lightyear — Proof that modernized code behaves the same" name="twitter:title"/>
-<meta content="Anyone can rewrite it. We prove it behaves the same." name="twitter:description"/>
-<meta content="index,follow" name="robots"/>
-<meta content="https://lightyr.ai/og-card.png" property="og:image"/>
-<meta content="1200" property="og:image:width"/>
-<meta content="630" property="og:image:height"/>
-<meta content="https://lightyr.ai/og-card.png" name="twitter:image"/>
-<script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"SoftwareApplication",
-   "name":"Lightyear","applicationCategory":"DeveloperApplication",
-   "operatingSystem":"Cloud, On-premise, Mainframe",
-   "description":"Verification layer and autonomous factory for enterprise system modernization.",
-   "url":"https://lightyr.ai"}
-  </script>
-</head>
-<body data-page="index">
-<header>
-<div class="wrap navbar">
-<a aria-label="Lightyear home" class="brand" href="index.html">
-<svg aria-labelledby="lyT" class="brand-logo" role="img" viewbox="0 0 360 150" xmlns="http://www.w3.org/2000/svg"> <title id="lyT">Lightyear</title> <defs> <!-- cuts a clear channel through the wings so the wordmark never sits on violet, and leaves no visible band on any background colour --> <mask id="lyBand"> <rect fill="#fff" height="150" width="360" x="0" y="0"></rect> <rect fill="#000" height="36" width="340" x="10" y="57"></rect> </mask> </defs> <g mask="url(#lyBand)"> <path d="M24 66C84 62 125 46 156 20C166 12 173 5 179 4C179.5 3.7 179.8 3.2 180 3C180.2 3.2 180.5 3.7 181 4C187 5 194 12 204 20C235 46 276 62 336 66H24Z" fill="#573A9C"></path> <path d="M24 84C84 88 125 104 156 130C166 138 173 145 179 146C179.5 146.3 179.8 146.8 180 147C180.2 146.8 180.5 146.3 181 146C187 145 194 138 204 130C235 104 276 88 336 84H24Z" fill="#573A9C"></path> </g> <text fill="#A7702C" font-family="Archivo, Arial, sans-serif" font-size="30" font-weight="800" letter-spacing="7" text-anchor="middle" x="180" y="84">LIGHTYEAR</text> </svg>
-</a>
-<button aria-expanded="false" aria-label="Toggle navigation menu" class="menu" onclick="const n=document.querySelector('nav.tabs');this.setAttribute('aria-expanded', n.classList.toggle('open'));">≡</button>
-<nav aria-label="Main" class="tabs">
-<a class="tablink" href="product.html">Product</a>
-<a class="tablink" href="verify.html">Verify</a>
-<a class="tablink" href="solutions.html">Solutions</a>
-<a class="tablink" href="proof.html">Proof</a>
-<a class="tablink" href="pricing.html">Pricing</a>
-<a class="tablink" href="resources.html">Resources</a>
-<a class="tablink" href="engineers.html">For engineers</a>
-</nav>
-<div class="navcta">
-<a class="btn solid" href="https://calendly.com/lightyr" rel="noopener" target="_blank">Book a sprint</a>
-</div>
-</div>
-</header>
-<main>
-<div class="band hero">
-<div class="wrap grid2">
-<div>
-<div class="eyebrow">Independent verification for modernization</div>
-<h1>Anyone can rewrite it. We prove it behaves the same.</h1>
-<p class="lead">Independent proof, field by field, that your new system behaves like the old one. Whoever wrote it, including AI. Evidence your auditor can replay.</p>
-<div class="cta" style="margin-top:22px"><a class="btn solid" href="https://calendly.com/lightyr" rel="noopener" target="_blank">Book a Verification Sprint</a><a class="btn" href="resources.html#sample-pack">See a real evidence pack</a></div>
-<p class="note" style="margin-top:20px">COBOL · CICS · VSAM · IMS · HLASM · PL/I · JCL · Db2<br/>Oracle · PostgreSQL · AlloyDB · SAP ASE · and the applications that sit on them.</p>
-</div>
-<div aria-label="Example comparison receipt" class="receipt" id="heroReceipt">
-<div class="rhead"><span>comparison receipt</span><span>run 8f3c1a · posttran</span></div>
-<div class="rbody">
-<span class="verdict v-unk" id="hrVerdict"><i class="dot"></i><span id="hrVerdictText">indeterminate</span></span>
-<div class="kv"><b>reason_code</b><span id="hrReason" style="color:var(--unknown)">NO_COMPARABLE_RECORDS</span></div>
-<div class="kv"><b>expected_records</b><span>0</span></div>
-<div class="kv"><b>actual_records</b><span>0</span></div>
-<div class="kv"><b>evidence_class</b><span>local_observed</span></div>
-<div class="kv"><b>mainframe_equivalent</b><span style="color:var(--fail)">false</span></div>
-<div class="kv"><b>exit</b><span>2</span></div>
-<p class="note">The candidate produced no output. Most tools would report this as a pass.<br/>We return <span style="color:var(--unknown)">indeterminate</span>, because nothing was verified.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="band sunk">
-<div class="wrap">
-<div class="eyebrow">Why it has to be independent</div>
-<h2 style="margin:16px 0 0;max-width:27ch">Your team, our team, an AI. The standard does not move.</h2>
-<div class="rule"></div>
-<p class="lead">So we tested that on ourselves. We pointed the platform at a 1.4 million line ERP maintained on both Oracle and PostgreSQL, and asked it to work out the rules that translate one to the other — once with conventional analysis, once with AI agents.</p>
-<p class="lead" style="margin-bottom:28px">The AI returned fourteen rules in a single response. One of them corrected 367 files. Another corrupted 86. A third matched nothing at all. <strong style="color:var(--ink)">Same response, same format, same confidence.</strong></p>
-<div class="grid3">
-<div class="card"><h3>367 files corrected</h3><p>Its best rule fired on 373 files and improved 367 of them. Exactly what you want from an AI writing your migration.</p></div>
-<div class="card"><h3>86 files corrupted</h3><p>Its worst rule fired on 97 and damaged 86. Well-formed, plausible, and wrong in a way no reviewer catches by reading it.</p></div>
-<div class="card"><h3>Both caught</h3><p>Not by being smarter than the AI. By running every proposed change against the real system and refusing the ones that made things worse.</p></div>
-</div>
-<p class="note" style="margin-top:26px">This is why we are indifferent to who writes the code. Generation is cheap and getting cheaper. Telling a good change from a convincing one is the part that still has to be proved — and it is not something you can ask the writer to do for itself.</p>
-</div>
-</div>
-<div class="band feature" id="factory">
-<div class="wrap">
-<div class="eyebrow">The AI factory</div>
-<h2 style="margin:16px 0 0;max-width:26ch">AI agents do the conversion. A fixed program decides when it's done.</h2>
-<div class="rule"></div>
-<p class="lead">Lightyear's factory turns a legacy program into modern code with AI agents, then runs the old and new versions on the same data. Nothing is finished until the Verdict Engine, a deterministic program rather than a model, says the results match and the tests were strong enough to trust that match.</p>
-<div class="line" aria-label="The four stations of the factory">
-<div class="agent"><svg class="av" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="-50 -128 124 136"><line x1="0" y1="-94" x2="0" y2="-108" stroke="#B9A3FF" stroke-width="3" stroke-linecap="round"/>
-<circle cx="0" cy="-112" r="6" fill="#FFB547"/>
-<rect x="-32" y="-96" width="64" height="52" rx="18" fill="#8B5CFF"/>
-<rect x="-24" y="-88" width="48" height="32" rx="12" fill="#14132E"/>
-<ellipse cx="-10" cy="-73" rx="5" ry="6" fill="#F4F2FF"/><ellipse cx="10" cy="-73" rx="5" ry="6" fill="#F4F2FF"/>
-<path d="M-6 -63Q0 -59 6 -63" stroke="#F4F2FF" stroke-width="2" fill="none" stroke-linecap="round"/>
-<circle cx="-27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"/><circle cx="27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"/>
-<rect x="-26" y="-42" width="52" height="38" rx="14" fill="#7146F0"/>
-<rect x="22" y="-34" width="22" height="28" rx="3" fill="#F4F2FF" stroke="#7146F0" stroke-width="1.5"/><rect x="26" y="-28" width="14" height="2.5" fill="#8B5CFF"/><rect x="26" y="-22" width="10" height="2.5" fill="#8B5CFF"/><rect x="26" y="-16" width="12" height="2.5" fill="#8B5CFF"/>
-<rect x="-20" y="-6" width="14" height="10" rx="4" fill="#4B2FB8"/><rect x="6" y="-6" width="14" height="10" rx="4" fill="#4B2FB8"/>
-<g fill="none" stroke="#FFD48A" stroke-width="2"><circle cx="-10" cy="-73" r="8.5"/><circle cx="10" cy="-73" r="8.5"/><path d="M-1.5 -74H1.5"/></g></svg>
-<div class="stepno">1 · PLAN</div><div class="rolelab">Pip · planner AI</div>
-<h4>Scope the job</h4>
-<p>Works from a map of your estate: what the program reads and writes, which business rules it carries, and what "the same" means. The rules are locked before any code is written.</p>
-<div class="sees">Sees: source, layouts, the work order</div></div>
-<div class="agent"><svg class="av" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="-50 -128 124 136"><rect x="-32" y="-96" width="64" height="52" rx="18" fill="#FFB547"/>
-<rect x="-24" y="-88" width="48" height="32" rx="12" fill="#14132E"/>
-<ellipse cx="-8" cy="-73" rx="5" ry="6" fill="#F4F2FF"/><ellipse cx="12" cy="-73" rx="5" ry="6" fill="#F4F2FF"/>
-<path d="M-2 -63Q4 -59 10 -63" stroke="#F4F2FF" stroke-width="2" fill="none" stroke-linecap="round"/>
-<circle cx="-27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"/><circle cx="27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"/>
-<rect x="-26" y="-42" width="52" height="38" rx="14" fill="#E2902A"/>
-<rect x="18" y="-40" width="46" height="28" rx="4" fill="#14132E" stroke="#FFB547" stroke-width="2"/>
-<rect x="24" y="-33" width="22" height="2.5" fill="#B9A3FF"/><rect x="24" y="-27" width="30" height="2.5" fill="#FFB547"/><rect x="24" y="-21" width="16" height="2.5" fill="#B9A3FF"/>
-<rect x="12" y="-12" width="58" height="5" rx="2" fill="#3A3760"/>
-<rect x="10" y="-22" width="14" height="7" rx="3.5" fill="#E2902A"/>
-<rect x="-20" y="-6" width="14" height="10" rx="4" fill="#9A5F12"/><rect x="6" y="-6" width="14" height="10" rx="4" fill="#9A5F12"/>
-<path d="M-29 -95Q-28 -121 0 -122Q28 -121 29 -95Z" fill="#FFD48A"/><rect x="-36" y="-98" width="72" height="6" rx="3" fill="#F4C46A"/><rect x="-4" y="-121" width="8" height="24" rx="3" fill="#F4C46A"/></svg>
-<div class="stepno">2 · BUILD</div><div class="rolelab">Bolt · builder AI</div>
-<h4>Write the new code</h4>
-<p>Writes the replacement in a sealed workspace, with a fixed budget of attempts. It never sees the expected answers.</p>
-<div class="sees">Sees: source and interfaces, never the answers</div></div>
-<div class="agent judge"><div class="ic"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M7 21h10M5 7h14M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/></svg></div>
-<div class="stepno">3 · JUDGE</div><div class="rolelab">The Verdict Engine</div>
-<h4>Compare every field</h4>
-<p>Runs old and new on the same inputs and compares every field. The answer key is the legacy program itself, run for real, not someone's description of it.</p>
-<div class="sees">Holds: the answers and the signing key</div></div>
-<div class="agent"><div class="ic"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.6"/><path d="M20 4v7h-7"/></svg></div>
-<div class="stepno">4 · REPAIR OR STOP</div><div class="rolelab">The analyst</div>
-<h4>Fix it, or stop honestly</h4>
-<p>Differences go back to the builder by field name, never with the right value. When the budget is spent, the run stops and the failure is kept as evidence.</p>
-<div class="sees">Sees: which field differs, not why it should</div></div>
-</div>
-<div class="membrane" aria-hidden="true"><div class="l"></div><span>The expected answers never cross this line</span><div class="l"></div></div>
-<div class="fac-foot">
-<div class="fac-humans">
-<h3>People decide what machines shouldn't</h3>
-<p>The factory does the repetitive work on its own. The decisions that carry risk stay with a named person, and each one is signed and kept with the evidence.</p>
-<div class="fac-chips"><span><i>✓</i>Approve an exception</span><span><i>✓</i>Keep or fix a legacy quirk</span><span><i>✓</i>Release to production</span></div>
-</div>
-<div class="fac-proof">
-<div class="hd">On a real ERP running on Oracle</div>
-<div class="fx-tiles" data-fx-play="">
-<div class="fx-tile"><div class="n">12m 25s</div><div class="l">Locked rules to signed verdict</div></div>
-<div class="fx-tile"><div class="n">1st</div><div class="l">Attempt passed</div></div>
-<div class="fx-tile"><div class="n">0</div><div class="l">Lines written or fixed by a person</div></div>
-<div class="fx-tile"><div class="n">2.7M</div><div class="l">Values checked exactly</div></div>
-</div>
-<p class="note">One business process, run on Oracle and PostgreSQL. The whole run is public and replayable.</p>
-<div class="fac-links"><a class="btn solid" href="proof.html#factory-run">See the full factory run <span aria-hidden="true">→</span></a><a class="btn" href="product.html">How the judge works <span aria-hidden="true">→</span></a></div>
-</div>
-</div>
-</div>
-</div>
-<div class="band ly-cut">
-<div class="wrap">
-<div class="eyebrow">Watch the loop · ten seconds</div>
-<h2 style="margin-top:14px;max-width:24ch">One field fails. The builder fixes it. The judge decides.</h2>
-<p class="lead" style="margin-top:18px">Here is stations 2 to 4 in motion. The judge reports which field differs, the builder AI repairs its own code, and the second run passes. Because the Verdict Engine is a fixed program, every verdict replays the same way.</p>
-<div class="ly-anim"><iframe loading="lazy" srcdoc="&lt;!doctype html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-&lt;meta charset=&quot;utf-8&quot;&gt;
-&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
-&lt;title&gt;The Loop in 10 Seconds&lt;/title&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&amp;family=IBM+Plex+Mono:wght@400;600&amp;family=IBM+Plex+Sans:wght@400;500&amp;display=swap&quot;&gt;
-&lt;style&gt;
-/* The repair loop only: one field differs, the AI fixes it, the engine proves it. 10 s, loops. */
-:root{
-  --void:#06061A; --panel:#0E0D26; --line:#2A2850; --fg:#F4F2FF; --muted:#A9A5C8;
+body{margin:0;background:#15184D}
+a{color:#B9A3FF}a:hover{color:#D8CCF8}
+/* The repair loop (ported from lightyr.ai), scoped to .lyloop */
+.lyloop{--void:#06061A; --panel:#0E0D26; --line:#2A2850; --fg:#F4F2FF; --muted:#A9A5C8;
   --violet:#8B5CFF; --filament:#FFB547; --ok:#2BD4A0; --bad:#FF5A4E;
   --display:'Archivo','Arial Narrow',sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
   --T:10s;
-  color-scheme:dark;
-}
-*{box-sizing:border-box}
-html,body{margin:0;background:var(--void);color:var(--fg)}
-body{font-family:var(--body);padding:16px}
-.wrap{max-width:none;margin:0 auto;display:flex;flex-direction:column;gap:12px}
-.stage{position:relative;border:1px solid var(--line);border-radius:14px;background:var(--void);overflow:hidden}
-.stage svg{display:block;width:100%;height:auto}
-.toggle{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px;min-height:40px;cursor:pointer}
-.toggle:hover{border-color:var(--violet)}
-.toggle:focus-visible{outline:2px solid var(--filament);outline-offset:2px}
-.row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.caps{display:grid;flex:1 1 360px;min-height:1.3em}
-.cap{grid-area:1/1;margin:0;font-family:var(--display);font-stretch:85%;font-weight:700;font-size:clamp(18px,2.4vw,24px);line-height:1.25;opacity:0}
-.tag{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
-
-.run .anim{animation-duration:var(--T);animation-iteration-count:infinite;animation-timing-function:ease-in-out;animation-fill-mode:both}
-.paused .anim,.paused .eyes,.paused .gear,.paused .bob{animation-play-state:paused}
-.fb{transform-box:fill-box;transform-origin:center}
-.bob{animation:bob 2.6s ease-in-out infinite}
+  color-scheme:dark;}
+.lyloop *{box-sizing:border-box}
+.lyloop .wrap{max-width:none;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.lyloop .stage{position:relative;border:1px solid var(--line);border-radius:14px;background:var(--void);overflow:hidden}
+.lyloop .stage svg{display:block;width:100%;height:auto}
+.lyloop .toggle{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px;min-height:40px;cursor:pointer}
+.lyloop .toggle:hover{border-color:var(--violet)}
+.lyloop .toggle:focus-visible{outline:2px solid var(--filament);outline-offset:2px}
+.lyloop .row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.lyloop .caps{display:grid;flex:1 1 360px;min-height:1.3em}
+.lyloop .cap{grid-area:1/1;margin:0;font-family:var(--display);font-stretch:85%;font-weight:700;font-size:clamp(18px,2.4vw,24px);line-height:1.25;opacity:0}
+.lyloop .tag{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+.lyloop .run .anim{animation-duration:var(--T);animation-iteration-count:infinite;animation-timing-function:ease-in-out;animation-fill-mode:both}
+.lyloop .paused .anim,.lyloop .paused .eyes,.lyloop .paused .gear,.lyloop .paused .bob{animation-play-state:paused}
+.lyloop .fb{transform-box:fill-box;transform-origin:center}
+.lyloop .bob{animation:bob 2.6s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-.eyes{transform-box:fill-box;transform-origin:center;animation:blink 3.7s infinite}
+.lyloop .eyes{transform-box:fill-box;transform-origin:center;animation:blink 3.7s infinite}
 @keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
-.gear{transform-box:fill-box;transform-origin:center;animation:spin 2.4s linear infinite}
+.lyloop .gear{transform-box:fill-box;transform-origin:center;animation:spin 2.4s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-.k0{animation-name:k0}.k1{animation-name:k1}.k2{animation-name:k2}.k3{animation-name:k3}
+.lyloop .k0{animation-name:k0}
+.lyloop .k1{animation-name:k1}
+.lyloop .k2{animation-name:k2}
+.lyloop .k3{animation-name:k3}
 @keyframes k0{0%,14.5%{opacity:1}16%,100%{opacity:0}}
 @keyframes k1{0%,15%{opacity:0}16.5%,32%{opacity:1}34%,100%{opacity:0}}
 @keyframes k2{0%,33%{opacity:0}35%,69%{opacity:1}71%,100%{opacity:0}}
 @keyframes k3{0%,70%{opacity:0}72%,98%{opacity:1}100%{opacity:0}}
-
-.tA{animation-name:tA}.tB1{animation-name:tB1}.tB2{animation-name:tB2}
+.lyloop .tA{animation-name:tA}
+.lyloop .tB1{animation-name:tB1}
+.lyloop .tB2{animation-name:tB2}
 @keyframes tA{0%{opacity:1;transform:translate(0,0)}6%,30%{opacity:1;transform:translate(56px,84px)}33%,55%{opacity:0;transform:translate(0,0)}56%{opacity:1;transform:translate(0,0)}62%,95%{opacity:1;transform:translate(56px,84px)}98%,100%{opacity:0;transform:translate(56px,84px)}}
 @keyframes tB1{0%{opacity:1;transform:translate(0,0)}6%,30%{opacity:1;transform:translate(56px,4px)}33%,100%{opacity:0;transform:translate(56px,4px)}}
 @keyframes tB2{0%,55%{opacity:0;transform:translate(0,0)}56%{opacity:1;transform:translate(0,0)}62%,95%{opacity:1;transform:translate(56px,4px)}98%,100%{opacity:0;transform:translate(56px,4px)}}
-.scan{animation-name:scan}
+.lyloop .scan{animation-name:scan}
 @keyframes scan{0%,5.5%{opacity:0;transform:translateY(0)}6%{opacity:.9;transform:translateY(0)}11%{opacity:.9;transform:translateY(62px)}15.5%{opacity:.9;transform:translateY(0)}16%,61.5%{opacity:0;transform:translateY(0)}62%{opacity:.9;transform:translateY(0)}67%{opacity:.9;transform:translateY(62px)}71.5%{opacity:.9;transform:translateY(0)}72%,100%{opacity:0;transform:translateY(0)}}
-.lampA{animation-name:lampA}.lampR{animation-name:lampR}.lampG{animation-name:lampG}
+.lyloop .lampA{animation-name:lampA}
+.lyloop .lampR{animation-name:lampR}
+.lyloop .lampG{animation-name:lampG}
 @keyframes lampA{0%,5.5%{fill:#2A2850}6%,8%{fill:#FFB547}9%,11%{fill:#2A2850}12%,14%{fill:#FFB547}15%,61.5%{fill:#2A2850}62%,64%{fill:#FFB547}65%,67%{fill:#2A2850}68%,70%{fill:#FFB547}71%,100%{fill:#2A2850}}
 @keyframes lampR{0%,15.5%{fill:#2A2850}16.5%,33%{fill:#FF5A4E}34%,100%{fill:#2A2850}}
 @keyframes lampG{0%,71.5%{fill:#2A2850}72.5%,96%{fill:#2BD4A0}98%,100%{fill:#2A2850}}
-.r1{animation-name:r1}.r2{animation-name:r2}.r3{animation-name:r3}.r4{animation-name:r4}
+.lyloop .r1{animation-name:r1}
+.lyloop .r2{animation-name:r2}
+.lyloop .r3{animation-name:r3}
+.lyloop .r4{animation-name:r4}
 @keyframes r1{0%,5.5%{opacity:0}6.5%,15%{opacity:1}16%,100%{opacity:0}}
 @keyframes r2{0%,15.5%{opacity:0}16.5%,33%{opacity:1}34%,100%{opacity:0}}
 @keyframes r3{0%,61.5%{opacity:0}62.5%,71%{opacity:1}72%,100%{opacity:0}}
 @keyframes r4{0%,71.5%{opacity:0}72.5%,96%{opacity:1}98%,100%{opacity:0}}
-.stampRed{animation-name:stampRed}
+.lyloop .stampRed{animation-name:stampRed}
 @keyframes stampRed{0%,15.5%{opacity:0;transform:scale(2.2) rotate(5deg)}18%,31%{opacity:1;transform:scale(1) rotate(5deg)}34%,100%{opacity:0;transform:scale(1) rotate(5deg)}}
-.stamp{animation-name:stamp}
+.lyloop .stamp{animation-name:stamp}
 @keyframes stamp{0%,71.5%{opacity:0;transform:scale(2.2) rotate(-6deg)}74%,95%{opacity:1;transform:scale(1) rotate(-6deg)}98%,100%{opacity:0;transform:scale(1) rotate(-6deg)}}
-.note{animation-name:note}
+.lyloop .note{animation-name:note}
 @keyframes note{0%,18%{opacity:0;transform:translate(0,0)}20%{opacity:1;transform:translate(0,0)}30%,36%{opacity:1;transform:translate(-326px,-108px)}39%,100%{opacity:0;transform:translate(-326px,-108px)}}
-.aha{animation-name:aha}
+.lyloop .aha{animation-name:aha}
 @keyframes aha{0%,29%{opacity:0;transform:scale(0)}31%{opacity:1;transform:scale(1.2)}32.5%,38%{opacity:1;transform:scale(1)}40%,100%{opacity:0;transform:scale(0)}}
-.bFix{animation-name:bFix}
+.lyloop .bFix{animation-name:bFix}
 @keyframes bFix{0%,32%{opacity:0;transform:translateY(6px)}34%,45%{opacity:1;transform:translateY(0)}47%,100%{opacity:0}}
-.bYes{animation-name:bYes}
+.lyloop .bYes{animation-name:bYes}
 @keyframes bYes{0%,75%{opacity:0;transform:translateY(6px)}77%,94%{opacity:1;transform:translateY(0)}97%,100%{opacity:0}}
-.type{animation-name:type}
+.lyloop .type{animation-name:type}
 @keyframes type{0%,35%{transform:translateY(0)}36.5%{transform:translateY(-4px)}38%{transform:translateY(0)}39.5%{transform:translateY(-4px)}41%{transform:translateY(0)}42.5%{transform:translateY(-4px)}44%,100%{transform:translateY(0)}}
-.bolt{animation-name:boltK}
+.lyloop .bolt{animation-name:boltK}
 @keyframes boltK{0%,19%{transform:translate(0,0) rotate(0)}22%,29%{transform:translate(0,5px) rotate(-5deg)}32%{transform:translate(0,-7px) rotate(0)}35%,74%{transform:translate(0,0)}77%{transform:translate(0,-16px)}80%{transform:translate(0,0)}83%{transform:translate(0,-8px)}86%,100%{transform:translate(0,0)}}
-.cA{animation-name:cA}.cB{animation-name:cB}
+.lyloop .cA{animation-name:cA}
+.lyloop .cB{animation-name:cB}
 @keyframes cA{0%,44%{opacity:0;transform:translate(0,0)}46%{opacity:1;transform:translate(0,0)}53%{opacity:1;transform:translate(230px,-200px)}55%,100%{opacity:0;transform:translate(230px,-200px)}}
 @keyframes cB{0%,44%{opacity:0;transform:translate(0,0)}46%{opacity:1;transform:translate(0,0)}53%{opacity:1;transform:translate(230px,-80px)}55%,100%{opacity:0;transform:translate(230px,-80px)}}
-.lamp{animation-name:lamp}
+.lyloop .lamp{animation-name:lamp}
 @keyframes lamp{0%,4%{fill:#2BD4A0}5%,52.5%{fill:#2A2850}53.5%{fill:#FFB547}54.5%{fill:#2A2850}55.5%{fill:#FFB547}56.5%,62%{fill:#2BD4A0}63%,100%{fill:#2A2850}}
-.shake{animation-name:shake}
+.lyloop .shake{animation-name:shake}
 @keyframes shake{0%,52.5%{transform:translate(0,0)}53.5%{transform:translate(1px,-1px)}54.5%{transform:translate(-1px,1px)}55.5%{transform:translate(1px,1px)}56.5%,100%{transform:translate(0,0)}}
-.rcpt{animation-name:rcpt;transform-box:fill-box;transform-origin:50% 0}
+.lyloop .rcpt{animation-name:rcpt;transform-box:fill-box;transform-origin:50% 0}
 @keyframes rcpt{0%,73%{opacity:0;transform:scaleY(0)}77%,95%{opacity:1;transform:scaleY(1)}98%,100%{opacity:0;transform:scaleY(1)}}
-.spark{animation-name:spark}
+.lyloop .spark{animation-name:spark}
 @keyframes spark{0%,72%{opacity:0;transform:scale(0)}75%{opacity:1;transform:scale(1.2)}79%{opacity:1;transform:scale(.9)}85%,100%{opacity:0;transform:scale(0)}}
-.beamglow{animation-name:beam}
+.lyloop .beamglow{animation-name:beam}
 @keyframes beam{0%,72%{opacity:.25}75%,93%{opacity:1}97%,100%{opacity:.25}}
+@media (prefers-reduced-motion: reduce){.lyloop .anim,.lyloop .eyes,.lyloop .gear,.lyloop .bob{animation:none!important}
+.lyloop .k0,.lyloop .k1,.lyloop .k2,.lyloop .tB1,.lyloop .scan,.lyloop .r1,.lyloop .r2,.lyloop .r3,.lyloop .stampRed,.lyloop .note,.lyloop .aha,.lyloop .bFix,.lyloop .cA,.lyloop .cB,.lyloop .spark{opacity:0}
+.lyloop .k3,.lyloop .tA,.lyloop .tB2,.lyloop .r4,.lyloop .stamp,.lyloop .rcpt,.lyloop .bYes{opacity:1}
+.lyloop .tA{transform:translate(56px,84px)}
+.lyloop .tB2{transform:translate(56px,4px)}
+.lyloop .stamp{transform:rotate(-6deg)}
+.lyloop .lampG{fill:#2BD4A0}
+.lyloop .toggle{display:none}}
+.lyloop .av{width:58px;height:62px;display:block}
+</style>
+<style>
+html{scroll-behavior:smooth}
+@media (max-width: 720px){ h1{font-size:40px !important} h2{font-size:30px !important} }
+</style>
+</head>
+<body>
+<div style="font-family: 'IBM Plex Sans', Arial, sans-serif; color: #15184D; background: #FEFEFE; min-width: 320px">
 
-@media (prefers-reduced-motion: reduce){
-  .anim,.eyes,.gear,.bob{animation:none!important}
-  .k0,.k1,.k2,.tB1,.scan,.r1,.r2,.r3,.stampRed,.note,.aha,.bFix,.cA,.cB,.spark{opacity:0}
-  .k3,.tA,.tB2,.r4,.stamp,.rcpt,.bYes{opacity:1}
-  .tA{transform:translate(56px,84px)}.tB2{transform:translate(56px,4px)}
-  .stamp{transform:rotate(-6deg)}
-  .lampG{fill:#2BD4A0}
-  .toggle{display:none}
-}
-&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;div class=&quot;wrap run&quot; id=&quot;player&quot;&gt;
-  &lt;div class=&quot;stage&quot;&gt;
-    &lt;svg viewBox=&quot;156 104 804 404&quot; role=&quot;img&quot; aria-label=&quot;Ten-second loop. The Verdict Engine finds one field that differs and reports which field. Bolt, the builder AI, fixes its own code. The same inputs run again on both systems, the engine reports equivalent, and prints a signed receipt.&quot;&gt;
-      &lt;g fill=&quot;none&quot; stroke=&quot;#2A2850&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;4 6&quot;&gt;
-        &lt;path d=&quot;M372 400C450 400 470 220 540 216&quot;/&gt;
-        &lt;path d=&quot;M372 410C450 410 470 346 540 346&quot;/&gt;
-        &lt;path d=&quot;M680 216C720 216 720 300 740 300&quot;/&gt;
-        &lt;path d=&quot;M680 346C720 346 720 350 740 350&quot;/&gt;
-      &lt;/g&gt;
-      &lt;line x1=&quot;156&quot; y1=&quot;470&quot; x2=&quot;960&quot; y2=&quot;470&quot; stroke=&quot;#FFB547&quot; stroke-width=&quot;2&quot; opacity=&quot;.35&quot;/&gt;
-      &lt;line class=&quot;anim beamglow&quot; x1=&quot;156&quot; y1=&quot;470&quot; x2=&quot;960&quot; y2=&quot;470&quot; stroke=&quot;#FFB547&quot; stroke-width=&quot;3&quot; style=&quot;filter:drop-shadow(0 0 6px #FFB547)&quot;/&gt;
+<!-- ============ 1 · HERO (darkest) ============ -->
+<section style="background: #15184D; color: #E9E6F7; padding: 0 24px 96px">
+<div style="max-width: 1200px; margin: 0 auto">
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 0">
+<a href="#top" aria-label="Lightyear home" style="display: flex; align-items: center; margin-left: 8px">
+<svg viewBox="0 0 360 220" width="88" height="54" role="img" aria-label="LIGHTYEAR"><path fill="#7D57EA" d="M24 96C84 92 125 74 156 47C166 38 173 30 179 29C179.5 28.7 179.8 28.2 180 28C180.2 28.2 180.5 28.7 181 29C187 30 194 38 204 47C235 74 276 92 336 96H24Z"></path><path fill="#7D57EA" d="M24 124C84 128 125 146 156 173C166 182 173 190 179 191C179.5 191.3 179.8 191.8 180 192C180.2 191.8 180.5 191.3 181 191C187 190 194 182 204 173C235 146 276 128 336 124H24Z"></path><text x="180" y="122" fill="#C99A5B" font-family="Arial, sans-serif" font-size="32" font-weight="700" letter-spacing="6" text-anchor="middle">LIGHTYEAR</text></svg>
+</a>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px; font-size: 15px">
+<a href="product.html" style="color: #D3CFEA; text-decoration: none">Product</a>
+<a href="verify.html" style="color: #D3CFEA; text-decoration: none">Verify</a>
+<a href="solutions.html" style="color: #D3CFEA; text-decoration: none">Solutions</a>
+<a href="proof.html" style="color: #D3CFEA; text-decoration: none">Proof</a>
+<a href="pricing.html" style="color: #D3CFEA; text-decoration: none">Pricing</a>
+<a href="resources.html" style="color: #D3CFEA; text-decoration: none">Resources</a>
+<a href="engineers.html" style="color: #D3CFEA; text-decoration: none">For engineers</a>
+<a href="#sprint" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 12px 18px; border-radius: 8px; font-weight: 600">Book a Verification Sprint</a>
+</div>
+</nav>
 
-      &lt;g class=&quot;anim shake&quot;&gt;
-        &lt;rect x=&quot;540&quot; y=&quot;168&quot; width=&quot;140&quot; height=&quot;96&quot; rx=&quot;14&quot; fill=&quot;#14132E&quot; stroke=&quot;#3A3760&quot; stroke-width=&quot;2&quot;/&gt;
-        &lt;text x=&quot;556&quot; y=&quot;192&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;11&quot; letter-spacing=&quot;1.5&quot; fill=&quot;#A9A5C8&quot;&gt;ORIGINAL&lt;/text&gt;
-        &lt;text x=&quot;556&quot; y=&quot;216&quot; font-family=&quot;Archivo, sans-serif&quot; font-size=&quot;17&quot; font-weight=&quot;800&quot; fill=&quot;#F4F2FF&quot;&gt;Oracle&lt;/text&gt;
-        &lt;circle class=&quot;anim lamp&quot; cx=&quot;563&quot; cy=&quot;242&quot; r=&quot;6&quot; fill=&quot;#2A2850&quot;/&gt;
-        &lt;g class=&quot;gear&quot;&gt;&lt;circle cx=&quot;652&quot; cy=&quot;244&quot; r=&quot;14&quot; fill=&quot;none&quot; stroke=&quot;#8B5CFF&quot; stroke-width=&quot;7&quot; stroke-dasharray=&quot;5 4&quot;/&gt;&lt;circle cx=&quot;652&quot; cy=&quot;244&quot; r=&quot;5.5&quot; fill=&quot;#8B5CFF&quot;/&gt;&lt;/g&gt;
-      &lt;/g&gt;
-      &lt;g class=&quot;anim shake&quot;&gt;
-        &lt;rect x=&quot;540&quot; y=&quot;298&quot; width=&quot;140&quot; height=&quot;96&quot; rx=&quot;14&quot; fill=&quot;#14132E&quot; stroke=&quot;#3A3760&quot; stroke-width=&quot;2&quot;/&gt;
-        &lt;text x=&quot;556&quot; y=&quot;322&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;11&quot; letter-spacing=&quot;1.5&quot; fill=&quot;#A9A5C8&quot;&gt;MODERNIZED&lt;/text&gt;
-        &lt;text x=&quot;556&quot; y=&quot;346&quot; font-family=&quot;Archivo, sans-serif&quot; font-size=&quot;17&quot; font-weight=&quot;800&quot; fill=&quot;#F4F2FF&quot;&gt;PostgreSQL&lt;/text&gt;
-        &lt;circle class=&quot;anim lamp&quot; cx=&quot;563&quot; cy=&quot;372&quot; r=&quot;6&quot; fill=&quot;#2A2850&quot;/&gt;
-        &lt;g class=&quot;gear&quot;&gt;&lt;circle cx=&quot;652&quot; cy=&quot;374&quot; r=&quot;14&quot; fill=&quot;none&quot; stroke=&quot;#8B5CFF&quot; stroke-width=&quot;7&quot; stroke-dasharray=&quot;5 4&quot;/&gt;&lt;circle cx=&quot;652&quot; cy=&quot;374&quot; r=&quot;5.5&quot; fill=&quot;#8B5CFF&quot;/&gt;&lt;/g&gt;
-      &lt;/g&gt;
+<div style="display: flex; flex-wrap: wrap; gap: 56px; align-items: center; padding-top: 72px">
+<div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">AI modernization, proven</p>
+<h1 style="margin: 0; font-size: 62px; line-height: 1.04; font-weight: 700; letter-spacing: -1.5px; color: #FFFFFF">Clear your modernization backlog. Prove every change.</h1>
+<p style="margin: 0; font-size: 20px; line-height: 1.55; color: #C9C5E4; max-width: 580px">Lightyear’s AI factory converts legacy code at machine speed, and our independent Verdict Engine proves field by field that the new system behaves exactly like the old one. Retire legacy sooner, spend less on testing and sign-off, and cut over with evidence your auditor can replay.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 14px; padding-top: 4px">
+<a href="#sprint" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 16px 24px; border-radius: 10px; font-weight: 600; font-size: 16px">Book a Verification Sprint</a>
+<a href="#verifier" style="color: #E9E6F7; border: 1px solid #5B5E9C; text-decoration: none; padding: 15px 22px; border-radius: 10px; font-weight: 500; font-size: 16px">Don’t trust us: run our verifier</a>
+</div>
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.7; color: #A9A6CC">COBOL · CICS · VSAM · IMS · HLASM · PL/I · JCL · Db2 · Oracle · PostgreSQL · AlloyDB · SAP ASE</p>
+</div>
 
-      &lt;!-- Bolt, the builder AI --&gt;
-      &lt;g transform=&quot;translate(300 466)&quot;&gt;&lt;g class=&quot;bob&quot;&gt;&lt;g class=&quot;anim bolt&quot; style=&quot;transform-box:fill-box;transform-origin:50% 100%&quot;&gt;
-        &lt;rect x=&quot;-32&quot; y=&quot;-96&quot; width=&quot;64&quot; height=&quot;52&quot; rx=&quot;18&quot; fill=&quot;#FFB547&quot;/&gt;
-        &lt;rect x=&quot;-24&quot; y=&quot;-88&quot; width=&quot;48&quot; height=&quot;32&quot; rx=&quot;12&quot; fill=&quot;#14132E&quot;/&gt;
-        &lt;g class=&quot;eyes&quot;&gt;&lt;ellipse cx=&quot;-8&quot; cy=&quot;-73&quot; rx=&quot;5&quot; ry=&quot;6&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;ellipse cx=&quot;12&quot; cy=&quot;-73&quot; rx=&quot;5&quot; ry=&quot;6&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;/g&gt;
-        &lt;path d=&quot;M-2 -63Q4 -59 10 -63&quot; stroke=&quot;#F4F2FF&quot; stroke-width=&quot;2&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot;/&gt;
-        &lt;circle cx=&quot;-27&quot; cy=&quot;-56&quot; r=&quot;3.5&quot; fill=&quot;#FF8FB1&quot; opacity=&quot;.75&quot;/&gt;&lt;circle cx=&quot;27&quot; cy=&quot;-56&quot; r=&quot;3.5&quot; fill=&quot;#FF8FB1&quot; opacity=&quot;.75&quot;/&gt;
-        &lt;rect x=&quot;-26&quot; y=&quot;-42&quot; width=&quot;52&quot; height=&quot;38&quot; rx=&quot;14&quot; fill=&quot;#E2902A&quot;/&gt;
-        &lt;rect x=&quot;18&quot; y=&quot;-40&quot; width=&quot;46&quot; height=&quot;28&quot; rx=&quot;4&quot; fill=&quot;#14132E&quot; stroke=&quot;#FFB547&quot; stroke-width=&quot;2&quot;/&gt;
-        &lt;rect x=&quot;24&quot; y=&quot;-33&quot; width=&quot;22&quot; height=&quot;2.5&quot; fill=&quot;#B9A3FF&quot;/&gt;&lt;rect x=&quot;24&quot; y=&quot;-27&quot; width=&quot;30&quot; height=&quot;2.5&quot; fill=&quot;#FFB547&quot;/&gt;&lt;rect x=&quot;24&quot; y=&quot;-21&quot; width=&quot;16&quot; height=&quot;2.5&quot; fill=&quot;#B9A3FF&quot;/&gt;
-        &lt;rect x=&quot;12&quot; y=&quot;-12&quot; width=&quot;58&quot; height=&quot;5&quot; rx=&quot;2&quot; fill=&quot;#3A3760&quot;/&gt;
-        &lt;rect class=&quot;anim type&quot; x=&quot;10&quot; y=&quot;-22&quot; width=&quot;14&quot; height=&quot;7&quot; rx=&quot;3.5&quot; fill=&quot;#E2902A&quot;/&gt;
-        &lt;rect x=&quot;-20&quot; y=&quot;-6&quot; width=&quot;14&quot; height=&quot;10&quot; rx=&quot;4&quot; fill=&quot;#9A5F12&quot;/&gt;&lt;rect x=&quot;6&quot; y=&quot;-6&quot; width=&quot;14&quot; height=&quot;10&quot; rx=&quot;4&quot; fill=&quot;#9A5F12&quot;/&gt;
-        &lt;path d=&quot;M-29 -95Q-28 -121 0 -122Q28 -121 29 -95Z&quot; fill=&quot;#FFD48A&quot;/&gt;&lt;rect x=&quot;-36&quot; y=&quot;-98&quot; width=&quot;72&quot; height=&quot;6&quot; rx=&quot;3&quot; fill=&quot;#F4C46A&quot;/&gt;&lt;rect x=&quot;-4&quot; y=&quot;-121&quot; width=&quot;8&quot; height=&quot;24&quot; rx=&quot;3&quot; fill=&quot;#F4C46A&quot;/&gt;
-      &lt;/g&gt;&lt;/g&gt;&lt;/g&gt;
+<!-- Verdict console -->
+<figure style="flex: 1 1 480px; min-width: 0; margin: 0; background: #0E1038; border: 1px solid #2E3175; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 14px; font-family: 'IBM Plex Mono', monospace">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap">
+<span style="font-size: 12px; letter-spacing: 1.5px; color: #A9A6CC">VERDICT ENGINE · RUN 0F3C1A</span>
+<span id="vc-progress" style="font-size: 12px; color: #C99A5B"></span>
+</div>
+<div style="display: grid; grid-template-columns: 1.3fr 1fr 1fr 1.25fr; gap: 0; font-size: 12px; color: #A9A6CC; border-bottom: 1px solid #2E3175; padding-bottom: 8px">
+<span>FIELD</span><span>LEGACY · COBOL</span><span>NEW · JAVA</span><span style="text-align: right">RESULT</span>
+</div>
+<div id="vc-rows"></div>
+<div id="vc-verdict">
+<span style="font-size: 12px; letter-spacing: 1.5px; color: #A9A6CC">VERDICT</span>
+<span style="font-size: 18px; font-weight: 600; color: #FFFFFF; font-family: 'IBM Plex Sans', Arial, sans-serif" id="vc-vtext"></span>
+<span style="font-size: 12px; color: #C9C5E4" id="vc-vdetail"></span>
+</div>
+<figcaption style="font-size: 11px; color: #8E8BB8">Illustrative run, CardDemo INTCALC. COBOL truncates to two decimals; this rewrite rounded.</figcaption>
+</figure>
+</div>
+</div>
+</section>
 
-      &lt;g class=&quot;anim cA&quot;&gt;
-        &lt;rect x=&quot;322&quot; y=&quot;384&quot; width=&quot;40&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#8B5CFF&quot;/&gt;&lt;rect x=&quot;322&quot; y=&quot;397&quot; width=&quot;30&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#FFB547&quot;/&gt;&lt;rect x=&quot;322&quot; y=&quot;410&quot; width=&quot;36&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#B9A3FF&quot;/&gt;
-      &lt;/g&gt;
-      &lt;g class=&quot;anim cB&quot;&gt;
-        &lt;rect x=&quot;322&quot; y=&quot;384&quot; width=&quot;40&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#8B5CFF&quot;/&gt;&lt;rect x=&quot;322&quot; y=&quot;397&quot; width=&quot;30&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#FFB547&quot;/&gt;&lt;rect x=&quot;322&quot; y=&quot;410&quot; width=&quot;36&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#B9A3FF&quot;/&gt;
-      &lt;/g&gt;
+<!-- ============ 1b · BUSINESS OUTCOMES (dark) ============ -->
+<section style="background: #1B1E5A; color: #E9E6F7; padding: 80px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 780px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">What changes for the business</p>
+<h2 style="margin: 0; font-size: 40px; line-height: 1.12; color: #FFFFFF; letter-spacing: -0.8px">Modernization stops being a multi-year bet.</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #C9C5E4">Most programs stall in testing, reconciliation and sign-off, not in writing code. Lightyear removes that bottleneck, so the backlog moves and the legacy bill ends sooner.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px">
+<div style="background: #23266A; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#B9A3FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19h16"></path><path d="M6 15h12"></path><path d="M8 11h8"></path><path d="M12 3v5"></path><path d="m9.5 5.5 2.5 2.5 2.5-2.5"></path></svg>
+<h3 style="margin: 0; font-size: 21px; color: #FFFFFF">Shrink the backlog</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #C9C5E4">AI agents convert programs in parallel, and the judge decides when each one is done. Work doesn’t sit in a test queue waiting for people.</p>
+</div>
+<div style="background: #23266A; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#B9A3FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M14.5 9a2.5 2.5 0 0 0-2.5-1.5c-1.5 0-2.5.8-2.5 2s1 1.7 2.5 2 2.5.8 2.5 2-1 2-2.5 2a2.6 2.6 0 0 1-2.5-1.5"></path><path d="M12 6v1.5M12 16.5V18"></path></svg>
+<h3 style="margin: 0; font-size: 21px; color: #FFFFFF">Spend less on testing and sign-off</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #C9C5E4">Automated field-by-field comparison replaces long manual parallel runs and spreadsheet reconciliation.</p>
+</div>
+<div style="background: #23266A; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#B9A3FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M3 9h18"></path><path d="m9 14 2 2 4-4"></path></svg>
+<h3 style="margin: 0; font-size: 21px; color: #FFFFFF">Retire legacy sooner</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #C9C5E4">Stop paying to run two systems. Cut over when the evidence says the new one is ready, not when the calendar runs out.</p>
+</div>
+<div style="background: #23266A; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#B9A3FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6z"></path><path d="m9 12 2 2 4-4"></path></svg>
+<h3 style="margin: 0; font-size: 21px; color: #FFFFFF">Pass audit without a war room</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #C9C5E4">Every change arrives with signed, replayable evidence for auditors and regulators, so approval isn’t the last-minute risk.</p>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: baseline; border-top: 1px solid #3B3E86; padding-top: 24px">
+<span style="font-size: 36px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">12m 25s</span>
+<span style="flex: 1 1 420px; font-size: 16px; line-height: 1.5; color: #C9C5E4">from locked business rules to a signed verdict on a real ERP process, with zero lines written by a person. <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #A9A6CC">ONE PUBLIC, REPLAYABLE RUN</span></span>
+<a href="#sprint" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 14px 20px; border-radius: 10px; font-weight: 600; font-size: 15px">Price your backlog with a Sprint</a>
+</div>
+</div>
+</section>
 
-      &lt;!-- the Verdict Engine --&gt;
-      &lt;g&gt;
-        &lt;rect x=&quot;812&quot; y=&quot;250&quot; width=&quot;96&quot; height=&quot;14&quot; rx=&quot;4&quot; fill=&quot;#2A2850&quot;/&gt;
-        &lt;rect x=&quot;790&quot; y=&quot;262&quot; width=&quot;140&quot; height=&quot;204&quot; rx=&quot;12&quot; fill=&quot;#14132E&quot; stroke=&quot;#8B5CFF&quot; stroke-width=&quot;2&quot;/&gt;
-        &lt;rect x=&quot;802&quot; y=&quot;276&quot; width=&quot;116&quot; height=&quot;76&quot; rx=&quot;6&quot; fill=&quot;#06061A&quot; stroke=&quot;#3A3760&quot; stroke-width=&quot;1.5&quot;/&gt;
-        &lt;g fill=&quot;#2A2850&quot;&gt;&lt;rect x=&quot;812&quot; y=&quot;288&quot; width=&quot;44&quot; height=&quot;3&quot;/&gt;&lt;rect x=&quot;864&quot; y=&quot;288&quot; width=&quot;44&quot; height=&quot;3&quot;/&gt;&lt;rect x=&quot;812&quot; y=&quot;296&quot; width=&quot;36&quot; height=&quot;3&quot;/&gt;&lt;rect x=&quot;864&quot; y=&quot;296&quot; width=&quot;36&quot; height=&quot;3&quot;/&gt;&lt;rect x=&quot;812&quot; y=&quot;304&quot; width=&quot;40&quot; height=&quot;3&quot;/&gt;&lt;rect x=&quot;864&quot; y=&quot;304&quot; width=&quot;40&quot; height=&quot;3&quot;/&gt;&lt;/g&gt;
-        &lt;line x1=&quot;860&quot; y1=&quot;284&quot; x2=&quot;860&quot; y2=&quot;312&quot; stroke=&quot;#2A2850&quot; stroke-width=&quot;1&quot;/&gt;
-        &lt;rect class=&quot;anim scan&quot; x=&quot;804&quot; y=&quot;280&quot; width=&quot;112&quot; height=&quot;2&quot; fill=&quot;#FFB547&quot;/&gt;
-        &lt;g font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;10.5&quot; font-weight=&quot;600&quot; letter-spacing=&quot;1&quot; text-anchor=&quot;middle&quot;&gt;
-          &lt;text class=&quot;anim r1&quot; x=&quot;860&quot; y=&quot;336&quot; fill=&quot;#FFB547&quot;&gt;COMPARING&lt;/text&gt;
-          &lt;text class=&quot;anim r2&quot; x=&quot;860&quot; y=&quot;336&quot; fill=&quot;#FF5A4E&quot;&gt;1 FIELD DIFFERS&lt;/text&gt;
-          &lt;text class=&quot;anim r3&quot; x=&quot;860&quot; y=&quot;336&quot; fill=&quot;#FFB547&quot;&gt;RE-CHECKING&lt;/text&gt;
-          &lt;text class=&quot;anim r4&quot; x=&quot;860&quot; y=&quot;336&quot; fill=&quot;#2BD4A0&quot;&gt;EQUIVALENT&lt;/text&gt;
-        &lt;/g&gt;
-        &lt;circle class=&quot;anim lampA&quot; cx=&quot;836&quot; cy=&quot;370&quot; r=&quot;6&quot; fill=&quot;#2A2850&quot;/&gt;
-        &lt;circle class=&quot;anim lampR&quot; cx=&quot;860&quot; cy=&quot;370&quot; r=&quot;6&quot; fill=&quot;#2A2850&quot;/&gt;
-        &lt;circle class=&quot;anim lampG&quot; cx=&quot;884&quot; cy=&quot;370&quot; r=&quot;6&quot; fill=&quot;#2A2850&quot;/&gt;
-        &lt;text x=&quot;860&quot; y=&quot;398&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;10.5&quot; letter-spacing=&quot;1.5&quot; font-weight=&quot;600&quot; fill=&quot;#F4F2FF&quot;&gt;VERDICT ENGINE&lt;/text&gt;
-        &lt;text x=&quot;860&quot; y=&quot;413&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;9.5&quot; fill=&quot;#A9A5C8&quot;&gt;fixed rules · no AI&lt;/text&gt;
-        &lt;rect x=&quot;828&quot; y=&quot;424&quot; width=&quot;64&quot; height=&quot;5&quot; rx=&quot;2&quot; fill=&quot;#06061A&quot;/&gt;
-        &lt;g class=&quot;anim rcpt&quot;&gt;
-          &lt;rect x=&quot;832&quot; y=&quot;427&quot; width=&quot;56&quot; height=&quot;34&quot; rx=&quot;2&quot; fill=&quot;#F4F2FF&quot;/&gt;
-          &lt;rect x=&quot;838&quot; y=&quot;433&quot; width=&quot;30&quot; height=&quot;2.5&quot; fill=&quot;#8B5CFF&quot;/&gt;&lt;rect x=&quot;838&quot; y=&quot;439&quot; width=&quot;40&quot; height=&quot;2.5&quot; fill=&quot;#A9A5C8&quot;/&gt;&lt;rect x=&quot;838&quot; y=&quot;445&quot; width=&quot;24&quot; height=&quot;2.5&quot; fill=&quot;#A9A5C8&quot;/&gt;
-          &lt;path d=&quot;M866 452l4 4 8-9&quot; fill=&quot;none&quot; stroke=&quot;#2BD4A0&quot; stroke-width=&quot;2.5&quot; stroke-linecap=&quot;round&quot;/&gt;
-        &lt;/g&gt;
-        &lt;g class=&quot;gear&quot;&gt;&lt;circle cx=&quot;912&quot; cy=&quot;446&quot; r=&quot;9&quot; fill=&quot;none&quot; stroke=&quot;#8B5CFF&quot; stroke-width=&quot;5&quot; stroke-dasharray=&quot;4 3&quot;/&gt;&lt;circle cx=&quot;912&quot; cy=&quot;446&quot; r=&quot;3.5&quot; fill=&quot;#8B5CFF&quot;/&gt;&lt;/g&gt;
-      &lt;/g&gt;
+<!-- ============ 2 · EVERYONE BUILDS (dark indigo) ============ -->
+<section style="background: #23266A; color: #E9E6F7; padding: 96px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">Why it has to be independent</p>
+<h2 style="margin: 0; font-size: 44px; line-height: 1.1; color: #FFFFFF; letter-spacing: -0.8px">Don’t let AI grade its own homework.</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #C9C5E4">AI coding platforms, systems integrators and your own engineers can all produce the new system. None of them should be the one who says it’s right. Lightyear is the referee: we don’t write your code, and the AI that builds it never sees the expected answers.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
+<div style="background: #2C2F7A; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #B9A3FF">01 · INDEPENDENT</span>
+<h3 style="margin: 0; font-size: 22px; color: #FFFFFF">Separate from the builder</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #C9C5E4">Works the same whether the code came from an AI platform, an SI or your team. The judge never shares a context with the writer.</p>
+</div>
+<div style="background: #2C2F7A; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #B9A3FF">02 · DETERMINISTIC</span>
+<h3 style="margin: 0; font-size: 22px; color: #FFFFFF">Executed, not inferred</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #C9C5E4">Both systems run on real engines with the same inputs. The Verdict Engine compares outputs, data changes and errors, field by field.</p>
+</div>
+<div style="background: #2C2F7A; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #B9A3FF">03 · REPLAYABLE</span>
+<h3 style="margin: 0; font-size: 22px; color: #FFFFFF">Signed evidence</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #C9C5E4">Every verdict ships with a signed evidence pack that your auditor or regulator can re-check without trusting us.</p>
+</div>
+</div>
+<div style="border-top: 1px solid #3B3E86; padding-top: 40px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start">
+<div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<h3 style="margin: 0; font-size: 26px; line-height: 1.25; color: #FFFFFF">We tested it on ourselves.</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #C9C5E4">We asked AI agents for the rules that translate a 1.4-million-line ERP from Oracle to PostgreSQL. It returned fourteen rules in one response: same format, same confidence.</p>
+</div>
+<div style="flex: 2 1 560px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 44px; font-weight: 700; color: #9FE3BC; letter-spacing: -1px">367</span><span style="font-size: 15px; line-height: 1.45; color: #C9C5E4">files corrected by its best rule</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 44px; font-weight: 700; color: #FFC38A; letter-spacing: -1px">86</span><span style="font-size: 15px; line-height: 1.45; color: #C9C5E4">files corrupted by its worst, and it looked just as plausible</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 44px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">Both</span><span style="font-size: 15px; line-height: 1.45; color: #C9C5E4">caught, by running every change against the real system</span></div>
+</div>
+</div>
+</div>
+</section>
 
-      &lt;g class=&quot;anim tA&quot;&gt;
-        &lt;rect x=&quot;684&quot; y=&quot;200&quot; width=&quot;54&quot; height=&quot;34&quot; rx=&quot;5&quot; fill=&quot;#1C1B3A&quot; stroke=&quot;#8B5CFF&quot; stroke-width=&quot;1.5&quot;/&gt;
-        &lt;rect x=&quot;691&quot; y=&quot;207&quot; width=&quot;40&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;&lt;rect x=&quot;691&quot; y=&quot;215&quot; width=&quot;30&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;&lt;rect x=&quot;691&quot; y=&quot;223&quot; width=&quot;36&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;
-      &lt;/g&gt;
-      &lt;g class=&quot;anim tB1&quot;&gt;
-        &lt;rect x=&quot;684&quot; y=&quot;330&quot; width=&quot;54&quot; height=&quot;34&quot; rx=&quot;5&quot; fill=&quot;#1C1B3A&quot; stroke=&quot;#FF5A4E&quot; stroke-width=&quot;1.5&quot;/&gt;
-        &lt;rect x=&quot;691&quot; y=&quot;337&quot; width=&quot;40&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;&lt;rect x=&quot;691&quot; y=&quot;345&quot; width=&quot;18&quot; height=&quot;3&quot; fill=&quot;#FF5A4E&quot;/&gt;&lt;rect x=&quot;691&quot; y=&quot;353&quot; width=&quot;36&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;
-      &lt;/g&gt;
-      &lt;g class=&quot;anim tB2&quot;&gt;
-        &lt;rect x=&quot;684&quot; y=&quot;330&quot; width=&quot;54&quot; height=&quot;34&quot; rx=&quot;5&quot; fill=&quot;#1C1B3A&quot; stroke=&quot;#8B5CFF&quot; stroke-width=&quot;1.5&quot;/&gt;
-        &lt;rect x=&quot;691&quot; y=&quot;337&quot; width=&quot;40&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;&lt;rect x=&quot;691&quot; y=&quot;345&quot; width=&quot;30&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;&lt;rect x=&quot;691&quot; y=&quot;353&quot; width=&quot;36&quot; height=&quot;3&quot; fill=&quot;#B9A3FF&quot;/&gt;
-      &lt;/g&gt;
+<!-- ============ 2b · THE AGENT DARK FACTORY (still dark) ============ -->
+<section id="factory" style="background: #1B1E5A; color: #E9E6F7; padding: 96px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px">
+<div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-end; justify-content: space-between">
+<div style="flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">The agent dark factory</p>
+<h2 style="margin: 0; font-size: 44px; line-height: 1.1; color: #FFFFFF; letter-spacing: -0.8px">AI agents do the conversion. A fixed program decides when it’s done.</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #C9C5E4">Our factory’s advantage is built in: nothing it writes counts until the independent Verdict Engine says so. The judge is a deterministic program, not a model, and the agents never see its answer key. Prefer your own builder? The same judge verifies that too.</p>
+</div>
+</div>
 
-      &lt;g class=&quot;anim stampRed fb&quot;&gt;
-        &lt;rect x=&quot;752&quot; y=&quot;140&quot; width=&quot;166&quot; height=&quot;46&quot; rx=&quot;5&quot; fill=&quot;#06061A&quot; stroke=&quot;#FF5A4E&quot; stroke-width=&quot;3&quot;/&gt;
-        &lt;text x=&quot;835&quot; y=&quot;164&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-weight=&quot;600&quot; font-size=&quot;17&quot; letter-spacing=&quot;2&quot; fill=&quot;#FF5A4E&quot;&gt;DIVERGENT&lt;/text&gt;
-        &lt;text x=&quot;835&quot; y=&quot;179&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;10.5&quot; letter-spacing=&quot;1&quot; fill=&quot;#A9A5C8&quot;&gt;1 FIELD DIFFERS&lt;/text&gt;
-      &lt;/g&gt;
-      &lt;g class=&quot;anim note&quot;&gt;
-        &lt;rect x=&quot;636&quot; y=&quot;410&quot; width=&quot;150&quot; height=&quot;40&quot; rx=&quot;6&quot; fill=&quot;#2A0F1A&quot; stroke=&quot;#FF5A4E&quot; stroke-width=&quot;1.5&quot;/&gt;
-        &lt;text x=&quot;648&quot; y=&quot;427&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;10.5&quot; fill=&quot;#FFB3AC&quot;&gt;FIELD: invoice type&lt;/text&gt;
-        &lt;text x=&quot;648&quot; y=&quot;442&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;10.5&quot; fill=&quot;#A9A5C8&quot;&gt;value: not shared&lt;/text&gt;
-      &lt;/g&gt;
-      &lt;g class=&quot;anim aha fb&quot;&gt;
-        &lt;circle cx=&quot;342&quot; cy=&quot;356&quot; r=&quot;14&quot; fill=&quot;#FFB547&quot;/&gt;
-        &lt;text x=&quot;342&quot; y=&quot;363&quot; text-anchor=&quot;middle&quot; font-family=&quot;Archivo, sans-serif&quot; font-weight=&quot;900&quot; font-size=&quot;20&quot; fill=&quot;#06061A&quot;&gt;!&lt;/text&gt;
-      &lt;/g&gt;
-      &lt;g class=&quot;anim stamp fb&quot;&gt;
-        &lt;rect x=&quot;752&quot; y=&quot;140&quot; width=&quot;166&quot; height=&quot;46&quot; rx=&quot;5&quot; fill=&quot;#06061A&quot; stroke=&quot;#2BD4A0&quot; stroke-width=&quot;3&quot;/&gt;
-        &lt;text x=&quot;835&quot; y=&quot;164&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-weight=&quot;600&quot; font-size=&quot;17&quot; letter-spacing=&quot;2&quot; fill=&quot;#2BD4A0&quot;&gt;EQUIVALENT&lt;/text&gt;
-        &lt;text x=&quot;835&quot; y=&quot;179&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Mono, monospace&quot; font-size=&quot;10.5&quot; letter-spacing=&quot;1&quot; fill=&quot;#A9A5C8&quot;&gt;SIGNED · REPLAYABLE&lt;/text&gt;
-      &lt;/g&gt;
-      &lt;path class=&quot;anim spark fb&quot; d=&quot;M748 118l4 10 10 4-10 4-4 10-4-10-10-4 10-4z&quot; fill=&quot;#FFB547&quot;/&gt;
-      &lt;path class=&quot;anim spark fb&quot; d=&quot;M934 206l3 8 8 3-8 3-3 8-3-8-8-3 8-3z&quot; fill=&quot;#2BD4A0&quot;/&gt;
-      &lt;path class=&quot;anim spark fb&quot; d=&quot;M770 222l3 7 7 3-7 3-3 7-3-7-7-3 7-3z&quot; fill=&quot;#B9A3FF&quot;/&gt;
+<div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: stretch">
+<div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 8px; border-radius: 14px; padding: 24px; background: #23266A; border: 2px solid #23266A">
+<div class="lyloop" style="height: 62px; display: flex; align-items: flex-end; color: #FFC38A"><svg class="av" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="-50 -128 124 136"><line x1="0" y1="-94" x2="0" y2="-108" stroke="#B9A3FF" stroke-width="3" stroke-linecap="round"></line>
+<circle cx="0" cy="-112" r="6" fill="#FFB547"></circle>
+<rect x="-32" y="-96" width="64" height="52" rx="18" fill="#8B5CFF"></rect>
+<rect x="-24" y="-88" width="48" height="32" rx="12" fill="#14132E"></rect>
+<ellipse cx="-10" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse><ellipse cx="10" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse>
+<path d="M-6 -63Q0 -59 6 -63" stroke="#F4F2FF" stroke-width="2" fill="none" stroke-linecap="round"></path>
+<circle cx="-27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle><circle cx="27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle>
+<rect x="-26" y="-42" width="52" height="38" rx="14" fill="#7146F0"></rect>
+<rect x="22" y="-34" width="22" height="28" rx="3" fill="#F4F2FF" stroke="#7146F0" stroke-width="1.5"></rect><rect x="26" y="-28" width="14" height="2.5" fill="#8B5CFF"></rect><rect x="26" y="-22" width="10" height="2.5" fill="#8B5CFF"></rect><rect x="26" y="-16" width="12" height="2.5" fill="#8B5CFF"></rect>
+<rect x="-20" y="-6" width="14" height="10" rx="4" fill="#4B2FB8"></rect><rect x="6" y="-6" width="14" height="10" rx="4" fill="#4B2FB8"></rect>
+<g fill="none" stroke="#FFD48A" stroke-width="2"><circle cx="-10" cy="-73" r="8.5"></circle><circle cx="10" cy="-73" r="8.5"></circle><path d="M-1.5 -74H1.5"></path></g></svg></div>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.2px; color: #C99A5B">1 · PLAN</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #B9A3FF">PIP · PLANNER AI</span>
+<h3 style="margin: 0; font-size: 21px; color: #FFFFFF">Scope the job</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #C9C5E4">Works from the knowledge graph: what the program reads and writes, which rules it carries, what “the same” means. Rules lock before any code is written.</p>
+<span style="margin-top: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.5; color: #A9A6CC; border-top: 1px solid #3B3E86; padding-top: 10px">SEES: source, layouts, the work order</span>
+</div>
+<div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 8px; border-radius: 14px; padding: 24px; background: #23266A; border: 2px solid #23266A">
+<div class="lyloop" style="height: 62px; display: flex; align-items: flex-end; color: #FFC38A"><svg class="av" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="-50 -128 124 136"><rect x="-32" y="-96" width="64" height="52" rx="18" fill="#FFB547"></rect>
+<rect x="-24" y="-88" width="48" height="32" rx="12" fill="#14132E"></rect>
+<ellipse cx="-8" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse><ellipse cx="12" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse>
+<path d="M-2 -63Q4 -59 10 -63" stroke="#F4F2FF" stroke-width="2" fill="none" stroke-linecap="round"></path>
+<circle cx="-27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle><circle cx="27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle>
+<rect x="-26" y="-42" width="52" height="38" rx="14" fill="#E2902A"></rect>
+<rect x="18" y="-40" width="46" height="28" rx="4" fill="#14132E" stroke="#FFB547" stroke-width="2"></rect>
+<rect x="24" y="-33" width="22" height="2.5" fill="#B9A3FF"></rect><rect x="24" y="-27" width="30" height="2.5" fill="#FFB547"></rect><rect x="24" y="-21" width="16" height="2.5" fill="#B9A3FF"></rect>
+<rect x="12" y="-12" width="58" height="5" rx="2" fill="#3A3760"></rect>
+<rect x="10" y="-22" width="14" height="7" rx="3.5" fill="#E2902A"></rect>
+<rect x="-20" y="-6" width="14" height="10" rx="4" fill="#9A5F12"></rect><rect x="6" y="-6" width="14" height="10" rx="4" fill="#9A5F12"></rect>
+<path d="M-29 -95Q-28 -121 0 -122Q28 -121 29 -95Z" fill="#FFD48A"></path><rect x="-36" y="-98" width="72" height="6" rx="3" fill="#F4C46A"></rect><rect x="-4" y="-121" width="8" height="24" rx="3" fill="#F4C46A"></rect></svg></div>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.2px; color: #C99A5B">2 · BUILD</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #B9A3FF">BOLT · BUILDER AI</span>
+<h3 style="margin: 0; font-size: 21px; color: #FFFFFF">Write the new code</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #C9C5E4">Writes the replacement in a sealed workspace with a fixed budget of attempts.</p>
+<span style="margin-top: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.5; color: #A9A6CC; border-top: 1px solid #3B3E86; padding-top: 10px">SEES: source and interfaces, never the answers</span>
+</div>
+<div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 8px; border-radius: 14px; padding: 24px; background: #241F4E; border: 2px solid #A7702C">
+<div class="lyloop" style="height: 62px; display: flex; align-items: flex-end; color: #FFC38A"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M7 21h10M5 7h14M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"></path></svg></div>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.2px; color: #C99A5B">3 · JUDGE</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #B9A3FF">THE VERDICT ENGINE</span>
+<h3 style="margin: 0; font-size: 21px; color: #FFFFFF">Compare every field</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #C9C5E4">Runs old and new on the same inputs. The answer key is the legacy program itself, run for real.</p>
+<span style="margin-top: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.5; color: #A9A6CC; border-top: 1px solid #3B3E86; padding-top: 10px">HOLDS: the answers and the signing key</span>
+</div>
+<div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 8px; border-radius: 14px; padding: 24px; background: #23266A; border: 2px solid #23266A">
+<div class="lyloop" style="height: 62px; display: flex; align-items: flex-end; color: #FFC38A"><svg class="av" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="-50 -128 124 136"><line x1="-14" y1="-96" x2="-20" y2="-110" stroke="#9FE3BC" stroke-width="3" stroke-linecap="round"></line><circle cx="-21" cy="-113" r="5" fill="#FF5A4E"></circle><rect x="-32" y="-96" width="64" height="52" rx="18" fill="#2BD4A0"></rect><rect x="-24" y="-88" width="48" height="32" rx="12" fill="#14132E"></rect><ellipse cx="-10" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse><ellipse cx="10" cy="-72" rx="5" ry="3.5" fill="#F4F2FF"></ellipse><path d="M-16 -84L-5 -82" stroke="#9FE3BC" stroke-width="2" stroke-linecap="round"></path><path d="M5 -80L16 -81" stroke="#9FE3BC" stroke-width="2" stroke-linecap="round"></path><path d="M-5 -63H5" stroke="#F4F2FF" stroke-width="2" stroke-linecap="round"></path><circle cx="-27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle><circle cx="27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle><rect x="-36" y="-80" width="6" height="16" rx="3" fill="#1A8F6C"></rect><rect x="-26" y="-42" width="52" height="38" rx="14" fill="#1A8F6C"></rect><rect x="-34" y="-36" width="22" height="28" rx="3" fill="#F4F2FF" stroke="#1A8F6C" stroke-width="1.5"></rect><rect x="-30" y="-30" width="14" height="2.5" fill="#2BD4A0"></rect><rect x="-30" y="-24" width="14" height="2.5" fill="#FF5A4E"></rect><rect x="-30" y="-18" width="10" height="2.5" fill="#2BD4A0"></rect><line x1="31" y1="-20" x2="44" y2="-6" stroke="#FFB547" stroke-width="5" stroke-linecap="round"></line><circle cx="22" cy="-30" r="13" fill="#14132E" stroke="#F4F2FF" stroke-width="4"></circle><rect x="14" y="-33" width="16" height="5" rx="1.5" fill="#FF5A4E"></rect><path d="M15 -38H27" stroke="#3A3760" stroke-width="2" stroke-linecap="round"></path><path d="M15 -22H25" stroke="#3A3760" stroke-width="2" stroke-linecap="round"></path><rect x="-20" y="-6" width="14" height="10" rx="4" fill="#126B50"></rect><rect x="6" y="-6" width="14" height="10" rx="4" fill="#126B50"></rect></svg></div>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.2px; color: #C99A5B">4 · REPAIR OR STOP</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #B9A3FF">THE ANALYST</span>
+<h3 style="margin: 0; font-size: 21px; color: #FFFFFF">Fix it, or stop honestly</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #C9C5E4">Differences go back by field name only. When the budget is spent the run stops and the failure is kept as evidence.</p>
+<span style="margin-top: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.5; color: #A9A6CC; border-top: 1px solid #3B3E86; padding-top: 10px">SEES: which field differs, not why</span>
+</div>
+</div>
 
-      &lt;g class=&quot;anim bFix&quot;&gt;&lt;rect x=&quot;170&quot; y=&quot;307&quot; width=&quot;128&quot; height=&quot;28&quot; rx=&quot;14&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;path d=&quot;M228 335l6 9l6 -9z&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;text x=&quot;234&quot; y=&quot;326.5&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Sans, sans-serif&quot; font-weight=&quot;500&quot; font-size=&quot;13&quot; fill=&quot;#06061A&quot;&gt;Got it. Fixing!&lt;/text&gt;&lt;/g&gt;
-      &lt;g class=&quot;anim bYes&quot;&gt;&lt;rect x=&quot;272&quot; y=&quot;307&quot; width=&quot;56&quot; height=&quot;28&quot; rx=&quot;14&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;path d=&quot;M294 335l6 9l6 -9z&quot; fill=&quot;#F4F2FF&quot;/&gt;&lt;text x=&quot;300&quot; y=&quot;326.5&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Sans, sans-serif&quot; font-weight=&quot;500&quot; font-size=&quot;13&quot; fill=&quot;#06061A&quot;&gt;Yes!&lt;/text&gt;&lt;/g&gt;
+<div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.5px; color: #FFC38A">
+<span style="flex: 1 1 auto; border-top: 2px dashed #A7702C"></span>
+<span>THE EXPECTED ANSWERS NEVER CROSS FROM THE JUDGE TO THE BUILDERS</span>
+<span style="flex: 1 1 auto; border-top: 2px dashed #A7702C"></span>
+</div>
 
-      &lt;g font-family=&quot;Archivo, sans-serif&quot; font-size=&quot;15&quot; font-weight=&quot;700&quot; fill=&quot;#C9C5E6&quot; text-anchor=&quot;middle&quot;&gt;
-        &lt;text x=&quot;300&quot; y=&quot;498&quot;&gt;Bolt · builder AI&lt;/text&gt;&lt;text x=&quot;860&quot; y=&quot;498&quot;&gt;The Verdict Engine&lt;/text&gt;
-      &lt;/g&gt;
-    &lt;/svg&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;row&quot;&gt;
-    &lt;div class=&quot;caps&quot; aria-live=&quot;off&quot;&gt;
-      &lt;p class=&quot;cap anim k0&quot;&gt;Both systems ran. The engine compares every field.&lt;/p&gt;
-      &lt;p class=&quot;cap anim k1&quot;&gt;One field differs. The engine names it, not the answer.&lt;/p&gt;
-      &lt;p class=&quot;cap anim k2&quot;&gt;The AI fixes its own code and runs it again.&lt;/p&gt;
-      &lt;p class=&quot;cap anim k3&quot;&gt;Equivalent. Signed. Anyone can replay it.&lt;/p&gt;
-    &lt;/div&gt;
-    &lt;span class=&quot;tag&quot;&gt;Built lights-out. Proven in plain sight.&lt;/span&gt;
-    &lt;button type=&quot;button&quot; class=&quot;toggle&quot; id=&quot;pause&quot; aria-pressed=&quot;false&quot;&gt;Pause&lt;/button&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;script&gt;
-(function(){
-  var player=document.getElementById('player'),pause=document.getElementById('pause');
-  pause.addEventListener('click',function(){
-    var on=player.classList.toggle('paused');
-    pause.setAttribute('aria-pressed',on?'true':'false');
-    pause.textContent=on?'Play':'Pause';
-  });
-})();
-&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-" style="height:520px" title="Animation: the repair loop in ten seconds"></iframe></div>
-<p class="small ly-anim-note"><a href="proof.html#factory-run">See the whole factory at work</a></p>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">Watch the loop · ten seconds</p>
+<h3 style="margin: 0; font-size: 28px; line-height: 1.2; color: #FFFFFF">One field fails. The builder fixes it. The judge decides.</h3>
+<div class="lyloop">
+<div class="wrap run" id="loopPlayer">
+<div class="stage">
+<svg aria-hidden="false" viewBox="156 104 804 404" role="img" aria-label="Ten-second loop. The Verdict Engine finds one field that differs and reports which field. Bolt, the builder AI, fixes its own code. The same inputs run again on both systems, the engine reports equivalent, and prints a signed receipt.">
+      <g fill="none" stroke="#2A2850" stroke-width="2" stroke-dasharray="4 6">
+        <path d="M372 400C450 400 470 220 540 216"></path>
+        <path d="M372 410C450 410 470 346 540 346"></path>
+        <path d="M680 216C720 216 720 300 740 300"></path>
+        <path d="M680 346C720 346 720 350 740 350"></path>
+      </g>
+      <line x1="156" y1="470" x2="960" y2="470" stroke="#FFB547" stroke-width="2" opacity=".35"></line>
+      <line class="anim beamglow" x1="156" y1="470" x2="960" y2="470" stroke="#FFB547" stroke-width="3" style="filter:drop-shadow(0 0 6px #FFB547)"></line>
+
+
+      <g class="anim shake">
+        <rect x="540" y="168" width="140" height="96" rx="14" fill="#14132E" stroke="#3A3760" stroke-width="2"></rect>
+        <text x="556" y="192" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.5" fill="#A9A5C8">ORIGINAL</text>
+        <text x="556" y="216" font-family="Archivo, sans-serif" font-size="17" font-weight="800" fill="#F4F2FF">Oracle</text>
+        <circle class="anim lamp" cx="563" cy="242" r="6" fill="#2A2850"></circle>
+        <g class="gear"><circle cx="652" cy="244" r="14" fill="none" stroke="#8B5CFF" stroke-width="7" stroke-dasharray="5 4"></circle><circle cx="652" cy="244" r="5.5" fill="#8B5CFF"></circle></g>
+      </g>
+      <g class="anim shake">
+        <rect x="540" y="298" width="140" height="96" rx="14" fill="#14132E" stroke="#3A3760" stroke-width="2"></rect>
+        <text x="556" y="322" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.5" fill="#A9A5C8">MODERNIZED</text>
+        <text x="556" y="346" font-family="Archivo, sans-serif" font-size="17" font-weight="800" fill="#F4F2FF">PostgreSQL</text>
+        <circle class="anim lamp" cx="563" cy="372" r="6" fill="#2A2850"></circle>
+        <g class="gear"><circle cx="652" cy="374" r="14" fill="none" stroke="#8B5CFF" stroke-width="7" stroke-dasharray="5 4"></circle><circle cx="652" cy="374" r="5.5" fill="#8B5CFF"></circle></g>
+      </g>
+
+
+      <!-- Bolt, the builder AI -->
+      <g transform="translate(300 466)"><g class="bob"><g class="anim bolt" style="transform-box:fill-box;transform-origin:50% 100%">
+        <rect x="-32" y="-96" width="64" height="52" rx="18" fill="#FFB547"></rect>
+        <rect x="-24" y="-88" width="48" height="32" rx="12" fill="#14132E"></rect>
+        <g class="eyes"><ellipse cx="-8" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse><ellipse cx="12" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse></g>
+        <path d="M-2 -63Q4 -59 10 -63" stroke="#F4F2FF" stroke-width="2" fill="none" stroke-linecap="round"></path>
+        <circle cx="-27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle><circle cx="27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle>
+        <rect x="-26" y="-42" width="52" height="38" rx="14" fill="#E2902A"></rect>
+        <rect x="18" y="-40" width="46" height="28" rx="4" fill="#14132E" stroke="#FFB547" stroke-width="2"></rect>
+        <rect x="24" y="-33" width="22" height="2.5" fill="#B9A3FF"></rect><rect x="24" y="-27" width="30" height="2.5" fill="#FFB547"></rect><rect x="24" y="-21" width="16" height="2.5" fill="#B9A3FF"></rect>
+        <rect x="12" y="-12" width="58" height="5" rx="2" fill="#3A3760"></rect>
+        <rect class="anim type" x="10" y="-22" width="14" height="7" rx="3.5" fill="#E2902A"></rect>
+        <rect x="-20" y="-6" width="14" height="10" rx="4" fill="#9A5F12"></rect><rect x="6" y="-6" width="14" height="10" rx="4" fill="#9A5F12"></rect>
+        <path d="M-29 -95Q-28 -121 0 -122Q28 -121 29 -95Z" fill="#FFD48A"></path><rect x="-36" y="-98" width="72" height="6" rx="3" fill="#F4C46A"></rect><rect x="-4" y="-121" width="8" height="24" rx="3" fill="#F4C46A"></rect>
+      </g></g></g>
+
+
+      <g class="anim cA">
+        <rect x="322" y="384" width="40" height="9" rx="4" fill="#8B5CFF"></rect><rect x="322" y="397" width="30" height="9" rx="4" fill="#FFB547"></rect><rect x="322" y="410" width="36" height="9" rx="4" fill="#B9A3FF"></rect>
+      </g>
+      <g class="anim cB">
+        <rect x="322" y="384" width="40" height="9" rx="4" fill="#8B5CFF"></rect><rect x="322" y="397" width="30" height="9" rx="4" fill="#FFB547"></rect><rect x="322" y="410" width="36" height="9" rx="4" fill="#B9A3FF"></rect>
+      </g>
+
+
+      <!-- the Verdict Engine -->
+      <g>
+        <rect x="812" y="250" width="96" height="14" rx="4" fill="#2A2850"></rect>
+        <rect x="790" y="262" width="140" height="204" rx="12" fill="#14132E" stroke="#8B5CFF" stroke-width="2"></rect>
+        <rect x="802" y="276" width="116" height="76" rx="6" fill="#06061A" stroke="#3A3760" stroke-width="1.5"></rect>
+        <g fill="#2A2850"><rect x="812" y="288" width="44" height="3"></rect><rect x="864" y="288" width="44" height="3"></rect><rect x="812" y="296" width="36" height="3"></rect><rect x="864" y="296" width="36" height="3"></rect><rect x="812" y="304" width="40" height="3"></rect><rect x="864" y="304" width="40" height="3"></rect></g>
+        <line x1="860" y1="284" x2="860" y2="312" stroke="#2A2850" stroke-width="1"></line>
+        <rect class="anim scan" x="804" y="280" width="112" height="2" fill="#FFB547"></rect>
+        <g font-family="IBM Plex Mono, monospace" font-size="10.5" font-weight="600" letter-spacing="1" text-anchor="middle">
+          <text class="anim r1" x="860" y="336" fill="#FFB547">COMPARING</text>
+          <text class="anim r2" x="860" y="336" fill="#FF5A4E">1 FIELD DIFFERS</text>
+          <text class="anim r3" x="860" y="336" fill="#FFB547">RE-CHECKING</text>
+          <text class="anim r4" x="860" y="336" fill="#2BD4A0">EQUIVALENT</text>
+        </g>
+        <circle class="anim lampA" cx="836" cy="370" r="6" fill="#2A2850"></circle>
+        <circle class="anim lampR" cx="860" cy="370" r="6" fill="#2A2850"></circle>
+        <circle class="anim lampG" cx="884" cy="370" r="6" fill="#2A2850"></circle>
+        <text x="860" y="398" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1.5" font-weight="600" fill="#F4F2FF">VERDICT ENGINE</text>
+        <text x="860" y="413" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#A9A5C8">fixed rules · no AI</text>
+        <rect x="828" y="424" width="64" height="5" rx="2" fill="#06061A"></rect>
+        <g class="anim rcpt">
+          <rect x="832" y="427" width="56" height="34" rx="2" fill="#F4F2FF"></rect>
+          <rect x="838" y="433" width="30" height="2.5" fill="#8B5CFF"></rect><rect x="838" y="439" width="40" height="2.5" fill="#A9A5C8"></rect><rect x="838" y="445" width="24" height="2.5" fill="#A9A5C8"></rect>
+          <path d="M866 452l4 4 8-9" fill="none" stroke="#2BD4A0" stroke-width="2.5" stroke-linecap="round"></path>
+        </g>
+        <g class="gear"><circle cx="912" cy="446" r="9" fill="none" stroke="#8B5CFF" stroke-width="5" stroke-dasharray="4 3"></circle><circle cx="912" cy="446" r="3.5" fill="#8B5CFF"></circle></g>
+      </g>
+
+
+      <g class="anim tA">
+        <rect x="684" y="200" width="54" height="34" rx="5" fill="#1C1B3A" stroke="#8B5CFF" stroke-width="1.5"></rect>
+        <rect x="691" y="207" width="40" height="3" fill="#B9A3FF"></rect><rect x="691" y="215" width="30" height="3" fill="#B9A3FF"></rect><rect x="691" y="223" width="36" height="3" fill="#B9A3FF"></rect>
+      </g>
+      <g class="anim tB1">
+        <rect x="684" y="330" width="54" height="34" rx="5" fill="#1C1B3A" stroke="#FF5A4E" stroke-width="1.5"></rect>
+        <rect x="691" y="337" width="40" height="3" fill="#B9A3FF"></rect><rect x="691" y="345" width="18" height="3" fill="#FF5A4E"></rect><rect x="691" y="353" width="36" height="3" fill="#B9A3FF"></rect>
+      </g>
+      <g class="anim tB2">
+        <rect x="684" y="330" width="54" height="34" rx="5" fill="#1C1B3A" stroke="#8B5CFF" stroke-width="1.5"></rect>
+        <rect x="691" y="337" width="40" height="3" fill="#B9A3FF"></rect><rect x="691" y="345" width="30" height="3" fill="#B9A3FF"></rect><rect x="691" y="353" width="36" height="3" fill="#B9A3FF"></rect>
+      </g>
+
+
+      <g class="anim stampRed fb">
+        <rect x="752" y="140" width="166" height="46" rx="5" fill="#06061A" stroke="#FF5A4E" stroke-width="3"></rect>
+        <text x="835" y="164" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="600" font-size="17" letter-spacing="2" fill="#FF5A4E">DIVERGENT</text>
+        <text x="835" y="179" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1" fill="#A9A5C8">1 FIELD DIFFERS</text>
+      </g>
+      <g class="anim note">
+        <rect x="636" y="410" width="150" height="40" rx="6" fill="#2A0F1A" stroke="#FF5A4E" stroke-width="1.5"></rect>
+        <text x="648" y="427" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#FFB3AC">FIELD: invoice type</text>
+        <text x="648" y="442" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#A9A5C8">value: not shared</text>
+      </g>
+      <g class="anim aha fb">
+        <circle cx="342" cy="356" r="14" fill="#FFB547"></circle>
+        <text x="342" y="363" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="900" font-size="20" fill="#06061A">!</text>
+      </g>
+      <g class="anim stamp fb">
+        <rect x="752" y="140" width="166" height="46" rx="5" fill="#06061A" stroke="#2BD4A0" stroke-width="3"></rect>
+        <text x="835" y="164" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="600" font-size="17" letter-spacing="2" fill="#2BD4A0">EQUIVALENT</text>
+        <text x="835" y="179" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1" fill="#A9A5C8">SIGNED · REPLAYABLE</text>
+      </g>
+      <path class="anim spark fb" d="M748 118l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#FFB547"></path>
+      <path class="anim spark fb" d="M934 206l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#2BD4A0"></path>
+      <path class="anim spark fb" d="M770 222l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#B9A3FF"></path>
+
+
+      <g class="anim bFix"><rect x="170" y="307" width="128" height="28" rx="14" fill="#F4F2FF"></rect><path d="M228 335l6 9l6 -9z" fill="#F4F2FF"></path><text x="234" y="326.5" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="500" font-size="13" fill="#06061A">Got it. Fixing!</text></g>
+      <g class="anim bYes"><rect x="272" y="307" width="56" height="28" rx="14" fill="#F4F2FF"></rect><path d="M294 335l6 9l6 -9z" fill="#F4F2FF"></path><text x="300" y="326.5" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="500" font-size="13" fill="#06061A">Yes!</text></g>
+
+
+      <g font-family="Archivo, sans-serif" font-size="15" font-weight="700" fill="#C9C5E6" text-anchor="middle">
+        <text x="300" y="498">Bolt · builder AI</text><text x="860" y="498">The Verdict Engine</text>
+      </g>
+    </svg>
+</div>
+<div class="row">
+<div class="caps" aria-live="off">
+<p class="cap anim k0">Both systems ran. The engine compares every field.</p>
+<p class="cap anim k1">One field differs. The engine names it, not the answer.</p>
+<p class="cap anim k2">The AI fixes its own code and runs it again.</p>
+<p class="cap anim k3">Equivalent. Signed. Anyone can replay it.</p>
+</div>
+<span class="tag">Built lights-out. Proven in plain sight.</span>
+<button type="button" class="toggle" aria-pressed="false" id="loopPause">Pause</button>
 </div>
 </div>
-<div class="band cv-band">
-<div class="wrap grid2">
-<div>
-<div class="eyebrow">Any system in. Proof out.</div>
-<h2 style="margin-top:14px;max-width:22ch">One judge for every technology you are leaving behind.</h2>
-<div class="rule"></div>
-<p class="lead">Mainframe, Oracle, Db2, Sybase or the services on top of them: every modernization comes down to the same inputs, run through the old system and the new one, compared and signed. We publish exactly which platforms our judge is qualified on, and the evidence behind each one.</p>
-<a class="btn solid" href="product.html#coverage" style="margin-top:8px;display:inline-block">See the coverage catalogue <span aria-hidden="true">→</span></a>
-</div>
-<div aria-label="Coverage at a glance" class="cv-mini">
-<div><b>Oracle → PostgreSQL</b><span class="pill q">Qualified · limited</span></div>
-<div><b>Oracle → AlloyDB</b><span class="pill q">Qualified · limited</span></div>
-<div><b>z/OS batch → Java</b><span class="pill i">In qualification</span></div>
-<div><b>SAP ASE → PostgreSQL</b><span class="pill i">In qualification</span></div>
-<div><b>Db2 → PostgreSQL</b><span class="pill i">In qualification</span></div>
 </div>
 </div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: stretch">
+<div style="flex: 2 1 560px; min-width: 0; background: #12154A; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 18px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.5px; color: #A9A6CC">ON A REAL ERP RUNNING ON ORACLE · ONE PUBLIC, REPLAYABLE RUN</span>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 40px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">12m 25s</span><span style="font-size: 14px; color: #C9C5E4">locked rules to signed verdict</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 40px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">1st</span><span style="font-size: 14px; color: #C9C5E4">attempt passed</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 40px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">0</span><span style="font-size: 14px; color: #C9C5E4">lines written or fixed by a person</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 40px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">2.7M</span><span style="font-size: 14px; color: #C9C5E4">values checked exactly</span></div>
 </div>
-<div class="band sunk" id="trust">
-<div class="wrap">
-<div class="eyebrow">Trust</div>
-<h2 style="margin:16px 0 0;max-width:26ch">Built for the people who have to sign off</h2>
-<div class="rule"></div>
-<p class="lead" style="margin-bottom:26px">A regulated business can't take a vendor's word for it, or an AI's. So the controls are part of the product, not a promise on a slide.</p>
-<div class="grid4">
-<div class="card"><h3>Runs in your cloud</h3><p>Lightyear runs inside your environment and only reads. Nothing is ever written back to your legacy estate.</p></div>
-<div class="card"><h3>The AI never sees the answers</h3><p>Expected results stay with the judge. The AI that builds the code is told which field differs, never the right value.</p></div>
-<div class="card"><h3>Evidence anyone can replay</h3><p>Every verdict is signed. Your auditor can replay it offline, months later, without us in the room.</p></div>
-<div class="card"><h3>Security pack on request</h3><p>Architecture, data flows, access control and retention, written for your security review before the first capture.</p></div>
+<a href="#factory" style="font-size: 15px; font-weight: 600">See the full factory run →</a>
 </div>
-<!-- COMPLIANCE: add one line here once a SOC 2 audit has started, e.g. "SOC 2 Type I audit under way". Publish only what is true on the day. -->
-<!-- PARTNERS: add a partner strip here only with each partner's written permission to use their name. -->
-<div class="founder">
-<div class="founder-mark" aria-hidden="true">HW</div>
-<div>
-<div class="eyebrow">Founder</div>
-<h3>Howard Weale</h3>
-<p>Howard led the mainframe practice at Google Cloud and brought Dual Run to market: Google Cloud's way of running a mainframe and its replacement side by side and comparing the results. Lightyear takes that idea further, with a comparison that is independent, field by field, and replayable by anyone.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="band" id="sprint">
-<div class="wrap grid2">
-<div>
-<div class="eyebrow">Start here</div>
-<h2 style="margin:16px 0 0;max-width:20ch">One process. Four weeks. A verdict you can take to the committee.</h2>
-<div class="rule"></div>
-<p class="lead">The Verification Sprint is the way in. We take one batch job or business process, run the original and the replacement on the same inputs, and hand you signed evidence of where they agree and where they don't.</p>
-<p class="lead" style="margin-top:14px">At the end you know whether the replacement behaves the same, what it would take to get there, and how much of your system nobody has ever tested. Then you decide what comes next.</p>
-<p style="margin-top:22px"><a class="btn" href="pricing.html">What's included <span aria-hidden="true">→</span></a></p>
-</div>
-<div class="tier feature">
-<div class="tag">Fixed scope · fixed fee</div>
-<h3>Verification Sprint</h3>
-<div class="price">From $50,000 · 4 weeks</div>
-<ul>
-<li>One batch job or business process, verified against the system it replaces: a replacement you already have, or one our factory builds during the sprint</li>
-<li>Every difference named, field by field, with its cause</li>
-<li>Your risk number: how much of that process's logic no test you own has ever exercised</li>
-<li>A signed evidence pack your auditor can replay offline</li>
-<li>Read-only, inside your cloud, from day one</li>
+<div style="flex: 1 1 300px; min-width: 0; border: 1px solid #3B3E86; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<h3 style="margin: 0; font-size: 21px; color: #FFFFFF">People decide what machines shouldn’t</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #C9C5E4">The factory does the repetitive work. Decisions that carry risk stay with a named person, and each one is signed and kept with the evidence.</p>
+<ul style="margin: 0; padding-left: 18px; font-size: 15px; line-height: 1.8; color: #E9E6F7">
+<li>Approve an exception</li>
+<li>Keep or fix a legacy quirk</li>
+<li>Release to production</li>
 </ul>
-<a class="btn solid" href="https://calendly.com/lightyr" rel="noopener" style="text-align:center;text-decoration:none;display:block" target="_blank">Book a Verification Sprint</a>
 </div>
 </div>
 </div>
-<div class="band">
-<div class="wrap">
-<div class="cta-band">
-<div class="eyebrow">Not ready for a meeting?</div>
-<h2 style="margin:14px 0 14px;max-width:24ch">Judge the evidence first</h2>
-<p class="lead" style="margin-bottom:26px">Look at a real evidence pack, or send us one job and get a signed verdict back. No call needed.</p>
-<div style="display:flex;gap:12px;flex-wrap:wrap">
-<a class="btn solid" href="resources.html#sample-pack">See a real evidence pack</a>
-<a class="btn" href="mailto:sales@lightyr.ai?subject=Verdict%20request%3A%20one%20batch%20job">Send us one job</a>
-<a class="btn" href="https://calendly.com/lightyr" rel="noopener" target="_blank">Book a call</a>
+</section>
+
+<!-- ============ 3 · INDETERMINATE (lavender: the turn toward light) ============ -->
+<section style="background: #EFEBFB; padding: 96px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">How we say no</p>
+<h2 style="margin: 0; font-size: 44px; line-height: 1.1; letter-spacing: -0.8px">“Indeterminate” is an answer.</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3D3F6B">When the evidence isn’t there, we say so. An empty output, a missing file or an untested branch never turns into a pass. That refusal is the reason our passes mean something.</p>
+</div>
+<div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<div style="background: #FFFFFF; border: 1px solid #D8CCF8; border-radius: 12px; padding: 20px 22px; display: flex; gap: 18px; align-items: baseline; flex-wrap: wrap">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; background: #DDF3E6; color: #0F5C33; padding: 6px 10px; border-radius: 6px">EQUIVALENT</span>
+<span style="flex: 1 1 240px; font-size: 16px; line-height: 1.5; color: #3D3F6B">Every compared field, record and error matched across the declared scenarios.</span>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #D8CCF8; border-radius: 12px; padding: 20px 22px; display: flex; gap: 18px; align-items: baseline; flex-wrap: wrap">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; background: #FCE7CF; color: #8A3B00; padding: 6px 10px; border-radius: 6px">DIFFERENT</span>
+<span style="flex: 1 1 240px; font-size: 16px; line-height: 1.5; color: #3D3F6B">We name the field, the record and the rule. A person decides whether it’s acceptable, and that decision is signed too.</span>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #D8CCF8; border-radius: 12px; padding: 20px 22px; display: flex; gap: 18px; align-items: baseline; flex-wrap: wrap">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; background: #E4E3EE; color: #34365E; padding: 6px 10px; border-radius: 6px">INDETERMINATE</span>
+<span style="flex: 1 1 240px; font-size: 16px; line-height: 1.5; color: #3D3F6B">Not enough evidence to decide. We say what’s missing and how to close it, and we never guess.</span>
 </div>
 </div>
 </div>
+</section>
+
+<!-- ============ 4 · PROOF WITH RECEIPTS (paper) ============ -->
+<section id="proof" style="background: #FEFEFE; padding: 96px 24px 72px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 760px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">Proof, with its receipts</p>
+<h2 style="margin: 0; font-size: 44px; line-height: 1.1; letter-spacing: -0.8px">Every number says how we know it.</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3D3F6B">Each claim carries an evidence label and links to the public receipt behind it.</p>
 </div>
-</main>
-<footer>
-<div class="wrap">
-<div class="fgrid">
-<div>
-<div class="fbrand">Lightyear</div>
-<p class="note" style="max-width:46ch">Independent verification for enterprise modernization. Evidence that your new system behaves the way the legacy core does.</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px">
+<div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 56px; font-weight: 700; letter-spacing: -1.5px; color: #15184D">260/260</span>
+<span style="font-size: 17px; line-height: 1.45; color: #15184D">Oracle → AlloyDB behaviour pairs matched, across 13 datatype families</span>
+<span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #DDF3E6; color: #0F5C33; padding: 5px 9px; border-radius: 6px">PROVEN BY EXECUTION · NATIVE DATABASES</span>
+<a href="#proof" style="font-size: 15px; color: #5B3CC4; font-weight: 600">View receipt →</a>
 </div>
-<div>
-<div class="fhead">Product</div>
-<a href="product.html">The Verdict Engine</a>
-<a href="product.html#coverage">Coverage catalogue</a>
-<a href="verify.html">Lightyear Verify (preview)</a>
-<a href="proof.html">Proof</a>
-<a href="pricing.html">Pricing</a>
+<div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 56px; font-weight: 700; letter-spacing: -1.5px; color: #15184D">43/43</span>
+<span style="font-size: 17px; line-height: 1.45; color: #15184D">deliberately wrong T-SQL conversions caught, in 108 native SQL Server vs PostgreSQL comparisons</span>
+<span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #DDF3E6; color: #0F5C33; padding: 5px 9px; border-radius: 6px">PROVEN BY EXECUTION · PUBLIC TRAP CORPUS</span>
+<a href="#proof" style="font-size: 15px; color: #5B3CC4; font-weight: 600">View receipt →</a>
 </div>
-<div>
-<div class="fhead">Solutions</div>
-<a href="solutions.html#banks">Banks and insurers</a>
-<a href="solutions.html#integrators">Vendors and integrators</a>
-<a href="solutions.html#mainframe">Mainframe</a>
-<a href="solutions.html#oracle">Oracle migration</a>
-</div>
-<div>
-<div class="fhead">Resources</div>
-<a href="resources.html#sample-pack">A real evidence pack</a>
-<a href="https://github.com/howardweale/lightyear-carddemo-modernization/tree/main/docs/milestones" rel="noopener" target="_blank">The full evidence record</a>
-<a href="engineers.html#docs">Documentation</a>
-<a href="pricing.html#faq">Questions we get asked</a>
-</div>
-<div>
-<div class="fhead">Company</div>
-<a href="https://calendly.com/lightyr" rel="noopener" target="_blank">Book a call</a>
-<a href="mailto:sales@lightyr.ai">sales@lightyr.ai</a>
+<div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 56px; font-weight: 700; letter-spacing: -1.5px; color: #15184D">13,504</span>
+<span style="font-size: 17px; line-height: 1.45; color: #15184D">relationships mapped across 11,347 entities in the CardDemo mainframe knowledge graph</span>
+<span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #EFEBFB; color: #4A2FB0; padding: 5px 9px; border-radius: 6px">FOUND IN CODE · PUBLIC REFERENCE ESTATE</span>
+<a href="#proof" style="font-size: 15px; color: #5B3CC4; font-weight: 600">Explore the graph →</a>
 </div>
 </div>
-<p class="note" style="margin-top:28px">© 2026 Lightyear. Figures are measured on the code that ships. Nothing on this site is an unqualified claim of equivalence.</p>
+</div>
+</section>
+
+<!-- ============ 5 · RUN THE VERIFIER ============ -->
+<section id="verifier" style="background: #FEFEFE; padding: 24px 24px 96px">
+<div style="max-width: 1200px; margin: 0 auto; background: #F7F5FD; border: 1px solid #DDD7F2; border-radius: 18px; padding: 48px; display: flex; flex-wrap: wrap; gap: 40px; align-items: center">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">Don’t trust us</p>
+<h2 style="margin: 0; font-size: 40px; line-height: 1.1; letter-spacing: -0.8px">Run our verifier yourself.</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3D3F6B">Download any public evidence pack and check it with our open verifier. It passes only what it can anchor, and reports “incomplete” rather than guessing.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; padding-top: 6px">
+<a href="#verifier" style="color: #FFFFFF; background: #15184D; text-decoration: none; padding: 14px 20px; border-radius: 10px; font-weight: 600; font-size: 15px">Get the verifier</a>
+<a href="#proof" style="color: #15184D; border: 1px solid #B9AEE6; text-decoration: none; padding: 13px 19px; border-radius: 10px; font-weight: 500; font-size: 15px">See a real evidence pack</a>
+</div>
+</div>
+<pre style="flex: 1 1 460px; min-width: 0; margin: 0; background: #15184D; color: #E9E6F7; border-radius: 14px; padding: 24px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.7; overflow-x: auto; white-space: pre">$ python3 -I tools/verify_public_evidence.py \
+    all PUBLIC_EVIDENCE --strict --json
+
+  0  PASS        every check anchored and passed
+  1  FAIL        something doesn’t match
+  3  INCOMPLETE  nothing it could anchor; no pass</pre>
+</div>
+</section>
+
+<!-- ============ 6 · HOW IT WORKS ============ -->
+<section id="how" style="background: #FEFEFE; padding: 0 24px 96px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 760px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">How it works</p>
+<h2 style="margin: 0; font-size: 44px; line-height: 1.1; letter-spacing: -0.8px">From legacy unknown to signed verdict.</h2>
+</div>
+<ol style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px">
+<li style="border-top: 3px solid #15184D; padding-top: 18px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5B3CC4">STEP 1</span>
+<h3 style="margin: 0; font-size: 21px">Map and lock the rules</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">The knowledge graph maps programs, data and business rules, then the rules are frozen before anyone writes code.</p>
+</li>
+<li style="border-top: 3px solid #3B3E86; padding-top: 18px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5B3CC4">STEP 2</span>
+<h3 style="margin: 0; font-size: 21px">Anyone builds</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">Our dark factory, your AI platform or your SI. The builder never sees the hold-out answers.</p>
+</li>
+<li style="border-top: 3px solid #7D57EA; padding-top: 18px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5B3CC4">STEP 3</span>
+<h3 style="margin: 0; font-size: 21px">The Verdict Engine judges</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">Old and new run side by side in your cloud, read-only. Outputs, data and errors are compared field by field.</p>
+</li>
+<li style="border-top: 3px solid #A7702C; padding-top: 18px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5B3CC4">STEP 4</span>
+<h3 style="margin: 0; font-size: 21px">You get signed evidence</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">Named differences, a risk figure for untested logic, and an evidence pack anyone can replay.</p>
+</li>
+</ol>
+</div>
+</section>
+
+<!-- ============ 7 · COVERAGE ============ -->
+<section id="coverage" style="background: #FEFEFE; padding: 0 24px 96px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 760px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">Coverage, stated honestly</p>
+<h2 style="margin: 0; font-size: 36px; line-height: 1.15; letter-spacing: -0.6px">What we have qualified, and what we haven’t yet.</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px">
+<div style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 17px; font-weight: 600">Oracle → PostgreSQL</span><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #DDF3E6; color: #0F5C33; padding: 4px 8px; border-radius: 6px">QUALIFIED · LIMITED</span></div>
+<div style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 17px; font-weight: 600">Oracle → AlloyDB</span><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #DDF3E6; color: #0F5C33; padding: 4px 8px; border-radius: 6px">QUALIFIED · LIMITED</span></div>
+<div style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 17px; font-weight: 600">z/OS batch → Java</span><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #FCE7CF; color: #8A3B00; padding: 4px 8px; border-radius: 6px">IN QUALIFICATION</span></div>
+<div style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 17px; font-weight: 600">SAP ASE → PostgreSQL</span><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #FCE7CF; color: #8A3B00; padding: 4px 8px; border-radius: 6px">IN QUALIFICATION</span></div>
+<div style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 17px; font-weight: 600">Db2 → PostgreSQL</span><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #FCE7CF; color: #8A3B00; padding: 4px 8px; border-radius: 6px">IN QUALIFICATION</span></div>
+</div>
+</div>
+</section>
+
+<!-- ============ 8 · VERIFICATION SPRINT ============ -->
+<section id="sprint" style="background: #EFEBFB; padding: 96px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+<div style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">Start with one job</p>
+<h2 style="margin: 0; font-size: 44px; line-height: 1.1; letter-spacing: -0.8px">The Verification Sprint</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3D3F6B">Send us one batch job or process you’ve already modernized, or let our factory build it during the sprint. In four weeks you get a go/no-go answer, the cost of getting to equivalent, and a business case for the rest of your backlog.</p>
+<ul style="margin: 0; padding-left: 20px; font-size: 17px; line-height: 1.8; color: #15184D">
+<li>A business case and cost estimate for the wider backlog</li>
+<li>Every difference named, by field and record</li>
+<li>A risk figure for logic that wasn’t exercised</li>
+<li>A signed, replayable evidence pack</li>
+<li>Runs read-only inside your cloud</li>
+</ul>
+</div>
+<div style="flex: 0 1 380px; min-width: 0; background: #15184D; color: #E9E6F7; border-radius: 18px; padding: 36px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #C99A5B">FOUR WEEKS · ONE JOB</span>
+<span style="font-size: 48px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">From $50,000</span>
+<a href="#sprint" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 16px 22px; border-radius: 10px; font-weight: 600; font-size: 16px; text-align: center">Book a Verification Sprint</a>
+<a href="#sprint" style="color: #D3CFEA; font-size: 15px; text-align: center">or talk to the founder</a>
+</div>
+</div>
+</section>
+
+<!-- ============ 9 · FOUNDER + FOOTER ============ -->
+<section style="background: #FEFEFE; padding: 72px 24px 40px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px">
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: center; border-bottom: 1px solid #DDD7F2; padding-bottom: 48px">
+<p style="flex: 1 1 520px; margin: 0; font-size: 22px; line-height: 1.5; color: #15184D">Founded by <strong>Howard Weale</strong>, who led the mainframe modernization practice at Google Cloud and brought Dual Run, Google’s parallel-run validation for mainframes, to market. Lightyear is the independent version of that idea, for every platform and every builder.</p>
+</div>
+<footer style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; align-items: center; font-size: 14px; color: #676985">
+<div style="display: flex; align-items: center; gap: 16px; margin-left: 8px">
+<svg viewBox="0 0 360 220" width="64" height="39" role="img" aria-label="LIGHTYEAR"><path fill="#7D57EA" d="M24 96C84 92 125 74 156 47C166 38 173 30 179 29C179.5 28.7 179.8 28.2 180 28C180.2 28.2 180.5 28.7 181 29C187 30 194 38 204 47C235 74 276 92 336 96H24Z"></path><path fill="#7D57EA" d="M24 124C84 128 125 146 156 173C166 182 173 190 179 191C179.5 191.3 179.8 191.8 180 192C180.2 191.8 180.5 191.3 181 191C187 190 194 182 204 173C235 146 276 128 336 124H24Z"></path><text x="180" y="122" fill="#A7702C" font-family="Arial, sans-serif" font-size="32" font-weight="700" letter-spacing="6" text-anchor="middle">LIGHTYEAR</text></svg>
+<span>Where context becomes trusted action.</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px">
+<a href="#verifier" style="color: #4A4C78">Public verifier</a>
+<a href="#proof" style="color: #4A4C78">Evidence packs</a>
+<a href="#sprint" style="color: #4A4C78">Security pack</a>
+<a href="#sprint" style="color: #4A4C78">Contact</a>
 </div>
 </footer>
+</div>
+</section>
+
+</div>
 <script>
 (function(){
-  var r=document.getElementById('heroReceipt'); if(!r) return;
-  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var kvs=[].slice.call(r.querySelectorAll('.kv')), note=r.querySelector('.note');
-  var v=document.getElementById('hrVerdict'), vt=document.getElementById('hrVerdictText'),
-      reason=document.getElementById('hrReason');
-  if(reduce){ return; }
-  kvs.forEach(function(k){k.style.opacity=0;k.style.transform='translateY(3px)';});
-  if(note) note.style.opacity=0;
-  var wait=function(ms){return new Promise(function(res){setTimeout(res,ms)})};
-  var finalReason=reason.textContent;
-  (async function(){
-    v.classList.add('running'); vt.textContent='reading expected\u2026'; reason.textContent='\u2014';
-    await wait(650); vt.textContent='reading candidate\u2026';
-    await wait(650); vt.textContent='comparing\u2026';
-    for(var i=0;i<kvs.length;i++){ await wait(150); kvs[i].style.opacity=1; kvs[i].style.transform='none'; }
-    await wait(320);
-    v.classList.remove('running'); vt.textContent='indeterminate';
-    reason.textContent=finalReason;
-    await wait(180); if(note) note.style.opacity=1;
-  })();
-})();
-</script>
-<script>
-/* Factory run: animate once when each block scrolls into view */
-(function(){
-  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function fmt(v,el){
-    if(el.dataset.kind==='time'){var s=Math.round(v);return Math.floor(s/60)+'m '+String(s%60).padStart(2,'0')+'s';}
-    var d=+(el.dataset.dec||0);return v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d})+(el.dataset.suffix||'');
-  }
-  function count(root){
-    root.querySelectorAll('.fx-count').forEach(function(el){
-      var to=+el.dataset.to; if(reduce||!to){el.textContent=fmt(to,el);return;}
-      var t0=null,dur=1500;
-      function step(t){ if(!t0)t0=t; var p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);
-        el.textContent=fmt(to*e,el); if(p<1) requestAnimationFrame(step); }
-      requestAnimationFrame(step);
+  var rows=[
+    ['ACCT-ID','00000000047','00000000047','match'],
+    ['TRAN-CAT-BAL','1,218.45','1,218.45','match'],
+    ['DIS-INT-RATE','18.00','18.00','match'],
+    ['MONTHLY-INT','18.27','18.28','diff'],
+    ['TRAN-TYPE-CD','01','01','match'],
+    ['ACCT-CURR-BAL','1,236.72','1,236.73','diff'],
+    ['REJECT-FILE','0 recs','(none)','indet']];
+  var base='display:inline-block;font-size:11px;font-weight:600;letter-spacing:0.8px;padding:4px 8px;border-radius:5px;';
+  var sty={match:base+'background:#12573A;color:#C9F5DC;',diff:base+'background:#7A3A06;color:#FFE1C2;',indet:base+'background:#3A3D72;color:#E4E3F5;',pending:base+'background:transparent;color:#8E8BB8;'};
+  var lab={match:'MATCH',diff:'DIFF',indet:'INDETERMINATE',pending:'comparing…'};
+  var host=document.getElementById('vc-rows'), prog=document.getElementById('vc-progress'), vbox=document.getElementById('vc-verdict'), vt=document.getElementById('vc-vtext'), vd=document.getElementById('vc-vdetail');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var step=reduce?rows.length:3, n=rows.length;
+  function render(){
+    host.innerHTML='';
+    rows.forEach(function(r,i){
+      var shown=i<step?r[3]:'pending';
+      var d=document.createElement('div');
+      d.style.cssText='display:grid;grid-template-columns:1.3fr 1fr 1fr 1.25fr;align-items:center;font-size:13px;color:#E9E6F7;padding:7px 0;border-bottom:1px solid #1E2160';
+      var c=[r[0],r[1],i<step?r[2]:'…'];
+      c.forEach(function(t,k){var s=document.createElement('span');s.textContent=t;if(k===0)s.style.cssText='color:#D3CFEA;overflow:hidden;text-overflow:ellipsis;white-space:nowrap';d.appendChild(s);});
+      var e=document.createElement('span');e.style.textAlign='right';var chip=document.createElement('span');chip.style.cssText=sty[shown];chip.textContent=lab[shown];e.appendChild(chip);d.appendChild(e);
+      host.appendChild(d);
     });
+    var done=step>=n;
+    prog.textContent=done?'SIGNED · sha256:9c41…e07b':'COMPARING '+Math.min(step,n)+' / '+n;
+    vbox.style.cssText='display:flex;flex-direction:column;gap:4px;border-radius:10px;padding:14px 16px;margin-top:6px;'+(done?'background:#3A1F10;border:1px solid #A7702C;':'background:#15184D;border:1px dashed #3B3E86;');
+    vt.textContent=done?'NOT EQUIVALENT':'Awaiting evidence…';
+    vd.textContent=done?'2 fields differ (rounding vs COBOL truncation) · 1 indeterminate · named, not hidden':'No verdict until every field is compared';
   }
-  var blocks=[].slice.call(document.querySelectorAll('[data-fx-play]'));
-  blocks.forEach(function(b){ if(!reduce) b.classList.add('js'); });
-  document.querySelectorAll('.fx-term').forEach(function(t){ if(!reduce) t.classList.add('js'); });
-  if(reduce||!('IntersectionObserver' in window)){ blocks.forEach(function(b){b.classList.add('play');}); return; }
-  var io=new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('play'); count(e.target); io.unobserve(e.target);} });
-  },{threshold:.3});
-  blocks.forEach(function(b){ io.observe(b); });
-  var rp=document.querySelector('.fx-replay'), pipe=document.querySelector('.fx-pipe');
-  if(rp&&pipe) rp.addEventListener('click',function(){ pipe.classList.remove('play'); void pipe.getBoundingClientRect(); pipe.classList.add('play'); });
+  render();
+  if(!reduce) setInterval(function(){step=(step+1)%(n+4);render();},900);
+  var lp=document.getElementById('loopPlayer'), lb=document.getElementById('loopPause');
+  if(lp&&lb) lb.addEventListener('click',function(){var on=lp.classList.toggle('paused');lb.setAttribute('aria-pressed',on?'true':'false');lb.textContent=on?'Play':'Pause';});
 })();
 </script>
-<script>
-/* size each animation iframe to its content; re-fit when a hidden tab is shown or the window resizes */
-(function(){
-  function fit(f){try{var b=f.contentDocument&&f.contentDocument.body;if(!b)return;var h=Math.ceil(b.getBoundingClientRect().height);if(h>60)f.style.height=h+'px';}catch(e){}}
-  var frames=[].slice.call(document.querySelectorAll('.ly-anim iframe'));
-  frames.forEach(function(f){
-    f.addEventListener('load',function(){fit(f);try{new ResizeObserver(function(){fit(f);}).observe(f.contentDocument.body);}catch(e){}});
-    if('ResizeObserver' in window)new ResizeObserver(function(){fit(f);}).observe(f);
-  });
-  window.addEventListener('resize',function(){frames.forEach(fit);});
-})();
-</script>
-<script>
-(function(){
-  var h=(location.hash||'').slice(1); if(!h) return;
-  var map={exec:'index.html',how:'index.html',coverage:'product.html#coverage',
-           proof:'proof.html',docs:'engineers.html#docs',engage:'pricing.html',where:'pricing.html',trust:'index.html#trust'};
-  if(h.indexOf('d-')===0){ location.replace('engineers.html#'+h); return; }
-  if(map[h] && !document.getElementById(h)) location.replace(map[h]);
-})();
-</script></body>
+</body>
 </html>

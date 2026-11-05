@@ -1,805 +1,428 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Lightyear Verify (preview): an independent verdict on AI-written code | Lightyear</title>
-<meta content="Whatever AI your team uses to modernize legacy code, Lightyear Verify gives its work an independent, signed verdict inside your environment. Preview." name="description"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lightyear Verify — an independent verdict for any AI</title>
+<meta name="description" content="Keep your AI coding agent. Get an independent, signed verdict on its work inside your environment.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMy42OCAxMy41MiBMMTYuMCA1LjQ0IEwyOC4zMiAxMy41MiBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0zLjY4IDE4LjQ4IEwxNi4wIDI2LjU2IEwyOC4zMiAxOC40OCBaIi8+PC9zdmc+">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap">
 <style>
-:root{
-  --void:#FAF8F4; --floor:#F2EEE7; --panel:#FFFFFF; --panel2:#F7F4EF;
-  --hair:#E3DCD1; --hair2:#CFC5B6;
-  --amber:#B4531F; --amber-d:#8A4318; --amber-w:#FAEDE3;
-  --pass:#2F6B3F; --fail:#B03A28; --unknown:#8A6B12;
-  --ink:#181513; --body:#443E37; --dim:#5A5248; --faint:#6E6459;
-  --display:'Archivo',system-ui,sans-serif;
-  --sans:'IBM Plex Sans',system-ui,sans-serif;
-  --mono:'IBM Plex Mono',ui-monospace,monospace;
-  --wrap:1220px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--void);color:var(--body);font-family:var(--sans);font-size:19px;line-height:1.6;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-::selection{background:var(--amber);color:#FFF}
-:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:2px}
-
-.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
-.eyebrow{font-family:var(--mono);font-size:12.5px;line-height:1.5;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:500}
-h1,h2,h3{font-family:var(--display);color:var(--ink);letter-spacing:-.022em;line-height:1.08;font-weight:700}
-h1{font-size:clamp(36px,4.3vw,56px);font-weight:800;letter-spacing:-.03em;line-height:1.06}
-h2{font-size:clamp(26px,2.8vw,37px)}
-h3{font-size:22px;letter-spacing:-.012em}
-p{max-width:36em}
-.lead{font-size:clamp(18px,1.9vw,22.5px);color:var(--body);line-height:1.65}
-.small{font-size:16px;color:var(--dim);line-height:1.6}
-
-/* ---------- nav ---------- */
-header{position:sticky;top:0;z-index:60;background:rgba(250,248,244,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--hair)}
-.navbar{display:flex;align-items:center;gap:20px;min-height:74px}
-.brand{display:flex;align-items:center;gap:10px;flex:none}
-.primary-logo{display:block;object-fit:contain}
-.brand-logo{width:124px;height:52px;flex:none;display:block}
-nav.tabs{display:flex;gap:2px;margin-left:2px;flex:1}
-nav.tabs button{background:none;border:0;color:var(--dim);font-family:var(--sans);font-size:15.5px;padding:8px 11px;white-space:nowrap;cursor:pointer;border-radius:5px;transition:color .16s,background .16s}
-nav.tabs button:hover{color:var(--ink);background:var(--panel)}
-nav.tabs button[aria-selected="true"]{color:var(--amber);background:var(--amber-w)}
-nav.tabs .tablink{color:var(--dim);font-family:var(--sans);font-size:15.5px;padding:8px 11px;white-space:nowrap;border-radius:5px;transition:color .16s,background .16s}
-nav.tabs .tablink:hover{color:var(--ink);background:var(--panel)}
-.navcta{display:flex;gap:10px;align-items:center}
-.btn{font-family:var(--sans);font-size:15.5px;font-weight:500;padding:9px 17px;border-radius:5px;border:1px solid var(--hair2);color:var(--ink);cursor:pointer;background:none;transition:.16s;white-space:nowrap}
-.btn:hover{border-color:var(--amber-d);color:var(--amber)}
-.btn.solid{background:var(--amber);color:#FFF;border-color:var(--amber);font-weight:600}
-.btn.solid:hover{background:#9A4519;color:#FFF}
-.menu{display:none;background:none;border:1px solid var(--hair2);color:var(--ink);border-radius:5px;padding:7px 11px;cursor:pointer;font-size:17px}
-
-/* ---------- panels & receipts (the signature) ---------- */
-.panel{background:var(--panel);border:1px solid var(--hair);border-radius:10px}
-.receipt{background:var(--panel);border:1px solid var(--hair2);border-radius:10px;font-family:var(--mono);font-size:14.5px;overflow:hidden;box-shadow:0 18px 44px -26px rgba(60,45,30,.28)}
-.receipt .rhead{display:flex;justify-content:space-between;align-items:center;padding:12px 17px;border-bottom:1px solid var(--hair);color:var(--dim);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase}
-.receipt .rbody{padding:15px 16px}
-.kv{display:flex;justify-content:space-between;gap:16px;padding:5px 0;border-bottom:1px dashed var(--hair)}
-.kv:last-child{border-bottom:0}
-.kv b{color:var(--dim);font-weight:400}
-.kv span{color:var(--ink);text-align:right}
-.verdict{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;padding:5px 11px;border-radius:4px;font-weight:600}
-.v-pass{color:var(--pass);background:#79b86b18;border:1px solid #79b86b40}
-.v-fail{color:var(--fail);background:#e0664a18;border:1px solid #e0664a40}
-.v-unk{color:var(--unknown);background:#c9a22718;border:1px solid #c9a22745}
-.dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
-
-/* ---------- sections ---------- */
-main{min-height:60vh}
-.pane{display:none;animation:rise .42s cubic-bezier(.2,.7,.3,1)}
-.pane.on{display:block}
-@keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
-.band{padding:78px 0;border-bottom:1px solid var(--hair)}
-.band.tight{padding:54px 0}
-.band.hero{padding:86px 0 74px}
-.grid2{display:grid;grid-template-columns:1.08fr .92fr;gap:56px;align-items:center}
-.band.hero .grid2{align-items:start;grid-template-columns:1.22fr .78fr;gap:48px}
-.band.hero .receipt{margin-top:8px;font-size:13.5px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.card{background:var(--panel);border:1px solid var(--hair);border-radius:10px;padding:24px;transition:border-color .18s,transform .18s}
-.card:hover{border-color:var(--hair2);transform:translateY(-2px)}
-.card h3{margin-bottom:9px}
-.card p{font-size:17px;color:var(--body)}
-.rule{width:56px;height:2px;background:var(--amber);margin:18px 0 22px}
-
-/* stat plate */
-.stat{padding:22px 0}
-.stat .n{font-family:var(--display);font-size:clamp(33px,3.9vw,46px);font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1}
-.stat .n em{font-style:normal;color:var(--amber)}
-.stat .l{font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:9px;line-height:1.5}
-
-/* the agent line */
-.line{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px}
-.agent{background:var(--panel);border:1px solid var(--hair);border-radius:9px;padding:18px;position:relative}
-.agent.judge{border-color:var(--amber-d);background:linear-gradient(180deg,var(--panel2),var(--panel))}
-.agent .rolelab{font-family:var(--mono);font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--dim)}
-.agent.judge .rolelab{color:var(--amber)}
-.agent h4{font-family:var(--display);font-size:19.5px;color:var(--ink);margin:6px 0 8px;font-weight:700}
-.agent p{font-size:15.5px;color:var(--body);line-height:1.55}
-.agent .sees{margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--faint);line-height:1.5}
-.agent.judge .sees{color:var(--amber-d)}
-.membrane{margin:22px 0 0;display:flex;align-items:center;gap:14px}
-.membrane .l{flex:1;height:1px;background:var(--fail);opacity:.55}
-.membrane span{font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--fail)}
-
-/* table */
-table{width:100%;border-collapse:collapse;font-size:17px;min-width:520px}
-.panel{overflow-x:auto}
-th{font-family:var(--mono);font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--dim);text-align:left;padding:0 14px 11px;font-weight:500}
-td{padding:14px;border-top:1px solid var(--hair);color:var(--body);vertical-align:top}
-td:first-child{color:var(--ink);font-weight:500;white-space:nowrap}
-td.mono{font-family:var(--mono);font-size:14.5px}
-
-/* engagement tiers */
-.tier{background:var(--panel);border:1px solid var(--hair);border-radius:11px;padding:28px;display:flex;flex-direction:column}
-.tier.feature{border-color:var(--amber-d);background:linear-gradient(180deg,var(--panel2),var(--panel))}
-.tier .tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
-.tier.feature .tag{color:var(--amber)}
-.tier h3{font-size:23px;margin:9px 0 4px}
-.tier .price{font-family:var(--display);font-size:17px;color:var(--amber);font-weight:600;margin-bottom:16px}
-.tier ul{list-style:none;margin:6px 0 22px;flex:1}
-.tier li{font-size:16.5px;padding:8px 0 8px 21px;position:relative;border-bottom:1px dashed var(--hair);color:var(--body)}
-.tier li:before{content:"";position:absolute;left:0;top:15px;width:8px;height:2px;background:var(--amber)}
-.tier li:last-child{border-bottom:0}
-
-/* faq */
-details{border-bottom:1px solid var(--hair)}
-summary{cursor:pointer;padding:20px 0;font-family:var(--display);font-size:20.5px;color:var(--ink);list-style:none;display:flex;justify-content:space-between;gap:20px;align-items:center;font-weight:600}
-summary::-webkit-details-marker{display:none}
-summary:after{content:"+";color:var(--amber);font-family:var(--mono);font-size:19px;flex:none}
-details[open] summary:after{content:"–"}
-details p{padding:0 0 22px;font-size:17px;max-width:34em}
-
-
-/* Measured fix: .lead, .note and the 92ch inline overrides were running
-   84-112 characters per line. Comfortable prose sits at 55-75; anything past
-   about 78 forces the eye to hunt for the next line start. */
-.lead{max-width:34em}
-.note{max-width:34em}
-.docsec p{max-width:36em}
-
-/* --- hero receipt: plays once on load, then sits still ---------------- */
-#heroReceipt .verdict{transition:color .3s,background .3s,border-color .3s}
-#heroReceipt .verdict.running{color:#6E6459;background:var(--panel);border-color:var(--hair2)}
-#heroReceipt .verdict.running .dot{animation:rcPulse 1s ease-in-out infinite}
-@keyframes rcPulse{0%,100%{opacity:1}50%{opacity:.25}}
-#heroReceipt .kv{opacity:1;
-  transition:opacity .3s ease,transform .3s ease}
-#heroReceipt .kv.in{opacity:1;transform:none}
-#heroReceipt .note{opacity:1;transition:opacity .45s ease}
-#heroReceipt .note.in{opacity:1}
-@media(prefers-reduced-motion:reduce){
-  #heroReceipt .kv,#heroReceipt .note{opacity:1!important;transform:none!important}
-  #heroReceipt .verdict .dot{animation:none!important}
-}
-
-/* --- band rhythm --------------------------------------------------------
-   Every section was eyebrow -> heading -> rule -> prose on one background.
-   Three treatments, alternated, break the flatness with no JavaScript:
-     .band          paper, the default
-     .band.sunk     a half-step down, for supporting or tabular sections
-     .band.feature  full-bleed dark, reserved for one pivotal statement per
-                    tab. Used sparingly, it lands; used often, it is noise. */
-.band.sunk{background:var(--floor)}
-.band.sunk .eyebrow{color:var(--amber-d)}
-.band.sunk .agent.judge .rolelab{color:var(--amber-d)}
-.band.feature{background:#241F2E;border-bottom-color:#241F2E}
-.band.feature h2,.band.feature h3{color:#FBF9F6}
-.band.feature p,.band.feature .lead{color:#CFC7BC}
-.band.feature .eyebrow{color:#D6B78A}
-.band.feature .rule{background:#D6B78A}
-.band.feature .note{color:#9E958A}
-.band.feature .card{background:#2E2839;border-color:#3D3648}
-.band.feature .card h3{color:#FBF9F6}
-.band.feature .card p{color:#CFC7BC}
-.band.feature .agent{background:#2E2839;border-color:#3D3648}
-.band.feature .agent h4{color:#FBF9F6}
-.band.feature .agent p{color:#CFC7BC}
-.band.feature .agent .rolelab{color:#9E958A}
-.band.feature .agent .sees{color:#A79E92}
-/* verdict and status colours were tuned for paper; they need lifting on dark */
-.band.feature .mono,.band.feature td.mono{color:#CFC7BC}
-.band.feature td.mono[style*="--fail"],.band.feature [style*="var(--fail)"]{color:#F09478!important}
-.band.feature [style*="var(--unknown)"]{color:#E8C35E!important}
-.band.feature [style*="var(--pass)"]{color:#8FD08A!important}
-.band.feature .v-unk{color:#E8C35E;background:#3A3320;border-color:#5E5330}
-.band.feature .v-fail{color:#F09478;background:#3A2620;border-color:#5E3A30}
-.band.feature .v-pass{color:#8FD08A;background:#213524;border-color:#345239}
-.band.feature .receipt{background:#2E2839;border-color:#3D3648}
-.band.feature .receipt .rhead{color:#9E958A;border-bottom-color:#3D3648}
-.band.feature .kv{border-bottom-color:#3D3648}
-.band.feature .kv b{color:#9E958A}
-.band.feature .kv span{color:#EDE8E1}
-.band.feature .kv span[style]{color:#F09478!important}
-.band.feature .receipt .note{color:#B5ABA0!important}
-.band.feature .agent.judge{background:#38304A;border-color:#D6B78A}
-.band.feature .agent.judge .rolelab,.band.feature .agent.judge .sees{color:#D6B78A}
-.band.feature .membrane span{color:#E08A6E}
-.band.feature .membrane .l{background:#E08A6E}
-.band.feature .panel{background:#2E2839;border-color:#3D3648}
-.band.feature table td{color:#CFC7BC;border-top-color:#3D3648}
-.band.feature table td:first-child{color:#FBF9F6}
-.band.feature th{color:#9E958A}
-
-/* inline diagrams: scale to the column, never exceed their natural size */
-.diagram{display:block;width:100%;max-width:880px;height:auto;margin:6px auto 0}
-.band.feature .diagram{filter:none}
-.figcap{font-family:var(--mono);font-size:13.5px;color:var(--dim);text-align:center;
-        max-width:70ch;margin:10px auto 0}
-footer{padding:52px 0 38px;color:var(--dim);font-size:13.5px}
-.fgrid{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:34px;padding-bottom:34px;border-bottom:1px solid var(--hair)}
-.fgrid h5{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:13px;font-weight:500}
-.fgrid a{display:block;padding:6px 0;color:var(--body);font-size:16.5px}
-.fgrid a:hover{color:var(--amber)}
-.fbot{display:flex;justify-content:space-between;padding-top:22px;flex-wrap:wrap;gap:12px;font-size:14px}
-
-.note{font-family:var(--mono);font-size:13.8px;color:var(--faint);line-height:1.65}
-.docwrap{display:grid;grid-template-columns:212px minmax(0,1fr);gap:44px;align-items:start}
-.docnav{position:sticky;top:96px}
-.docnav h5{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:0 0 10px;font-weight:500}
-.docnav a{display:block;padding:7px 0;color:var(--body);font-size:16px;border-left:2px solid transparent;padding-left:12px;margin-left:-12px}
-.docnav a:hover{color:var(--amber);border-left-color:var(--amber)}
-.docnav a.active{color:var(--amber);border-left-color:var(--amber);font-weight:600}
-.docsearch{width:100%;margin:0 0 14px;padding:9px 10px;border:1px solid var(--hair2);border-radius:5px;background:var(--panel);color:var(--ink);font:14px var(--sans)}
-.docsearch::placeholder{color:var(--dim)}
-.doc-empty{display:none;padding:24px;border:1px dashed var(--hair2);border-radius:8px;color:var(--dim)}
-.docsec{padding-bottom:44px;margin-bottom:44px;border-bottom:1px solid var(--hair)}
-.docsec:last-child{border-bottom:0}
-.docsec h3{margin-bottom:12px}
-.docsec p{margin-bottom:14px}
-pre{background:var(--floor);border:1px solid var(--hair);border-radius:8px;padding:18px 20px;overflow-x:auto;max-width:100%;font-family:var(--mono);font-size:14.5px;line-height:1.7;color:var(--body);margin:16px 0}
-pre .c{color:var(--dim)}
-pre .k{color:var(--amber-d)}
-pre .s{color:var(--pass)}
-code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--floor);padding:2px 6px;border-radius:4px;border:1px solid var(--hair)}
-.cta-band{background:linear-gradient(160deg,#FFF,var(--floor));border:1px solid var(--hair2);border-radius:12px;padding:44px}
-
-@media(max-width:940px){
-  .navbar{gap:14px}
-  .brand{flex:1}
-  .brand-logo{width:96px;height:40px}
-  .brand{gap:8px}
-  .navbar{gap:10px;min-height:64px}
-  nav.tabs{position:fixed;inset:87px 0 auto;flex-direction:column;background:var(--floor);border-bottom:1px solid var(--hair);padding:10px 18px 16px;display:none}
-  nav.tabs.open{display:flex}
-  nav.tabs button{text-align:left;padding:12px}
-  nav.tabs .tablink{padding:12px}
-  .menu{display:block}
-  .navcta .btn:not(.solid){display:none}
-  .navcta .btn.solid{font-size:13px;padding:8px 13px}
-  .band.hero{padding:52px 0 44px}
-  .grid2,.grid3,.grid4,.line,.fgrid,.docwrap{grid-template-columns:minmax(0,1fr)}
-  .band.hero .grid2{grid-template-columns:minmax(0,1fr);gap:34px}
-  .docnav{position:static;width:100%}
-  .docnav a{margin-left:0;padding-left:10px}
-  table{font-size:15px;min-width:460px}
-  .wrap{padding:0 20px}
-  pre{font-size:13px;padding:14px 15px}
-  .docwrap{gap:26px}
-  .band{padding:54px 0}
-}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-
-/* CIO rewrite: a few additions to the existing system */
-.tablink{font-family:var(--sans);font-size:15px;color:var(--dim);text-decoration:none;
-  padding:8px 12px;border-radius:6px;white-space:nowrap}
-.tablink:hover{color:var(--amber-d);background:var(--amber-w)}
-.metric{font-family:var(--display);font-size:44px;font-weight:800;color:var(--ink);
-  letter-spacing:-.02em;line-height:1}
-.metric.warn{color:var(--fail)}
-.metriclab{font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:6px;line-height:1.5}
-.samplebar{font-family:var(--mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;
-  color:#7A4E06;background:#F5E1BD;border:1px solid #E2C68F;border-radius:4px;
-  padding:5px 10px;display:inline-block;margin-bottom:14px}
-
-/* ================= Factory run (MS-91 case study) ================= */
-.fx-pill{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--pass);background:#E9F2E7;border:1px solid #C3DBBF;border-radius:999px;padding:6px 15px 6px 11px;margin-bottom:20px;cursor:pointer;transition:border-color .16s,background .16s}
-.fx-pill:hover{background:#DFEEDC;border-color:#9CC596}
-.fx-pill b{font-weight:600}
-.fx-pulse{width:8px;height:8px;border-radius:50%;background:var(--pass);flex:none;animation:fxPulse 2.2s infinite}
-@keyframes fxPulse{0%{box-shadow:0 0 0 0 rgba(47,107,63,.45)}70%{box-shadow:0 0 0 9px rgba(47,107,63,0)}100%{box-shadow:0 0 0 0 rgba(47,107,63,0)}}
-
-/* home teaser */
-.fx-teaser{background:linear-gradient(180deg,var(--void),var(--panel2))}
-.fx-tgrid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
-.fx-tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.fx-tile{background:var(--panel);border:1px solid var(--hair);border-radius:12px;padding:22px 22px 18px;position:relative;overflow:hidden}
-.fx-tile:after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,var(--amber),#D6B78A);transform:scaleX(0);transform-origin:left;transition:transform .9s cubic-bezier(.3,.7,.3,1)}
-.play .fx-tile:after,.fx-tiles.play .fx-tile:after{transform:scaleX(1)}
-.fx-tile:nth-child(2):after{transition-delay:.12s}.fx-tile:nth-child(3):after{transition-delay:.24s}.fx-tile:nth-child(4):after{transition-delay:.36s}
-.fx-tile .n{font-family:var(--display);font-size:clamp(30px,3.2vw,40px);font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1}
-.fx-tile .l{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-top:9px;line-height:1.45}
-.fx-link{display:inline-flex;align-items:center;gap:8px;margin-top:24px}
-
-/* factory hero */
-.fx-hero{background:radial-gradient(900px 520px at 88% 12%,rgba(214,183,138,.14),transparent 62%),radial-gradient(700px 480px at 0% 100%,rgba(143,208,138,.07),transparent 60%),#241F2E!important}
-.fx-hero h1{color:#FBF9F6}
-.fx-hero .lead{color:#D8D0C5}
-.fx-hero .btn{color:#FBF9F6;border-color:#5A5068}
-.fx-hero .btn:hover{color:#D6B78A;border-color:#D6B78A}
-.fx-hero .btn.solid{background:#D6B78A;border-color:#D6B78A;color:#241F2E}
-.fx-hero .btn.solid:hover{background:#E5C99E;color:#241F2E}
-.fx-hgrid{display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:center}
-.fx-hgrid h1{font-size:clamp(34px,4vw,52px)}
-.fx-eyebrow-live{display:inline-flex;align-items:center;gap:10px}
-.fx-eyebrow-live .fx-pulse{background:#8FD08A;animation-name:fxPulseD}
-@keyframes fxPulseD{0%{box-shadow:0 0 0 0 rgba(143,208,138,.5)}70%{box-shadow:0 0 0 9px rgba(143,208,138,0)}100%{box-shadow:0 0 0 0 rgba(143,208,138,0)}}
-
-/* the animated pipeline */
-.fx-pipewrap{position:relative}
-.fx-pipe{display:block;width:100%;max-width:520px;height:auto;margin:0 auto}
-.fx-pipe text{font-family:var(--sans)}
-.fx-pipe .t-disp{font-family:var(--display);font-weight:700}
-.fx-pipe .t-mono{font-family:var(--mono);letter-spacing:.14em}
-.fx-replay{position:absolute;right:4px;bottom:-6px;background:none;border:1px solid #4A4158;color:#B5ABA0;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;padding:5px 10px;border-radius:5px;cursor:pointer}
-.fx-replay:hover{color:#D6B78A;border-color:#D6B78A}
-.fx-pipe.js .k{opacity:0}
-.fx-pipe.play .k{animation:fxFade .5s ease var(--d,0s) forwards}
-.fx-pipe.js .dr{stroke-dasharray:1;stroke-dashoffset:1}
-.fx-pipe.play .dr{animation:fxDraw .45s ease var(--d,0s) forwards}
-.fx-pipe .bar{transform-box:fill-box;transform-origin:left center}
-.fx-pipe.js .bar{transform:scaleX(0)}
-.fx-pipe.play .bar{animation:fxGrow 1.5s cubic-bezier(.35,.6,.3,1) var(--d,0s) forwards}
-.fx-pipe .pop{transform-box:fill-box;transform-origin:center}
-.fx-pipe.js .pop{opacity:0;transform:scale(.55)}
-.fx-pipe.play .pop{animation:fxPop .55s cubic-bezier(.2,1.5,.4,1) var(--d,0s) forwards}
-.fx-pipe.js .drop{opacity:0}
-.fx-pipe.play .drop{animation:fxDrop .6s ease-in var(--d,0s) forwards}
-.fx-pipe .glow{transform-box:fill-box;transform-origin:center}
-.fx-pipe.play .glow{animation:fxGlow 2.4s ease-in-out calc(var(--d,0s) + .6s) 2}
-@keyframes fxFade{from{opacity:0}to{opacity:1}}
-@keyframes fxDraw{to{stroke-dashoffset:0}}
-@keyframes fxGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-@keyframes fxPop{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:scale(1)}}
-@keyframes fxDrop{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(24px)}}
-@keyframes fxGlow{0%,100%{opacity:.25;transform:scale(1)}50%{opacity:.6;transform:scale(1.12)}}
-
-/* stats + time split */
-.fx-stats{display:grid;grid-template-columns:repeat(5,1fr);margin-top:58px;border-top:1px solid #3D3648}
-.fx-stat{padding:26px 20px 6px 0}
-.fx-stat+.fx-stat{padding-left:22px;border-left:1px solid #3D3648}
-.fx-stat .n{font-family:var(--display);font-size:clamp(30px,3.4vw,44px);font-weight:800;color:#FBF9F6;letter-spacing:-.03em;line-height:1;white-space:nowrap}
-.fx-stat .n em{font-style:normal;color:#D6B78A}
-.fx-stat .l{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#A79E92;margin-top:10px;line-height:1.5}
-.fx-time{margin-top:40px;background:#2E2839;border:1px solid #3D3648;border-radius:12px;padding:22px 24px}
-.fx-time .hd{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#A79E92}
-.fx-time .hd b{color:#FBF9F6;font-weight:600}
-.fx-track{display:flex;height:16px;border-radius:8px;overflow:hidden;background:#3D3648;margin:16px 0 14px}
-.fx-seg{height:100%;transform:scaleX(0);transform-origin:left;transition:transform 1.1s cubic-bezier(.35,.6,.3,1)}
-.fx-time.play .fx-seg{transform:scaleX(1)}
-.fx-time.play .fx-seg.s2{transition-delay:.9s}
-.fx-time.play .fx-seg.s3{transition-delay:1.8s}
-.fx-seg.s1{background:#D6B78A}.fx-seg.s2{background:#8FD08A}.fx-seg.s3{background:#8B8196}
-.fx-legend{display:flex;gap:26px;flex-wrap:wrap;font-size:15px;color:#CFC7BC}
-.fx-legend span{display:inline-flex;align-items:center;gap:9px}
-.fx-legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
-.fx-legend b{color:#FBF9F6;font-weight:600}
-
-/* how it ran */
-.fx-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px;position:relative}
-.fx-step{background:var(--panel);border:1px solid var(--hair);border-radius:14px;padding:28px 26px 26px;display:flex;flex-direction:column;position:relative}
-.fx-step .num{font-family:var(--display);font-size:15px;font-weight:800;color:#FFF;background:var(--amber);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
-.fx-step h3{font-size:21px;margin-bottom:10px}
-.fx-step p{font-size:16.5px;color:var(--body)}
-.fx-step .vis{margin-top:auto;padding-top:22px}
-.fx-steps:before{content:"";position:absolute;left:12%;right:12%;top:45px;height:2px;background:repeating-linear-gradient(90deg,var(--hair2) 0 6px,transparent 6px 12px);z-index:0}
-.fx-step{z-index:1}
-.fx-locks{list-style:none;border-top:1px dashed var(--hair);margin:0}
-.fx-locks li{display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px dashed var(--hair);font-family:var(--mono);font-size:13.5px;color:var(--ink)}
-.fx-locks svg{flex:none;color:var(--amber)}
-.fx-locks .shackle{transition:transform .35s ease;transform:translateY(-3px)}
-.fx-steps.play .fx-locks .shackle{transform:none}
-.fx-steps.play .fx-locks li:nth-child(2) .shackle{transition-delay:.2s}
-.fx-steps.play .fx-locks li:nth-child(3) .shackle{transition-delay:.4s}
-.fx-steps.play .fx-locks li:nth-child(4) .shackle{transition-delay:.6s}
-.fx-pips{display:flex;gap:7px;flex-wrap:wrap}
-.fx-pip{width:22px;height:22px;border-radius:50%;border:2px solid var(--hair2);background:var(--panel)}
-.fx-pip.on{border-color:var(--amber);background:var(--amber);transform:scale(.3);transition:transform .45s cubic-bezier(.2,1.5,.4,1) .3s}
-.fx-steps.play .fx-pip.on{transform:scale(1)}
-.fx-meter-l{font-family:var(--mono);font-size:13px;color:var(--dim);margin-top:12px;line-height:1.6}
-.fx-meter-l b{color:var(--ink);font-weight:600}
-.fx-lanes{display:grid;gap:9px}
-.fx-lane{display:grid;grid-template-columns:96px 1fr 22px;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;color:var(--ink)}
-.fx-lane .tr{height:8px;border-radius:4px;background:var(--floor);overflow:hidden}
-.fx-lane .tr i{display:block;height:100%;background:var(--pass);transform:scaleX(0);transform-origin:left;transition:transform 1.2s cubic-bezier(.35,.6,.3,1) .2s}
-.fx-steps.play .fx-lane .tr i{transform:scaleX(1)}
-.fx-lane .ck{color:var(--pass);font-weight:700;opacity:0;transition:opacity .3s 1.4s}
-.fx-steps.play .fx-lane .ck{opacity:1}
-.fx-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
-.fx-chips span{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--pass);background:#79b86b18;border:1px solid #79b86b40;border-radius:4px;padding:3px 8px}
-
-/* why it matters: trap cards */
-.fx-traps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:38px}
-.fx-trap{background:var(--panel);border:1px solid var(--hair);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform .18s,border-color .18s}
-.fx-trap:hover{transform:translateY(-3px);border-color:var(--hair2)}
-.fx-trap .hd{padding:20px 22px 6px}
-.fx-trap h3{font-size:19px;line-height:1.25}
-.fx-diff{margin:14px 22px 0;border:1px solid var(--hair);border-radius:8px;font-family:var(--mono);font-size:13.5px;overflow:hidden}
-.fx-diff div{display:grid;grid-template-columns:94px 1fr;gap:10px;padding:9px 12px}
-.fx-diff div+div{border-top:1px dashed var(--hair)}
-.fx-diff b{font-weight:500;color:var(--dim)}
-.fx-diff .bad{background:#e0664a12}
-.fx-diff .bad span{color:var(--fail);font-weight:600}
-.fx-trap .ft{margin-top:auto;padding:16px 22px 20px;display:flex;justify-content:space-between;align-items:center;gap:10px}
-.fx-trap .ft small{font-family:var(--mono);font-size:12px;color:var(--faint)}
-.fx-quote{margin-top:42px;display:flex;gap:22px;align-items:center;background:var(--panel);border:1px solid var(--hair2);border-radius:14px;padding:26px 30px}
-.fx-quote .ic{flex:none;width:56px;height:56px;border-radius:50%;background:var(--amber-w);color:var(--amber);display:flex;align-items:center;justify-content:center}
-.fx-quote p{font-family:var(--display);font-size:clamp(20px,2.1vw,26px);font-weight:700;color:var(--ink);letter-spacing:-.015em;line-height:1.3;max-width:none}
-
-/* evidence */
-.fx-egrid{display:grid;grid-template-columns:.95fr 1.05fr;gap:52px;align-items:start}
-.fx-term{background:#1B1722;border:1px solid #2E2839;border-radius:12px;overflow:hidden;box-shadow:0 24px 50px -30px rgba(30,20,40,.55)}
-.fx-term .bar{display:flex;align-items:center;gap:7px;padding:11px 14px;border-bottom:1px solid #2E2839;font-family:var(--mono);font-size:11.5px;color:#8B8196;letter-spacing:.08em}
-.fx-term .bar i{width:10px;height:10px;border-radius:50%;background:#3D3648;display:inline-block}
-.fx-term .bar span{margin-left:8px}
-.fx-term pre{background:none;border:0;margin:0;padding:18px 20px 20px;color:#EDE8E1;font-size:13.5px;line-height:1.75;white-space:pre-wrap;word-break:break-word}
-.fx-term .ln{display:block}
-.fx-term .p{color:#D6B78A}
-.fx-term .c{color:#8B8196}
-.fx-term .ok{color:#8FD08A}
-.fx-term.js .ln{opacity:0;transform:translateY(3px);transition:opacity .35s,transform .35s}
-.fx-term.play .ln{opacity:1;transform:none}
-.fx-manifest{margin-top:22px;background:var(--panel);border:1px solid var(--hair);border-radius:12px;padding:20px 22px}
-.fx-manifest .top{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1px solid var(--hair)}
-.fx-manifest .top b{font-family:var(--display);font-size:26px;font-weight:800;color:var(--ink);letter-spacing:-.02em}
-.fx-manifest .top span{font-family:var(--mono);font-size:12.5px;color:var(--dim)}
-.fx-manifest ul{list-style:none;margin:6px 0 0}
-.fx-manifest li{display:flex;gap:12px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--hair);font-size:16px;color:var(--body)}
-.fx-manifest li:last-child{border-bottom:0}
-.fx-manifest li svg{flex:none;color:var(--amber)}
-.fx-hash{font-family:var(--mono);font-size:12px;color:var(--faint);margin-top:10px;word-break:break-all}
-.fx-scope{margin-top:44px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start;border:1px dashed var(--hair2);border-radius:12px;padding:24px 26px;background:var(--panel2)}
-.fx-scope .ic{width:44px;height:44px;border-radius:10px;background:var(--panel);border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;color:var(--amber-d)}
-.fx-scope h3{font-size:19px;margin-bottom:6px}
-.fx-scope p{font-size:16.5px;max-width:60em}
-
-/* closing */
-.fx-cta{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
-.fx-mini{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:22px;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
-.fx-mini span{background:var(--panel);border:1px solid var(--hair);border-radius:999px;padding:6px 13px}
-.fx-mini i{color:var(--amber);font-style:normal}
-
-.fx-legend i{flex:none}.fx-legend b{white-space:nowrap}
-@media(max-width:600px){.fx-term pre{white-space:pre;overflow-x:auto;word-break:normal;font-size:12.5px}}
-@media(max-width:940px){
-  .fx-tgrid,.fx-hgrid,.fx-egrid,.fx-cta{grid-template-columns:minmax(0,1fr);gap:34px}
-  .fx-steps,.fx-traps{grid-template-columns:minmax(0,1fr)}
-  .fx-steps:before{display:none}
-  .fx-stats{grid-template-columns:1fr 1fr}
-  .fx-stat,.fx-stat+.fx-stat{padding:20px 12px 14px 0;border-left:0;border-bottom:1px solid #3D3648}
-  .fx-stat:nth-child(even){padding-left:16px;border-left:1px solid #3D3648}
-  .fx-stat:last-child{grid-column:1/-1;padding-left:0;border-left:0}
-  .fx-quote{flex-direction:column;align-items:flex-start;padding:22px}
-  .fx-scope{grid-template-columns:minmax(0,1fr)}
-  .fx-replay{position:static;display:block;margin:10px auto 0}
-}
-@media(prefers-reduced-motion:reduce){
-  .fx-pipe.js .k,.fx-pipe.js .pop,.fx-pipe.js .drop{opacity:1!important;transform:none!important}
-  .fx-pipe.js .dr{stroke-dashoffset:0!important}.fx-pipe.js .bar{transform:none!important}
-  .fx-pipe.js .drop{opacity:0!important}
-  .fx-seg,.fx-tile:after,.fx-lane .tr i,.fx-pip.on{transform:none!important}
-  .fx-lane .ck,.fx-term.js .ln{opacity:1!important;transform:none!important}
-  .fx-replay{display:none}
-}
-
-/* ---------- coverage catalogue ---------- */
-.cv-arch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
-.cv-arch .panel{padding:22px 24px}
-.cv-arch h3{margin:8px 0 8px}
-.cv-arch .tag{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
-.cv-legend{display:flex;flex-wrap:wrap;gap:14px 26px;margin:22px 0 6px}
-.cv-legend div{display:flex;gap:10px;align-items:baseline;font-size:15.5px;color:var(--dim);max-width:30em}
-.pill{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid;white-space:nowrap}
-.pill.q{color:var(--pass);border-color:var(--pass);background:#EAF3EC}
-.pill.i{color:var(--unknown);border-color:var(--unknown);background:#FAF3DF}
-.pill.r{color:var(--faint);border-color:var(--hair2);background:var(--panel2)}
-.cv-table{width:100%;border-collapse:collapse;font-size:16px;min-width:760px}
-.cv-table th{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);text-align:left;font-weight:500;padding:14px 14px;border-bottom:1px solid var(--hair2)}
-.cv-table td{padding:16px 14px;border-bottom:1px solid var(--hair);vertical-align:top;color:var(--body)}
-.cv-table td b{color:var(--ink);font-weight:600}
-.cv-table tr:last-child td{border-bottom:none}
-.cv-table .ev{font-family:var(--mono);font-size:13.5px;color:var(--dim);font-variant-numeric:tabular-nums}
-.cv-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.cv-chips span{font-family:var(--mono);font-size:13px;padding:5px 11px;border:1px solid var(--hair2);border-radius:6px;background:var(--panel)}
-.cv-band{background:var(--panel2)}
-.cv-band .grid2{align-items:center}
-.cv-mini{display:flex;flex-direction:column;gap:10px}
-.cv-mini div{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:12px 16px;background:var(--panel);border:1px solid var(--hair);border-radius:8px;font-size:16px}
-.cv-mini b{color:var(--ink);font-weight:600}
-@media(max-width:940px){.cv-arch{grid-template-columns:minmax(0,1fr)}}
-
-/* animated explainers: each is a self-contained dark stage in an iframe, sized to its content */
-.ly-anim{margin-top:28px;border-radius:16px;overflow:hidden;background:#06061A;box-shadow:0 1px 0 var(--hair),0 18px 40px -24px rgba(24,21,19,.45)}
-.ly-anim iframe{display:block;width:100%;border:0;background:#06061A}
-.ly-anim-note{margin-top:14px}
-.ly-anim-note a{color:var(--amber);font-weight:500;border-bottom:1px solid currentColor}
-
-/* ---------- multi-page additions ---------- */
-[id]{scroll-margin-top:100px}
-nav.tabs .tablink[aria-current="page"]{color:var(--amber);background:var(--amber-w)}
-.page-hero{padding:72px 0 56px}
-.jump{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:22px}
-.jump a{font-family:var(--sans);font-size:15px;color:var(--ink);text-decoration:none;border:1px solid var(--hair2);border-radius:999px;padding:7px 14px;background:var(--panel)}
-.jump a:hover{border-color:var(--amber-d);color:var(--amber-d)}
-ul.plain{list-style:none;margin:10px 0 0}
-ul.plain li{font-size:16.5px;padding:8px 0 8px 21px;position:relative;border-bottom:1px dashed var(--hair);color:var(--body)}
-ul.plain li::before{content:"";position:absolute;left:2px;top:17px;width:8px;height:8px;border-radius:50%;background:var(--amber)}
-.founder{display:flex;gap:22px;align-items:flex-start;margin-top:30px;background:var(--panel);border:1px solid var(--hair);border-radius:10px;padding:26px 28px}
-.founder h3{margin:8px 0 8px}
-.founder p{font-size:17px;color:var(--body);max-width:62ch}
-.founder-mark{flex:none;width:58px;height:58px;border-radius:50%;background:#573A9C;color:#FBF9F6;display:grid;place-items:center;font-family:var(--display);font-weight:800;letter-spacing:.06em}
-.linkcards a.card{text-decoration:none;display:block}
-.linkcards a.card h3{color:var(--ink)}
-.linkcards a.card:hover h3{color:var(--amber-d)}
-.fgrid{grid-template-columns:1.5fr repeat(4,1fr)}
-.band.hero h1 + .lead{margin-top:18px}
-@media(max-width:940px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){.fgrid{grid-template-columns:minmax(0,1fr)}}
-@media(max-width:600px){.founder{flex-direction:column;padding:22px}.btn{white-space:normal;max-width:100%;text-align:center}}
-.cta{display:flex;flex-wrap:wrap;gap:12px}
-.anim-frame{border-radius:14px;overflow:hidden;background:#06061A;border:1px solid var(--hair)}
-.anim-frame iframe{display:block;width:100%;aspect-ratio:960/560;border:0}
-@media(max-width:600px){.anim-frame iframe{aspect-ratio:960/940}#for-engineers table{min-width:0}#for-engineers td.mono{font-size:12.5px;word-break:break-all}}
-.stepno{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--amber-d);margin-bottom:8px}
+body{margin:0;background:#15184D}
+a{color:#5B3CC4}a:hover{color:#15184D}
+/* "Your Agent, One Judge" animation (ported from lightyr.ai), scoped to .lyverify */
+.lyverify{--void:#06061A; --panel:#0E0D26; --line:#2A2850; --fg:#F4F2FF; --muted:#A9A5C8;
+  --violet:#8B5CFF; --filament:#FFB547; --ok:#2BD4A0; --bad:#FF5A4E; --agent:#5CD0F5;
+  --display:'Archivo','Arial Narrow',sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --T:14s;
+  color-scheme:dark;}
+.lyverify *{box-sizing:border-box}
+.lyverify .wrap{max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.lyverify .stage{position:relative;border:1px solid var(--line);border-radius:14px;background:var(--void);overflow:hidden}
+.lyverify .stage svg{display:block;width:100%;height:auto}
+.lyverify .toggle{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px;min-height:40px;cursor:pointer}
+.lyverify .toggle:hover{border-color:var(--violet)}
+.lyverify .toggle:focus-visible{outline:2px solid var(--filament);outline-offset:2px}
+.lyverify .row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.lyverify .caps{display:grid;flex:1 1 360px;min-height:1.3em}
+.lyverify .cap{grid-area:1/1;margin:0;font-family:var(--display);font-stretch:85%;font-weight:700;font-size:clamp(18px,2.4vw,24px);line-height:1.25;opacity:0}
+.lyverify .tag{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+.lyverify .run .anim{animation-duration:var(--T);animation-iteration-count:infinite;animation-timing-function:ease-in-out;animation-fill-mode:both}
+.lyverify .paused .anim,.lyverify .paused .eyes,.lyverify .paused .gear,.lyverify .paused .bob{animation-play-state:paused}
+.lyverify .fb{transform-box:fill-box;transform-origin:center}
+.lyverify .bob{animation:bob 2.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.lyverify .eyes{transform-box:fill-box;transform-origin:center;animation:blink 3.7s infinite}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.lyverify .gear{transform-box:fill-box;transform-origin:center;animation:spin 2.4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.lyverify .k0{animation-name:k0}
+.lyverify .k1{animation-name:k1}
+.lyverify .k2{animation-name:k2}
+.lyverify .k3{animation-name:k3}
+@keyframes k0{0%,22%{opacity:1}24%,100%{opacity:0}}
+@keyframes k1{0%,23%{opacity:0}25%,45%{opacity:1}47%,100%{opacity:0}}
+@keyframes k2{0%,46%{opacity:0}48%,68%{opacity:1}70%,100%{opacity:0}}
+@keyframes k3{0%,69%{opacity:0}71%,97%{opacity:1}99%,100%{opacity:0}}
+.lyverify .h1{animation-name:h1}
+.lyverify .h2{animation-name:h2}
+.lyverify .h3{animation-name:h3}
+.lyverify .h4{animation-name:h4}
+@keyframes h1{0%,23%{stroke:#FFB547}25%,100%{stroke:#2A2850}}
+@keyframes h2{0%,24%{stroke:#2A2850}26%,48%{stroke:#FFB547}50%,100%{stroke:#2A2850}}
+@keyframes h3{0%,49%{stroke:#2A2850}51%,73%{stroke:#FFB547}75%,100%{stroke:#2A2850}}
+@keyframes h4{0%,74%{stroke:#2A2850}76%,98%{stroke:#FFB547}100%{stroke:#2A2850}}
+.lyverify .p1{animation-name:p1}
+.lyverify .p2{animation-name:p2}
+@keyframes p1{0%,3%{opacity:0;transform:translate(0,0)}4%{opacity:1;transform:translate(0,0)}9%,10%{opacity:1;transform:translate(272px,-84px)}14%{opacity:1;transform:translate(434px,-92px)}16%,100%{opacity:0;transform:translate(434px,-92px)}}
+@keyframes p2{0%,47%{opacity:0;transform:translate(0,0)}48%{opacity:1;transform:translate(0,0)}53%,54%{opacity:1;transform:translate(272px,-84px)}58%{opacity:1;transform:translate(434px,-92px)}60%,100%{opacity:0;transform:translate(434px,-92px)}}
+.lyverify .port{animation-name:port}
+@keyframes port{0%,8%{stroke:#FFB547;stroke-width:2}9%,11%{stroke:#FFF1D0;stroke-width:4}12%,29%{stroke:#FFB547;stroke-width:2}30%,32%{stroke:#FF5A4E;stroke-width:4}33%,52%{stroke:#FFB547;stroke-width:2}53%,55%{stroke:#FFF1D0;stroke-width:4}56%,100%{stroke:#FFB547;stroke-width:2}}
+.lyverify .scan{animation-name:scan}
+@keyframes scan{0%,15%{opacity:0;transform:translateY(0)}16%{opacity:.9;transform:translateY(0)}20%{opacity:.9;transform:translateY(54px)}23.5%{opacity:.9;transform:translateY(0)}24%,59%{opacity:0;transform:translateY(0)}60%{opacity:.9;transform:translateY(0)}64%{opacity:.9;transform:translateY(54px)}68.5%{opacity:.9;transform:translateY(0)}69%,100%{opacity:0;transform:translateY(0)}}
+.lyverify .r1{animation-name:r1}
+.lyverify .r2{animation-name:r2}
+.lyverify .r3{animation-name:r3}
+.lyverify .r4{animation-name:r4}
+@keyframes r1{0%,15%{opacity:0}16%,23.5%{opacity:1}24%,100%{opacity:0}}
+@keyframes r2{0%,23.5%{opacity:0}24.5%,44%{opacity:1}45%,100%{opacity:0}}
+@keyframes r3{0%,59%{opacity:0}60%,68.5%{opacity:1}69%,100%{opacity:0}}
+@keyframes r4{0%,69%{opacity:0}70%,96%{opacity:1}98%,100%{opacity:0}}
+.lyverify .lampA{animation-name:lampA}
+.lyverify .lampR{animation-name:lampR}
+.lyverify .lampG{animation-name:lampG}
+@keyframes lampA{0%,15.5%{fill:#2A2850}16%,18%{fill:#FFB547}19%,20.5%{fill:#2A2850}21%,23%{fill:#FFB547}24%,59.5%{fill:#2A2850}60%,62%{fill:#FFB547}63%,64.5%{fill:#2A2850}65%,67.5%{fill:#FFB547}68.5%,100%{fill:#2A2850}}
+@keyframes lampR{0%,23.5%{fill:#2A2850}24.5%,44%{fill:#FF5A4E}45%,100%{fill:#2A2850}}
+@keyframes lampG{0%,69%{fill:#2A2850}70%,96%{fill:#2BD4A0}98%,100%{fill:#2A2850}}
+.lyverify .vb{animation-name:vb}
+@keyframes vb{0%,15%{opacity:.12}16.5%,23%{opacity:1}24.5%,59%{opacity:.12}60.5%,68%{opacity:1}69.5%,100%{opacity:.12}}
+.lyverify .dial{animation-name:dial;transform-box:fill-box;transform-origin:center}
+@keyframes dial{0%,15%{transform:rotate(0)}23%{transform:rotate(200deg)}59%{transform:rotate(200deg)}68%{transform:rotate(400deg)}100%{transform:rotate(400deg)}}
+.lyverify .stampRed{animation-name:stampRed}
+@keyframes stampRed{0%,23.5%{opacity:0;transform:scale(2.2) rotate(5deg)}26%,43%{opacity:1;transform:scale(1) rotate(5deg)}46%,100%{opacity:0;transform:scale(1) rotate(5deg)}}
+.lyverify .stamp{animation-name:stamp}
+@keyframes stamp{0%,69%{opacity:0;transform:scale(2.2) rotate(-6deg)}71.5%,95%{opacity:1;transform:scale(1) rotate(-6deg)}98%,100%{opacity:0;transform:scale(1) rotate(-6deg)}}
+.lyverify .note{animation-name:note}
+@keyframes note{0%,25%{opacity:0;transform:translate(0,0)}26.5%{opacity:1;transform:translate(0,0)}30%,32%{opacity:1;transform:translate(-178px,-76px)}36%,44%{opacity:1;transform:translate(-360px,-40px)}46%,100%{opacity:0;transform:translate(-360px,-40px)}}
+.lyverify .aha{animation-name:aha}
+@keyframes aha{0%,35%{opacity:0;transform:scale(0)}37%{opacity:1;transform:scale(1.2)}38.5%,43%{opacity:1;transform:scale(1)}45%,100%{opacity:0;transform:scale(0)}}
+.lyverify .bFix{animation-name:bFix}
+@keyframes bFix{0%,38%{opacity:0;transform:translateY(6px)}40%,47%{opacity:1;transform:translateY(0)}49%,100%{opacity:0}}
+.lyverify .bYes{animation-name:bYes}
+@keyframes bYes{0%,86%{opacity:0;transform:translateY(6px)}88%,96%{opacity:1;transform:translateY(0)}98%,100%{opacity:0}}
+.lyverify .type{animation-name:type}
+@keyframes type{0%{transform:translateY(0)}1%{transform:translateY(-4px)}2%{transform:translateY(0)}3%{transform:translateY(-4px)}4%,40%{transform:translateY(0)}41.5%{transform:translateY(-4px)}43%{transform:translateY(0)}44.5%{transform:translateY(-4px)}46%{transform:translateY(0)}47%{transform:translateY(-4px)}48%,100%{transform:translateY(0)}}
+.lyverify .agent{animation-name:agentK}
+@keyframes agentK{0%,33%{transform:translate(0,0) rotate(0)}35%,37%{transform:translate(0,4px) rotate(-4deg)}39%{transform:translate(0,-6px) rotate(0)}41%,85%{transform:translate(0,0)}87%{transform:translate(0,-14px)}89%{transform:translate(0,0)}91%{transform:translate(0,-7px)}93%,100%{transform:translate(0,0)}}
+.lyverify .a1{animation-name:a1}
+.lyverify .a2{animation-name:a2}
+@keyframes a1{0%,4%{opacity:0}5%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes a2{0%,49%{opacity:0}50%,97%{opacity:1}99%,100%{opacity:0}}
+.lyverify .pip1{animation-name:pip1}
+.lyverify .pip2{animation-name:pip2}
+@keyframes pip1{0%,4%{fill:#2A2850}5%,97%{fill:#FFB547}99%,100%{fill:#2A2850}}
+@keyframes pip2{0%,49%{fill:#2A2850}50%,97%{fill:#FFB547}99%,100%{fill:#2A2850}}
+.lyverify .rcpt{animation-name:rcpt;transform-box:fill-box;transform-origin:50% 0}
+@keyframes rcpt{0%,71%{opacity:0;transform:translate(0,0) scaleY(0)}75%,79%{opacity:1;transform:translate(0,0) scaleY(1)}84%{opacity:1;transform:translate(-36px,96px) scale(.7)}86%,100%{opacity:0;transform:translate(-36px,96px) scale(.7)}}
+.lyverify .t1{animation-name:t1}
+.lyverify .t2{animation-name:t2}
+.lyverify .tick{animation-name:tick}
+@keyframes t1{0%,27%{opacity:0}28.5%,97%{opacity:1}99%,100%{opacity:0}}
+@keyframes t2{0%,84%{opacity:0}85.5%,97%{opacity:1}99%,100%{opacity:0}}
+@keyframes tick{0%,86%{opacity:0;transform:scale(0)}88%{opacity:1;transform:scale(1.25)}90%,97%{opacity:1;transform:scale(1)}99%,100%{opacity:0;transform:scale(1)}}
+.lyverify .spark{animation-name:spark}
+@keyframes spark{0%,70%{opacity:0;transform:scale(0)}73%{opacity:1;transform:scale(1.2)}77%{opacity:1;transform:scale(.9)}83%,100%{opacity:0;transform:scale(0)}}
+@media (prefers-reduced-motion: reduce){.lyverify .anim,.lyverify .eyes,.lyverify .gear,.lyverify .bob{animation:none!important}
+.lyverify .k0,.lyverify .k1,.lyverify .k2,.lyverify .p1,.lyverify .p2,.lyverify .scan,.lyverify .r1,.lyverify .r2,.lyverify .r3,.lyverify .stampRed,.lyverify .note,.lyverify .aha,.lyverify .bFix,.lyverify .a1,.lyverify .spark,.lyverify .rcpt,.lyverify .bYes{opacity:0}
+.lyverify .k3,.lyverify .r4,.lyverify .stamp,.lyverify .a2,.lyverify .t1,.lyverify .t2,.lyverify .tick{opacity:1}
+.lyverify .stamp{transform:rotate(-6deg)}
+.lyverify .lampG{fill:#2BD4A0}
+.lyverify .pip1,.lyverify .pip2{fill:#FFB547}
+.lyverify .h1{stroke:#FFB547}
+.lyverify .toggle{display:none}}
+.lyverify{background:var(--void);color:var(--fg);font-family:var(--body);padding:16px;border-radius:16px}
 </style>
-<link href="https://lightyr.ai/verify.html" rel="canonical"/>
-<link href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMy42OCAxMy41MiBMMTYuMCA1LjQ0IEwyOC4zMiAxMy41MiBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0zLjY4IDE4LjQ4IEwxNi4wIDI2LjU2IEwyOC4zMiAxOC40OCBaIi8+PC9zdmc+" rel="icon" type="image/svg+xml"/>
-<link href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iMCIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMjAuNyA3Ni4wNSBMOTAuMCAzMC42IEwxNTkuMyA3Ni4wNSBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0yMC43IDEwMy45NSBMOTAuMCAxNDkuNCBMMTU5LjMgMTAzLjk1IFoiLz48L3N2Zz4=" rel="apple-touch-icon"/>
-<link color="#573A9C" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMy42OCAxMy41MiBMMTYuMCA1LjQ0IEwyOC4zMiAxMy41MiBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0zLjY4IDE4LjQ4IEwxNi4wIDI2LjU2IEwyOC4zMiAxOC40OCBaIi8+PC9zdmc+" rel="mask-icon"/>
-<meta content="#FAF8F4" name="theme-color"/>
-<meta content="website" property="og:type"/>
-<meta content="https://lightyr.ai/" property="og:url"/>
-<meta content="Lightyear — De-risk your cutover with evidence, not judgement" property="og:title"/>
-<meta content="The autonomous factory for systems you cannot afford to break. We manufacture ground truth for systems that have no tests, then prove the replacement behaves identically." property="og:description"/>
-<meta content="Lightyear" property="og:site_name"/>
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="Lightyear — Proof that modernized code behaves the same" name="twitter:title"/>
-<meta content="Anyone can rewrite it. We prove it behaves the same." name="twitter:description"/>
-<meta content="index,follow" name="robots"/>
-<meta content="https://lightyr.ai/og-card.png" property="og:image"/>
-<meta content="1200" property="og:image:width"/>
-<meta content="630" property="og:image:height"/>
-<meta content="https://lightyr.ai/og-card.png" name="twitter:image"/>
-
+<style>
+html{scroll-behavior:smooth}
+@media (max-width: 720px){ h1{font-size:40px !important} h2{font-size:30px !important} }
+</style>
 </head>
-<body data-page="verify">
-<header>
-<div class="wrap navbar">
-<a aria-label="Lightyear home" class="brand" href="index.html">
-<svg aria-labelledby="lyT" class="brand-logo" role="img" viewbox="0 0 360 150" xmlns="http://www.w3.org/2000/svg"> <title id="lyT">Lightyear</title> <defs> <!-- cuts a clear channel through the wings so the wordmark never sits on violet, and leaves no visible band on any background colour --> <mask id="lyBand"> <rect fill="#fff" height="150" width="360" x="0" y="0"></rect> <rect fill="#000" height="36" width="340" x="10" y="57"></rect> </mask> </defs> <g mask="url(#lyBand)"> <path d="M24 66C84 62 125 46 156 20C166 12 173 5 179 4C179.5 3.7 179.8 3.2 180 3C180.2 3.2 180.5 3.7 181 4C187 5 194 12 204 20C235 46 276 62 336 66H24Z" fill="#573A9C"></path> <path d="M24 84C84 88 125 104 156 130C166 138 173 145 179 146C179.5 146.3 179.8 146.8 180 147C180.2 146.8 180.5 146.3 181 146C187 145 194 138 204 130C235 104 276 88 336 84H24Z" fill="#573A9C"></path> </g> <text fill="#A7702C" font-family="Archivo, Arial, sans-serif" font-size="30" font-weight="800" letter-spacing="7" text-anchor="middle" x="180" y="84">LIGHTYEAR</text> </svg>
-</a>
-<button aria-expanded="false" aria-label="Toggle navigation menu" class="menu" onclick="const n=document.querySelector('nav.tabs');this.setAttribute('aria-expanded', n.classList.toggle('open'));">≡</button>
-<nav aria-label="Main" class="tabs">
-<a class="tablink" href="product.html">Product</a>
-<a class="tablink" href="verify.html" aria-current="page">Verify</a>
-<a class="tablink" href="solutions.html">Solutions</a>
-<a class="tablink" href="proof.html">Proof</a>
-<a class="tablink" href="pricing.html">Pricing</a>
-<a class="tablink" href="resources.html">Resources</a>
-<a class="tablink" href="engineers.html">For engineers</a>
+<body>
+<div style="font-family: 'IBM Plex Sans', Arial, sans-serif; color: #15184D; background: #FEFEFE; min-width: 320px">
+
+<section style="background: #15184D; color: #E9E6F7; padding: 0 24px 88px">
+<div style="max-width: 1200px; margin: 0 auto">
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 0">
+<a href="index.html" aria-label="Lightyear home" style="display: flex; align-items: center; margin-left: 8px"><svg viewBox="0 0 360 220" width="88" height="54" role="img" aria-label="LIGHTYEAR"><path fill="#7D57EA" d="M24 96C84 92 125 74 156 47C166 38 173 30 179 29C179.5 28.7 179.8 28.2 180 28C180.2 28.2 180.5 28.7 181 29C187 30 194 38 204 47C235 74 276 92 336 96H24Z"></path><path fill="#7D57EA" d="M24 124C84 128 125 146 156 173C166 182 173 190 179 191C179.5 191.3 179.8 191.8 180 192C180.2 191.8 180.5 191.3 181 191C187 190 194 182 204 173C235 146 276 128 336 124H24Z"></path><text x="180" y="122" fill="#C99A5B" font-family="Arial, sans-serif" font-size="32" font-weight="700" letter-spacing="6" text-anchor="middle">LIGHTYEAR</text></svg></a>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px; font-size: 15px">
+<a href="product.html" style="color: #D3CFEA; text-decoration: none">Product</a>
+<a href="verify.html" aria-current="page" style="color: #FFFFFF; text-decoration: none; border-bottom: 2px solid #7D57EA; padding-bottom: 4px">Verify</a>
+<a href="solutions.html" style="color: #D3CFEA; text-decoration: none">Solutions</a>
+<a href="proof.html" style="color: #D3CFEA; text-decoration: none">Proof</a>
+<a href="pricing.html" style="color: #D3CFEA; text-decoration: none">Pricing</a>
+<a href="resources.html" style="color: #D3CFEA; text-decoration: none">Resources</a>
+<a href="engineers.html" style="color: #D3CFEA; text-decoration: none">For engineers</a>
+<a href="pricing.html" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 12px 18px; border-radius: 8px; font-weight: 600">Book a Verification Sprint</a>
+</div>
 </nav>
-<div class="navcta">
-<a class="btn solid" href="https://calendly.com/lightyr" rel="noopener" target="_blank">Book a sprint</a>
+<div style="display: flex; flex-direction: column; gap: 24px; padding-top: 64px; max-width: 860px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">Lightyear Verify · Preview</p>
+<h1 style="margin: 0; font-size: 56px; line-height: 1.06; font-weight: 700; letter-spacing: -1.4px; color: #FFFFFF">Keep your AI. Get an independent verdict on its work.</h1>
+<p style="margin: 0; font-size: 20px; line-height: 1.55; color: #C9C5E4">Your developers and vendors already use AI agents to rewrite legacy code: Claude, Codex, Google’s ADK or their own. Lightyear Verify lets any of them hand their work to an independent judge inside your environment and get back a signed verdict your risk committee can rely on. Faster delivery, without the risk landing on your desk.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 14px">
+<a href="pricing.html" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 16px 24px; border-radius: 10px; font-weight: 600">Request preview access</a>
+<a href="engineers.html" style="color: #E9E6F7; border: 1px solid #5B5E9C; text-decoration: none; padding: 15px 22px; border-radius: 10px">Read the technical details</a>
 </div>
 </div>
-</header>
-<main>
-<div class="band hero page-hero">
-<div class="wrap">
-<div class="eyebrow">Lightyear Verify · Preview</div>
-<h1 style="margin:18px 0 22px;max-width:22ch">Whatever AI your team uses, get an independent verdict on its work</h1>
-<p class="lead" style="max-width:40em">Your developers and vendors are already using AI agents to rewrite legacy code: Claude, Codex, Google's ADK or their own. Lightyear Verify lets any of them hand what they've built to an independent judge, inside your environment, and get back a signed verdict your risk committee can rely on.</p>
-<div class="cta" style="margin-top:22px"><a class="btn solid" href="mailto:sales@lightyr.ai?subject=Lightyear%20Verify%20preview%20access">Request preview access</a><a class="btn" href="#how">See how it works</a></div>
 </div>
+</section>
+
+<section style="background: #23266A; color: #E9E6F7; padding: 88px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start">
+<div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">The problem</p>
+<h2 style="margin: 0; font-size: 40px; line-height: 1.12; color: #FFFFFF; letter-spacing: -0.8px">AI writes the code in an afternoon. Proving it’s right takes months.</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #C9C5E4">Today the answer comes from the same team, or the same AI, that wrote the code. That isn’t evidence a risk committee, auditor or regulator will accept, so programs stall at sign-off.</p>
 </div>
-<div class="band" id="why">
-<div class="wrap grid2" style="align-items:start">
-<div>
-<div class="eyebrow">The problem</div>
-<h2 style="margin:16px 0 0;max-width:20ch">AI writes the code fast. Nobody can prove it's right.</h2>
-<div class="rule"></div>
-<p class="lead">An AI agent can rewrite a COBOL batch job in an afternoon. The hard question comes after: does the new version produce exactly the same results as the system your business has run on for thirty years?</p>
-<p class="lead" style="margin-top:14px">Today the answer usually comes from the same team, or the same AI, that wrote the code. That's not evidence a risk committee, an auditor or a regulator will accept.</p>
-</div>
-<div class="card" style="margin-top:8px">
-<h3>What decision makers need to know</h3>
-<ul class="plain">
+<div style="flex: 1 1 420px; min-width: 0; background: #2C2F7A; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<h3 style="margin: 0; font-size: 20px; color: #FFFFFF">What decision makers need to know</h3>
+<ul style="margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.8; color: #E9E6F7">
 <li>Does the replacement behave exactly like the original?</li>
 <li>If not, where does it differ, and why?</li>
-<li>Who checked, and can someone else check it again?</li>
+<li>Who checked, and can someone else check again?</li>
 <li>Did our data stay inside our walls?</li>
 </ul>
 </div>
 </div>
+</section>
+
+<section style="background: #1B1E5A; color: #E9E6F7; padding: 88px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">See it in fourteen seconds</p>
+<h2 style="margin: 0 0 6px; font-size: 36px; line-height: 1.15; color: #FFFFFF">Your agent builds. Our judge decides.</h2>
+<div class="lyverify">
+<div class="wrap run" id="vfPlayer">
+  <div class="stage">
+    <svg viewBox="0 0 960 470" role="img" aria-label="Your agent, one judge. An AI coding agent, such as Claude Code, submits its code through a Lightyear MCP connection. The judge sits behind a sealed wall with the hidden answers and the signing key. It runs the code, reports that one field differs without revealing the value, and the agent fixes its code on attempt two of five. The judge returns equivalent, prints a signed receipt, and the Control Tower records both attempts for a human.">
+      <!-- zones -->
+      <rect x="20" y="100" width="462" height="280" rx="14" fill="#0B0A22" stroke="#2A2850" stroke-width="1.5" stroke-dasharray="5 6"></rect>
+      <rect x="518" y="100" width="422" height="280" rx="14" fill="#0E0D26" stroke="#8B5CFF" stroke-width="2"></rect>
+      <g font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.5">
+        <text x="40" y="44" fill="#A9A5C8">YOUR AGENT · MCP CLIENT</text>
+        <text x="538" y="44" fill="#B9A3FF">LIGHTYEAR JUDGE · SEALED</text>
+        <text x="538" y="62" font-size="10.5" letter-spacing=".5" fill="#A9A5C8">separate process · the agent can't read in</text>
+      </g>
+      <!-- harness chips -->
+      <g font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#F4F2FF" text-anchor="middle">
+        <rect class="anim h1" x="40" y="56" width="104" height="26" rx="13" fill="#14132E" stroke="#2A2850" stroke-width="1.5"></rect><text x="92" y="73">Claude Code</text>
+        <rect class="anim h2" x="152" y="56" width="84" height="26" rx="13" fill="#14132E" stroke="#2A2850" stroke-width="1.5"></rect><text x="194" y="73">CLI agent</text>
+        <rect class="anim h3" x="244" y="56" width="54" height="26" rx="13" fill="#14132E" stroke="#2A2850" stroke-width="1.5"></rect><text x="271" y="73">SDK</text>
+        <rect class="anim h4" x="306" y="56" width="64" height="26" rx="13" fill="#14132E" stroke="#2A2850" stroke-width="1.5"></rect><text x="338" y="73">Custom</text>
+        <text x="380" y="73" fill="#A9A5C8" text-anchor="start">…</text>
+      </g>
+
+      <!-- the seal: a wall with one port -->
+      <rect x="494" y="92" width="12" height="296" rx="3" fill="#2A2850"></rect>
+      <g stroke="#3A3760" stroke-width="2"><line x1="494" y1="120" x2="506" y2="108"></line><line x1="494" y1="150" x2="506" y2="138"></line><line x1="494" y1="300" x2="506" y2="288"></line><line x1="494" y1="330" x2="506" y2="318"></line><line x1="494" y1="360" x2="506" y2="348"></line></g>
+      <g transform="translate(500 160)">
+        <rect x="-11" y="-4" width="22" height="18" rx="3" fill="#14132E" stroke="#B9A3FF" stroke-width="1.8"></rect>
+        <path d="M-6 -4v-5a6 6 0 0 1 12 0v5" fill="none" stroke="#B9A3FF" stroke-width="1.8"></path>
+        <circle cx="0" cy="5" r="2" fill="#B9A3FF"></circle>
+      </g>
+      <!-- MCP port through the wall -->
+      <rect class="anim port" x="440" y="204" width="120" height="50" rx="10" fill="#1C1B3A" stroke="#FFB547" stroke-width="2"></rect>
+      <text x="500" y="226" text-anchor="middle" font-family="Archivo, sans-serif" font-size="17" font-weight="800" fill="#F4F2FF">MCP</text>
+      <text x="500" y="243" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#A9A5C8">lightyear-verify</text>
+      <!-- attempt budget -->
+      <g font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1" text-anchor="middle">
+        <text class="anim a1" x="424" y="276" fill="#FFB547">ATTEMPT 1 OF 5</text>
+        <text class="anim a2" x="424" y="276" fill="#FFB547">ATTEMPT 2 OF 5</text>
+      </g>
+      <g>
+        <circle class="anim pip1" cx="408" cy="290" r="4" fill="#2A2850"></circle><circle class="anim pip2" cx="420" cy="290" r="4" fill="#2A2850"></circle>
+        <circle cx="432" cy="290" r="4" fill="#2A2850"></circle><circle cx="444" cy="290" r="4" fill="#2A2850"></circle><circle cx="456" cy="290" r="4" fill="#2A2850"></circle>
+      </g>
+
+      <!-- your agent (not ours: any model, any harness) -->
+      <g transform="translate(170 352)"><g class="bob"><g class="anim agent" style="transform-box:fill-box;transform-origin:50% 100%">
+        <line x1="0" y1="-112" x2="0" y2="-98" stroke="#5CD0F5" stroke-width="3"></line><circle cx="0" cy="-114" r="5" fill="#FFB547"></circle>
+        <rect x="-32" y="-98" width="64" height="52" rx="18" fill="#5CD0F5"></rect>
+        <rect x="-24" y="-90" width="48" height="32" rx="12" fill="#14132E"></rect>
+        <g class="eyes"><ellipse cx="-8" cy="-75" rx="5" ry="6" fill="#F4F2FF"></ellipse><ellipse cx="12" cy="-75" rx="5" ry="6" fill="#F4F2FF"></ellipse></g>
+        <path d="M-2 -65Q4 -61 10 -65" stroke="#F4F2FF" stroke-width="2" fill="none" stroke-linecap="round"></path>
+        <rect x="-26" y="-44" width="52" height="38" rx="14" fill="#2E9CC4"></rect>
+        <rect x="18" y="-42" width="46" height="28" rx="4" fill="#14132E" stroke="#5CD0F5" stroke-width="2"></rect>
+        <rect x="24" y="-35" width="22" height="2.5" fill="#B9A3FF"></rect><rect x="24" y="-29" width="30" height="2.5" fill="#5CD0F5"></rect><rect x="24" y="-23" width="16" height="2.5" fill="#B9A3FF"></rect>
+        <rect x="12" y="-14" width="58" height="5" rx="2" fill="#3A3760"></rect>
+        <rect class="anim type" x="10" y="-24" width="14" height="7" rx="3.5" fill="#2E9CC4"></rect>
+        <rect x="-20" y="-8" width="14" height="10" rx="4" fill="#1C6E8E"></rect><rect x="6" y="-8" width="14" height="10" rx="4" fill="#1C6E8E"></rect>
+      </g></g></g>
+      <text x="170" y="372" text-anchor="middle" font-family="Archivo, sans-serif" font-size="14" font-weight="700" fill="#C9C5E6">Your agent</text>
+
+      <!-- code packets -->
+      <g class="anim p1"><rect x="214" y="298" width="44" height="34" rx="5" fill="#1C1B3A" stroke="#5CD0F5" stroke-width="1.5"></rect><text x="236" y="320" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="#5CD0F5">{ }</text></g>
+      <g class="anim p2"><rect x="214" y="298" width="44" height="34" rx="5" fill="#1C1B3A" stroke="#5CD0F5" stroke-width="1.5"></rect><text x="236" y="320" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="#5CD0F5">{ }</text></g>
+
+      <!-- the Verdict Engine -->
+      <g>
+        <rect x="622" y="156" width="96" height="12" rx="4" fill="#2A2850"></rect>
+        <rect x="600" y="166" width="140" height="196" rx="12" fill="#14132E" stroke="#8B5CFF" stroke-width="2"></rect>
+        <rect x="612" y="178" width="116" height="70" rx="6" fill="#06061A" stroke="#3A3760" stroke-width="1.5"></rect>
+        <g fill="#2A2850"><rect x="622" y="190" width="44" height="3"></rect><rect x="674" y="190" width="44" height="3"></rect><rect x="622" y="198" width="36" height="3"></rect><rect x="674" y="198" width="36" height="3"></rect><rect x="622" y="206" width="40" height="3"></rect><rect x="674" y="206" width="40" height="3"></rect></g>
+        <line x1="670" y1="186" x2="670" y2="212" stroke="#2A2850" stroke-width="1"></line>
+        <rect class="anim scan" x="614" y="182" width="112" height="2" fill="#FFB547"></rect>
+        <g font-family="IBM Plex Mono, monospace" font-size="10.5" font-weight="600" letter-spacing="1" text-anchor="middle">
+          <text class="anim r1" x="670" y="235" fill="#FFB547">COMPARING</text>
+          <text class="anim r2" x="670" y="235" fill="#FF5A4E">1 FIELD DIFFERS</text>
+          <text class="anim r3" x="670" y="235" fill="#FFB547">RE-CHECKING</text>
+          <text class="anim r4" x="670" y="235" fill="#2BD4A0">EQUIVALENT</text>
+        </g>
+        <circle class="anim lampA" cx="646" cy="266" r="6" fill="#2A2850"></circle>
+        <circle class="anim lampR" cx="670" cy="266" r="6" fill="#2A2850"></circle>
+        <circle class="anim lampG" cx="694" cy="266" r="6" fill="#2A2850"></circle>
+        <text x="670" y="294" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1.5" font-weight="600" fill="#F4F2FF">VERDICT ENGINE</text>
+        <text x="670" y="309" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#A9A5C8">fixed rules · no AI</text>
+        <rect x="638" y="320" width="64" height="5" rx="2" fill="#06061A"></rect>
+        <g class="gear"><circle cx="722" cy="342" r="9" fill="none" stroke="#8B5CFF" stroke-width="5" stroke-dasharray="4 3"></circle><circle cx="722" cy="342" r="3.5" fill="#8B5CFF"></circle></g>
+      </g>
+
+      <!-- hidden answers + signing key, sealed with the engine -->
+      <line class="anim vb" x1="790" y1="214" x2="742" y2="214" stroke="#FFB547" stroke-width="3" stroke-dasharray="6 4" style="filter:drop-shadow(0 0 5px #FFB547)"></line>
+      <g>
+        <rect x="790" y="164" width="124" height="100" rx="10" fill="#14132E" stroke="#3A3760" stroke-width="2"></rect>
+        <rect x="798" y="172" width="108" height="84" rx="6" fill="none" stroke="#2A2850" stroke-width="1.5"></rect>
+        <circle cx="852" cy="214" r="24" fill="#0E0D26" stroke="#B9A3FF" stroke-width="2"></circle>
+        <g class="anim dial"><circle cx="852" cy="214" r="15" fill="none" stroke="#8B5CFF" stroke-width="2.5" stroke-dasharray="3 4"></circle><line x1="852" y1="214" x2="852" y2="201" stroke="#FFB547" stroke-width="3" stroke-linecap="round"></line></g>
+        <circle cx="852" cy="214" r="4" fill="#B9A3FF"></circle>
+        <rect x="888" y="204" width="8" height="20" rx="3" fill="#3A3760"></rect>
+      </g>
+      <g font-family="IBM Plex Mono, monospace" text-anchor="middle">
+        <text x="852" y="282" font-size="10.5" letter-spacing="1.2" font-weight="600" fill="#F4F2FF">HIDDEN ANSWERS</text>
+        <text x="852" y="296" font-size="9.5" fill="#A9A5C8">never leave the seal</text>
+      </g>
+      <g transform="translate(836 330)">
+        <circle cx="0" cy="0" r="8" fill="none" stroke="#FFB547" stroke-width="3"></circle>
+        <path d="M8 0h22M24 0v7M30 0v5" stroke="#FFB547" stroke-width="3" fill="none" stroke-linecap="round"></path>
+      </g>
+      <text x="852" y="356" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1.2" fill="#A9A5C8">SIGNING KEY</text>
+
+      <!-- verdict stamps -->
+      <g class="anim stampRed fb">
+        <rect x="587" y="108" width="166" height="44" rx="5" fill="#06061A" stroke="#FF5A4E" stroke-width="3"></rect>
+        <text x="670" y="131" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="600" font-size="17" letter-spacing="2" fill="#FF5A4E">DIVERGENT</text>
+        <text x="670" y="145" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1" fill="#A9A5C8">1 FIELD DIFFERS</text>
+      </g>
+      <g class="anim stamp fb">
+        <rect x="587" y="108" width="166" height="44" rx="5" fill="#06061A" stroke="#2BD4A0" stroke-width="3"></rect>
+        <text x="670" y="131" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="600" font-size="17" letter-spacing="2" fill="#2BD4A0">EQUIVALENT</text>
+        <text x="670" y="145" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1" fill="#A9A5C8">SIGNED · REPLAYABLE</text>
+      </g>
+      <path class="anim spark fb" d="M586 92l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#FFB547"></path>
+      <path class="anim spark fb" d="M764 160l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#2BD4A0"></path>
+
+      <!-- the diagnostic: field named, value withheld -->
+      <g class="anim note">
+        <rect x="606" y="296" width="176" height="42" rx="6" fill="#2A0F1A" stroke="#FF5A4E" stroke-width="1.5"></rect>
+        <text x="618" y="313" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#FFB3AC">FIELD: interest amount</text>
+        <text x="618" y="329" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#A9A5C8">value: not shared</text>
+      </g>
+
+      <!-- agent reactions -->
+      <g class="anim aha fb"><circle cx="214" cy="242" r="14" fill="#FFB547"></circle><text x="214" y="249" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="900" font-size="20" fill="#06061A">!</text></g>
+      <g class="anim bFix"><rect x="94" y="196" width="128" height="28" rx="14" fill="#F4F2FF"></rect><path d="M150 224l6 9l6 -9z" fill="#F4F2FF"></path><text x="158" y="215.5" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="500" font-size="13" fill="#06061A">Got it. Fixing!</text></g>
+      <g class="anim bYes"><rect x="140" y="196" width="56" height="28" rx="14" fill="#F4F2FF"></rect><path d="M162 224l6 9l6 -9z" fill="#F4F2FF"></path><text x="168" y="215.5" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="500" font-size="13" fill="#06061A">Yes!</text></g>
+
+      <!-- Control Tower -->
+      <rect x="300" y="396" width="400" height="66" rx="10" fill="#0E0D26" stroke="#3A3760" stroke-width="1.5"></rect>
+      <text x="316" y="414" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1.3" fill="#A9A5C8">CONTROL TOWER · EVERY ATTEMPT ON THE RECORD</text>
+      <g font-family="IBM Plex Mono, monospace" font-size="10.5">
+        <text class="anim t1" x="316" y="434" fill="#FFB3AC">#1  divergent · interest amount</text>
+        <text class="anim t2" x="316" y="452" fill="#2BD4A0">#2  equivalent · signed receipt</text>
+      </g>
+      <g transform="translate(664 436)">
+        <circle cx="0" cy="-10" r="7" fill="#C9C5E6"></circle>
+        <path d="M-12 14q0-14 12-14t12 14z" fill="#C9C5E6"></path>
+        <g class="anim tick fb"><circle cx="15" cy="-12" r="8" fill="#2BD4A0"></circle><path d="M11 -12l3 3 6-6" fill="none" stroke="#06061A" stroke-width="2.2" stroke-linecap="round"></path></g>
+      </g>
+      <g class="anim rcpt">
+        <rect x="642" y="323" width="56" height="34" rx="2" fill="#F4F2FF"></rect>
+        <rect x="648" y="329" width="30" height="2.5" fill="#8B5CFF"></rect><rect x="648" y="335" width="40" height="2.5" fill="#A9A5C8"></rect><rect x="648" y="341" width="24" height="2.5" fill="#A9A5C8"></rect>
+        <path d="M676 348l4 4 8-9" fill="none" stroke="#2BD4A0" stroke-width="2.5" stroke-linecap="round"></path>
+      </g>
+    </svg>
+  </div>
+  <div class="row">
+    <div class="caps" aria-live="off">
+      <p class="cap anim k0">Your agent sends its code through an MCP connection.</p>
+      <p class="cap anim k1">The sealed judge runs it on hidden data and names the field, never the answer.</p>
+      <p class="cap anim k2">The agent fixes its code and tries again, within a fixed budget.</p>
+      <p class="cap anim k3">Equivalent. Signed, replayable, every attempt on the record.</p>
+    </div>
+    <span class="tag">Your agent builds. Our judge decides.</span>
+    <button type="button" class="toggle" aria-pressed="false" id="vfPause">Pause</button>
+  </div>
 </div>
-<div class="band sunk" id="how">
-<div class="wrap">
-<div class="eyebrow">How a customer uses it</div>
-<h2 style="margin:16px 0 0;max-width:26ch">Your team keeps its AI. We provide the judge.</h2>
-<div class="rule"></div>
-<div class="grid4" style="margin-bottom:30px">
-<div class="card"><div class="stepno">01</div><h3>Work as usual</h3><p>Your team, or your modernization vendor, rewrites a legacy program with whichever AI agent they prefer.</p></div>
-<div class="card"><div class="stepno">02</div><h3>The agent asks for a verdict</h3><p>It connects to Lightyear Verify through MCP, the open standard most AI agents already use, and submits the new program.</p></div>
-<div class="card"><div class="stepno">03</div><h3>The judge checks it independently</h3><p>Inside your environment, it runs the program on your own test data and compares every field with what the legacy system produced.</p></div>
-<div class="card"><div class="stepno">04</div><h3>You get signed evidence</h3><p>A pass, or exactly where the results differ. Every attempt is recorded and can be re-checked by anyone, months later.</p></div>
-</div>
-<div class="anim-frame"><iframe src="verify-animation.html" title="Animation: an AI agent submits code to Lightyear Verify; the independent judge reports where it differs without revealing the answer; the agent fixes it; the judge signs the verdict" loading="lazy" onload="fitFrame(this)"></iframe></div>
-<script>
-function fitFrame(f){
-  function fit(){try{var b=f.contentDocument&&f.contentDocument.body;if(b){f.style.aspectRatio='auto';f.style.height=Math.ceil(b.getBoundingClientRect().height)+'px';}}catch(e){}}
-  fit(); if(!f._fit){f._fit=1; window.addEventListener('resize',function(){f.style.height='';f.style.aspectRatio='';requestAnimationFrame(fit);});}
-}
-</script>
 </div>
 </div>
-<div class="band" id="value">
-<div class="wrap">
-<div class="eyebrow">Why it matters</div>
-<h2 style="margin:16px 0 0;max-width:26ch">Proof you can take to the committee</h2>
-<div class="rule"></div>
-<div class="grid4">
-<div class="card"><h3>Any AI, one standard of proof</h3><p>Claude, Codex, Google's ADK or an in-house agent: all are checked against the same judge. Change AI vendors without changing how you sign off.</p></div>
-<div class="card"><h3>The AI can't mark its own homework</h3><p>The agent never sees the expected results. It learns where it's wrong, never the right answer, and gets a fixed number of attempts.</p></div>
-<div class="card"><h3>Your data stays with you</h3><p>The judge runs in your environment. On confidential data, the agent learns only pass or fail and which output differs.</p></div>
-<div class="card"><h3>Evidence that survives an audit</h3><p>Every attempt is signed and kept. Your auditor can replay any verdict offline, without us in the room.</p></div>
+</section>
+
+<section style="background: #EFEBFB; padding: 88px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 780px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">How a customer uses it</p>
+<h2 style="margin: 0; font-size: 40px; line-height: 1.12; letter-spacing: -0.8px">Your team keeps its AI. We provide the judge.</h2>
+</div>
+<ol style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px">
+<li style="background: #FFFFFF; border: 1px solid #D8CCF8; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5B3CC4">01</span><h3 style="margin: 0; font-size: 20px">Work as usual</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">Your team or vendor rewrites a legacy program with whichever AI agent they prefer.</p></li>
+<li style="background: #FFFFFF; border: 1px solid #D8CCF8; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5B3CC4">02</span><h3 style="margin: 0; font-size: 20px">The agent asks for a verdict</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">It connects through MCP, the open standard most AI agents already use, and submits the new program.</p></li>
+<li style="background: #FFFFFF; border: 1px solid #D8CCF8; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5B3CC4">03</span><h3 style="margin: 0; font-size: 20px">The judge checks it independently</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">Inside your environment, on your own test data, every field compared with what the legacy system produced.</p></li>
+<li style="background: #FFFFFF; border: 1px solid #D8CCF8; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5B3CC4">04</span><h3 style="margin: 0; font-size: 20px">You get signed evidence</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">A pass, or exactly where results differ. Every attempt recorded, re-checkable months later.</p></li>
+</ol>
+</div>
+</section>
+
+<section style="background: #FEFEFE; padding: 88px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 780px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">Why it matters</p>
+<h2 style="margin: 0; font-size: 40px; line-height: 1.12; letter-spacing: -0.8px">Proof you can take to the committee.</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px">
+<div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 20px">Any AI, one standard</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">Change AI vendors without changing how you sign off.</p></div>
+<div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 20px">The AI can’t mark its own homework</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">It learns where it’s wrong, never the right answer, and gets a fixed number of attempts.</p></div>
+<div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 20px">Your data stays with you</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">The judge runs in your environment. In confidential mode the agent learns only pass or fail and which output differs.</p></div>
+<div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 20px">Evidence that survives an audit</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">Every attempt is signed and kept. Your auditor can replay any verdict offline.</p></div>
 </div>
 </div>
-</div>
-<div class="band" id="preview">
-<div class="wrap">
-<div class="eyebrow">What's in the preview</div>
-<h2 style="margin:16px 0 0;max-width:24ch">What you can use today, and what's coming</h2>
-<div class="rule"></div>
-<div class="grid2" style="align-items:start;gap:28px">
-<div class="card"><h3>Available in the preview</h3>
-<ul class="plain">
-<li>Mainframe batch (COBOL) to Java, starting with the CardDemo interest calculation</li>
+</section>
+
+<section style="background: #FEFEFE; padding: 0 24px 88px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 20px">
+<div style="flex: 1 1 460px; min-width: 0; border: 1px solid #DDD7F2; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #DDF3E6; color: #0F5C33; padding: 5px 9px; border-radius: 6px">AVAILABLE IN THE PREVIEW</span>
+<ul style="margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.8">
+<li>Mainframe batch (COBOL) to Java, starting with CardDemo interest calculation</li>
 <li>Tested live with Claude Code</li>
-<li>Runs inside your environment, with confidential mode for sensitive data</li>
+<li>Runs inside your environment, with confidential mode</li>
 <li>Signed, replayable evidence for every attempt</li>
 <li>People approve every exception; the AI can only propose</li>
-</ul></div>
-<div class="card"><h3>Coming next</h3>
-<ul class="plain">
+</ul>
+</div>
+<div style="flex: 1 1 460px; min-width: 0; border: 1px solid #DDD7F2; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #FCE7CF; color: #8A3B00; padding: 5px 9px; border-radius: 6px">COMING NEXT</span>
+<ul style="margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.8">
 <li>Live tests with Codex, Google ADK and Strands</li>
-<li>More programs and platforms, including Oracle-to-PostgreSQL business processes</li>
+<li>Oracle-to-PostgreSQL business processes</li>
 <li>Qualification on output from a live mainframe</li>
 <li>A packaged install or a hosted judge</li>
 <li>Self-serve pricing</li>
-</ul></div>
+</ul>
 </div>
 </div>
+</section>
+
+<section style="background: #15184D; color: #E9E6F7; padding: 72px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 32px; align-items: center; justify-content: space-between">
+<div style="flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-size: 36px; line-height: 1.15; color: #FFFFFF">Put your AI agent in front of an independent judge.</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #C9C5E4">Tell us which AI your team or vendor uses and which system you’re modernizing. We’ll set up the judge in your environment and run your first verdicts with you.</p>
 </div>
-<div class="band sunk" id="for-engineers">
-<div class="wrap grid2" style="align-items:start">
-<div>
-<div class="eyebrow">For your technical team</div>
-<h2 style="margin:16px 0 0;max-width:20ch">Ten tools. None of them reveal the answers.</h2>
-<div class="rule"></div>
-<p class="lead">Verify is an MCP server with two trust levels. The tools beside the agent hold no secrets. The judge runs as a separate account, with the expected results, the signing key and the attempt budget out of the agent's reach.</p>
-<p class="lead" style="margin-top:14px">On non-public data, confidential mode limits what an agent can learn from each verdict, and attempts are counted against the data itself. We publish the limits, too: the <a href="https://github.com/howardweale/lightyear-carddemo-modernization/blob/main/docs/verify/README.md" rel="noopener" target="_blank">operator guide</a> sets out the threat model.</p>
+<a href="pricing.html" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 16px 24px; border-radius: 10px; font-weight: 600">Request preview access</a>
 </div>
-<div class="panel">
-<table>
-<thead><tr><th>Tool</th><th>What it does</th></tr></thead>
-<tbody>
-<tr><td class="mono">describe_copybook</td><td>Field layout of a legacy record</td></tr>
-<tr><td class="mono">decode_records</td><td>Reads public development records</td></tr>
-<tr><td class="mono">read_job_log</td><td>Parses a public job log</td></tr>
-<tr><td class="mono">lane_status</td><td>What the judge is qualified to compare</td></tr>
-<tr><td class="mono">get_task</td><td>The work order and attempt budget</td></tr>
-<tr><td class="mono">submit_candidate</td><td>Submits the new program</td></tr>
-<tr><td class="mono">get_verdict</td><td>Pass, fail, and where it differs</td></tr>
-<tr><td class="mono">get_budget</td><td>Attempts left</td></tr>
-<tr><td class="mono">get_receipt</td><td>The signed receipt</td></tr>
-<tr><td class="mono">propose_normalization</td><td>Drafts a request for a person to decide</td></tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div class="band">
-<div class="wrap">
-<div class="cta-band">
-<div class="eyebrow">Preview access</div>
-<h2 style="margin:14px 0 14px;max-width:24ch">Put your AI agent in front of an independent judge</h2>
-<p class="lead" style="margin-bottom:26px">Tell us which AI your team or vendor uses and which system you're modernizing. We'll set up the judge in your environment and run your first verdicts with you.</p>
-<div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn solid" href="mailto:sales@lightyr.ai?subject=Lightyear%20Verify%20preview%20access">Request preview access</a><a class="btn" href="pricing.html">Or start with a Verification Sprint</a></div>
-</div>
-</div>
-</div>
-</main>
-<footer>
-<div class="wrap">
-<div class="fgrid">
-<div>
-<div class="fbrand">Lightyear</div>
-<p class="note" style="max-width:46ch">Independent verification for enterprise modernization. Evidence that your new system behaves the way the legacy core does.</p>
-</div>
-<div>
-<div class="fhead">Product</div>
-<a href="product.html">The Verdict Engine</a>
-<a href="product.html#coverage">Coverage catalogue</a>
-<a href="verify.html">Lightyear Verify (preview)</a>
-<a href="proof.html">Proof</a>
-<a href="pricing.html">Pricing</a>
-</div>
-<div>
-<div class="fhead">Solutions</div>
-<a href="solutions.html#banks">Banks and insurers</a>
-<a href="solutions.html#integrators">Vendors and integrators</a>
-<a href="solutions.html#mainframe">Mainframe</a>
-<a href="solutions.html#oracle">Oracle migration</a>
-</div>
-<div>
-<div class="fhead">Resources</div>
-<a href="resources.html#sample-pack">A real evidence pack</a>
-<a href="https://github.com/howardweale/lightyear-carddemo-modernization/tree/main/docs/milestones" rel="noopener" target="_blank">The full evidence record</a>
-<a href="engineers.html#docs">Documentation</a>
-<a href="pricing.html#faq">Questions we get asked</a>
-</div>
-<div>
-<div class="fhead">Company</div>
-<a href="https://calendly.com/lightyr" rel="noopener" target="_blank">Book a call</a>
-<a href="mailto:sales@lightyr.ai">sales@lightyr.ai</a>
-</div>
-</div>
-<p class="note" style="margin-top:28px">© 2026 Lightyear. Figures are measured on the code that ships. Nothing on this site is an unqualified claim of equivalence.</p>
+</section>
+
+<footer style="background: #FEFEFE; padding: 32px 24px; font-size: 13px; color: #676985">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between">
+<span>© 2026 Lightyear. Figures are measured on the code that ships. Nothing on this site is an unqualified claim of equivalence.</span>
+<span>Where context becomes trusted action.</span>
 </div>
 </footer>
+</div>
 <script>
-(function(){
-  var r=document.getElementById('heroReceipt'); if(!r) return;
-  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var kvs=[].slice.call(r.querySelectorAll('.kv')), note=r.querySelector('.note');
-  var v=document.getElementById('hrVerdict'), vt=document.getElementById('hrVerdictText'),
-      reason=document.getElementById('hrReason');
-  if(reduce){ return; }
-  kvs.forEach(function(k){k.style.opacity=0;k.style.transform='translateY(3px)';});
-  if(note) note.style.opacity=0;
-  var wait=function(ms){return new Promise(function(res){setTimeout(res,ms)})};
-  var finalReason=reason.textContent;
-  (async function(){
-    v.classList.add('running'); vt.textContent='reading expected\u2026'; reason.textContent='\u2014';
-    await wait(650); vt.textContent='reading candidate\u2026';
-    await wait(650); vt.textContent='comparing\u2026';
-    for(var i=0;i<kvs.length;i++){ await wait(150); kvs[i].style.opacity=1; kvs[i].style.transform='none'; }
-    await wait(320);
-    v.classList.remove('running'); vt.textContent='indeterminate';
-    reason.textContent=finalReason;
-    await wait(180); if(note) note.style.opacity=1;
-  })();
-})();
-</script>
-<script>
-/* Factory run: animate once when each block scrolls into view */
-(function(){
-  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function fmt(v,el){
-    if(el.dataset.kind==='time'){var s=Math.round(v);return Math.floor(s/60)+'m '+String(s%60).padStart(2,'0')+'s';}
-    var d=+(el.dataset.dec||0);return v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d})+(el.dataset.suffix||'');
-  }
-  function count(root){
-    root.querySelectorAll('.fx-count').forEach(function(el){
-      var to=+el.dataset.to; if(reduce||!to){el.textContent=fmt(to,el);return;}
-      var t0=null,dur=1500;
-      function step(t){ if(!t0)t0=t; var p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);
-        el.textContent=fmt(to*e,el); if(p<1) requestAnimationFrame(step); }
-      requestAnimationFrame(step);
-    });
-  }
-  var blocks=[].slice.call(document.querySelectorAll('[data-fx-play]'));
-  blocks.forEach(function(b){ if(!reduce) b.classList.add('js'); });
-  document.querySelectorAll('.fx-term').forEach(function(t){ if(!reduce) t.classList.add('js'); });
-  if(reduce||!('IntersectionObserver' in window)){ blocks.forEach(function(b){b.classList.add('play');}); return; }
-  var io=new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('play'); count(e.target); io.unobserve(e.target);} });
-  },{threshold:.3});
-  blocks.forEach(function(b){ io.observe(b); });
-  var rp=document.querySelector('.fx-replay'), pipe=document.querySelector('.fx-pipe');
-  if(rp&&pipe) rp.addEventListener('click',function(){ pipe.classList.remove('play'); void pipe.getBoundingClientRect(); pipe.classList.add('play'); });
-})();
-</script>
-<script>
-/* size each animation iframe to its content; re-fit when a hidden tab is shown or the window resizes */
-(function(){
-  function fit(f){try{var b=f.contentDocument&&f.contentDocument.body;if(!b)return;var h=Math.ceil(b.getBoundingClientRect().height);if(h>60)f.style.height=h+'px';}catch(e){}}
-  var frames=[].slice.call(document.querySelectorAll('.ly-anim iframe'));
-  frames.forEach(function(f){
-    f.addEventListener('load',function(){fit(f);try{new ResizeObserver(function(){fit(f);}).observe(f.contentDocument.body);}catch(e){}});
-    if('ResizeObserver' in window)new ResizeObserver(function(){fit(f);}).observe(f);
-  });
-  window.addEventListener('resize',function(){frames.forEach(fit);});
-})();
+(function(){var p=document.getElementById('vfPlayer'),b=document.getElementById('vfPause');
+if(p&&b)b.addEventListener('click',function(){var on=p.classList.toggle('paused');b.setAttribute('aria-pressed',on?'true':'false');b.textContent=on?'Play':'Pause';});})();
 </script>
 </body>
 </html>
