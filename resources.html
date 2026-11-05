@@ -1,712 +1,93 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Resources | Lightyear</title>
-<meta content="See the evidence before you talk to us: a real evidence pack, the full public record, guides and documentation." name="description"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lightyear — Resources</title>
+<meta name="description" content="Judge the evidence before you talk to us: evidence packs, a free verdict on one job, and guides.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMy42OCAxMy41MiBMMTYuMCA1LjQ0IEwyOC4zMiAxMy41MiBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0zLjY4IDE4LjQ4IEwxNi4wIDI2LjU2IEwyOC4zMiAxOC40OCBaIi8+PC9zdmc+">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap">
 <style>
-:root{
-  --void:#FAF8F4; --floor:#F2EEE7; --panel:#FFFFFF; --panel2:#F7F4EF;
-  --hair:#E3DCD1; --hair2:#CFC5B6;
-  --amber:#B4531F; --amber-d:#8A4318; --amber-w:#FAEDE3;
-  --pass:#2F6B3F; --fail:#B03A28; --unknown:#8A6B12;
-  --ink:#181513; --body:#443E37; --dim:#5A5248; --faint:#6E6459;
-  --display:'Archivo',system-ui,sans-serif;
-  --sans:'IBM Plex Sans',system-ui,sans-serif;
-  --mono:'IBM Plex Mono',ui-monospace,monospace;
-  --wrap:1220px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--void);color:var(--body);font-family:var(--sans);font-size:19px;line-height:1.6;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-::selection{background:var(--amber);color:#FFF}
-:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:2px}
-
-.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
-.eyebrow{font-family:var(--mono);font-size:12.5px;line-height:1.5;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:500}
-h1,h2,h3{font-family:var(--display);color:var(--ink);letter-spacing:-.022em;line-height:1.08;font-weight:700}
-h1{font-size:clamp(36px,4.3vw,56px);font-weight:800;letter-spacing:-.03em;line-height:1.06}
-h2{font-size:clamp(26px,2.8vw,37px)}
-h3{font-size:22px;letter-spacing:-.012em}
-p{max-width:36em}
-.lead{font-size:clamp(18px,1.9vw,22.5px);color:var(--body);line-height:1.65}
-.small{font-size:16px;color:var(--dim);line-height:1.6}
-
-/* ---------- nav ---------- */
-header{position:sticky;top:0;z-index:60;background:rgba(250,248,244,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--hair)}
-.navbar{display:flex;align-items:center;gap:20px;min-height:74px}
-.brand{display:flex;align-items:center;gap:10px;flex:none}
-.primary-logo{display:block;object-fit:contain}
-.brand-logo{width:124px;height:52px;flex:none;display:block}
-nav.tabs{display:flex;gap:2px;margin-left:2px;flex:1}
-nav.tabs button{background:none;border:0;color:var(--dim);font-family:var(--sans);font-size:15.5px;padding:8px 11px;white-space:nowrap;cursor:pointer;border-radius:5px;transition:color .16s,background .16s}
-nav.tabs button:hover{color:var(--ink);background:var(--panel)}
-nav.tabs button[aria-selected="true"]{color:var(--amber);background:var(--amber-w)}
-nav.tabs .tablink{color:var(--dim);font-family:var(--sans);font-size:15.5px;padding:8px 11px;white-space:nowrap;border-radius:5px;transition:color .16s,background .16s}
-nav.tabs .tablink:hover{color:var(--ink);background:var(--panel)}
-.navcta{display:flex;gap:10px;align-items:center}
-.btn{font-family:var(--sans);font-size:15.5px;font-weight:500;padding:9px 17px;border-radius:5px;border:1px solid var(--hair2);color:var(--ink);cursor:pointer;background:none;transition:.16s;white-space:nowrap}
-.btn:hover{border-color:var(--amber-d);color:var(--amber)}
-.btn.solid{background:var(--amber);color:#FFF;border-color:var(--amber);font-weight:600}
-.btn.solid:hover{background:#9A4519;color:#FFF}
-.menu{display:none;background:none;border:1px solid var(--hair2);color:var(--ink);border-radius:5px;padding:7px 11px;cursor:pointer;font-size:17px}
-
-/* ---------- panels & receipts (the signature) ---------- */
-.panel{background:var(--panel);border:1px solid var(--hair);border-radius:10px}
-.receipt{background:var(--panel);border:1px solid var(--hair2);border-radius:10px;font-family:var(--mono);font-size:14.5px;overflow:hidden;box-shadow:0 18px 44px -26px rgba(60,45,30,.28)}
-.receipt .rhead{display:flex;justify-content:space-between;align-items:center;padding:12px 17px;border-bottom:1px solid var(--hair);color:var(--dim);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase}
-.receipt .rbody{padding:15px 16px}
-.kv{display:flex;justify-content:space-between;gap:16px;padding:5px 0;border-bottom:1px dashed var(--hair)}
-.kv:last-child{border-bottom:0}
-.kv b{color:var(--dim);font-weight:400}
-.kv span{color:var(--ink);text-align:right}
-.verdict{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;padding:5px 11px;border-radius:4px;font-weight:600}
-.v-pass{color:var(--pass);background:#79b86b18;border:1px solid #79b86b40}
-.v-fail{color:var(--fail);background:#e0664a18;border:1px solid #e0664a40}
-.v-unk{color:var(--unknown);background:#c9a22718;border:1px solid #c9a22745}
-.dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
-
-/* ---------- sections ---------- */
-main{min-height:60vh}
-.pane{display:none;animation:rise .42s cubic-bezier(.2,.7,.3,1)}
-.pane.on{display:block}
-@keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
-.band{padding:78px 0;border-bottom:1px solid var(--hair)}
-.band.tight{padding:54px 0}
-.band.hero{padding:86px 0 74px}
-.grid2{display:grid;grid-template-columns:1.08fr .92fr;gap:56px;align-items:center}
-.band.hero .grid2{align-items:start;grid-template-columns:1.22fr .78fr;gap:48px}
-.band.hero .receipt{margin-top:8px;font-size:13.5px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.card{background:var(--panel);border:1px solid var(--hair);border-radius:10px;padding:24px;transition:border-color .18s,transform .18s}
-.card:hover{border-color:var(--hair2);transform:translateY(-2px)}
-.card h3{margin-bottom:9px}
-.card p{font-size:17px;color:var(--body)}
-.rule{width:56px;height:2px;background:var(--amber);margin:18px 0 22px}
-
-/* stat plate */
-.stat{padding:22px 0}
-.stat .n{font-family:var(--display);font-size:clamp(33px,3.9vw,46px);font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1}
-.stat .n em{font-style:normal;color:var(--amber)}
-.stat .l{font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:9px;line-height:1.5}
-
-/* the agent line */
-.line{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px}
-.agent{background:var(--panel);border:1px solid var(--hair);border-radius:9px;padding:18px;position:relative}
-.agent.judge{border-color:var(--amber-d);background:linear-gradient(180deg,var(--panel2),var(--panel))}
-.agent .rolelab{font-family:var(--mono);font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--dim)}
-.agent.judge .rolelab{color:var(--amber)}
-.agent h4{font-family:var(--display);font-size:19.5px;color:var(--ink);margin:6px 0 8px;font-weight:700}
-.agent p{font-size:15.5px;color:var(--body);line-height:1.55}
-.agent .sees{margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--faint);line-height:1.5}
-.agent.judge .sees{color:var(--amber-d)}
-.membrane{margin:22px 0 0;display:flex;align-items:center;gap:14px}
-.membrane .l{flex:1;height:1px;background:var(--fail);opacity:.55}
-.membrane span{font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--fail)}
-
-/* table */
-table{width:100%;border-collapse:collapse;font-size:17px;min-width:520px}
-.panel{overflow-x:auto}
-th{font-family:var(--mono);font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--dim);text-align:left;padding:0 14px 11px;font-weight:500}
-td{padding:14px;border-top:1px solid var(--hair);color:var(--body);vertical-align:top}
-td:first-child{color:var(--ink);font-weight:500;white-space:nowrap}
-td.mono{font-family:var(--mono);font-size:14.5px}
-
-/* engagement tiers */
-.tier{background:var(--panel);border:1px solid var(--hair);border-radius:11px;padding:28px;display:flex;flex-direction:column}
-.tier.feature{border-color:var(--amber-d);background:linear-gradient(180deg,var(--panel2),var(--panel))}
-.tier .tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
-.tier.feature .tag{color:var(--amber)}
-.tier h3{font-size:23px;margin:9px 0 4px}
-.tier .price{font-family:var(--display);font-size:17px;color:var(--amber);font-weight:600;margin-bottom:16px}
-.tier ul{list-style:none;margin:6px 0 22px;flex:1}
-.tier li{font-size:16.5px;padding:8px 0 8px 21px;position:relative;border-bottom:1px dashed var(--hair);color:var(--body)}
-.tier li:before{content:"";position:absolute;left:0;top:15px;width:8px;height:2px;background:var(--amber)}
-.tier li:last-child{border-bottom:0}
-
-/* faq */
-details{border-bottom:1px solid var(--hair)}
-summary{cursor:pointer;padding:20px 0;font-family:var(--display);font-size:20.5px;color:var(--ink);list-style:none;display:flex;justify-content:space-between;gap:20px;align-items:center;font-weight:600}
-summary::-webkit-details-marker{display:none}
-summary:after{content:"+";color:var(--amber);font-family:var(--mono);font-size:19px;flex:none}
-details[open] summary:after{content:"–"}
-details p{padding:0 0 22px;font-size:17px;max-width:34em}
-
-
-/* Measured fix: .lead, .note and the 92ch inline overrides were running
-   84-112 characters per line. Comfortable prose sits at 55-75; anything past
-   about 78 forces the eye to hunt for the next line start. */
-.lead{max-width:34em}
-.note{max-width:34em}
-.docsec p{max-width:36em}
-
-/* --- hero receipt: plays once on load, then sits still ---------------- */
-#heroReceipt .verdict{transition:color .3s,background .3s,border-color .3s}
-#heroReceipt .verdict.running{color:#6E6459;background:var(--panel);border-color:var(--hair2)}
-#heroReceipt .verdict.running .dot{animation:rcPulse 1s ease-in-out infinite}
-@keyframes rcPulse{0%,100%{opacity:1}50%{opacity:.25}}
-#heroReceipt .kv{opacity:1;
-  transition:opacity .3s ease,transform .3s ease}
-#heroReceipt .kv.in{opacity:1;transform:none}
-#heroReceipt .note{opacity:1;transition:opacity .45s ease}
-#heroReceipt .note.in{opacity:1}
-@media(prefers-reduced-motion:reduce){
-  #heroReceipt .kv,#heroReceipt .note{opacity:1!important;transform:none!important}
-  #heroReceipt .verdict .dot{animation:none!important}
-}
-
-/* --- band rhythm --------------------------------------------------------
-   Every section was eyebrow -> heading -> rule -> prose on one background.
-   Three treatments, alternated, break the flatness with no JavaScript:
-     .band          paper, the default
-     .band.sunk     a half-step down, for supporting or tabular sections
-     .band.feature  full-bleed dark, reserved for one pivotal statement per
-                    tab. Used sparingly, it lands; used often, it is noise. */
-.band.sunk{background:var(--floor)}
-.band.sunk .eyebrow{color:var(--amber-d)}
-.band.sunk .agent.judge .rolelab{color:var(--amber-d)}
-.band.feature{background:#241F2E;border-bottom-color:#241F2E}
-.band.feature h2,.band.feature h3{color:#FBF9F6}
-.band.feature p,.band.feature .lead{color:#CFC7BC}
-.band.feature .eyebrow{color:#D6B78A}
-.band.feature .rule{background:#D6B78A}
-.band.feature .note{color:#9E958A}
-.band.feature .card{background:#2E2839;border-color:#3D3648}
-.band.feature .card h3{color:#FBF9F6}
-.band.feature .card p{color:#CFC7BC}
-.band.feature .agent{background:#2E2839;border-color:#3D3648}
-.band.feature .agent h4{color:#FBF9F6}
-.band.feature .agent p{color:#CFC7BC}
-.band.feature .agent .rolelab{color:#9E958A}
-.band.feature .agent .sees{color:#A79E92}
-/* verdict and status colours were tuned for paper; they need lifting on dark */
-.band.feature .mono,.band.feature td.mono{color:#CFC7BC}
-.band.feature td.mono[style*="--fail"],.band.feature [style*="var(--fail)"]{color:#F09478!important}
-.band.feature [style*="var(--unknown)"]{color:#E8C35E!important}
-.band.feature [style*="var(--pass)"]{color:#8FD08A!important}
-.band.feature .v-unk{color:#E8C35E;background:#3A3320;border-color:#5E5330}
-.band.feature .v-fail{color:#F09478;background:#3A2620;border-color:#5E3A30}
-.band.feature .v-pass{color:#8FD08A;background:#213524;border-color:#345239}
-.band.feature .receipt{background:#2E2839;border-color:#3D3648}
-.band.feature .receipt .rhead{color:#9E958A;border-bottom-color:#3D3648}
-.band.feature .kv{border-bottom-color:#3D3648}
-.band.feature .kv b{color:#9E958A}
-.band.feature .kv span{color:#EDE8E1}
-.band.feature .kv span[style]{color:#F09478!important}
-.band.feature .receipt .note{color:#B5ABA0!important}
-.band.feature .agent.judge{background:#38304A;border-color:#D6B78A}
-.band.feature .agent.judge .rolelab,.band.feature .agent.judge .sees{color:#D6B78A}
-.band.feature .membrane span{color:#E08A6E}
-.band.feature .membrane .l{background:#E08A6E}
-.band.feature .panel{background:#2E2839;border-color:#3D3648}
-.band.feature table td{color:#CFC7BC;border-top-color:#3D3648}
-.band.feature table td:first-child{color:#FBF9F6}
-.band.feature th{color:#9E958A}
-
-/* inline diagrams: scale to the column, never exceed their natural size */
-.diagram{display:block;width:100%;max-width:880px;height:auto;margin:6px auto 0}
-.band.feature .diagram{filter:none}
-.figcap{font-family:var(--mono);font-size:13.5px;color:var(--dim);text-align:center;
-        max-width:70ch;margin:10px auto 0}
-footer{padding:52px 0 38px;color:var(--dim);font-size:13.5px}
-.fgrid{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:34px;padding-bottom:34px;border-bottom:1px solid var(--hair)}
-.fgrid h5{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:13px;font-weight:500}
-.fgrid a{display:block;padding:6px 0;color:var(--body);font-size:16.5px}
-.fgrid a:hover{color:var(--amber)}
-.fbot{display:flex;justify-content:space-between;padding-top:22px;flex-wrap:wrap;gap:12px;font-size:14px}
-
-.note{font-family:var(--mono);font-size:13.8px;color:var(--faint);line-height:1.65}
-.docwrap{display:grid;grid-template-columns:212px minmax(0,1fr);gap:44px;align-items:start}
-.docnav{position:sticky;top:96px}
-.docnav h5{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:0 0 10px;font-weight:500}
-.docnav a{display:block;padding:7px 0;color:var(--body);font-size:16px;border-left:2px solid transparent;padding-left:12px;margin-left:-12px}
-.docnav a:hover{color:var(--amber);border-left-color:var(--amber)}
-.docnav a.active{color:var(--amber);border-left-color:var(--amber);font-weight:600}
-.docsearch{width:100%;margin:0 0 14px;padding:9px 10px;border:1px solid var(--hair2);border-radius:5px;background:var(--panel);color:var(--ink);font:14px var(--sans)}
-.docsearch::placeholder{color:var(--dim)}
-.doc-empty{display:none;padding:24px;border:1px dashed var(--hair2);border-radius:8px;color:var(--dim)}
-.docsec{padding-bottom:44px;margin-bottom:44px;border-bottom:1px solid var(--hair)}
-.docsec:last-child{border-bottom:0}
-.docsec h3{margin-bottom:12px}
-.docsec p{margin-bottom:14px}
-pre{background:var(--floor);border:1px solid var(--hair);border-radius:8px;padding:18px 20px;overflow-x:auto;max-width:100%;font-family:var(--mono);font-size:14.5px;line-height:1.7;color:var(--body);margin:16px 0}
-pre .c{color:var(--dim)}
-pre .k{color:var(--amber-d)}
-pre .s{color:var(--pass)}
-code{font-family:var(--mono);font-size:.93em;color:var(--ink);background:var(--floor);padding:2px 6px;border-radius:4px;border:1px solid var(--hair)}
-.cta-band{background:linear-gradient(160deg,#FFF,var(--floor));border:1px solid var(--hair2);border-radius:12px;padding:44px}
-
-@media(max-width:940px){
-  .navbar{gap:14px}
-  .brand{flex:1}
-  .brand-logo{width:96px;height:40px}
-  .brand{gap:8px}
-  .navbar{gap:10px;min-height:64px}
-  nav.tabs{position:fixed;inset:87px 0 auto;flex-direction:column;background:var(--floor);border-bottom:1px solid var(--hair);padding:10px 18px 16px;display:none}
-  nav.tabs.open{display:flex}
-  nav.tabs button{text-align:left;padding:12px}
-  nav.tabs .tablink{padding:12px}
-  .menu{display:block}
-  .navcta .btn:not(.solid){display:none}
-  .navcta .btn.solid{font-size:13px;padding:8px 13px}
-  .band.hero{padding:52px 0 44px}
-  .grid2,.grid3,.grid4,.line,.fgrid,.docwrap{grid-template-columns:minmax(0,1fr)}
-  .band.hero .grid2{grid-template-columns:minmax(0,1fr);gap:34px}
-  .docnav{position:static;width:100%}
-  .docnav a{margin-left:0;padding-left:10px}
-  table{font-size:15px;min-width:460px}
-  .wrap{padding:0 20px}
-  pre{font-size:13px;padding:14px 15px}
-  .docwrap{gap:26px}
-  .band{padding:54px 0}
-}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-
-/* CIO rewrite: a few additions to the existing system */
-.tablink{font-family:var(--sans);font-size:15px;color:var(--dim);text-decoration:none;
-  padding:8px 12px;border-radius:6px;white-space:nowrap}
-.tablink:hover{color:var(--amber-d);background:var(--amber-w)}
-.metric{font-family:var(--display);font-size:44px;font-weight:800;color:var(--ink);
-  letter-spacing:-.02em;line-height:1}
-.metric.warn{color:var(--fail)}
-.metriclab{font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:6px;line-height:1.5}
-.samplebar{font-family:var(--mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;
-  color:#7A4E06;background:#F5E1BD;border:1px solid #E2C68F;border-radius:4px;
-  padding:5px 10px;display:inline-block;margin-bottom:14px}
-
-/* ================= Factory run (MS-91 case study) ================= */
-.fx-pill{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--pass);background:#E9F2E7;border:1px solid #C3DBBF;border-radius:999px;padding:6px 15px 6px 11px;margin-bottom:20px;cursor:pointer;transition:border-color .16s,background .16s}
-.fx-pill:hover{background:#DFEEDC;border-color:#9CC596}
-.fx-pill b{font-weight:600}
-.fx-pulse{width:8px;height:8px;border-radius:50%;background:var(--pass);flex:none;animation:fxPulse 2.2s infinite}
-@keyframes fxPulse{0%{box-shadow:0 0 0 0 rgba(47,107,63,.45)}70%{box-shadow:0 0 0 9px rgba(47,107,63,0)}100%{box-shadow:0 0 0 0 rgba(47,107,63,0)}}
-
-/* home teaser */
-.fx-teaser{background:linear-gradient(180deg,var(--void),var(--panel2))}
-.fx-tgrid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
-.fx-tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.fx-tile{background:var(--panel);border:1px solid var(--hair);border-radius:12px;padding:22px 22px 18px;position:relative;overflow:hidden}
-.fx-tile:after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,var(--amber),#D6B78A);transform:scaleX(0);transform-origin:left;transition:transform .9s cubic-bezier(.3,.7,.3,1)}
-.play .fx-tile:after,.fx-tiles.play .fx-tile:after{transform:scaleX(1)}
-.fx-tile:nth-child(2):after{transition-delay:.12s}.fx-tile:nth-child(3):after{transition-delay:.24s}.fx-tile:nth-child(4):after{transition-delay:.36s}
-.fx-tile .n{font-family:var(--display);font-size:clamp(30px,3.2vw,40px);font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1}
-.fx-tile .l{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-top:9px;line-height:1.45}
-.fx-link{display:inline-flex;align-items:center;gap:8px;margin-top:24px}
-
-/* factory hero */
-.fx-hero{background:radial-gradient(900px 520px at 88% 12%,rgba(214,183,138,.14),transparent 62%),radial-gradient(700px 480px at 0% 100%,rgba(143,208,138,.07),transparent 60%),#241F2E!important}
-.fx-hero h1{color:#FBF9F6}
-.fx-hero .lead{color:#D8D0C5}
-.fx-hero .btn{color:#FBF9F6;border-color:#5A5068}
-.fx-hero .btn:hover{color:#D6B78A;border-color:#D6B78A}
-.fx-hero .btn.solid{background:#D6B78A;border-color:#D6B78A;color:#241F2E}
-.fx-hero .btn.solid:hover{background:#E5C99E;color:#241F2E}
-.fx-hgrid{display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:center}
-.fx-hgrid h1{font-size:clamp(34px,4vw,52px)}
-.fx-eyebrow-live{display:inline-flex;align-items:center;gap:10px}
-.fx-eyebrow-live .fx-pulse{background:#8FD08A;animation-name:fxPulseD}
-@keyframes fxPulseD{0%{box-shadow:0 0 0 0 rgba(143,208,138,.5)}70%{box-shadow:0 0 0 9px rgba(143,208,138,0)}100%{box-shadow:0 0 0 0 rgba(143,208,138,0)}}
-
-/* the animated pipeline */
-.fx-pipewrap{position:relative}
-.fx-pipe{display:block;width:100%;max-width:520px;height:auto;margin:0 auto}
-.fx-pipe text{font-family:var(--sans)}
-.fx-pipe .t-disp{font-family:var(--display);font-weight:700}
-.fx-pipe .t-mono{font-family:var(--mono);letter-spacing:.14em}
-.fx-replay{position:absolute;right:4px;bottom:-6px;background:none;border:1px solid #4A4158;color:#B5ABA0;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;padding:5px 10px;border-radius:5px;cursor:pointer}
-.fx-replay:hover{color:#D6B78A;border-color:#D6B78A}
-.fx-pipe.js .k{opacity:0}
-.fx-pipe.play .k{animation:fxFade .5s ease var(--d,0s) forwards}
-.fx-pipe.js .dr{stroke-dasharray:1;stroke-dashoffset:1}
-.fx-pipe.play .dr{animation:fxDraw .45s ease var(--d,0s) forwards}
-.fx-pipe .bar{transform-box:fill-box;transform-origin:left center}
-.fx-pipe.js .bar{transform:scaleX(0)}
-.fx-pipe.play .bar{animation:fxGrow 1.5s cubic-bezier(.35,.6,.3,1) var(--d,0s) forwards}
-.fx-pipe .pop{transform-box:fill-box;transform-origin:center}
-.fx-pipe.js .pop{opacity:0;transform:scale(.55)}
-.fx-pipe.play .pop{animation:fxPop .55s cubic-bezier(.2,1.5,.4,1) var(--d,0s) forwards}
-.fx-pipe.js .drop{opacity:0}
-.fx-pipe.play .drop{animation:fxDrop .6s ease-in var(--d,0s) forwards}
-.fx-pipe .glow{transform-box:fill-box;transform-origin:center}
-.fx-pipe.play .glow{animation:fxGlow 2.4s ease-in-out calc(var(--d,0s) + .6s) 2}
-@keyframes fxFade{from{opacity:0}to{opacity:1}}
-@keyframes fxDraw{to{stroke-dashoffset:0}}
-@keyframes fxGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-@keyframes fxPop{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:scale(1)}}
-@keyframes fxDrop{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(24px)}}
-@keyframes fxGlow{0%,100%{opacity:.25;transform:scale(1)}50%{opacity:.6;transform:scale(1.12)}}
-
-/* stats + time split */
-.fx-stats{display:grid;grid-template-columns:repeat(5,1fr);margin-top:58px;border-top:1px solid #3D3648}
-.fx-stat{padding:26px 20px 6px 0}
-.fx-stat+.fx-stat{padding-left:22px;border-left:1px solid #3D3648}
-.fx-stat .n{font-family:var(--display);font-size:clamp(30px,3.4vw,44px);font-weight:800;color:#FBF9F6;letter-spacing:-.03em;line-height:1;white-space:nowrap}
-.fx-stat .n em{font-style:normal;color:#D6B78A}
-.fx-stat .l{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#A79E92;margin-top:10px;line-height:1.5}
-.fx-time{margin-top:40px;background:#2E2839;border:1px solid #3D3648;border-radius:12px;padding:22px 24px}
-.fx-time .hd{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#A79E92}
-.fx-time .hd b{color:#FBF9F6;font-weight:600}
-.fx-track{display:flex;height:16px;border-radius:8px;overflow:hidden;background:#3D3648;margin:16px 0 14px}
-.fx-seg{height:100%;transform:scaleX(0);transform-origin:left;transition:transform 1.1s cubic-bezier(.35,.6,.3,1)}
-.fx-time.play .fx-seg{transform:scaleX(1)}
-.fx-time.play .fx-seg.s2{transition-delay:.9s}
-.fx-time.play .fx-seg.s3{transition-delay:1.8s}
-.fx-seg.s1{background:#D6B78A}.fx-seg.s2{background:#8FD08A}.fx-seg.s3{background:#8B8196}
-.fx-legend{display:flex;gap:26px;flex-wrap:wrap;font-size:15px;color:#CFC7BC}
-.fx-legend span{display:inline-flex;align-items:center;gap:9px}
-.fx-legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
-.fx-legend b{color:#FBF9F6;font-weight:600}
-
-/* how it ran */
-.fx-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px;position:relative}
-.fx-step{background:var(--panel);border:1px solid var(--hair);border-radius:14px;padding:28px 26px 26px;display:flex;flex-direction:column;position:relative}
-.fx-step .num{font-family:var(--display);font-size:15px;font-weight:800;color:#FFF;background:var(--amber);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
-.fx-step h3{font-size:21px;margin-bottom:10px}
-.fx-step p{font-size:16.5px;color:var(--body)}
-.fx-step .vis{margin-top:auto;padding-top:22px}
-.fx-steps:before{content:"";position:absolute;left:12%;right:12%;top:45px;height:2px;background:repeating-linear-gradient(90deg,var(--hair2) 0 6px,transparent 6px 12px);z-index:0}
-.fx-step{z-index:1}
-.fx-locks{list-style:none;border-top:1px dashed var(--hair);margin:0}
-.fx-locks li{display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px dashed var(--hair);font-family:var(--mono);font-size:13.5px;color:var(--ink)}
-.fx-locks svg{flex:none;color:var(--amber)}
-.fx-locks .shackle{transition:transform .35s ease;transform:translateY(-3px)}
-.fx-steps.play .fx-locks .shackle{transform:none}
-.fx-steps.play .fx-locks li:nth-child(2) .shackle{transition-delay:.2s}
-.fx-steps.play .fx-locks li:nth-child(3) .shackle{transition-delay:.4s}
-.fx-steps.play .fx-locks li:nth-child(4) .shackle{transition-delay:.6s}
-.fx-pips{display:flex;gap:7px;flex-wrap:wrap}
-.fx-pip{width:22px;height:22px;border-radius:50%;border:2px solid var(--hair2);background:var(--panel)}
-.fx-pip.on{border-color:var(--amber);background:var(--amber);transform:scale(.3);transition:transform .45s cubic-bezier(.2,1.5,.4,1) .3s}
-.fx-steps.play .fx-pip.on{transform:scale(1)}
-.fx-meter-l{font-family:var(--mono);font-size:13px;color:var(--dim);margin-top:12px;line-height:1.6}
-.fx-meter-l b{color:var(--ink);font-weight:600}
-.fx-lanes{display:grid;gap:9px}
-.fx-lane{display:grid;grid-template-columns:96px 1fr 22px;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;color:var(--ink)}
-.fx-lane .tr{height:8px;border-radius:4px;background:var(--floor);overflow:hidden}
-.fx-lane .tr i{display:block;height:100%;background:var(--pass);transform:scaleX(0);transform-origin:left;transition:transform 1.2s cubic-bezier(.35,.6,.3,1) .2s}
-.fx-steps.play .fx-lane .tr i{transform:scaleX(1)}
-.fx-lane .ck{color:var(--pass);font-weight:700;opacity:0;transition:opacity .3s 1.4s}
-.fx-steps.play .fx-lane .ck{opacity:1}
-.fx-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
-.fx-chips span{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--pass);background:#79b86b18;border:1px solid #79b86b40;border-radius:4px;padding:3px 8px}
-
-/* why it matters: trap cards */
-.fx-traps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:38px}
-.fx-trap{background:var(--panel);border:1px solid var(--hair);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform .18s,border-color .18s}
-.fx-trap:hover{transform:translateY(-3px);border-color:var(--hair2)}
-.fx-trap .hd{padding:20px 22px 6px}
-.fx-trap h3{font-size:19px;line-height:1.25}
-.fx-diff{margin:14px 22px 0;border:1px solid var(--hair);border-radius:8px;font-family:var(--mono);font-size:13.5px;overflow:hidden}
-.fx-diff div{display:grid;grid-template-columns:94px 1fr;gap:10px;padding:9px 12px}
-.fx-diff div+div{border-top:1px dashed var(--hair)}
-.fx-diff b{font-weight:500;color:var(--dim)}
-.fx-diff .bad{background:#e0664a12}
-.fx-diff .bad span{color:var(--fail);font-weight:600}
-.fx-trap .ft{margin-top:auto;padding:16px 22px 20px;display:flex;justify-content:space-between;align-items:center;gap:10px}
-.fx-trap .ft small{font-family:var(--mono);font-size:12px;color:var(--faint)}
-.fx-quote{margin-top:42px;display:flex;gap:22px;align-items:center;background:var(--panel);border:1px solid var(--hair2);border-radius:14px;padding:26px 30px}
-.fx-quote .ic{flex:none;width:56px;height:56px;border-radius:50%;background:var(--amber-w);color:var(--amber);display:flex;align-items:center;justify-content:center}
-.fx-quote p{font-family:var(--display);font-size:clamp(20px,2.1vw,26px);font-weight:700;color:var(--ink);letter-spacing:-.015em;line-height:1.3;max-width:none}
-
-/* evidence */
-.fx-egrid{display:grid;grid-template-columns:.95fr 1.05fr;gap:52px;align-items:start}
-.fx-term{background:#1B1722;border:1px solid #2E2839;border-radius:12px;overflow:hidden;box-shadow:0 24px 50px -30px rgba(30,20,40,.55)}
-.fx-term .bar{display:flex;align-items:center;gap:7px;padding:11px 14px;border-bottom:1px solid #2E2839;font-family:var(--mono);font-size:11.5px;color:#8B8196;letter-spacing:.08em}
-.fx-term .bar i{width:10px;height:10px;border-radius:50%;background:#3D3648;display:inline-block}
-.fx-term .bar span{margin-left:8px}
-.fx-term pre{background:none;border:0;margin:0;padding:18px 20px 20px;color:#EDE8E1;font-size:13.5px;line-height:1.75;white-space:pre-wrap;word-break:break-word}
-.fx-term .ln{display:block}
-.fx-term .p{color:#D6B78A}
-.fx-term .c{color:#8B8196}
-.fx-term .ok{color:#8FD08A}
-.fx-term.js .ln{opacity:0;transform:translateY(3px);transition:opacity .35s,transform .35s}
-.fx-term.play .ln{opacity:1;transform:none}
-.fx-manifest{margin-top:22px;background:var(--panel);border:1px solid var(--hair);border-radius:12px;padding:20px 22px}
-.fx-manifest .top{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1px solid var(--hair)}
-.fx-manifest .top b{font-family:var(--display);font-size:26px;font-weight:800;color:var(--ink);letter-spacing:-.02em}
-.fx-manifest .top span{font-family:var(--mono);font-size:12.5px;color:var(--dim)}
-.fx-manifest ul{list-style:none;margin:6px 0 0}
-.fx-manifest li{display:flex;gap:12px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--hair);font-size:16px;color:var(--body)}
-.fx-manifest li:last-child{border-bottom:0}
-.fx-manifest li svg{flex:none;color:var(--amber)}
-.fx-hash{font-family:var(--mono);font-size:12px;color:var(--faint);margin-top:10px;word-break:break-all}
-.fx-scope{margin-top:44px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start;border:1px dashed var(--hair2);border-radius:12px;padding:24px 26px;background:var(--panel2)}
-.fx-scope .ic{width:44px;height:44px;border-radius:10px;background:var(--panel);border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;color:var(--amber-d)}
-.fx-scope h3{font-size:19px;margin-bottom:6px}
-.fx-scope p{font-size:16.5px;max-width:60em}
-
-/* closing */
-.fx-cta{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
-.fx-mini{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:22px;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
-.fx-mini span{background:var(--panel);border:1px solid var(--hair);border-radius:999px;padding:6px 13px}
-.fx-mini i{color:var(--amber);font-style:normal}
-
-.fx-legend i{flex:none}.fx-legend b{white-space:nowrap}
-@media(max-width:600px){.fx-term pre{white-space:pre;overflow-x:auto;word-break:normal;font-size:12.5px}}
-@media(max-width:940px){
-  .fx-tgrid,.fx-hgrid,.fx-egrid,.fx-cta{grid-template-columns:minmax(0,1fr);gap:34px}
-  .fx-steps,.fx-traps{grid-template-columns:minmax(0,1fr)}
-  .fx-steps:before{display:none}
-  .fx-stats{grid-template-columns:1fr 1fr}
-  .fx-stat,.fx-stat+.fx-stat{padding:20px 12px 14px 0;border-left:0;border-bottom:1px solid #3D3648}
-  .fx-stat:nth-child(even){padding-left:16px;border-left:1px solid #3D3648}
-  .fx-stat:last-child{grid-column:1/-1;padding-left:0;border-left:0}
-  .fx-quote{flex-direction:column;align-items:flex-start;padding:22px}
-  .fx-scope{grid-template-columns:minmax(0,1fr)}
-  .fx-replay{position:static;display:block;margin:10px auto 0}
-}
-@media(prefers-reduced-motion:reduce){
-  .fx-pipe.js .k,.fx-pipe.js .pop,.fx-pipe.js .drop{opacity:1!important;transform:none!important}
-  .fx-pipe.js .dr{stroke-dashoffset:0!important}.fx-pipe.js .bar{transform:none!important}
-  .fx-pipe.js .drop{opacity:0!important}
-  .fx-seg,.fx-tile:after,.fx-lane .tr i,.fx-pip.on{transform:none!important}
-  .fx-lane .ck,.fx-term.js .ln{opacity:1!important;transform:none!important}
-  .fx-replay{display:none}
-}
-
-/* ---------- coverage catalogue ---------- */
-.cv-arch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
-.cv-arch .panel{padding:22px 24px}
-.cv-arch h3{margin:8px 0 8px}
-.cv-arch .tag{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
-.cv-legend{display:flex;flex-wrap:wrap;gap:14px 26px;margin:22px 0 6px}
-.cv-legend div{display:flex;gap:10px;align-items:baseline;font-size:15.5px;color:var(--dim);max-width:30em}
-.pill{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid;white-space:nowrap}
-.pill.q{color:var(--pass);border-color:var(--pass);background:#EAF3EC}
-.pill.i{color:var(--unknown);border-color:var(--unknown);background:#FAF3DF}
-.pill.r{color:var(--faint);border-color:var(--hair2);background:var(--panel2)}
-.cv-table{width:100%;border-collapse:collapse;font-size:16px;min-width:760px}
-.cv-table th{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);text-align:left;font-weight:500;padding:14px 14px;border-bottom:1px solid var(--hair2)}
-.cv-table td{padding:16px 14px;border-bottom:1px solid var(--hair);vertical-align:top;color:var(--body)}
-.cv-table td b{color:var(--ink);font-weight:600}
-.cv-table tr:last-child td{border-bottom:none}
-.cv-table .ev{font-family:var(--mono);font-size:13.5px;color:var(--dim);font-variant-numeric:tabular-nums}
-.cv-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.cv-chips span{font-family:var(--mono);font-size:13px;padding:5px 11px;border:1px solid var(--hair2);border-radius:6px;background:var(--panel)}
-.cv-band{background:var(--panel2)}
-.cv-band .grid2{align-items:center}
-.cv-mini{display:flex;flex-direction:column;gap:10px}
-.cv-mini div{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:12px 16px;background:var(--panel);border:1px solid var(--hair);border-radius:8px;font-size:16px}
-.cv-mini b{color:var(--ink);font-weight:600}
-@media(max-width:940px){.cv-arch{grid-template-columns:minmax(0,1fr)}}
-
-/* animated explainers: each is a self-contained dark stage in an iframe, sized to its content */
-.ly-anim{margin-top:28px;border-radius:16px;overflow:hidden;background:#06061A;box-shadow:0 1px 0 var(--hair),0 18px 40px -24px rgba(24,21,19,.45)}
-.ly-anim iframe{display:block;width:100%;border:0;background:#06061A}
-.ly-anim-note{margin-top:14px}
-.ly-anim-note a{color:var(--amber);font-weight:500;border-bottom:1px solid currentColor}
-
-/* ---------- multi-page additions ---------- */
-[id]{scroll-margin-top:100px}
-nav.tabs .tablink[aria-current="page"]{color:var(--amber);background:var(--amber-w)}
-.page-hero{padding:72px 0 56px}
-.jump{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:22px}
-.jump a{font-family:var(--sans);font-size:15px;color:var(--ink);text-decoration:none;border:1px solid var(--hair2);border-radius:999px;padding:7px 14px;background:var(--panel)}
-.jump a:hover{border-color:var(--amber-d);color:var(--amber-d)}
-ul.plain{list-style:none;margin:10px 0 0}
-ul.plain li{font-size:16.5px;padding:8px 0 8px 21px;position:relative;border-bottom:1px dashed var(--hair);color:var(--body)}
-ul.plain li::before{content:"";position:absolute;left:2px;top:17px;width:8px;height:8px;border-radius:50%;background:var(--amber)}
-.founder{display:flex;gap:22px;align-items:flex-start;margin-top:30px;background:var(--panel);border:1px solid var(--hair);border-radius:10px;padding:26px 28px}
-.founder h3{margin:8px 0 8px}
-.founder p{font-size:17px;color:var(--body);max-width:62ch}
-.founder-mark{flex:none;width:58px;height:58px;border-radius:50%;background:#573A9C;color:#FBF9F6;display:grid;place-items:center;font-family:var(--display);font-weight:800;letter-spacing:.06em}
-.linkcards a.card{text-decoration:none;display:block}
-.linkcards a.card h3{color:var(--ink)}
-.linkcards a.card:hover h3{color:var(--amber-d)}
-.fgrid{grid-template-columns:1.5fr repeat(4,1fr)}
-.band.hero h1 + .lead{margin-top:18px}
-@media(max-width:940px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){.fgrid{grid-template-columns:minmax(0,1fr)}}
-@media(max-width:600px){.founder{flex-direction:column;padding:22px}.btn{white-space:normal;max-width:100%;text-align:center}}
-.cta{display:flex;flex-wrap:wrap;gap:12px}
-.anim-frame{border-radius:14px;overflow:hidden;background:#06061A;border:1px solid var(--hair)}
-.anim-frame iframe{display:block;width:100%;aspect-ratio:960/560;border:0}
-@media(max-width:600px){.anim-frame iframe{aspect-ratio:960/940}#for-engineers table{min-width:0}#for-engineers td.mono{font-size:12.5px;word-break:break-all}}
-.stepno{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--amber-d);margin-bottom:8px}
+body{margin:0;background:#15184D}
+a{color:#5B3CC4}a:hover{color:#15184D}
 </style>
-<link href="https://lightyr.ai/resources.html" rel="canonical"/>
-<link href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMy42OCAxMy41MiBMMTYuMCA1LjQ0IEwyOC4zMiAxMy41MiBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0zLjY4IDE4LjQ4IEwxNi4wIDI2LjU2IEwyOC4zMiAxOC40OCBaIi8+PC9zdmc+" rel="icon" type="image/svg+xml"/>
-<link href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iMCIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMjAuNyA3Ni4wNSBMOTAuMCAzMC42IEwxNTkuMyA3Ni4wNSBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0yMC43IDEwMy45NSBMOTAuMCAxNDkuNCBMMTU5LjMgMTAzLjk1IFoiLz48L3N2Zz4=" rel="apple-touch-icon"/>
-<link color="#573A9C" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMy42OCAxMy41MiBMMTYuMCA1LjQ0IEwyOC4zMiAxMy41MiBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0zLjY4IDE4LjQ4IEwxNi4wIDI2LjU2IEwyOC4zMiAxOC40OCBaIi8+PC9zdmc+" rel="mask-icon"/>
-<meta content="#FAF8F4" name="theme-color"/>
-<meta content="website" property="og:type"/>
-<meta content="https://lightyr.ai/" property="og:url"/>
-<meta content="Lightyear — De-risk your cutover with evidence, not judgement" property="og:title"/>
-<meta content="The autonomous factory for systems you cannot afford to break. We manufacture ground truth for systems that have no tests, then prove the replacement behaves identically." property="og:description"/>
-<meta content="Lightyear" property="og:site_name"/>
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="Lightyear — Proof that modernized code behaves the same" name="twitter:title"/>
-<meta content="Anyone can rewrite it. We prove it behaves the same." name="twitter:description"/>
-<meta content="index,follow" name="robots"/>
-<meta content="https://lightyr.ai/og-card.png" property="og:image"/>
-<meta content="1200" property="og:image:width"/>
-<meta content="630" property="og:image:height"/>
-<meta content="https://lightyr.ai/og-card.png" name="twitter:image"/>
-
+<style>
+html{scroll-behavior:smooth}
+@media (max-width: 720px){ h1{font-size:40px !important} h2{font-size:30px !important} }
+</style>
 </head>
-<body data-page="resources">
-<header>
-<div class="wrap navbar">
-<a aria-label="Lightyear home" class="brand" href="index.html">
-<svg aria-labelledby="lyT" class="brand-logo" role="img" viewbox="0 0 360 150" xmlns="http://www.w3.org/2000/svg"> <title id="lyT">Lightyear</title> <defs> <!-- cuts a clear channel through the wings so the wordmark never sits on violet, and leaves no visible band on any background colour --> <mask id="lyBand"> <rect fill="#fff" height="150" width="360" x="0" y="0"></rect> <rect fill="#000" height="36" width="340" x="10" y="57"></rect> </mask> </defs> <g mask="url(#lyBand)"> <path d="M24 66C84 62 125 46 156 20C166 12 173 5 179 4C179.5 3.7 179.8 3.2 180 3C180.2 3.2 180.5 3.7 181 4C187 5 194 12 204 20C235 46 276 62 336 66H24Z" fill="#573A9C"></path> <path d="M24 84C84 88 125 104 156 130C166 138 173 145 179 146C179.5 146.3 179.8 146.8 180 147C180.2 146.8 180.5 146.3 181 146C187 145 194 138 204 130C235 104 276 88 336 84H24Z" fill="#573A9C"></path> </g> <text fill="#A7702C" font-family="Archivo, Arial, sans-serif" font-size="30" font-weight="800" letter-spacing="7" text-anchor="middle" x="180" y="84">LIGHTYEAR</text> </svg>
-</a>
-<button aria-expanded="false" aria-label="Toggle navigation menu" class="menu" onclick="const n=document.querySelector('nav.tabs');this.setAttribute('aria-expanded', n.classList.toggle('open'));">≡</button>
-<nav aria-label="Main" class="tabs">
-<a class="tablink" href="product.html">Product</a>
-<a class="tablink" href="verify.html">Verify</a>
-<a class="tablink" href="solutions.html">Solutions</a>
-<a class="tablink" href="proof.html">Proof</a>
-<a class="tablink" href="pricing.html">Pricing</a>
-<a class="tablink" href="resources.html" aria-current="page">Resources</a>
-<a class="tablink" href="engineers.html">For engineers</a>
-</nav>
-<div class="navcta">
-<a class="btn solid" href="https://calendly.com/lightyr" rel="noopener" target="_blank">Book a sprint</a>
-</div>
-</div>
-</header>
-<main>
-<div class="band hero page-hero">
-<div class="wrap">
-<div class="eyebrow">Resources</div>
-<h1 style="margin:18px 0 22px;max-width:22ch">See the evidence before you talk to us</h1>
-<p class="lead" style="max-width:40em">Everything we claim is published with the evidence behind it. Start with a real evidence pack, or send us one job and get a signed verdict back.</p>
+<body>
+<div style="font-family: 'IBM Plex Sans', Arial, sans-serif; color: #15184D; background: #FEFEFE; min-width: 320px">
 
+<section style="background: #15184D; color: #E9E6F7; padding: 0 24px 80px">
+<div style="max-width: 1200px; margin: 0 auto">
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 0">
+<a href="index.html" aria-label="Lightyear home" style="display: flex; align-items: center; margin-left: 8px"><svg viewBox="0 0 360 220" width="88" height="54" role="img" aria-label="LIGHTYEAR"><path fill="#7D57EA" d="M24 96C84 92 125 74 156 47C166 38 173 30 179 29C179.5 28.7 179.8 28.2 180 28C180.2 28.2 180.5 28.7 181 29C187 30 194 38 204 47C235 74 276 92 336 96H24Z"></path><path fill="#7D57EA" d="M24 124C84 128 125 146 156 173C166 182 173 190 179 191C179.5 191.3 179.8 191.8 180 192C180.2 191.8 180.5 191.3 181 191C187 190 194 182 204 173C235 146 276 128 336 124H24Z"></path><text x="180" y="122" fill="#C99A5B" font-family="Arial, sans-serif" font-size="32" font-weight="700" letter-spacing="6" text-anchor="middle">LIGHTYEAR</text></svg></a>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px; font-size: 15px">
+<a href="product.html" style="color: #D3CFEA; text-decoration: none">Product</a>
+<a href="verify.html" style="color: #D3CFEA; text-decoration: none">Verify</a>
+<a href="solutions.html" style="color: #D3CFEA; text-decoration: none">Solutions</a>
+<a href="proof.html" style="color: #D3CFEA; text-decoration: none">Proof</a>
+<a href="pricing.html" style="color: #D3CFEA; text-decoration: none">Pricing</a>
+<a href="resources.html" aria-current="page" style="color: #FFFFFF; text-decoration: none; border-bottom: 2px solid #7D57EA; padding-bottom: 4px">Resources</a>
+<a href="engineers.html" style="color: #D3CFEA; text-decoration: none">For engineers</a>
+<a href="pricing.html" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 12px 18px; border-radius: 8px; font-weight: 600">Book a Verification Sprint</a>
+</div>
+</nav>
+<div style="display: flex; flex-direction: column; gap: 24px; padding-top: 64px; max-width: 860px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">Resources</p>
+<h1 style="margin: 0; font-size: 56px; line-height: 1.06; font-weight: 700; letter-spacing: -1.4px; color: #FFFFFF">Judge the evidence before you talk to us.</h1>
+<p style="margin: 0; font-size: 20px; line-height: 1.55; color: #C9C5E4">Everything we claim is published with the evidence behind it. Start with a real evidence pack, or send us one job and get a signed verdict back. No meeting needed.</p>
 </div>
 </div>
-<div class="band" id="sample-pack">
-<div class="wrap">
-<div class="grid3">
-<div class="card"><h3>A real evidence pack</h3><p>The complete record of one factory run: the AI's prompts, the code it wrote, raw captures from Oracle and PostgreSQL, and the signed verdict. Replay it offline and you get the same answer.</p><p style="margin-top:16px"><a class="btn solid" href="https://github.com/howardweale/lightyear-carddemo-modernization/blob/main/docs/calibration/idempiere-declared-factory/README.md" rel="noopener" target="_blank">Open the evidence pack</a></p></div>
-<div class="card"><h3>Send us one job</h3><p>Send the before-and-after files from one batch job. We'll return a signed verdict with every difference named, field by field. No meeting needed.</p><p style="margin-top:16px"><a class="btn" href="mailto:sales@lightyr.ai?subject=Verdict%20request%3A%20one%20batch%20job">Send us one job</a></p></div>
-<div class="card"><h3>The full evidence record</h3><p>Every milestone we've run, published with its evidence, including what failed and why. Nothing on this site rests on a claim we haven't published.</p><p style="margin-top:16px"><a class="btn" href="https://github.com/howardweale/lightyear-carddemo-modernization/tree/main/docs/milestones" rel="noopener" target="_blank">Browse the record</a></p></div>
+</section>
+
+<section style="background: #EFEBFB; padding: 72px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px">
+<div style="background: #FFFFFF; border: 1px solid #D8CCF8; border-radius: 16px; padding: 30px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8A5A1F">EVIDENCE PACK</span>
+<h2 style="margin: 0; font-size: 24px">A real factory run</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">The AI’s prompts, the code it wrote, raw captures from Oracle and PostgreSQL, and the signed verdict. Replay it offline and you get the same answer.</p>
+<a href="proof.html" style="margin-top: auto; font-weight: 600">Open the evidence pack →</a>
+</div>
+<div style="background: #15184D; color: #E9E6F7; border-radius: 16px; padding: 30px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #C99A5B">FREE VERDICT</span>
+<h2 style="margin: 0; font-size: 24px; color: #FFFFFF">Send us one job</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #C9C5E4">Send the before-and-after files from one batch job. We’ll return a signed verdict with every difference named, field by field.</p>
+<a href="pricing.html" style="margin-top: auto; align-self: flex-start; color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 13px 18px; border-radius: 10px; font-weight: 600">Send us one job</a>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #D8CCF8; border-radius: 16px; padding: 30px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8A5A1F">FULL RECORD</span>
+<h2 style="margin: 0; font-size: 24px">Every milestone, with evidence</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">Everything we’ve run, published with its evidence, including what failed and why.</p>
+<a href="engineers.html" style="margin-top: auto; font-weight: 600">Browse the record →</a>
 </div>
 </div>
-</div>
-<div class="band sunk">
-<div class="wrap">
-<div class="eyebrow">Guides</div>
-<h2 style="margin:16px 0 26px">Find your way around</h2>
-<div class="grid3 linkcards">
-<a class="card" href="product.html"><h3>How the Verdict Engine works</h3><p>Three verdicts, field-level comparison and evidence that replays.</p></a>
-<a class="card" href="product.html#coverage"><h3>Coverage catalogue</h3><p>Which platforms the judge is qualified on today, and the limits of each.</p></a>
-<a class="card" href="proof.html"><h3>Proof</h3><p>The factory run, the core banking application and the go-live checklist.</p></a>
-<a class="card" href="pricing.html#faq"><h3>Questions we get asked</h3><p>How we start, what we need and what happens after the programme ends.</p></a>
-<a class="card" href="solutions.html#auditor"><h3>Questions your auditor will ask</h3><p>What the record answers, months later, for someone who wasn't in the room.</p></a>
-<a class="card" href="engineers.html#docs"><h3>Documentation for engineers</h3><p>How an engagement runs, verdicts and exit codes, the command line and CI.</p></a>
-</div>
-</div>
-</div>
-</main>
-<footer>
-<div class="wrap">
-<div class="fgrid">
-<div>
-<div class="fbrand">Lightyear</div>
-<p class="note" style="max-width:46ch">Independent verification for enterprise modernization. Evidence that your new system behaves the way the legacy core does.</p>
-</div>
-<div>
-<div class="fhead">Product</div>
-<a href="product.html">The Verdict Engine</a>
-<a href="product.html#coverage">Coverage catalogue</a>
-<a href="verify.html">Lightyear Verify (preview)</a>
-<a href="proof.html">Proof</a>
-<a href="pricing.html">Pricing</a>
-</div>
-<div>
-<div class="fhead">Solutions</div>
-<a href="solutions.html#banks">Banks and insurers</a>
-<a href="solutions.html#integrators">Vendors and integrators</a>
-<a href="solutions.html#mainframe">Mainframe</a>
-<a href="solutions.html#oracle">Oracle migration</a>
-</div>
-<div>
-<div class="fhead">Resources</div>
-<a href="resources.html#sample-pack">A real evidence pack</a>
-<a href="https://github.com/howardweale/lightyear-carddemo-modernization/tree/main/docs/milestones" rel="noopener" target="_blank">The full evidence record</a>
-<a href="engineers.html#docs">Documentation</a>
-<a href="pricing.html#faq">Questions we get asked</a>
-</div>
-<div>
-<div class="fhead">Company</div>
-<a href="https://calendly.com/lightyr" rel="noopener" target="_blank">Book a call</a>
-<a href="mailto:sales@lightyr.ai">sales@lightyr.ai</a>
+</section>
+
+<section style="background: #FEFEFE; padding: 72px 24px 88px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px">
+<h2 style="margin: 0; font-size: 34px; letter-spacing: -0.6px">Guides</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px">
+<a href="product.html" style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 22px; text-decoration: none; color: #15184D; display: flex; flex-direction: column; gap: 6px"><span style="font-weight: 600; font-size: 18px">How the Verdict Engine works</span><span style="font-size: 15px; color: #3D3F6B">Three verdicts, field-level comparison, evidence that replays.</span></a>
+<a href="product.html" style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 22px; text-decoration: none; color: #15184D; display: flex; flex-direction: column; gap: 6px"><span style="font-weight: 600; font-size: 18px">Coverage catalogue</span><span style="font-size: 15px; color: #3D3F6B">Which platforms the judge is qualified on today, and the limits.</span></a>
+<a href="proof.html" style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 22px; text-decoration: none; color: #15184D; display: flex; flex-direction: column; gap: 6px"><span style="font-weight: 600; font-size: 18px">Proof</span><span style="font-size: 15px; color: #3D3F6B">The factory run, core banking and the go-live checklist.</span></a>
+<a href="pricing.html" style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 22px; text-decoration: none; color: #15184D; display: flex; flex-direction: column; gap: 6px"><span style="font-weight: 600; font-size: 18px">Questions we get asked</span><span style="font-size: 15px; color: #3D3F6B">How we start, what we need, what happens after.</span></a>
+<a href="solutions.html" style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 22px; text-decoration: none; color: #15184D; display: flex; flex-direction: column; gap: 6px"><span style="font-weight: 600; font-size: 18px">Questions your auditor will ask</span><span style="font-size: 15px; color: #3D3F6B">What the record answers, months later.</span></a>
+<a href="engineers.html" style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 22px; text-decoration: none; color: #15184D; display: flex; flex-direction: column; gap: 6px"><span style="font-weight: 600; font-size: 18px">Documentation for engineers</span><span style="font-size: 15px; color: #3D3F6B">Engagements, verdicts and exit codes, the CLI and CI.</span></a>
 </div>
 </div>
-<p class="note" style="margin-top:28px">© 2026 Lightyear. Figures are measured on the code that ships. Nothing on this site is an unqualified claim of equivalence.</p>
+</section>
+
+<footer style="background: #FEFEFE; border-top: 1px solid #DDD7F2; padding: 32px 24px; font-size: 13px; color: #676985">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between">
+<span>© 2026 Lightyear. Figures are measured on the code that ships. Nothing on this site is an unqualified claim of equivalence.</span>
+<span>Where context becomes trusted action.</span>
 </div>
 </footer>
-<script>
-(function(){
-  var r=document.getElementById('heroReceipt'); if(!r) return;
-  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var kvs=[].slice.call(r.querySelectorAll('.kv')), note=r.querySelector('.note');
-  var v=document.getElementById('hrVerdict'), vt=document.getElementById('hrVerdictText'),
-      reason=document.getElementById('hrReason');
-  if(reduce){ return; }
-  kvs.forEach(function(k){k.style.opacity=0;k.style.transform='translateY(3px)';});
-  if(note) note.style.opacity=0;
-  var wait=function(ms){return new Promise(function(res){setTimeout(res,ms)})};
-  var finalReason=reason.textContent;
-  (async function(){
-    v.classList.add('running'); vt.textContent='reading expected\u2026'; reason.textContent='\u2014';
-    await wait(650); vt.textContent='reading candidate\u2026';
-    await wait(650); vt.textContent='comparing\u2026';
-    for(var i=0;i<kvs.length;i++){ await wait(150); kvs[i].style.opacity=1; kvs[i].style.transform='none'; }
-    await wait(320);
-    v.classList.remove('running'); vt.textContent='indeterminate';
-    reason.textContent=finalReason;
-    await wait(180); if(note) note.style.opacity=1;
-  })();
-})();
-</script>
-<script>
-/* Factory run: animate once when each block scrolls into view */
-(function(){
-  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function fmt(v,el){
-    if(el.dataset.kind==='time'){var s=Math.round(v);return Math.floor(s/60)+'m '+String(s%60).padStart(2,'0')+'s';}
-    var d=+(el.dataset.dec||0);return v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d})+(el.dataset.suffix||'');
-  }
-  function count(root){
-    root.querySelectorAll('.fx-count').forEach(function(el){
-      var to=+el.dataset.to; if(reduce||!to){el.textContent=fmt(to,el);return;}
-      var t0=null,dur=1500;
-      function step(t){ if(!t0)t0=t; var p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);
-        el.textContent=fmt(to*e,el); if(p<1) requestAnimationFrame(step); }
-      requestAnimationFrame(step);
-    });
-  }
-  var blocks=[].slice.call(document.querySelectorAll('[data-fx-play]'));
-  blocks.forEach(function(b){ if(!reduce) b.classList.add('js'); });
-  document.querySelectorAll('.fx-term').forEach(function(t){ if(!reduce) t.classList.add('js'); });
-  if(reduce||!('IntersectionObserver' in window)){ blocks.forEach(function(b){b.classList.add('play');}); return; }
-  var io=new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('play'); count(e.target); io.unobserve(e.target);} });
-  },{threshold:.3});
-  blocks.forEach(function(b){ io.observe(b); });
-  var rp=document.querySelector('.fx-replay'), pipe=document.querySelector('.fx-pipe');
-  if(rp&&pipe) rp.addEventListener('click',function(){ pipe.classList.remove('play'); void pipe.getBoundingClientRect(); pipe.classList.add('play'); });
-})();
-</script>
-<script>
-/* size each animation iframe to its content; re-fit when a hidden tab is shown or the window resizes */
-(function(){
-  function fit(f){try{var b=f.contentDocument&&f.contentDocument.body;if(!b)return;var h=Math.ceil(b.getBoundingClientRect().height);if(h>60)f.style.height=h+'px';}catch(e){}}
-  var frames=[].slice.call(document.querySelectorAll('.ly-anim iframe'));
-  frames.forEach(function(f){
-    f.addEventListener('load',function(){fit(f);try{new ResizeObserver(function(){fit(f);}).observe(f.contentDocument.body);}catch(e){}});
-    if('ResizeObserver' in window)new ResizeObserver(function(){fit(f);}).observe(f);
-  });
-  window.addEventListener('resize',function(){frames.forEach(fit);});
-})();
-</script>
+</div>
+
 </body>
 </html>
