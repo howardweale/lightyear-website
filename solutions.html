@@ -12,6 +12,17 @@
 <style>
 body{margin:0;background:#15184D}
 a{color:#5B3CC4}a:hover{color:#15184D}
+/* Keep tables and code examples readable without sideways scrolling on phones. */
+@media (max-width: 600px){
+  pre{white-space:pre-wrap;overflow-wrap:anywhere}
+  .mobile-fit-table,.mobile-card-table{min-width:0 !important;width:100% !important}
+  .mobile-fit-table{table-layout:fixed}
+  .mobile-fit-table th,.mobile-fit-table td{padding:12px !important;overflow-wrap:anywhere}
+  .mobile-card-table,.mobile-card-table tbody,.mobile-card-table tr{display:block}
+  .mobile-card-table thead{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .mobile-card-table td{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:12px;padding:12px !important;overflow-wrap:anywhere}
+  .mobile-card-table td::before{content:attr(data-label);font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;color:#676985}
+}
 </style>
 <style>
 html{scroll-behavior:smooth}
@@ -73,7 +84,7 @@ html{scroll-behavior:smooth}
 <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #3D3F6B">Every run leaves a record that answers these months later, for someone who wasn’t in the room.</p>
 </div>
 <div style="flex: 1 1 580px; min-width: 0; overflow-x: auto; background: #FFFFFF; border: 1px solid #D8CCF8; border-radius: 14px">
-<table style="width: 100%; min-width: 520px; border-collapse: collapse; font-size: 15px">
+<table class="mobile-fit-table" style="width: 100%; min-width: 520px; border-collapse: collapse; font-size: 15px">
 <tbody>
 <tr><td style="padding: 13px 18px; font-weight: 600">What changed, exactly?</td><td style="padding: 13px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #3D3F6B">brokered patch + workspace hash</td></tr>
 <tr style="border-top: 1px solid #EFEBFB"><td style="padding: 13px 18px; font-weight: 600">What proved it?</td><td style="padding: 13px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #3D3F6B">gate result + output digest</td></tr>
@@ -131,15 +142,15 @@ html{scroll-behavior:smooth}
 <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #3D3F6B">Migrations fail on the details nobody noticed until month-end. Here is where the two databases genuinely differ, and what each means for you. Most vendors reach this list in month four. You get it up front.</p>
 </div>
 <div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #D8CCF8; border-radius: 14px">
-<table style="width: 100%; min-width: 700px; border-collapse: collapse; font-size: 15px">
+<table class="mobile-card-table" style="width: 100%; min-width: 700px; border-collapse: collapse; font-size: 15px">
 <thead><tr style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #676985; background: #F7F5FD"><th scope="col" style="padding: 14px 18px; font-weight: 500">BEHAVIOUR</th><th scope="col" style="padding: 14px 18px; font-weight: 500">CLASSIFICATION</th><th scope="col" style="padding: 14px 18px; font-weight: 500">WHAT IT MEANS FOR YOU</th></tr></thead>
 <tbody>
-<tr style="border-top: 1px solid #EFEBFB"><td style="padding: 14px 18px">Number precision and scale</td><td style="padding: 14px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #0F5C33">exact</td><td style="padding: 14px 18px; color: #3D3F6B">Provable, no policy needed</td></tr>
-<tr style="border-top: 1px solid #EFEBFB"><td style="padding: 14px 18px">Date includes time</td><td style="padding: 14px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #4A2FB0">normalized-equivalent</td><td style="padding: 14px 18px; color: #3D3F6B">Governed normalization, owned and dated</td></tr>
-<tr style="border-top: 1px solid #EFEBFB"><td style="padding: 14px 18px">Empty string is null</td><td style="padding: 14px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8A3B00">policy decision</td><td style="padding: 14px 18px; color: #3D3F6B">Your call, recorded before we proceed</td></tr>
-<tr style="border-top: 1px solid #EFEBFB"><td style="padding: 14px 18px">Transaction isolation</td><td style="padding: 14px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8A3B00">policy decision</td><td style="padding: 14px 18px; color: #3D3F6B">Needs concurrent probes and an approved policy</td></tr>
-<tr style="border-top: 1px solid #EFEBFB"><td style="padding: 14px 18px">Sequence and identity state</td><td style="padding: 14px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8A3B00">lossy</td><td style="padding: 14px 18px; color: #3D3F6B">Cutover policy required; parity can’t be proven</td></tr>
-<tr style="border-top: 1px solid #EFEBFB"><td style="padding: 14px 18px">DDL change capture</td><td style="padding: 14px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #34365E">unsupported</td><td style="padding: 14px 18px; color: #3D3F6B">Excluded from claim scope; needs a separate plan</td></tr>
+<tr style="border-top: 1px solid #EFEBFB"><td data-label="BEHAVIOUR" style="padding: 14px 18px">Number precision and scale</td><td data-label="CLASSIFICATION" style="padding: 14px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #0F5C33">exact</td><td data-label="WHAT IT MEANS FOR YOU" style="padding: 14px 18px; color: #3D3F6B">Provable, no policy needed</td></tr>
+<tr style="border-top: 1px solid #EFEBFB"><td data-label="BEHAVIOUR" style="padding: 14px 18px">Date includes time</td><td data-label="CLASSIFICATION" style="padding: 14px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #4A2FB0">normalized-equivalent</td><td data-label="WHAT IT MEANS FOR YOU" style="padding: 14px 18px; color: #3D3F6B">Governed normalization, owned and dated</td></tr>
+<tr style="border-top: 1px solid #EFEBFB"><td data-label="BEHAVIOUR" style="padding: 14px 18px">Empty string is null</td><td data-label="CLASSIFICATION" style="padding: 14px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8A3B00">policy decision</td><td data-label="WHAT IT MEANS FOR YOU" style="padding: 14px 18px; color: #3D3F6B">Your call, recorded before we proceed</td></tr>
+<tr style="border-top: 1px solid #EFEBFB"><td data-label="BEHAVIOUR" style="padding: 14px 18px">Transaction isolation</td><td data-label="CLASSIFICATION" style="padding: 14px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8A3B00">policy decision</td><td data-label="WHAT IT MEANS FOR YOU" style="padding: 14px 18px; color: #3D3F6B">Needs concurrent probes and an approved policy</td></tr>
+<tr style="border-top: 1px solid #EFEBFB"><td data-label="BEHAVIOUR" style="padding: 14px 18px">Sequence and identity state</td><td data-label="CLASSIFICATION" style="padding: 14px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #8A3B00">lossy</td><td data-label="WHAT IT MEANS FOR YOU" style="padding: 14px 18px; color: #3D3F6B">Cutover policy required; parity can’t be proven</td></tr>
+<tr style="border-top: 1px solid #EFEBFB"><td data-label="BEHAVIOUR" style="padding: 14px 18px">DDL change capture</td><td data-label="CLASSIFICATION" style="padding: 14px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #34365E">unsupported</td><td data-label="WHAT IT MEANS FOR YOU" style="padding: 14px 18px; color: #3D3F6B">Excluded from claim scope; needs a separate plan</td></tr>
 </tbody>
 </table>
 </div>
