@@ -108,6 +108,17 @@ a{color:#B9A3FF}a:hover{color:#D8CCF8}
 .lyloop .lampG{fill:#2BD4A0}
 .lyloop .toggle{display:none}}
 .lyloop .av{width:58px;height:62px;display:block}
+/* Keep tables and code examples readable without sideways scrolling on phones. */
+@media (max-width: 600px){
+  pre{white-space:pre-wrap !important;overflow-wrap:anywhere}
+  .mobile-fit-table,.mobile-card-table{min-width:0 !important;width:100% !important}
+  .mobile-fit-table{table-layout:fixed}
+  .mobile-fit-table th,.mobile-fit-table td{padding:12px !important;overflow-wrap:anywhere}
+  .mobile-card-table,.mobile-card-table tbody,.mobile-card-table tr{display:block}
+  .mobile-card-table thead{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .mobile-card-table td{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:12px;padding:12px !important;overflow-wrap:anywhere}
+  .mobile-card-table td::before{content:attr(data-label);font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;color:#676985}
+}
 </style>
 <style>
 html{scroll-behavior:smooth}
@@ -166,6 +177,30 @@ html{scroll-behavior:smooth}
 <figcaption style="font-size: 11px; color: #8E8BB8">Illustrative run, CardDemo INTCALC. COBOL truncates to two decimals; this rewrite rounded.</figcaption>
 </figure>
 </div>
+</div>
+</section>
+
+<!-- ============ 1a · ONE CENT (light, interactive) ============ -->
+<section id="one-cent" style="background: #EFEBFB; color: #15184D; padding: 80px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
+<div style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #7A5320">Try the judge</p>
+<h2 style="margin: 0; font-size: 50px; line-height: 1.06; letter-spacing: -1px; color: #15184D">One cent.<br>A different verdict.</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3D3F6B; max-width: 540px">A rewrite that rounds where COBOL truncates is one cent off on a monthly interest charge. Testers rarely notice. Across a million accounts, that’s $10,000 a month that won’t reconcile. The Verdict Engine compares every field, so it can’t slip through.</p>
+<div><button id="cent-btn" type="button" aria-pressed="false" style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 16px; font-weight: 600; color: #FFFFFF; background: #15184D; border: 0; border-radius: 10px; padding: 16px 24px; min-height: 48px; cursor: pointer">Introduce a 1¢ difference</button></div>
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #676985">Illustrative: CardDemo monthly interest calculation (INTCALC), one account.</p>
+</div>
+<figure style="flex: 1 1 440px; min-width: 0; margin: 0; background: #FEFEFE; border: 1px solid #DDD7F2; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 22px; font-family: 'IBM Plex Mono', monospace">
+<div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12px; letter-spacing: 1.5px; color: #676985"><span>FIELD · MONTHLY-INT</span><span>ACCT 00000000047</span></div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; border-top: 1px solid #DDD7F2; border-bottom: 1px solid #DDD7F2; padding: 20px 0">
+<div style="display: flex; flex-direction: column; gap: 6px; min-width: 0"><span style="font-size: 12px; letter-spacing: 1.5px; color: #4A4C78">LEGACY · COBOL</span><span style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: clamp(40px, 9vw, 60px); font-weight: 600; letter-spacing: -1px; line-height: 1; color: #15184D; font-variant-numeric: tabular-nums">18.27</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px; min-width: 0"><span style="font-size: 12px; letter-spacing: 1.5px; color: #4A4C78">NEW · JAVA</span><span id="cent-new" style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: clamp(40px, 9vw, 60px); font-weight: 600; letter-spacing: -1px; line-height: 1; font-variant-numeric: tabular-nums; color: #15184D;">18.27</span></div>
+</div>
+<div id="cent-verdict" role="status" aria-live="polite" style="display: flex; flex-direction: column; gap: 8px; border-radius: 10px; padding: 16px; background: #E8F5EE; border: 1px solid #9FD6B5;">
+<span id="cent-chip" style="display: inline-block; align-self: flex-start; font-size: 12px; font-weight: 600; letter-spacing: 0.8px; padding: 5px 10px; border-radius: 6px; background: #12573A; color: #C9F5DC;">MATCH</span>
+<span id="cent-detail" style="font-size: 13px; line-height: 1.55; color: #3D3F6B">Legacy and rewrite agree on this field for this record. Now change one cent.</span>
+</div>
+</figure>
 </div>
 </section>
 
@@ -698,6 +733,25 @@ html{scroll-behavior:smooth}
   }
   render();
   if(!reduce) setInterval(function(){step=(step+1)%(n+4);render();},900);
+
+  var cb=document.getElementById('cent-btn'), cn=document.getElementById('cent-new'), cv=document.getElementById('cent-verdict'), cc=document.getElementById('cent-chip'), cd=document.getElementById('cent-detail');
+  if(cb){
+    var nb="font-family:'IBM Plex Sans',Arial,sans-serif;font-size:clamp(40px,9vw,60px);font-weight:600;letter-spacing:-1px;line-height:1;font-variant-numeric:tabular-nums;";
+    var chb='display:inline-block;align-self:flex-start;font-size:12px;font-weight:600;letter-spacing:0.8px;padding:5px 10px;border-radius:6px;';
+    var vb='display:flex;flex-direction:column;gap:8px;border-radius:10px;padding:16px;';
+    var on=false;
+    cb.addEventListener('click',function(){
+      on=!on;
+      cb.setAttribute('aria-pressed',on?'true':'false');
+      cb.textContent=on?'Undo the difference':'Introduce a 1¢ difference';
+      cn.textContent=on?'18.28':'18.27';
+      cn.style.cssText=nb+(on?'color:#A7702C;':'color:#15184D;');
+      cv.style.cssText=vb+(on?'background:#FBEFE3;border:1px solid #A7702C;':'background:#E8F5EE;border:1px solid #9FD6B5;');
+      cc.style.cssText=chb+(on?'background:#7A3A06;color:#FFE1C2;':'background:#12573A;color:#C9F5DC;');
+      cc.textContent=on?'NOT EQUIVALENT':'MATCH';
+      cd.textContent=on?'MONTHLY-INT differs by $0.01: the rewrite rounds, COBOL truncates. Named in the evidence pack; cutover is blocked until it’s fixed.':'Legacy and rewrite agree on this field for this record. Now change one cent.';
+    });
+  }
   var lp=document.getElementById('loopPlayer'), lb=document.getElementById('loopPause');
   if(lp&&lb) lb.addEventListener('click',function(){var on=lp.classList.toggle('paused');lb.setAttribute('aria-pressed',on?'true':'false');lb.textContent=on?'Play':'Pause';});
 })();

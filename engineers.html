@@ -12,6 +12,17 @@
 <style>
 body{margin:0;background:#15184D}
 a{color:#5B3CC4}a:hover{color:#15184D}
+/* Keep tables and code examples readable without sideways scrolling on phones. */
+@media (max-width: 600px){
+  pre{white-space:pre-wrap;overflow-wrap:anywhere}
+  .mobile-fit-table,.mobile-card-table{min-width:0 !important;width:100% !important}
+  .mobile-fit-table{table-layout:fixed}
+  .mobile-fit-table th,.mobile-fit-table td{padding:12px !important;overflow-wrap:anywhere}
+  .mobile-card-table,.mobile-card-table tbody,.mobile-card-table tr{display:block}
+  .mobile-card-table thead{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .mobile-card-table td{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:12px;padding:12px !important;overflow-wrap:anywhere}
+  .mobile-card-table td::before{content:attr(data-label);font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;color:#676985}
+}
 </style>
 <style>
 html{scroll-behavior:smooth}
@@ -78,12 +89,12 @@ lightyr factory run --work-order intcalc.json</pre>
 <div style="display: flex; flex-direction: column; gap: 14px">
 <h2 style="margin: 0; font-size: 30px; letter-spacing: -0.5px">Verdicts and exit codes</h2>
 <div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #D8CCF8; border-radius: 14px">
-<table style="width: 100%; border-collapse: collapse; font-size: 15px">
+<table class="mobile-card-table" style="width: 100%; border-collapse: collapse; font-size: 15px">
 <thead><tr style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #676985; background: #F7F5FD"><th scope="col" style="padding: 12px 16px; font-weight: 500">VERDICT</th><th scope="col" style="padding: 12px 16px; font-weight: 500">EXIT</th><th scope="col" style="padding: 12px 16px; font-weight: 500">MEANING</th></tr></thead>
 <tbody>
-<tr style="border-top: 1px solid #EFEBFB"><td style="padding: 12px 16px; font-family: 'IBM Plex Mono', monospace">faithful</td><td style="padding: 12px 16px">0</td><td style="padding: 12px 16px; color: #3D3F6B">Every compared field matched under the policy</td></tr>
-<tr style="border-top: 1px solid #EFEBFB"><td style="padding: 12px 16px; font-family: 'IBM Plex Mono', monospace">failed</td><td style="padding: 12px 16px">1</td><td style="padding: 12px 16px; color: #3D3F6B">A real divergence, classified by cause and field</td></tr>
-<tr style="border-top: 1px solid #EFEBFB"><td style="padding: 12px 16px; font-family: 'IBM Plex Mono', monospace">indeterminate</td><td style="padding: 12px 16px">2</td><td style="padding: 12px 16px; color: #3D3F6B">Nothing was verified; an operator error, never routed to a builder</td></tr>
+<tr style="border-top: 1px solid #EFEBFB"><td data-label="VERDICT" style="padding: 12px 16px; font-family: 'IBM Plex Mono', monospace">faithful</td><td data-label="EXIT" style="padding: 12px 16px">0</td><td data-label="MEANING" style="padding: 12px 16px; color: #3D3F6B">Every compared field matched under the policy</td></tr>
+<tr style="border-top: 1px solid #EFEBFB"><td data-label="VERDICT" style="padding: 12px 16px; font-family: 'IBM Plex Mono', monospace">failed</td><td data-label="EXIT" style="padding: 12px 16px">1</td><td data-label="MEANING" style="padding: 12px 16px; color: #3D3F6B">A real divergence, classified by cause and field</td></tr>
+<tr style="border-top: 1px solid #EFEBFB"><td data-label="VERDICT" style="padding: 12px 16px; font-family: 'IBM Plex Mono', monospace">indeterminate</td><td data-label="EXIT" style="padding: 12px 16px">2</td><td data-label="MEANING" style="padding: 12px 16px; color: #3D3F6B">Nothing was verified; an operator error, never routed to a builder</td></tr>
 </tbody>
 </table>
 </div>
@@ -91,13 +102,13 @@ lightyr factory run --work-order intcalc.json</pre>
 <div style="display: flex; flex-direction: column; gap: 14px">
 <h2 style="margin: 0; font-size: 30px; letter-spacing: -0.5px">Evidence classes</h2>
 <div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #D8CCF8; border-radius: 14px">
-<table style="width: 100%; border-collapse: collapse; font-size: 15px">
+<table class="mobile-card-table" style="width: 100%; border-collapse: collapse; font-size: 15px">
 <thead><tr style="text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #676985; background: #F7F5FD"><th scope="col" style="padding: 12px 16px; font-weight: 500">CLASS</th><th scope="col" style="padding: 12px 16px; font-weight: 500">SOURCE</th><th scope="col" style="padding: 12px 16px; font-weight: 500">CLOSES A GATE</th></tr></thead>
 <tbody>
-<tr style="border-top: 1px solid #EFEBFB"><td style="padding: 12px 16px; font-family: 'IBM Plex Mono', monospace">simulated</td><td style="padding: 12px 16px; color: #3D3F6B">Synthetic replay</td><td style="padding: 12px 16px">no</td></tr>
-<tr style="border-top: 1px solid #EFEBFB"><td style="padding: 12px 16px; font-family: 'IBM Plex Mono', monospace">local_observed</td><td style="padding: 12px 16px; color: #3D3F6B">Real execution, local</td><td style="padding: 12px 16px">no</td></tr>
-<tr style="border-top: 1px solid #EFEBFB"><td style="padding: 12px 16px; font-family: 'IBM Plex Mono', monospace">recorded</td><td style="padding: 12px 16px; color: #3D3F6B">Replay of a prior capture</td><td style="padding: 12px 16px">no</td></tr>
-<tr style="border-top: 1px solid #EFEBFB"><td style="padding: 12px 16px; font-family: 'IBM Plex Mono', monospace">zos_observed</td><td style="padding: 12px 16px; color: #3D3F6B">The authorised baseline</td><td style="padding: 12px 16px; font-weight: 600">yes</td></tr>
+<tr style="border-top: 1px solid #EFEBFB"><td data-label="CLASS" style="padding: 12px 16px; font-family: 'IBM Plex Mono', monospace">simulated</td><td data-label="SOURCE" style="padding: 12px 16px; color: #3D3F6B">Synthetic replay</td><td data-label="CLOSES A GATE" style="padding: 12px 16px">no</td></tr>
+<tr style="border-top: 1px solid #EFEBFB"><td data-label="CLASS" style="padding: 12px 16px; font-family: 'IBM Plex Mono', monospace">local_observed</td><td data-label="SOURCE" style="padding: 12px 16px; color: #3D3F6B">Real execution, local</td><td data-label="CLOSES A GATE" style="padding: 12px 16px">no</td></tr>
+<tr style="border-top: 1px solid #EFEBFB"><td data-label="CLASS" style="padding: 12px 16px; font-family: 'IBM Plex Mono', monospace">recorded</td><td data-label="SOURCE" style="padding: 12px 16px; color: #3D3F6B">Replay of a prior capture</td><td data-label="CLOSES A GATE" style="padding: 12px 16px">no</td></tr>
+<tr style="border-top: 1px solid #EFEBFB"><td data-label="CLASS" style="padding: 12px 16px; font-family: 'IBM Plex Mono', monospace">zos_observed</td><td data-label="SOURCE" style="padding: 12px 16px; color: #3D3F6B">The authorised baseline</td><td data-label="CLOSES A GATE" style="padding: 12px 16px; font-weight: 600">yes</td></tr>
 </tbody>
 </table>
 </div>
