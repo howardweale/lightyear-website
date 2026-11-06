@@ -16,4 +16,3 @@ http.createServer((request, response) => {
   response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
   response.end(fs.readFileSync(path.join(__dirname, '..', name)));
 }).listen(4173, '127.0.0.1');
-

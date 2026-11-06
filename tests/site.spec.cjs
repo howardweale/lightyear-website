@@ -144,4 +144,3 @@ for (const [file, playerId, controlId] of [
     await noHorizontalScroll(page);
   });
 }
-

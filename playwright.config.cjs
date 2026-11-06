@@ -28,4 +28,3 @@ module.exports = defineConfig({
     timeout: 10_000,
   },
 });
-
