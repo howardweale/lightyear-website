@@ -69,6 +69,25 @@ for (const file of pages) {
   });
 }
 
+test('product illustration renders with its caption and no screenshot request', async ({ page }, testInfo) => {
+  const screenshotRequests = [];
+  page.on('request', request => {
+    if (/control-tower\.(jpg|jpeg|png|webp)/i.test(request.url())) screenshotRequests.push(request.url());
+  });
+  await open(page, 'index.html');
+  const panel = page.locator('#product-view figure');
+  await panel.scrollIntoViewIfNeeded();
+  await expect(panel).toBeVisible();
+  await expect(panel).toHaveAttribute('role', 'img');
+  await expect(panel.locator('figcaption')).toContainText('Illustrative view of Control Tower.');
+  await expect(panel.locator('img')).toHaveCount(0);
+  expect(screenshotRequests).toEqual([]);
+  await noHorizontalScroll(page);
+  await testInfo.attach('illustrative-panel', {
+    body: await panel.screenshot(), contentType: 'image/png',
+  });
+});
+
 test('one cent toggles MATCH -> NOT EQUIVALENT -> MATCH', async ({ page }) => {
   await open(page, 'index.html');
   const button = page.locator('#cent-btn');

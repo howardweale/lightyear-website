@@ -76,6 +76,6 @@ directions, and tests play/pause/resume for the repair loop on Product,
 Proof, Verify, Prism and Aperture. Screenshots and failure traces are retained.
 Phone tables retain readable column labels and code examples wrap.
 
-The supplied 7 November archive contains no `images/control-tower.jpg`;
-the homepage currently retains its labelled HTML illustration. Loading the
-requested real screenshot remains unverified until that asset is supplied.
+The homepage product section is an illustrated HTML panel captioned
+“Illustrative view”; no real Control Tower screenshot is published.
+The browser checks verify the panel and caption at both viewport sizes.
