@@ -234,7 +234,7 @@ exit 2   halted: something could not
 </div>
 </section>
 
-<section style="background: #FEFEFE; padding: 0 24px 88px">
+<section id="coverage" style="background: #FEFEFE; padding: 0 24px 88px">
 <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px">
 <div style="display: flex; flex-direction: column; gap: 14px; max-width: 780px">
 <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">Coverage catalogue · October 2026</p>
@@ -502,28 +502,39 @@ exit 2   halted: something could not
 </div>
 </section>
 
-<!-- ============ 7 · COVERAGE ============ -->
-<section id="coverage" style="background: #FEFEFE; padding: 88px 24px 96px">
-<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px">
-<div style="display: flex; flex-direction: column; gap: 14px; max-width: 760px">
-<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">Coverage, stated honestly</p>
-<h2 style="margin: 0; font-size: 36px; line-height: 1.15; letter-spacing: -0.6px">What we have qualified, and what we haven’t yet.</h2>
+<!-- ============ 7 · TARGET PLATFORM AS CODE ============ -->
+<section id="platform" style="background: #FEFEFE; padding: 88px 24px 96px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 780px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">Target platform as code · in build</p>
+<h2 style="margin: 0; font-size: 40px; line-height: 1.12; letter-spacing: -0.8px">The new environment gets a receipt too.</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #3D3F6B">Converting the code is half the move. The factory also writes the target environment as infrastructure code, and Lightyear Prism tests the running platform before anything is promoted. A template says what should be there. A receipt shows what is.</p>
 </div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px">
-<div style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 17px; font-weight: 600">Oracle → PostgreSQL</span><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #DDF3E6; color: #0F5C33; padding: 4px 8px; border-radius: 6px">QUALIFIED · LIMITED</span></div>
-<div style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 17px; font-weight: 600">Oracle → AlloyDB</span><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #DDF3E6; color: #0F5C33; padding: 4px 8px; border-radius: 6px">QUALIFIED · LIMITED</span></div>
-<div style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 17px; font-weight: 600">z/OS batch → Java</span><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #FCE7CF; color: #8A3B00; padding: 4px 8px; border-radius: 6px">IN QUALIFICATION</span></div>
-<div style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 17px; font-weight: 600">SAP ASE → PostgreSQL</span><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #FCE7CF; color: #8A3B00; padding: 4px 8px; border-radius: 6px">IN QUALIFICATION</span></div>
-<div style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 17px; font-weight: 600">Db2 → PostgreSQL</span><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #FCE7CF; color: #8A3B00; padding: 4px 8px; border-radius: 6px">IN QUALIFICATION</span></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px">
+<div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #7D57EA">01 · MAP</span><h3 style="margin: 0; font-size: 21px">Start from what runs today</h3><p style="margin: 0; font-size: 15px; line-height: 1.55; color: #3D3F6B">The knowledge graph lists the transactions, batch schedules, files and security rules the legacy system actually uses.</p></div>
+<div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #7D57EA">02 · GENERATE</span><h3 style="margin: 0; font-size: 21px">Write the environment as code</h3><p style="margin: 0; font-size: 15px; line-height: 1.55; color: #3D3F6B">Network, identities, secrets, databases, schedules and monitoring for your target cloud, reviewed like any other change.</p></div>
+<div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px; background: #F7F5FD"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8A5A1F">03 · PROVE</span><h3 style="margin: 0; font-size: 21px">Drill the live platform</h3><p style="margin: 0; font-size: 15px; line-height: 1.55; color: #3D3F6B">Prism runs drills against the deployed environment and signs the result into the same receipt as the code.</p></div>
 </div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.5px; color: #676985">WHAT THE DRILLS CHECK</p>
+<ul role="list" style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 10px">
+<li style="font-size: 14px; background: #EFEBFB; color: #23266A; padding: 8px 14px; border-radius: 20px">Network deny rules hold</li>
+<li style="font-size: 14px; background: #EFEBFB; color: #23266A; padding: 8px 14px; border-radius: 20px">Each service runs as the right identity</li>
+<li style="font-size: 14px; background: #EFEBFB; color: #23266A; padding: 8px 14px; border-radius: 20px">Secrets rotate without downtime</li>
+<li style="font-size: 14px; background: #EFEBFB; color: #23266A; padding: 8px 14px; border-radius: 20px">The database survives failover and recovery</li>
+<li style="font-size: 14px; background: #EFEBFB; color: #23266A; padding: 8px 14px; border-radius: 20px">Alerts fire and clear</li>
+<li style="font-size: 14px; background: #EFEBFB; color: #23266A; padding: 8px 14px; border-radius: 20px">It holds up under sustained load</li>
+</ul>
+</div>
+<p style="margin: 0; font-size: 14px; line-height: 1.6; color: #676985">Status: the drills are built and partly run on our reference core-banking estate on Google Kubernetes Engine. Generating the environment from your legacy inventory is in build.</p>
 </div>
 </section>
 
 <section style="background: #15184D; color: #E9E6F7; padding: 72px 24px">
 <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 32px; align-items: center; justify-content: space-between">
 <div style="flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
-<h2 style="margin: 0; font-size: 36px; line-height: 1.15; color: #FFFFFF">Bring any AI. We tell you whether it’s right.</h2>
-<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #C9C5E4">Your team, a systems integrator or any AI coding agent: the judge stays the same and the evidence stays yours. A Verification Sprint takes four weeks, from $50,000, and ends with a signed verdict.</p>
+<h2 style="margin: 0; font-size: 36px; line-height: 1.15; color: #FFFFFF">Use our factory or bring any AI. We tell you whether it’s right.</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #C9C5E4">Our agent dark factory, your own team, a systems integrator or any AI coding agent: the judge stays the same and the evidence stays yours. A Verification Sprint takes four weeks, from $50,000, and ends with a signed verdict.</p>
 </div>
 <a href="pricing.html" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 16px 24px; border-radius: 10px; font-weight: 600">Book a Verification Sprint</a>
 </div>
