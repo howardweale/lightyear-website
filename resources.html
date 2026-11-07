@@ -33,6 +33,7 @@ html{scroll-behavior:smooth}
 <a href="pricing.html" style="color: #D3CFEA; text-decoration: none">Pricing</a>
 <a href="resources.html" aria-current="page" style="color: #FFFFFF; text-decoration: none; border-bottom: 2px solid #7D57EA; padding-bottom: 4px">Resources</a>
 <a href="engineers.html" style="color: #D3CFEA; text-decoration: none">For engineers</a>
+<a href="resources.html#research" style="color: #D3CFEA; text-decoration: none">Research</a>
 <a href="pricing.html" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 12px 18px; border-radius: 8px; font-weight: 600">Book a Verification Sprint</a>
 </div>
 </nav>
@@ -50,13 +51,13 @@ html{scroll-behavior:smooth}
 <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8A5A1F">EVIDENCE PACK</span>
 <h2 style="margin: 0; font-size: 24px">A real factory run</h2>
 <p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">The AI’s prompts, the code it wrote, raw captures from Oracle and PostgreSQL, and the signed verdict. Replay it offline and you get the same answer.</p>
-<a href="proof.html" style="margin-top: auto; font-weight: 600">Open the evidence pack →</a>
+<a href="mailto:howard@lightyr.ai?subject=Evidence%20pack%20request:%20ERP%20factory%20run" style="margin-top: auto; font-weight: 600">Request the evidence pack →</a>
 </div>
 <div style="background: #15184D; color: #E9E6F7; border-radius: 16px; padding: 30px; display: flex; flex-direction: column; gap: 12px">
 <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #C99A5B">FREE VERDICT</span>
 <h2 style="margin: 0; font-size: 24px; color: #FFFFFF">Send us one job</h2>
 <p style="margin: 0; font-size: 16px; line-height: 1.55; color: #C9C5E4">Send the before-and-after files from one batch job. We’ll return a signed verdict with every difference named, field by field.</p>
-<a href="pricing.html" style="margin-top: auto; align-self: flex-start; color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 13px 18px; border-radius: 10px; font-weight: 600">Send us one job</a>
+<a href="mailto:howard@lightyr.ai?subject=One%20job%20for%20a%20Verification%20Sprint" style="margin-top: auto; align-self: flex-start; color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 13px 18px; border-radius: 10px; font-weight: 600">Send us one job</a>
 </div>
 <div style="background: #FFFFFF; border: 1px solid #D8CCF8; border-radius: 16px; padding: 30px; display: flex; flex-direction: column; gap: 12px">
 <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8A5A1F">FULL RECORD</span>
@@ -67,7 +68,21 @@ html{scroll-behavior:smooth}
 </div>
 </section>
 
-<section style="background: #FEFEFE; padding: 72px 24px 88px">
+<section id="research" style="background: #FEFEFE; padding: 72px 24px 0">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px">
+<h2 style="margin: 0; font-size: 34px; letter-spacing: -0.6px">Research</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #3D3F6B; max-width: 760px">What we have measured, and what we are measuring next. Every published result comes with its evidence; work in progress is labelled as such.</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px">
+<a href="product.html" style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 22px; text-decoration: none; color: #15184D; display: flex; flex-direction: column; gap: 8px"><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1.2px; background: #DDF3E6; color: #0F5C33; padding: 4px 8px; border-radius: 6px">PUBLISHED</span><span style="font-weight: 600; font-size: 18px">Testing the tests</span><span style="font-size: 15px; color: #3D3F6B">How we plant faults in the code to prove the tests would catch real mistakes.</span></a>
+<a href="index.html#one-cent" style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 22px; text-decoration: none; color: #15184D; display: flex; flex-direction: column; gap: 8px"><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1.2px; background: #EFEBFB; color: #4A2FB0; padding: 4px 8px; border-radius: 6px">EXPLAINER</span><span style="font-weight: 600; font-size: 18px">The one-cent problem</span><span style="font-size: 15px; color: #3D3F6B">Why a verdict has to compare exact values, and what a rounding slip costs at scale.</span></a>
+<div style="border: 1px dashed #CFC6EE; border-radius: 12px; padding: 22px; color: #15184D; display: flex; flex-direction: column; gap: 8px"><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1.2px; background: #FBF0D9; color: #7A5208; padding: 4px 8px; border-radius: 6px">IN PREPARATION</span><span style="font-weight: 600; font-size: 18px">Judging someone else’s conversion</span><span style="font-size: 15px; color: #3D3F6B">The Verdict Engine on a public database and its community PostgreSQL port, which Lightyear did not write.</span></div>
+<div style="border: 1px dashed #CFC6EE; border-radius: 12px; padding: 22px; color: #15184D; display: flex; flex-direction: column; gap: 8px"><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1.2px; background: #FBF0D9; color: #7A5208; padding: 4px 8px; border-radius: 6px">PLANNED</span><span style="font-weight: 600; font-size: 18px">Which AI converts legacy code correctly?</span><span style="font-size: 15px; color: #3D3F6B">An independently judged benchmark of AI models on public legacy code.</span></div>
+<a href="https://arxiv.org/abs/2602.22518" style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 22px; text-decoration: none; color: #15184D; display: flex; flex-direction: column; gap: 8px"><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1.2px; background: #F2F1F7; color: #4A4C78; padding: 4px 8px; border-radius: 6px">FURTHER READING</span><span style="font-weight: 600; font-size: 18px">RepoMod-Bench (Modelcode, 2026)</span><span style="font-size: 15px; color: #3D3F6B">Independent research on how AI migration accuracy falls as repositories grow.</span></a>
+</div>
+</div>
+</section>
+
+<section style="background: #FEFEFE; padding: 56px 24px 88px">
 <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px">
 <h2 style="margin: 0; font-size: 34px; letter-spacing: -0.6px">Guides</h2>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px">
