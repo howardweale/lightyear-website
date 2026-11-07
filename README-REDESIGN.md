@@ -67,6 +67,11 @@ All booking, contact, security-pack and evidence-pack actions now open an email 
 with a pre-filled subject. "View receipt" became "Request the evidence pack"; the knowledge-graph link
 was removed; Aperture's "Read the guide" button was removed until the public repository exists.
 
+## (f) 7 Nov, 11:10: Product page
+- Removed the "What we have qualified, and what we haven't yet" section (the coverage catalogue table above it stays, now with id="coverage" so the homepage link still works).
+- New section #platform: "The new environment gets a receipt too" (target platform as code, verified by Prism; status: in build).
+- Closing CTA now names our own factory: "Use our factory or bring any AI. We tell you whether it's right."
+
 ## Browser validation
 
 Run `npm ci`, `npx playwright install chromium`, then `npm run test:site`.
