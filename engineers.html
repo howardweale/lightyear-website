@@ -44,6 +44,7 @@ html{scroll-behavior:smooth}
 <a href="pricing.html" style="color: #D3CFEA; text-decoration: none">Pricing</a>
 <a href="resources.html" style="color: #D3CFEA; text-decoration: none">Resources</a>
 <a href="engineers.html" aria-current="page" style="color: #FFFFFF; text-decoration: none; border-bottom: 2px solid #7D57EA; padding-bottom: 4px">For engineers</a>
+<a href="resources.html#research" style="color: #D3CFEA; text-decoration: none">Research</a>
 <a href="pricing.html" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 12px 18px; border-radius: 8px; font-weight: 600">Book a Verification Sprint</a>
 </div>
 </nav>
@@ -57,10 +58,10 @@ html{scroll-behavior:smooth}
 lightyr graph build --source ./estate
 
 # 2 · measure what your corpus actually reaches
-lightyr coverage report --program CBTRN02C
+lightyr coverage report --program TXNPOST
 
 # 3 · run one bounded proof cell end to end
-lightyr factory run --work-order intcalc.json</pre>
+lightyr factory run --work-order interest-calc.json</pre>
 </div>
 </div>
 </section>
@@ -73,9 +74,9 @@ lightyr factory run --work-order intcalc.json</pre>
 <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #C9C5E4">It declares the paths an agent may touch, the slice of the graph it may read, the gates that must pass and the timeouts. An agent can’t widen its scope at run time. <code style="font-family: 'IBM Plex Mono', monospace; color: #FFFFFF">expose_output_to_builder</code> defaults to false and must be a real JSON boolean.</p>
 </div>
 <pre style="flex: 1 1 440px; min-width: 0; margin: 0; background: #12154A; color: #E9E6F7; border-radius: 14px; padding: 24px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.7; overflow-x: auto">{
-  "id": "intcalc-repair",
+  "id": "interest-calc-repair",
   "allowed_paths": ["src/interest/**"],
-  "graph_scope": ["CBACT04C", "TCATBAL"],
+  "graph_scope": ["INTRCALC", "CATBAL"],
   "gates": [
     { "id": "unit",    "expose_output_to_builder": true  },
     { "id": "holdout", "expose_output_to_builder": false }

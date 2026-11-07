@@ -31,6 +31,10 @@ async function noHorizontalScroll(page) {
       const heading = element.closest('.mobile-card-table thead');
       if (heading && getComputedStyle(heading).clipPath === 'inset(50%)') continue;
       const box = element.getBoundingClientRect();
+      // SVG drawing coordinates can extend beyond their clipped viewport.
+      // Check that viewport itself, plus document and nested scrolling below.
+      const svg = element.ownerSVGElement;
+      if (svg && ['hidden', 'clip'].includes(getComputedStyle(svg).overflow)) continue;
       if (box.width > 0 && (box.left < -1 || box.right > innerWidth + 1)) {
         outside.push(element.tagName + '#' + element.id);
       }
@@ -87,12 +91,14 @@ test('one cent toggles MATCH -> NOT EQUIVALENT -> MATCH', async ({ page }) => {
   await noHorizontalScroll(page);
 });
 
-for (const [file, playerId, controlId] of [
-  ['index.html', 'loopPlayer', 'loopPause'],
+for (const [file, playerId, controlId, suffix = ''] of [
+  ['product.html', 'loopPlayer', 'loopPause'],
   ['proof.html', 'fxPlayer', 'fxPause'],
   ['verify.html', 'vfPlayer', 'vfPause'],
+  ['index.html', 'prismPlayer', 'prismPause', ' animation'],
+  ['index.html', 'apPlayer', 'apPause', ' animation'],
 ]) {
-  test(file + ' animation advances, freezes on pause, and resumes', async ({ page }) => {
+  test(file + ' ' + playerId + ' animation advances, freezes on pause, and resumes', async ({ page }) => {
     await open(page, file);
     const player = page.locator('#' + playerId);
     const control = page.locator('#' + controlId);
@@ -111,7 +117,7 @@ for (const [file, playerId, controlId] of [
     }).toBe(true);
 
     await control.click();
-    await expect(control).toHaveText('Play');
+    await expect(control).toHaveText('Play' + suffix);
     await expect(control).toHaveAttribute('aria-pressed', 'true');
     await expect.poll(async () => (await snapshot()).every(item => item.state === 'paused')).toBe(true);
     const paused = await snapshot();
@@ -126,7 +132,7 @@ for (const [file, playerId, controlId] of [
     });
 
     await control.click();
-    await expect(control).toHaveText('Pause');
+    await expect(control).toHaveText('Pause' + suffix);
     await expect(control).toHaveAttribute('aria-pressed', 'false');
     await expect.poll(async () => {
       const current = await snapshot();

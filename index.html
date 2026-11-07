@@ -13,101 +13,43 @@
 <style>
 body{margin:0;background:#15184D}
 a{color:#B9A3FF}a:hover{color:#D8CCF8}
-/* The repair loop (ported from lightyr.ai), scoped to .lyloop */
-.lyloop{--void:#06061A; --panel:#0E0D26; --line:#2A2850; --fg:#F4F2FF; --muted:#A9A5C8;
-  --violet:#8B5CFF; --filament:#FFB547; --ok:#2BD4A0; --bad:#FF5A4E;
-  --display:'Archivo','Arial Narrow',sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
-  --T:10s;
-  color-scheme:dark;}
-.lyloop *{box-sizing:border-box}
-.lyloop .wrap{max-width:none;margin:0 auto;display:flex;flex-direction:column;gap:12px}
-.lyloop .stage{position:relative;border:1px solid var(--line);border-radius:14px;background:var(--void);overflow:hidden}
-.lyloop .stage svg{display:block;width:100%;height:auto}
-.lyloop .toggle{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px;min-height:40px;cursor:pointer}
-.lyloop .toggle:hover{border-color:var(--violet)}
-.lyloop .toggle:focus-visible{outline:2px solid var(--filament);outline-offset:2px}
-.lyloop .row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.lyloop .caps{display:grid;flex:1 1 360px;min-height:1.3em}
-.lyloop .cap{grid-area:1/1;margin:0;font-family:var(--display);font-stretch:85%;font-weight:700;font-size:clamp(18px,2.4vw,24px);line-height:1.25;opacity:0}
-.lyloop .tag{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
-.lyloop .run .anim{animation-duration:var(--T);animation-iteration-count:infinite;animation-timing-function:ease-in-out;animation-fill-mode:both}
-.lyloop .paused .anim,.lyloop .paused .eyes,.lyloop .paused .gear,.lyloop .paused .bob{animation-play-state:paused}
-.lyloop .fb{transform-box:fill-box;transform-origin:center}
-.lyloop .bob{animation:bob 2.6s ease-in-out infinite}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-.lyloop .eyes{transform-box:fill-box;transform-origin:center;animation:blink 3.7s infinite}
-@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
-.lyloop .gear{transform-box:fill-box;transform-origin:center;animation:spin 2.4s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.lyloop .k0{animation-name:k0}
-.lyloop .k1{animation-name:k1}
-.lyloop .k2{animation-name:k2}
-.lyloop .k3{animation-name:k3}
-@keyframes k0{0%,14.5%{opacity:1}16%,100%{opacity:0}}
-@keyframes k1{0%,15%{opacity:0}16.5%,32%{opacity:1}34%,100%{opacity:0}}
-@keyframes k2{0%,33%{opacity:0}35%,69%{opacity:1}71%,100%{opacity:0}}
-@keyframes k3{0%,70%{opacity:0}72%,98%{opacity:1}100%{opacity:0}}
-.lyloop .tA{animation-name:tA}
-.lyloop .tB1{animation-name:tB1}
-.lyloop .tB2{animation-name:tB2}
-@keyframes tA{0%{opacity:1;transform:translate(0,0)}6%,30%{opacity:1;transform:translate(56px,84px)}33%,55%{opacity:0;transform:translate(0,0)}56%{opacity:1;transform:translate(0,0)}62%,95%{opacity:1;transform:translate(56px,84px)}98%,100%{opacity:0;transform:translate(56px,84px)}}
-@keyframes tB1{0%{opacity:1;transform:translate(0,0)}6%,30%{opacity:1;transform:translate(56px,4px)}33%,100%{opacity:0;transform:translate(56px,4px)}}
-@keyframes tB2{0%,55%{opacity:0;transform:translate(0,0)}56%{opacity:1;transform:translate(0,0)}62%,95%{opacity:1;transform:translate(56px,4px)}98%,100%{opacity:0;transform:translate(56px,4px)}}
-.lyloop .scan{animation-name:scan}
-@keyframes scan{0%,5.5%{opacity:0;transform:translateY(0)}6%{opacity:.9;transform:translateY(0)}11%{opacity:.9;transform:translateY(62px)}15.5%{opacity:.9;transform:translateY(0)}16%,61.5%{opacity:0;transform:translateY(0)}62%{opacity:.9;transform:translateY(0)}67%{opacity:.9;transform:translateY(62px)}71.5%{opacity:.9;transform:translateY(0)}72%,100%{opacity:0;transform:translateY(0)}}
-.lyloop .lampA{animation-name:lampA}
-.lyloop .lampR{animation-name:lampR}
-.lyloop .lampG{animation-name:lampG}
-@keyframes lampA{0%,5.5%{fill:#2A2850}6%,8%{fill:#FFB547}9%,11%{fill:#2A2850}12%,14%{fill:#FFB547}15%,61.5%{fill:#2A2850}62%,64%{fill:#FFB547}65%,67%{fill:#2A2850}68%,70%{fill:#FFB547}71%,100%{fill:#2A2850}}
-@keyframes lampR{0%,15.5%{fill:#2A2850}16.5%,33%{fill:#FF5A4E}34%,100%{fill:#2A2850}}
-@keyframes lampG{0%,71.5%{fill:#2A2850}72.5%,96%{fill:#2BD4A0}98%,100%{fill:#2A2850}}
-.lyloop .r1{animation-name:r1}
-.lyloop .r2{animation-name:r2}
-.lyloop .r3{animation-name:r3}
-.lyloop .r4{animation-name:r4}
-@keyframes r1{0%,5.5%{opacity:0}6.5%,15%{opacity:1}16%,100%{opacity:0}}
-@keyframes r2{0%,15.5%{opacity:0}16.5%,33%{opacity:1}34%,100%{opacity:0}}
-@keyframes r3{0%,61.5%{opacity:0}62.5%,71%{opacity:1}72%,100%{opacity:0}}
-@keyframes r4{0%,71.5%{opacity:0}72.5%,96%{opacity:1}98%,100%{opacity:0}}
-.lyloop .stampRed{animation-name:stampRed}
-@keyframes stampRed{0%,15.5%{opacity:0;transform:scale(2.2) rotate(5deg)}18%,31%{opacity:1;transform:scale(1) rotate(5deg)}34%,100%{opacity:0;transform:scale(1) rotate(5deg)}}
-.lyloop .stamp{animation-name:stamp}
-@keyframes stamp{0%,71.5%{opacity:0;transform:scale(2.2) rotate(-6deg)}74%,95%{opacity:1;transform:scale(1) rotate(-6deg)}98%,100%{opacity:0;transform:scale(1) rotate(-6deg)}}
-.lyloop .note{animation-name:note}
-@keyframes note{0%,18%{opacity:0;transform:translate(0,0)}20%{opacity:1;transform:translate(0,0)}30%,36%{opacity:1;transform:translate(-326px,-108px)}39%,100%{opacity:0;transform:translate(-326px,-108px)}}
-.lyloop .aha{animation-name:aha}
-@keyframes aha{0%,29%{opacity:0;transform:scale(0)}31%{opacity:1;transform:scale(1.2)}32.5%,38%{opacity:1;transform:scale(1)}40%,100%{opacity:0;transform:scale(0)}}
-.lyloop .bFix{animation-name:bFix}
-@keyframes bFix{0%,32%{opacity:0;transform:translateY(6px)}34%,45%{opacity:1;transform:translateY(0)}47%,100%{opacity:0}}
-.lyloop .bYes{animation-name:bYes}
-@keyframes bYes{0%,75%{opacity:0;transform:translateY(6px)}77%,94%{opacity:1;transform:translateY(0)}97%,100%{opacity:0}}
-.lyloop .type{animation-name:type}
-@keyframes type{0%,35%{transform:translateY(0)}36.5%{transform:translateY(-4px)}38%{transform:translateY(0)}39.5%{transform:translateY(-4px)}41%{transform:translateY(0)}42.5%{transform:translateY(-4px)}44%,100%{transform:translateY(0)}}
-.lyloop .bolt{animation-name:boltK}
-@keyframes boltK{0%,19%{transform:translate(0,0) rotate(0)}22%,29%{transform:translate(0,5px) rotate(-5deg)}32%{transform:translate(0,-7px) rotate(0)}35%,74%{transform:translate(0,0)}77%{transform:translate(0,-16px)}80%{transform:translate(0,0)}83%{transform:translate(0,-8px)}86%,100%{transform:translate(0,0)}}
-.lyloop .cA{animation-name:cA}
-.lyloop .cB{animation-name:cB}
-@keyframes cA{0%,44%{opacity:0;transform:translate(0,0)}46%{opacity:1;transform:translate(0,0)}53%{opacity:1;transform:translate(230px,-200px)}55%,100%{opacity:0;transform:translate(230px,-200px)}}
-@keyframes cB{0%,44%{opacity:0;transform:translate(0,0)}46%{opacity:1;transform:translate(0,0)}53%{opacity:1;transform:translate(230px,-80px)}55%,100%{opacity:0;transform:translate(230px,-80px)}}
-.lyloop .lamp{animation-name:lamp}
-@keyframes lamp{0%,4%{fill:#2BD4A0}5%,52.5%{fill:#2A2850}53.5%{fill:#FFB547}54.5%{fill:#2A2850}55.5%{fill:#FFB547}56.5%,62%{fill:#2BD4A0}63%,100%{fill:#2A2850}}
-.lyloop .shake{animation-name:shake}
-@keyframes shake{0%,52.5%{transform:translate(0,0)}53.5%{transform:translate(1px,-1px)}54.5%{transform:translate(-1px,1px)}55.5%{transform:translate(1px,1px)}56.5%,100%{transform:translate(0,0)}}
-.lyloop .rcpt{animation-name:rcpt;transform-box:fill-box;transform-origin:50% 0}
-@keyframes rcpt{0%,73%{opacity:0;transform:scaleY(0)}77%,95%{opacity:1;transform:scaleY(1)}98%,100%{opacity:0;transform:scaleY(1)}}
-.lyloop .spark{animation-name:spark}
-@keyframes spark{0%,72%{opacity:0;transform:scale(0)}75%{opacity:1;transform:scale(1.2)}79%{opacity:1;transform:scale(.9)}85%,100%{opacity:0;transform:scale(0)}}
-.lyloop .beamglow{animation-name:beam}
-@keyframes beam{0%,72%{opacity:.25}75%,93%{opacity:1}97%,100%{opacity:.25}}
-@media (prefers-reduced-motion: reduce){.lyloop .anim,.lyloop .eyes,.lyloop .gear,.lyloop .bob{animation:none!important}
-.lyloop .k0,.lyloop .k1,.lyloop .k2,.lyloop .tB1,.lyloop .scan,.lyloop .r1,.lyloop .r2,.lyloop .r3,.lyloop .stampRed,.lyloop .note,.lyloop .aha,.lyloop .bFix,.lyloop .cA,.lyloop .cB,.lyloop .spark{opacity:0}
-.lyloop .k3,.lyloop .tA,.lyloop .tB2,.lyloop .r4,.lyloop .stamp,.lyloop .rcpt,.lyloop .bYes{opacity:1}
-.lyloop .tA{transform:translate(56px,84px)}
-.lyloop .tB2{transform:translate(56px,4px)}
-.lyloop .stamp{transform:rotate(-6deg)}
-.lyloop .lampG{fill:#2BD4A0}
-.lyloop .toggle{display:none}}
-.lyloop .av{width:58px;height:62px;display:block}
+/* Lightyear Prism and Aperture animations (scoped) */
+.lyprism > svg,.lyaperture > svg{display:block;width:100%;height:auto}
+.lyprism .beam{stroke-dasharray:120;stroke-dashoffset:120;animation:pr-beam 8s ease-in-out infinite}
+@keyframes pr-beam{0%{stroke-dashoffset:120;opacity:0}5%{opacity:1}13%{stroke-dashoffset:0}90%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+.lyprism .core{animation:pr-core 8s ease-in-out infinite}
+@keyframes pr-core{0%,12%{opacity:0}18%,90%{opacity:.85}100%{opacity:0}}
+.lyprism .glass{animation:pr-glass 8s ease-in-out infinite}
+@keyframes pr-glass{0%,12%{opacity:.55}20%,88%{opacity:1}100%{opacity:.55}}
+.lyprism .ray{transform-box:view-box;transform-origin:331px 170px;animation:pr-ray 8s ease-out infinite;opacity:0}
+@keyframes pr-ray{0%,16%{opacity:0;transform:scaleX(0)}30%{opacity:1;transform:scaleX(1)}90%{opacity:1;transform:scaleX(1)}100%{opacity:0;transform:scaleX(1)}}
+.lyprism .dot{animation:pr-dot 8s ease-out infinite;opacity:0}
+@keyframes pr-dot{0%,27%{opacity:0}33%,90%{opacity:1}100%{opacity:0}}
+.lyprism .lg{animation:pr-lg 8s ease-out infinite;opacity:0}
+@keyframes pr-lg{0%,29%{opacity:0;transform:translateY(4px)}35%,90%{opacity:1;transform:none}100%{opacity:0}}
+.lyprism .d1{animation-delay:0s}.lyprism .d2{animation-delay:.14s}.lyprism .d3{animation-delay:.28s}.lyprism .d4{animation-delay:.42s}.lyprism .d5{animation-delay:.56s}.lyprism .d6{animation-delay:.7s}
+.lyaperture .iris{transform-box:view-box;transform-origin:150px 150px;animation:ap-iris 7s ease-in-out infinite}
+@keyframes ap-iris{0%{transform:scale(.16) rotate(40deg)}28%{transform:scale(1) rotate(0deg)}74%{transform:scale(1) rotate(0deg)}100%{transform:scale(.16) rotate(40deg)}}
+.lyaperture .shaft{animation:ap-shaft 7s ease-in-out infinite;opacity:0}
+@keyframes ap-shaft{0%,20%{opacity:0}32%,72%{opacity:1}86%,100%{opacity:0}}
+.lyaperture .ck{animation:ap-ck 7s ease-out infinite}
+.lyaperture .ck .tick{animation:ap-tick 7s ease-out infinite;opacity:.25}
+@keyframes ap-ck{0%,30%{color:#8E8BB8}38%,80%{color:#FFFFFF}92%,100%{color:#8E8BB8}}
+@keyframes ap-tick{0%,30%{opacity:.25}38%,80%{opacity:1}92%,100%{opacity:.25}}
+.lyaperture .pass{animation:ap-pass 7s ease-out infinite;opacity:0}
+@keyframes ap-pass{0%,52%{opacity:0;transform:translateY(4px)}58%,80%{opacity:1;transform:none}92%,100%{opacity:0}}
+.lyaperture .c1,.lyaperture .c1 .tick{animation-delay:0s}.lyaperture .c2,.lyaperture .c2 .tick{animation-delay:.35s}.lyaperture .c3,.lyaperture .c3 .tick{animation-delay:.7s}.lyaperture .c4,.lyaperture .c4 .tick{animation-delay:1.05s}
+.lyprism.paused *,.lyaperture.paused *{animation-play-state:paused!important}
+.lyprism .toggle,.lyaperture .toggle{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;color:#E9E6F7;background:#0E1038;border:1px solid #3A3E8C;border-radius:8px;padding:8px 12px;min-height:40px;cursor:pointer}
+.lyprism .toggle:focus-visible,.lyaperture .toggle:focus-visible{outline:2px solid #E9C48F;outline-offset:2px}
+@media (prefers-reduced-motion: reduce){.lyprism *,.lyaperture *{animation:none!important}.lyprism .ray,.lyprism .dot,.lyprism .lg,.lyprism .core,.lyaperture .shaft,.lyaperture .pass{opacity:1!important;transform:none!important}.lyprism .beam{stroke-dashoffset:0!important;opacity:1!important}.lyaperture .iris{transform:none!important}.lyaperture .ck .tick{opacity:1!important}.lyaperture .ck{color:#FFFFFF!important}}
+
+.lyprism .scan{transform-box:view-box;animation:pr-scan 8s ease-in-out infinite;opacity:0}
+@keyframes pr-scan{0%{transform:translateY(0);opacity:0}3%{opacity:.9}15%{transform:translateY(119px);opacity:.9}20%,100%{transform:translateY(119px);opacity:0}}
+.lyprism .tok{animation:pr-tok 8s ease-out infinite;opacity:0}
+@keyframes pr-tok{0%,2%{opacity:0;transform:translateX(0)}5%{opacity:1}13%{opacity:0;transform:translateX(40px)}100%{opacity:0;transform:translateX(40px)}}
+.lyprism .t2{animation-delay:.45s}.lyprism .t3{animation-delay:.9s}
+@media (prefers-reduced-motion: reduce){.lyprism .scan,.lyprism .tok{opacity:0!important}}
 /* Keep tables and code examples readable without sideways scrolling on phones. */
 @media (max-width: 600px){
   pre{white-space:pre-wrap !important;overflow-wrap:anywhere}
@@ -143,6 +85,7 @@ html{scroll-behavior:smooth}
 <a href="pricing.html" style="color: #D3CFEA; text-decoration: none">Pricing</a>
 <a href="resources.html" style="color: #D3CFEA; text-decoration: none">Resources</a>
 <a href="engineers.html" style="color: #D3CFEA; text-decoration: none">For engineers</a>
+<a href="resources.html#research" style="color: #D3CFEA; text-decoration: none">Research</a>
 <a href="#sprint" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 12px 18px; border-radius: 8px; font-weight: 600">Book a Verification Sprint</a>
 </div>
 </nav>
@@ -151,10 +94,10 @@ html{scroll-behavior:smooth}
 <div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
 <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">AI modernization, proven</p>
 <h1 style="margin: 0; font-size: 62px; line-height: 1.04; font-weight: 700; letter-spacing: -1.5px; color: #FFFFFF">Clear your modernization backlog. Prove every change.</h1>
-<p style="margin: 0; font-size: 20px; line-height: 1.55; color: #C9C5E4; max-width: 580px">Lightyear’s AI factory converts legacy code at machine speed, and our independent Verdict Engine proves field by field that the new system behaves exactly like the old one. Retire legacy sooner, spend less on testing and sign-off, and cut over with evidence your auditor can replay.</p>
+<p style="margin: 0; font-size: 20px; line-height: 1.55; color: #C9C5E4; max-width: 580px">Lightyear’s AI factory converts legacy code at machine speed, and Lightyear Prism, our independent verdict engine, proves field by field that the new system behaves exactly like the old one. Retire legacy sooner, spend less on testing and sign-off, and cut over with evidence your auditor can replay.</p>
 <div style="display: flex; flex-wrap: wrap; gap: 14px; padding-top: 4px">
 <a href="#sprint" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 16px 24px; border-radius: 10px; font-weight: 600; font-size: 16px">Book a Verification Sprint</a>
-<a href="#verifier" style="color: #E9E6F7; border: 1px solid #5B5E9C; text-decoration: none; padding: 15px 22px; border-radius: 10px; font-weight: 500; font-size: 16px">Don’t trust us: run our verifier</a>
+<a href="#verifier" style="color: #E9E6F7; border: 1px solid #5B5E9C; text-decoration: none; padding: 15px 22px; border-radius: 10px; font-weight: 500; font-size: 16px">Don’t trust us: check it with Aperture</a>
 </div>
 <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.7; color: #A9A6CC">COBOL · CICS · VSAM · IMS · HLASM · PL/I · JCL · Db2 · Oracle · PostgreSQL · AlloyDB · SAP ASE</p>
 </div>
@@ -174,8 +117,17 @@ html{scroll-behavior:smooth}
 <span style="font-size: 18px; font-weight: 600; color: #FFFFFF; font-family: 'IBM Plex Sans', Arial, sans-serif" id="vc-vtext"></span>
 <span style="font-size: 12px; color: #C9C5E4" id="vc-vdetail"></span>
 </div>
-<figcaption style="font-size: 11px; color: #8E8BB8">Illustrative run, CardDemo INTCALC. COBOL truncates to two decimals; this rewrite rounded.</figcaption>
+<figcaption style="font-size: 11px; color: #8E8BB8">Illustrative run, mainframe interest calculation. COBOL truncates to two decimals; this rewrite rounded.</figcaption>
 </figure>
+</div>
+
+<!-- Trust strip -->
+<div aria-label="How Lightyear handles your code and data" style="margin-top: 64px; border-top: 1px solid #2E3175; padding-top: 22px; display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; font-size: 14px; color: #C9C5E4">
+<span style="display: inline-flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9FE3BC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4 10-10"></path></svg>Runs read-only in your cloud</span>
+<span style="display: inline-flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9FE3BC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4 10-10"></path></svg>Your code and data stay in your environment</span>
+<span style="display: inline-flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9FE3BC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4 10-10"></path></svg>Human sign-off with hardware keys</span>
+<span style="display: inline-flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9FE3BC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4 10-10"></path></svg>Evidence anyone can replay</span>
+<a href="mailto:howard@lightyr.ai?subject=Security%20pack%20request" style="color: #E9C48F; text-decoration: none; font-weight: 600">Request our security pack →</a>
 </div>
 </div>
 </section>
@@ -188,7 +140,7 @@ html{scroll-behavior:smooth}
 <h2 style="margin: 0; font-size: 50px; line-height: 1.06; letter-spacing: -1px; color: #15184D">One cent.<br>A different verdict.</h2>
 <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3D3F6B; max-width: 540px">A rewrite that rounds where COBOL truncates is one cent off on a monthly interest charge. Testers rarely notice. Across a million accounts, that’s $10,000 a month that won’t reconcile. The Verdict Engine compares every field, so it can’t slip through.</p>
 <div><button id="cent-btn" type="button" aria-pressed="false" style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 16px; font-weight: 600; color: #FFFFFF; background: #15184D; border: 0; border-radius: 10px; padding: 16px 24px; min-height: 48px; cursor: pointer">Introduce a 1¢ difference</button></div>
-<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #676985">Illustrative: CardDemo monthly interest calculation (INTCALC), one account.</p>
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #676985">Illustrative: mainframe monthly interest calculation, one account.</p>
 </div>
 <figure style="flex: 1 1 440px; min-width: 0; margin: 0; background: #FEFEFE; border: 1px solid #DDD7F2; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 22px; font-family: 'IBM Plex Mono', monospace">
 <div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12px; letter-spacing: 1.5px; color: #676985"><span>FIELD · MONTHLY-INT</span><span>ACCT 00000000047</span></div>
@@ -200,6 +152,94 @@ html{scroll-behavior:smooth}
 <span id="cent-chip" style="display: inline-block; align-self: flex-start; font-size: 12px; font-weight: 600; letter-spacing: 0.8px; padding: 5px 10px; border-radius: 6px; background: #12573A; color: #C9F5DC;">MATCH</span>
 <span id="cent-detail" style="font-size: 13px; line-height: 1.55; color: #3D3F6B">Legacy and rewrite agree on this field for this record. Now change one cent.</span>
 </div>
+</figure>
+</div>
+</section>
+
+<!-- ============ 1a1 · LIGHTYEAR PRISM (dark, animated) ============ -->
+<section id="prism" style="background: #0E1038; color: #E9E6F7; padding: 96px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
+<div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+<svg width="36" height="30" viewBox="0 0 36 30" aria-hidden="true" style="flex: none"><polygon points="14,2 25,28 3,28" fill="none" stroke="#F1D19F" stroke-width="2" stroke-linejoin="round"></polygon><line x1="0" y1="17" x2="9" y2="16" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></line><path d="M19 15 L36 6" stroke="#8F6EF0" stroke-width="2"></path><path d="M19 16 L36 15" stroke="#36B8A6" stroke-width="2"></path><path d="M19 17 L36 24" stroke="#E9C46A" stroke-width="2"></path></svg>
+<span style="font-size: 24px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: #F1D19F">Lightyear Prism</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: #B4B0D8; border-left: 1px solid #4A4E9C; padding-left: 12px">The verdict engine</span>
+</div>
+<h2 style="margin: 0; font-size: 46px; line-height: 1.08; letter-spacing: -1px; color: #FFFFFF">Decades of business logic, brought into full view.</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #C9C5E4">Prism runs your existing system and the new one side by side, and shows every behaviour, service by service and field by field, as a verdict you can read: equivalent, different or indeterminate. The logic your business depends on is carried forward, and you can see that it was.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #A9A6CC">It judges code from any builder: our factory, your AI platform or your systems integrator.</p>
+</div>
+<figure class="lyprism" id="prismPlayer" style="flex: 1.35 1 520px; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 16px">
+<svg viewBox="0 0 680 340" role="img" aria-label="Legacy COBOL is read line by line and sent as a beam of light into a glass prism, which splits it into six coloured bands, one for each part of the new system">
+<defs>
+<linearGradient id="prGlassFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".30"></stop><stop offset="1" stop-color="#B9A3FF" stop-opacity=".06"></stop></linearGradient>
+<filter id="prGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.2" result="b"></feGaussianBlur><feMerge><feMergeNode in="b"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter>
+<linearGradient id="prR1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8F6EF0" stop-opacity=".95"></stop><stop offset="1" stop-color="#8F6EF0" stop-opacity=".18"></stop></linearGradient><linearGradient id="prR2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5B8DEF" stop-opacity=".95"></stop><stop offset="1" stop-color="#5B8DEF" stop-opacity=".18"></stop></linearGradient><linearGradient id="prR3" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#36B8A6" stop-opacity=".95"></stop><stop offset="1" stop-color="#36B8A6" stop-opacity=".18"></stop></linearGradient><linearGradient id="prR4" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8CC152" stop-opacity=".95"></stop><stop offset="1" stop-color="#8CC152" stop-opacity=".18"></stop></linearGradient><linearGradient id="prR5" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E9C46A" stop-opacity=".95"></stop><stop offset="1" stop-color="#E9C46A" stop-opacity=".18"></stop></linearGradient><linearGradient id="prR6" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E8836B" stop-opacity=".95"></stop><stop offset="1" stop-color="#E8836B" stop-opacity=".18"></stop></linearGradient>
+</defs>
+<text x="10" y="80" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.5" fill="#8E8BB8">YOUR LEGACY SYSTEM</text>
+<rect x="10" y="92" width="180" height="164" rx="10" fill="#0B0D30" stroke="#3A3E8C" stroke-width="2"></rect>
+<rect class="scan" x="16" y="104" width="168" height="16" rx="3" fill="#7D57EA"></rect>
+<text x="24" y="116" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#E9C48F" xml:space="preserve">PROCEDURE DIVISION.</text><text x="24" y="133" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#B4B0D8" xml:space="preserve">  READ ACCOUNT-FILE</text><text x="24" y="150" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#B4B0D8" xml:space="preserve">  IF BALANCE > ZERO</text><text x="24" y="167" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#B4B0D8" xml:space="preserve">    PERFORM CALC-INT</text><text x="24" y="184" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#B4B0D8" xml:space="preserve">  COMPUTE INT =</text><text x="24" y="201" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#B4B0D8" xml:space="preserve">    BAL * RATE / 1200</text><text x="24" y="218" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#B4B0D8" xml:space="preserve">  WRITE STATEMENT</text><text x="24" y="235" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#B4B0D8" xml:space="preserve">  END-IF.</text>
+<polygon class="ray d1" points="331,170 636,27 636,53" fill="url(#prR1)"></polygon><polygon class="ray d2" points="331,170 636,79 636,105" fill="url(#prR2)"></polygon><polygon class="ray d3" points="331,170 636,131 636,157" fill="url(#prR3)"></polygon><polygon class="ray d4" points="331,170 636,183 636,209" fill="url(#prR4)"></polygon><polygon class="ray d5" points="331,170 636,235 636,261" fill="url(#prR5)"></polygon><polygon class="ray d6" points="331,170 636,287 636,313" fill="url(#prR6)"></polygon>
+<circle class="dot d1" cx="644" cy="40" r="6" fill="#8F6EF0"></circle><circle class="dot d2" cx="644" cy="92" r="6" fill="#5B8DEF"></circle><circle class="dot d3" cx="644" cy="144" r="6" fill="#36B8A6"></circle><circle class="dot d4" cx="644" cy="196" r="6" fill="#8CC152"></circle><circle class="dot d5" cx="644" cy="248" r="6" fill="#E9C46A"></circle><circle class="dot d6" cx="644" cy="300" r="6" fill="#E8836B"></circle>
+<line class="beam" x1="190" y1="178" x2="245" y2="178" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" filter="url(#prGlow)"></line>
+<text class="tok t1" x="192" y="170" font-family="IBM Plex Mono, monospace" font-size="10" fill="#FFFFFF">READ</text>
+<text class="tok t2" x="196" y="170" font-family="IBM Plex Mono, monospace" font-size="10" fill="#FFFFFF">IF</text>
+<text class="tok t3" x="192" y="170" font-family="IBM Plex Mono, monospace" font-size="10" fill="#FFFFFF">CALC</text>
+<polygon class="glass" points="290,88 370,250 210,250" fill="url(#prGlassFill)" stroke="#D8CCF8" stroke-width="2" stroke-linejoin="round"></polygon>
+<line class="core" x1="245" y1="178" x2="331" y2="170" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" filter="url(#prGlow)"></line>
+</svg>
+<ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px 24px">
+<li class="lg d1" style="display: flex; align-items: center; gap: 10px; min-width: 0"><span style="flex: none; width: 10px; height: 10px; border-radius: 50%; background: #8F6EF0"></span><span style="flex: 1 1 auto; min-width: 0; font-size: 15px; color: #E9E6F7">Accounts</span><span style="flex: none; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: .6px; padding: 3px 7px; border-radius: 5px; background: #12573A; color: #C9F5DC">EQUIVALENT</span></li><li class="lg d2" style="display: flex; align-items: center; gap: 10px; min-width: 0"><span style="flex: none; width: 10px; height: 10px; border-radius: 50%; background: #5B8DEF"></span><span style="flex: 1 1 auto; min-width: 0; font-size: 15px; color: #E9E6F7">Interest</span><span style="flex: none; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: .6px; padding: 3px 7px; border-radius: 5px; background: #12573A; color: #C9F5DC">EQUIVALENT</span></li><li class="lg d3" style="display: flex; align-items: center; gap: 10px; min-width: 0"><span style="flex: none; width: 10px; height: 10px; border-radius: 50%; background: #36B8A6"></span><span style="flex: 1 1 auto; min-width: 0; font-size: 15px; color: #E9E6F7">Payments</span><span style="flex: none; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: .6px; padding: 3px 7px; border-radius: 5px; background: #12573A; color: #C9F5DC">EQUIVALENT</span></li><li class="lg d4" style="display: flex; align-items: center; gap: 10px; min-width: 0"><span style="flex: none; width: 10px; height: 10px; border-radius: 50%; background: #8CC152"></span><span style="flex: 1 1 auto; min-width: 0; font-size: 15px; color: #E9E6F7">Statements</span><span style="flex: none; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: .6px; padding: 3px 7px; border-radius: 5px; background: #12573A; color: #C9F5DC">EQUIVALENT</span></li><li class="lg d5" style="display: flex; align-items: center; gap: 10px; min-width: 0"><span style="flex: none; width: 10px; height: 10px; border-radius: 50%; background: #E9C46A"></span><span style="flex: 1 1 auto; min-width: 0; font-size: 15px; color: #E9E6F7">Customer data</span><span style="flex: none; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: .6px; padding: 3px 7px; border-radius: 5px; background: #12573A; color: #C9F5DC">EQUIVALENT</span></li><li class="lg d6" style="display: flex; align-items: center; gap: 10px; min-width: 0"><span style="flex: none; width: 10px; height: 10px; border-radius: 50%; background: #E8836B"></span><span style="flex: 1 1 auto; min-width: 0; font-size: 15px; color: #E9E6F7">Year-end batch</span><span style="flex: none; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: .6px; padding: 3px 7px; border-radius: 5px; background: #7A5208; color: #FBE7C2">INDETERMINATE</span></li>
+</ul>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between">
+<figcaption style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8E8BB8">Illustrative. Untested logic stays indeterminate, never a pass.</figcaption>
+<button type="button" class="toggle" aria-pressed="false" id="prismPause">Pause animation</button>
+</div>
+</figure>
+</div>
+</section>
+
+<!-- ============ 1a2 · THE PRODUCT (white, real screenshot) ============ -->
+<section id="product-view" style="background: #FEFEFE; color: #15184D; padding: 88px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+<div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">The product</p>
+<h2 style="margin: 0; font-size: 44px; line-height: 1.1; letter-spacing: -0.8px; color: #15184D">See every decision, and the evidence behind it.</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3D3F6B">Control Tower is where your team works: map the estate, trace any rule back to the code it came from, and approve only what the evidence supports. A release stays blocked until every gate is proven.</p>
+<div style="display: flex; flex-direction: column; gap: 10px; font-size: 16px; line-height: 1.5; color: #15184D">
+<span style="display: flex; gap: 10px; align-items: flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D57EA" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 3px"><path d="m5 12 4 4 10-10"></path></svg>Trace any field or rule to its source line</span>
+<span style="display: flex; gap: 10px; align-items: flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D57EA" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 3px"><path d="m5 12 4 4 10-10"></path></svg>See which gates are proven, and which still aren’t</span>
+<span style="display: flex; gap: 10px; align-items: flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D57EA" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 3px"><path d="m5 12 4 4 10-10"></path></svg>Every decision kept in a hash-chained audit trail</span>
+</div>
+<a href="product.html" style="align-self: flex-start; font-size: 16px; font-weight: 600; color: #5B3CC4; text-decoration: none">Take the product tour →</a>
+</div>
+<figure role="img" aria-label="Illustrative view of Lightyear Control Tower: a release with three gates proven and two still open, so promotion is blocked, beside a signed audit trail" style="flex: 1.6 1 520px; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 12px">
+<div style="background: #F7F5FD; border: 1px solid #DDD7F2; border-radius: 16px; overflow: hidden; box-shadow: 0 24px 60px rgba(21, 24, 77, 0.14)">
+<div style="background: #15184D; padding: 14px 20px; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.5px; color: #C9B8F8">CONTROL TOWER</span>
+<span style="font-size: 14px; color: #E9E6F7">Release 3 · Interest batch</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.8px; font-weight: 600; background: #7A3A06; color: #FFE1C2; padding: 5px 9px; border-radius: 6px">PROMOTION BLOCKED · 2 GATES OPEN</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0">
+<div style="padding: 18px 20px; display: flex; flex-direction: column; gap: 0; border-right: 1px solid #E6E1F6">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1.5px; color: #676985; padding-bottom: 8px">GATES</span>
+<div style="display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 10px 0; border-top: 1px solid #E6E1F6; font-size: 14px; color: #15184D"><span>Business rules locked</span><span style="flex: none; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; background: #DDF3E6; color: #0F5C33; padding: 3px 7px; border-radius: 5px">PROVEN</span></div>
+<div style="display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 10px 0; border-top: 1px solid #E6E1F6; font-size: 14px; color: #15184D"><span>Field-by-field equivalence</span><span style="flex: none; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; background: #DDF3E6; color: #0F5C33; padding: 3px 7px; border-radius: 5px">PROVEN</span></div>
+<div style="display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 10px 0; border-top: 1px solid #E6E1F6; font-size: 14px; color: #15184D"><span>Tests catch planted faults</span><span style="flex: none; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; background: #DDF3E6; color: #0F5C33; padding: 3px 7px; border-radius: 5px">PROVEN</span></div>
+<div style="display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 10px 0; border-top: 1px solid #E6E1F6; font-size: 14px; color: #15184D"><span>Untested logic reviewed</span><span style="flex: none; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; background: #FBF0D9; color: #7A5208; padding: 3px 7px; border-radius: 5px">OPEN</span></div>
+<div style="display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 10px 0; border-top: 1px solid #E6E1F6; font-size: 14px; color: #15184D"><span>Risk owner sign-off</span><span style="flex: none; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; background: #FBF0D9; color: #7A5208; padding: 3px 7px; border-radius: 5px">WAITING</span></div>
+</div>
+<div style="padding: 18px 20px; display: flex; flex-direction: column; gap: 0; background: #FEFEFE">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1.5px; color: #676985; padding-bottom: 8px">AUDIT TRAIL · HASH-CHAINED</span>
+<div style="display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid #E6E1F6; font-size: 14px; line-height: 1.45; color: #3D3F6B"><span style="flex: none; width: 10px; height: 10px; margin-top: 5px; border-radius: 50%; background: #7D57EA"></span><span><strong style="color: #15184D">Rules frozen</strong> · signed</span></div>
+<div style="display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid #E6E1F6; font-size: 14px; line-height: 1.45; color: #3D3F6B"><span style="flex: none; width: 10px; height: 10px; margin-top: 5px; border-radius: 50%; background: #C0392B"></span><span><strong style="color: #15184D">Difference named:</strong> monthly interest field, one record</span></div>
+<div style="display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid #E6E1F6; font-size: 14px; line-height: 1.45; color: #3D3F6B"><span style="flex: none; width: 10px; height: 10px; margin-top: 5px; border-radius: 50%; background: #7D57EA"></span><span><strong style="color: #15184D">Repaired, re-judged:</strong> EQUIVALENT · signed</span></div>
+<div style="display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid #E6E1F6; font-size: 14px; line-height: 1.45; color: #3D3F6B"><span style="flex: none; width: 10px; height: 10px; margin-top: 5px; border-radius: 50%; border: 2px solid #A7702C; box-sizing: border-box"></span><span><strong style="color: #15184D">Awaiting decision</strong> from the risk owner</span></div>
+</div>
+</div>
+</div>
+<figcaption style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.6; color: #676985">Illustrative view of Control Tower. A release is promoted only when every gate has evidence and a named person has signed.</figcaption>
 </figure>
 </div>
 </section>
@@ -234,319 +274,78 @@ html{scroll-behavior:smooth}
 <p style="margin: 0; font-size: 16px; line-height: 1.55; color: #C9C5E4">Every change arrives with signed, replayable evidence for auditors and regulators, so approval isn’t the last-minute risk.</p>
 </div>
 </div>
-<div style="display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: baseline; border-top: 1px solid #3B3E86; padding-top: 24px">
-<span style="font-size: 36px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">12m 25s</span>
-<span style="flex: 1 1 420px; font-size: 16px; line-height: 1.5; color: #C9C5E4">from locked business rules to a signed verdict on a real ERP process, with zero lines written by a person. <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #A9A6CC">ONE PUBLIC, REPLAYABLE RUN</span></span>
-<a href="#sprint" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 14px 20px; border-radius: 10px; font-weight: 600; font-size: 15px">Price your backlog with a Sprint</a>
+<div id="cost" style="border-top: 1px solid #3B3E86; padding-top: 36px; display: flex; flex-wrap: wrap; gap: 40px; align-items: center">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">Cost certainty</p>
+<h3 style="margin: 0; font-size: 32px; line-height: 1.15; letter-spacing: -0.6px; color: #FFFFFF">Know what your backlog will cost before you commit.</h3>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #C9C5E4">Most modernization budgets are guesses. A four-week Verification Sprint maps your estate, proves one job end to end, and prices the rest from what that job actually took, with the evidence attached.</p>
+<a href="#sprint" style="align-self: flex-start; color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 15px 22px; border-radius: 10px; font-weight: 600; font-size: 16px">Price your backlog with a Sprint</a>
+</div>
+<div style="flex: 1 1 440px; min-width: 0; background: #FEFEFE; border: 1px solid #DDD7F2; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 0">
+<p style="margin: 0 0 12px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.5px; color: #676985">WHAT THE BACKLOG BUSINESS CASE CONTAINS</p>
+<div style="display: flex; gap: 16px; padding: 14px 0; border-top: 1px solid #ECE8F8"><span style="flex: none; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7D57EA; padding-top: 2px">01</span><span style="font-size: 16px; line-height: 1.5; color: #3D3F6B"><strong style="color: #15184D">Every program mapped.</strong> Grouped by technology and complexity, from the knowledge graph.</span></div>
+<div style="display: flex; gap: 16px; padding: 14px 0; border-top: 1px solid #ECE8F8"><span style="flex: none; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7D57EA; padding-top: 2px">02</span><span style="font-size: 16px; line-height: 1.5; color: #3D3F6B"><strong style="color: #15184D">Cost to equivalence.</strong> Per group, based on the measured effort of the Sprint job.</span></div>
+<div style="display: flex; gap: 16px; padding: 14px 0; border-top: 1px solid #ECE8F8"><span style="flex: none; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7D57EA; padding-top: 2px">03</span><span style="font-size: 16px; line-height: 1.5; color: #3D3F6B"><strong style="color: #15184D">What can be proven today.</strong> Qualified, in qualification, or not yet covered, stated plainly.</span></div>
+<div style="display: flex; gap: 16px; padding: 14px 0; border-top: 1px solid #ECE8F8"><span style="flex: none; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7D57EA; padding-top: 2px">04</span><span style="font-size: 16px; line-height: 1.5; color: #3D3F6B"><strong style="color: #15184D">Risk you can see.</strong> Logic the tests didn’t reach, named and sized.</span></div>
+<div style="display: flex; gap: 16px; padding: 14px 0; border-top: 1px solid #ECE8F8"><span style="flex: none; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7D57EA; padding-top: 2px">05</span><span style="font-size: 16px; line-height: 1.5; color: #3D3F6B"><strong style="color: #15184D">A go/no-go per group.</strong> With the evidence behind each call.</span></div>
+</div>
 </div>
 </div>
 </section>
 
-<!-- ============ 2 · EVERYONE BUILDS (dark indigo) ============ -->
-<section style="background: #23266A; color: #E9E6F7; padding: 96px 24px">
-<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px">
-<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
+<!-- ============ 2 · WHO GRADES THE WORK (compact) ============ -->
+<section style="background: #23266A; color: #E9E6F7; padding: 72px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-wrap: wrap; gap: 24px 40px; align-items: flex-end; justify-content: space-between">
+<div style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
 <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">Why it has to be independent</p>
-<h2 style="margin: 0; font-size: 44px; line-height: 1.1; color: #FFFFFF; letter-spacing: -0.8px">Don’t let AI grade its own homework.</h2>
-<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #C9C5E4">AI coding platforms, systems integrators and your own engineers can all produce the new system. None of them should be the one who says it’s right. Lightyear is the referee: we don’t write your code, and the AI that builds it never sees the expected answers.</p>
+<h2 style="margin: 0; font-size: 38px; line-height: 1.12; color: #FFFFFF; letter-spacing: -0.8px">Don’t let AI grade its own homework.</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #C9C5E4">AI platforms, integrators or your own team can build the new system. None of them should be the one who says it’s right. Prism never writes your code, and the builder never sees the expected answers.</p>
 </div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
-<div style="background: #2C2F7A; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
-<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #B9A3FF">01 · INDEPENDENT</span>
-<h3 style="margin: 0; font-size: 22px; color: #FFFFFF">Separate from the builder</h3>
-<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #C9C5E4">Works the same whether the code came from an AI platform, an SI or your team. The judge never shares a context with the writer.</p>
+<figure style="flex: 0 1 340px; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 30px; font-weight: 700; color: #FFC38A; letter-spacing: -0.8px">91.3% → 15.3%</span>
+<span style="font-size: 14px; line-height: 1.5; color: #C9C5E4">Hidden behavioural tests passed by AI agents modernizing whole repositories: under 10,000 lines versus beyond 50,000.</span>
+<figcaption style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #A9A6CC">Source: <a href="https://arxiv.org/abs/2602.22518" style="color: #C9B8F8">RepoMod-Bench, Modelcode, Feb 2026</a></figcaption>
+</figure>
 </div>
-<div style="background: #2C2F7A; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
-<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #B9A3FF">02 · DETERMINISTIC</span>
-<h3 style="margin: 0; font-size: 22px; color: #FFFFFF">Executed, not inferred</h3>
-<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #C9C5E4">Both systems run on real engines with the same inputs. The Verdict Engine compares outputs, data changes and errors, field by field.</p>
+<div role="table" aria-label="An AI builder on its own compared with an AI builder plus Lightyear Prism" style="display: flex; flex-direction: column; border: 1px solid #3B3E86; border-radius: 14px; overflow: hidden">
+<div role="row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));">
+<span role="rowheader" style="padding: 14px 18px; font-size: 15px; font-weight: 600; color: #FFFFFF">Who checks the result</span>
+<span role="cell" style="padding: 14px 18px; display: flex; flex-direction: column; gap: 3px; font-size: 14px; line-height: 1.45; color: #C9C5E4"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 1.2px; color: #A9A6CC">BUILDER ON ITS OWN</span>The same system that wrote the code</span>
+<span role="cell" style="padding: 14px 18px; display: flex; flex-direction: column; gap: 3px; font-size: 14px; line-height: 1.45; color: #FFFFFF; background: #2C2F7A"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 1.2px; color: #9FE3BC">WITH LIGHTYEAR PRISM</span>An independent judge that never sees the builder’s context</span>
 </div>
-<div style="background: #2C2F7A; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
-<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #B9A3FF">03 · REPLAYABLE</span>
-<h3 style="margin: 0; font-size: 22px; color: #FFFFFF">Signed evidence</h3>
-<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #C9C5E4">Every verdict ships with a signed evidence pack that your auditor or regulator can re-check without trusting us.</p>
+<div role="row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); border-top: 1px solid #3B3E86;">
+<span role="rowheader" style="padding: 14px 18px; font-size: 15px; font-weight: 600; color: #FFFFFF">What counts as proof</span>
+<span role="cell" style="padding: 14px 18px; display: flex; flex-direction: column; gap: 3px; font-size: 14px; line-height: 1.45; color: #C9C5E4"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 1.2px; color: #A9A6CC">BUILDER ON ITS OWN</span>The builder’s own tests and status badges</span>
+<span role="cell" style="padding: 14px 18px; display: flex; flex-direction: column; gap: 3px; font-size: 14px; line-height: 1.45; color: #FFFFFF; background: #2C2F7A"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 1.2px; color: #9FE3BC">WITH LIGHTYEAR PRISM</span>Both systems executed on real engines, compared field by field</span>
 </div>
+<div role="row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); border-top: 1px solid #3B3E86;">
+<span role="rowheader" style="padding: 14px 18px; font-size: 15px; font-weight: 600; color: #FFFFFF">When evidence is missing</span>
+<span role="cell" style="padding: 14px 18px; display: flex; flex-direction: column; gap: 3px; font-size: 14px; line-height: 1.45; color: #C9C5E4"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 1.2px; color: #A9A6CC">BUILDER ON ITS OWN</span>Easy to read as a pass</span>
+<span role="cell" style="padding: 14px 18px; display: flex; flex-direction: column; gap: 3px; font-size: 14px; line-height: 1.45; color: #FFFFFF; background: #2C2F7A"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 1.2px; color: #9FE3BC">WITH LIGHTYEAR PRISM</span>INDETERMINATE, never a pass</span>
 </div>
-<div style="border-top: 1px solid #3B3E86; padding-top: 40px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start">
-<div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
-<h3 style="margin: 0; font-size: 26px; line-height: 1.25; color: #FFFFFF">We tested it on ourselves.</h3>
-<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #C9C5E4">We asked AI agents for the rules that translate a 1.4-million-line ERP from Oracle to PostgreSQL. It returned fourteen rules in one response: same format, same confidence.</p>
-</div>
-<div style="flex: 2 1 560px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px">
-<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 44px; font-weight: 700; color: #9FE3BC; letter-spacing: -1px">367</span><span style="font-size: 15px; line-height: 1.45; color: #C9C5E4">files corrected by its best rule</span></div>
-<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 44px; font-weight: 700; color: #FFC38A; letter-spacing: -1px">86</span><span style="font-size: 15px; line-height: 1.45; color: #C9C5E4">files corrupted by its worst, and it looked just as plausible</span></div>
-<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 44px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">Both</span><span style="font-size: 15px; line-height: 1.45; color: #C9C5E4">caught, by running every change against the real system</span></div>
+<div role="row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); border-top: 1px solid #3B3E86;">
+<span role="rowheader" style="padding: 14px 18px; font-size: 15px; font-weight: 600; color: #FFFFFF">What your auditor gets</span>
+<span role="cell" style="padding: 14px 18px; display: flex; flex-direction: column; gap: 3px; font-size: 14px; line-height: 1.45; color: #C9C5E4"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 1.2px; color: #A9A6CC">BUILDER ON ITS OWN</span>A report to take on trust</span>
+<span role="cell" style="padding: 14px 18px; display: flex; flex-direction: column; gap: 3px; font-size: 14px; line-height: 1.45; color: #FFFFFF; background: #2C2F7A"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 1.2px; color: #9FE3BC">WITH LIGHTYEAR PRISM</span>A signed evidence pack they can replay without us</span>
 </div>
 </div>
 </div>
 </section>
 
-<!-- ============ 2b · THE AGENT DARK FACTORY (still dark) ============ -->
-<section id="factory" style="background: #1B1E5A; color: #E9E6F7; padding: 96px 24px">
-<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px">
-<div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-end; justify-content: space-between">
-<div style="flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<!-- ============ 2b · FACTORY STRIP (compact; full animation on Product page) ============ -->
+<section id="factory-strip" style="background: #1B1E5A; color: #E9E6F7; padding: 56px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 28px 48px; align-items: center; justify-content: space-between">
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
 <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">The agent dark factory</p>
-<h2 style="margin: 0; font-size: 44px; line-height: 1.1; color: #FFFFFF; letter-spacing: -0.8px">AI agents do the conversion. A fixed program decides when it’s done.</h2>
-<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #C9C5E4">Our factory’s advantage is built in: nothing it writes counts until the independent Verdict Engine says so. The judge is a deterministic program, not a model, and the agents never see its answer key. Prefer your own builder? The same judge verifies that too.</p>
+<h2 style="margin: 0; font-size: 32px; line-height: 1.15; color: #FFFFFF; letter-spacing: -0.6px">AI agents do the conversion. Prism decides when it’s done.</h2>
+<a href="product.html#factory" style="align-self: flex-start; font-size: 16px; font-weight: 600; color: #C9B8F8; text-decoration: none">Watch the factory run →</a>
 </div>
-</div>
-
-<div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: stretch">
-<div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 8px; border-radius: 14px; padding: 24px; background: #23266A; border: 2px solid #23266A">
-<div class="lyloop" style="height: 62px; display: flex; align-items: flex-end; color: #FFC38A"><svg class="av" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="-50 -128 124 136"><line x1="0" y1="-94" x2="0" y2="-108" stroke="#B9A3FF" stroke-width="3" stroke-linecap="round"></line>
-<circle cx="0" cy="-112" r="6" fill="#FFB547"></circle>
-<rect x="-32" y="-96" width="64" height="52" rx="18" fill="#8B5CFF"></rect>
-<rect x="-24" y="-88" width="48" height="32" rx="12" fill="#14132E"></rect>
-<ellipse cx="-10" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse><ellipse cx="10" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse>
-<path d="M-6 -63Q0 -59 6 -63" stroke="#F4F2FF" stroke-width="2" fill="none" stroke-linecap="round"></path>
-<circle cx="-27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle><circle cx="27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle>
-<rect x="-26" y="-42" width="52" height="38" rx="14" fill="#7146F0"></rect>
-<rect x="22" y="-34" width="22" height="28" rx="3" fill="#F4F2FF" stroke="#7146F0" stroke-width="1.5"></rect><rect x="26" y="-28" width="14" height="2.5" fill="#8B5CFF"></rect><rect x="26" y="-22" width="10" height="2.5" fill="#8B5CFF"></rect><rect x="26" y="-16" width="12" height="2.5" fill="#8B5CFF"></rect>
-<rect x="-20" y="-6" width="14" height="10" rx="4" fill="#4B2FB8"></rect><rect x="6" y="-6" width="14" height="10" rx="4" fill="#4B2FB8"></rect>
-<g fill="none" stroke="#FFD48A" stroke-width="2"><circle cx="-10" cy="-73" r="8.5"></circle><circle cx="10" cy="-73" r="8.5"></circle><path d="M-1.5 -74H1.5"></path></g></svg></div>
-<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.2px; color: #C99A5B">1 · PLAN</span>
-<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #B9A3FF">PIP · PLANNER AI</span>
-<h3 style="margin: 0; font-size: 21px; color: #FFFFFF">Scope the job</h3>
-<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #C9C5E4">Works from the knowledge graph: what the program reads and writes, which rules it carries, what “the same” means. Rules lock before any code is written.</p>
-<span style="margin-top: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.5; color: #A9A6CC; border-top: 1px solid #3B3E86; padding-top: 10px">SEES: source, layouts, the work order</span>
-</div>
-<div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 8px; border-radius: 14px; padding: 24px; background: #23266A; border: 2px solid #23266A">
-<div class="lyloop" style="height: 62px; display: flex; align-items: flex-end; color: #FFC38A"><svg class="av" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="-50 -128 124 136"><rect x="-32" y="-96" width="64" height="52" rx="18" fill="#FFB547"></rect>
-<rect x="-24" y="-88" width="48" height="32" rx="12" fill="#14132E"></rect>
-<ellipse cx="-8" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse><ellipse cx="12" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse>
-<path d="M-2 -63Q4 -59 10 -63" stroke="#F4F2FF" stroke-width="2" fill="none" stroke-linecap="round"></path>
-<circle cx="-27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle><circle cx="27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle>
-<rect x="-26" y="-42" width="52" height="38" rx="14" fill="#E2902A"></rect>
-<rect x="18" y="-40" width="46" height="28" rx="4" fill="#14132E" stroke="#FFB547" stroke-width="2"></rect>
-<rect x="24" y="-33" width="22" height="2.5" fill="#B9A3FF"></rect><rect x="24" y="-27" width="30" height="2.5" fill="#FFB547"></rect><rect x="24" y="-21" width="16" height="2.5" fill="#B9A3FF"></rect>
-<rect x="12" y="-12" width="58" height="5" rx="2" fill="#3A3760"></rect>
-<rect x="10" y="-22" width="14" height="7" rx="3.5" fill="#E2902A"></rect>
-<rect x="-20" y="-6" width="14" height="10" rx="4" fill="#9A5F12"></rect><rect x="6" y="-6" width="14" height="10" rx="4" fill="#9A5F12"></rect>
-<path d="M-29 -95Q-28 -121 0 -122Q28 -121 29 -95Z" fill="#FFD48A"></path><rect x="-36" y="-98" width="72" height="6" rx="3" fill="#F4C46A"></rect><rect x="-4" y="-121" width="8" height="24" rx="3" fill="#F4C46A"></rect></svg></div>
-<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.2px; color: #C99A5B">2 · BUILD</span>
-<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #B9A3FF">BOLT · BUILDER AI</span>
-<h3 style="margin: 0; font-size: 21px; color: #FFFFFF">Write the new code</h3>
-<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #C9C5E4">Writes the replacement in a sealed workspace with a fixed budget of attempts.</p>
-<span style="margin-top: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.5; color: #A9A6CC; border-top: 1px solid #3B3E86; padding-top: 10px">SEES: source and interfaces, never the answers</span>
-</div>
-<div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 8px; border-radius: 14px; padding: 24px; background: #241F4E; border: 2px solid #A7702C">
-<div class="lyloop" style="height: 62px; display: flex; align-items: flex-end; color: #FFC38A"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M7 21h10M5 7h14M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"></path></svg></div>
-<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.2px; color: #C99A5B">3 · JUDGE</span>
-<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #B9A3FF">THE VERDICT ENGINE</span>
-<h3 style="margin: 0; font-size: 21px; color: #FFFFFF">Compare every field</h3>
-<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #C9C5E4">Runs old and new on the same inputs. The answer key is the legacy program itself, run for real.</p>
-<span style="margin-top: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.5; color: #A9A6CC; border-top: 1px solid #3B3E86; padding-top: 10px">HOLDS: the answers and the signing key</span>
-</div>
-<div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 8px; border-radius: 14px; padding: 24px; background: #23266A; border: 2px solid #23266A">
-<div class="lyloop" style="height: 62px; display: flex; align-items: flex-end; color: #FFC38A"><svg class="av" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="-50 -128 124 136"><line x1="-14" y1="-96" x2="-20" y2="-110" stroke="#9FE3BC" stroke-width="3" stroke-linecap="round"></line><circle cx="-21" cy="-113" r="5" fill="#FF5A4E"></circle><rect x="-32" y="-96" width="64" height="52" rx="18" fill="#2BD4A0"></rect><rect x="-24" y="-88" width="48" height="32" rx="12" fill="#14132E"></rect><ellipse cx="-10" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse><ellipse cx="10" cy="-72" rx="5" ry="3.5" fill="#F4F2FF"></ellipse><path d="M-16 -84L-5 -82" stroke="#9FE3BC" stroke-width="2" stroke-linecap="round"></path><path d="M5 -80L16 -81" stroke="#9FE3BC" stroke-width="2" stroke-linecap="round"></path><path d="M-5 -63H5" stroke="#F4F2FF" stroke-width="2" stroke-linecap="round"></path><circle cx="-27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle><circle cx="27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle><rect x="-36" y="-80" width="6" height="16" rx="3" fill="#1A8F6C"></rect><rect x="-26" y="-42" width="52" height="38" rx="14" fill="#1A8F6C"></rect><rect x="-34" y="-36" width="22" height="28" rx="3" fill="#F4F2FF" stroke="#1A8F6C" stroke-width="1.5"></rect><rect x="-30" y="-30" width="14" height="2.5" fill="#2BD4A0"></rect><rect x="-30" y="-24" width="14" height="2.5" fill="#FF5A4E"></rect><rect x="-30" y="-18" width="10" height="2.5" fill="#2BD4A0"></rect><line x1="31" y1="-20" x2="44" y2="-6" stroke="#FFB547" stroke-width="5" stroke-linecap="round"></line><circle cx="22" cy="-30" r="13" fill="#14132E" stroke="#F4F2FF" stroke-width="4"></circle><rect x="14" y="-33" width="16" height="5" rx="1.5" fill="#FF5A4E"></rect><path d="M15 -38H27" stroke="#3A3760" stroke-width="2" stroke-linecap="round"></path><path d="M15 -22H25" stroke="#3A3760" stroke-width="2" stroke-linecap="round"></path><rect x="-20" y="-6" width="14" height="10" rx="4" fill="#126B50"></rect><rect x="6" y="-6" width="14" height="10" rx="4" fill="#126B50"></rect></svg></div>
-<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.2px; color: #C99A5B">4 · REPAIR OR STOP</span>
-<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #B9A3FF">THE ANALYST</span>
-<h3 style="margin: 0; font-size: 21px; color: #FFFFFF">Fix it, or stop honestly</h3>
-<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #C9C5E4">Differences go back by field name only. When the budget is spent the run stops and the failure is kept as evidence.</p>
-<span style="margin-top: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.5; color: #A9A6CC; border-top: 1px solid #3B3E86; padding-top: 10px">SEES: which field differs, not why</span>
-</div>
-</div>
-
-<div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.5px; color: #FFC38A">
-<span style="flex: 1 1 auto; border-top: 2px dashed #A7702C"></span>
-<span>THE EXPECTED ANSWERS NEVER CROSS FROM THE JUDGE TO THE BUILDERS</span>
-<span style="flex: 1 1 auto; border-top: 2px dashed #A7702C"></span>
-</div>
-
-<div style="display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">Watch the loop · ten seconds</p>
-<h3 style="margin: 0; font-size: 28px; line-height: 1.2; color: #FFFFFF">One field fails. The builder fixes it. The judge decides.</h3>
-<div class="lyloop">
-<div class="wrap run" id="loopPlayer">
-<div class="stage">
-<svg aria-hidden="false" viewBox="156 104 804 404" role="img" aria-label="Ten-second loop. The Verdict Engine finds one field that differs and reports which field. Bolt, the builder AI, fixes its own code. The same inputs run again on both systems, the engine reports equivalent, and prints a signed receipt.">
-      <g fill="none" stroke="#2A2850" stroke-width="2" stroke-dasharray="4 6">
-        <path d="M372 400C450 400 470 220 540 216"></path>
-        <path d="M372 410C450 410 470 346 540 346"></path>
-        <path d="M680 216C720 216 720 300 740 300"></path>
-        <path d="M680 346C720 346 720 350 740 350"></path>
-      </g>
-      <line x1="156" y1="470" x2="960" y2="470" stroke="#FFB547" stroke-width="2" opacity=".35"></line>
-      <line class="anim beamglow" x1="156" y1="470" x2="960" y2="470" stroke="#FFB547" stroke-width="3" style="filter:drop-shadow(0 0 6px #FFB547)"></line>
-
-
-      <g class="anim shake">
-        <rect x="540" y="168" width="140" height="96" rx="14" fill="#14132E" stroke="#3A3760" stroke-width="2"></rect>
-        <text x="556" y="192" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.5" fill="#A9A5C8">ORIGINAL</text>
-        <text x="556" y="216" font-family="Archivo, sans-serif" font-size="17" font-weight="800" fill="#F4F2FF">Oracle</text>
-        <circle class="anim lamp" cx="563" cy="242" r="6" fill="#2A2850"></circle>
-        <g class="gear"><circle cx="652" cy="244" r="14" fill="none" stroke="#8B5CFF" stroke-width="7" stroke-dasharray="5 4"></circle><circle cx="652" cy="244" r="5.5" fill="#8B5CFF"></circle></g>
-      </g>
-      <g class="anim shake">
-        <rect x="540" y="298" width="140" height="96" rx="14" fill="#14132E" stroke="#3A3760" stroke-width="2"></rect>
-        <text x="556" y="322" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.5" fill="#A9A5C8">MODERNIZED</text>
-        <text x="556" y="346" font-family="Archivo, sans-serif" font-size="17" font-weight="800" fill="#F4F2FF">PostgreSQL</text>
-        <circle class="anim lamp" cx="563" cy="372" r="6" fill="#2A2850"></circle>
-        <g class="gear"><circle cx="652" cy="374" r="14" fill="none" stroke="#8B5CFF" stroke-width="7" stroke-dasharray="5 4"></circle><circle cx="652" cy="374" r="5.5" fill="#8B5CFF"></circle></g>
-      </g>
-
-
-      <!-- Bolt, the builder AI -->
-      <g transform="translate(300 466)"><g class="bob"><g class="anim bolt" style="transform-box:fill-box;transform-origin:50% 100%">
-        <rect x="-32" y="-96" width="64" height="52" rx="18" fill="#FFB547"></rect>
-        <rect x="-24" y="-88" width="48" height="32" rx="12" fill="#14132E"></rect>
-        <g class="eyes"><ellipse cx="-8" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse><ellipse cx="12" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse></g>
-        <path d="M-2 -63Q4 -59 10 -63" stroke="#F4F2FF" stroke-width="2" fill="none" stroke-linecap="round"></path>
-        <circle cx="-27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle><circle cx="27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle>
-        <rect x="-26" y="-42" width="52" height="38" rx="14" fill="#E2902A"></rect>
-        <rect x="18" y="-40" width="46" height="28" rx="4" fill="#14132E" stroke="#FFB547" stroke-width="2"></rect>
-        <rect x="24" y="-33" width="22" height="2.5" fill="#B9A3FF"></rect><rect x="24" y="-27" width="30" height="2.5" fill="#FFB547"></rect><rect x="24" y="-21" width="16" height="2.5" fill="#B9A3FF"></rect>
-        <rect x="12" y="-12" width="58" height="5" rx="2" fill="#3A3760"></rect>
-        <rect class="anim type" x="10" y="-22" width="14" height="7" rx="3.5" fill="#E2902A"></rect>
-        <rect x="-20" y="-6" width="14" height="10" rx="4" fill="#9A5F12"></rect><rect x="6" y="-6" width="14" height="10" rx="4" fill="#9A5F12"></rect>
-        <path d="M-29 -95Q-28 -121 0 -122Q28 -121 29 -95Z" fill="#FFD48A"></path><rect x="-36" y="-98" width="72" height="6" rx="3" fill="#F4C46A"></rect><rect x="-4" y="-121" width="8" height="24" rx="3" fill="#F4C46A"></rect>
-      </g></g></g>
-
-
-      <g class="anim cA">
-        <rect x="322" y="384" width="40" height="9" rx="4" fill="#8B5CFF"></rect><rect x="322" y="397" width="30" height="9" rx="4" fill="#FFB547"></rect><rect x="322" y="410" width="36" height="9" rx="4" fill="#B9A3FF"></rect>
-      </g>
-      <g class="anim cB">
-        <rect x="322" y="384" width="40" height="9" rx="4" fill="#8B5CFF"></rect><rect x="322" y="397" width="30" height="9" rx="4" fill="#FFB547"></rect><rect x="322" y="410" width="36" height="9" rx="4" fill="#B9A3FF"></rect>
-      </g>
-
-
-      <!-- the Verdict Engine -->
-      <g>
-        <rect x="812" y="250" width="96" height="14" rx="4" fill="#2A2850"></rect>
-        <rect x="790" y="262" width="140" height="204" rx="12" fill="#14132E" stroke="#8B5CFF" stroke-width="2"></rect>
-        <rect x="802" y="276" width="116" height="76" rx="6" fill="#06061A" stroke="#3A3760" stroke-width="1.5"></rect>
-        <g fill="#2A2850"><rect x="812" y="288" width="44" height="3"></rect><rect x="864" y="288" width="44" height="3"></rect><rect x="812" y="296" width="36" height="3"></rect><rect x="864" y="296" width="36" height="3"></rect><rect x="812" y="304" width="40" height="3"></rect><rect x="864" y="304" width="40" height="3"></rect></g>
-        <line x1="860" y1="284" x2="860" y2="312" stroke="#2A2850" stroke-width="1"></line>
-        <rect class="anim scan" x="804" y="280" width="112" height="2" fill="#FFB547"></rect>
-        <g font-family="IBM Plex Mono, monospace" font-size="10.5" font-weight="600" letter-spacing="1" text-anchor="middle">
-          <text class="anim r1" x="860" y="336" fill="#FFB547">COMPARING</text>
-          <text class="anim r2" x="860" y="336" fill="#FF5A4E">1 FIELD DIFFERS</text>
-          <text class="anim r3" x="860" y="336" fill="#FFB547">RE-CHECKING</text>
-          <text class="anim r4" x="860" y="336" fill="#2BD4A0">EQUIVALENT</text>
-        </g>
-        <circle class="anim lampA" cx="836" cy="370" r="6" fill="#2A2850"></circle>
-        <circle class="anim lampR" cx="860" cy="370" r="6" fill="#2A2850"></circle>
-        <circle class="anim lampG" cx="884" cy="370" r="6" fill="#2A2850"></circle>
-        <text x="860" y="398" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1.5" font-weight="600" fill="#F4F2FF">VERDICT ENGINE</text>
-        <text x="860" y="413" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#A9A5C8">fixed rules · no AI</text>
-        <rect x="828" y="424" width="64" height="5" rx="2" fill="#06061A"></rect>
-        <g class="anim rcpt">
-          <rect x="832" y="427" width="56" height="34" rx="2" fill="#F4F2FF"></rect>
-          <rect x="838" y="433" width="30" height="2.5" fill="#8B5CFF"></rect><rect x="838" y="439" width="40" height="2.5" fill="#A9A5C8"></rect><rect x="838" y="445" width="24" height="2.5" fill="#A9A5C8"></rect>
-          <path d="M866 452l4 4 8-9" fill="none" stroke="#2BD4A0" stroke-width="2.5" stroke-linecap="round"></path>
-        </g>
-        <g class="gear"><circle cx="912" cy="446" r="9" fill="none" stroke="#8B5CFF" stroke-width="5" stroke-dasharray="4 3"></circle><circle cx="912" cy="446" r="3.5" fill="#8B5CFF"></circle></g>
-      </g>
-
-
-      <g class="anim tA">
-        <rect x="684" y="200" width="54" height="34" rx="5" fill="#1C1B3A" stroke="#8B5CFF" stroke-width="1.5"></rect>
-        <rect x="691" y="207" width="40" height="3" fill="#B9A3FF"></rect><rect x="691" y="215" width="30" height="3" fill="#B9A3FF"></rect><rect x="691" y="223" width="36" height="3" fill="#B9A3FF"></rect>
-      </g>
-      <g class="anim tB1">
-        <rect x="684" y="330" width="54" height="34" rx="5" fill="#1C1B3A" stroke="#FF5A4E" stroke-width="1.5"></rect>
-        <rect x="691" y="337" width="40" height="3" fill="#B9A3FF"></rect><rect x="691" y="345" width="18" height="3" fill="#FF5A4E"></rect><rect x="691" y="353" width="36" height="3" fill="#B9A3FF"></rect>
-      </g>
-      <g class="anim tB2">
-        <rect x="684" y="330" width="54" height="34" rx="5" fill="#1C1B3A" stroke="#8B5CFF" stroke-width="1.5"></rect>
-        <rect x="691" y="337" width="40" height="3" fill="#B9A3FF"></rect><rect x="691" y="345" width="30" height="3" fill="#B9A3FF"></rect><rect x="691" y="353" width="36" height="3" fill="#B9A3FF"></rect>
-      </g>
-
-
-      <g class="anim stampRed fb">
-        <rect x="752" y="140" width="166" height="46" rx="5" fill="#06061A" stroke="#FF5A4E" stroke-width="3"></rect>
-        <text x="835" y="164" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="600" font-size="17" letter-spacing="2" fill="#FF5A4E">DIVERGENT</text>
-        <text x="835" y="179" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1" fill="#A9A5C8">1 FIELD DIFFERS</text>
-      </g>
-      <g class="anim note">
-        <rect x="636" y="410" width="150" height="40" rx="6" fill="#2A0F1A" stroke="#FF5A4E" stroke-width="1.5"></rect>
-        <text x="648" y="427" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#FFB3AC">FIELD: invoice type</text>
-        <text x="648" y="442" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#A9A5C8">value: not shared</text>
-      </g>
-      <g class="anim aha fb">
-        <circle cx="342" cy="356" r="14" fill="#FFB547"></circle>
-        <text x="342" y="363" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="900" font-size="20" fill="#06061A">!</text>
-      </g>
-      <g class="anim stamp fb">
-        <rect x="752" y="140" width="166" height="46" rx="5" fill="#06061A" stroke="#2BD4A0" stroke-width="3"></rect>
-        <text x="835" y="164" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="600" font-size="17" letter-spacing="2" fill="#2BD4A0">EQUIVALENT</text>
-        <text x="835" y="179" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1" fill="#A9A5C8">SIGNED · REPLAYABLE</text>
-      </g>
-      <path class="anim spark fb" d="M748 118l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#FFB547"></path>
-      <path class="anim spark fb" d="M934 206l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#2BD4A0"></path>
-      <path class="anim spark fb" d="M770 222l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#B9A3FF"></path>
-
-
-      <g class="anim bFix"><rect x="170" y="307" width="128" height="28" rx="14" fill="#F4F2FF"></rect><path d="M228 335l6 9l6 -9z" fill="#F4F2FF"></path><text x="234" y="326.5" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="500" font-size="13" fill="#06061A">Got it. Fixing!</text></g>
-      <g class="anim bYes"><rect x="272" y="307" width="56" height="28" rx="14" fill="#F4F2FF"></rect><path d="M294 335l6 9l6 -9z" fill="#F4F2FF"></path><text x="300" y="326.5" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="500" font-size="13" fill="#06061A">Yes!</text></g>
-
-
-      <g font-family="Archivo, sans-serif" font-size="15" font-weight="700" fill="#C9C5E6" text-anchor="middle">
-        <text x="300" y="498">Bolt · builder AI</text><text x="860" y="498">The Verdict Engine</text>
-      </g>
-    </svg>
-</div>
-<div class="row">
-<div class="caps" aria-live="off">
-<p class="cap anim k0">Both systems ran. The engine compares every field.</p>
-<p class="cap anim k1">One field differs. The engine names it, not the answer.</p>
-<p class="cap anim k2">The AI fixes its own code and runs it again.</p>
-<p class="cap anim k3">Equivalent. Signed. Anyone can replay it.</p>
-</div>
-<span class="tag">Built lights-out. Proven in plain sight.</span>
-<button type="button" class="toggle" aria-pressed="false" id="loopPause">Pause</button>
-</div>
-</div>
-</div>
-</div>
-
-<div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: stretch">
-<div style="flex: 2 1 560px; min-width: 0; background: #12154A; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 18px">
-<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.5px; color: #A9A6CC">ON A REAL ERP RUNNING ON ORACLE · ONE PUBLIC, REPLAYABLE RUN</span>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 20px">
-<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 40px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">12m 25s</span><span style="font-size: 14px; color: #C9C5E4">locked rules to signed verdict</span></div>
-<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 40px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">1st</span><span style="font-size: 14px; color: #C9C5E4">attempt passed</span></div>
-<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 40px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">0</span><span style="font-size: 14px; color: #C9C5E4">lines written or fixed by a person</span></div>
-<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 40px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">2.7M</span><span style="font-size: 14px; color: #C9C5E4">values checked exactly</span></div>
-</div>
-<a href="#factory" style="font-size: 15px; font-weight: 600">See the full factory run →</a>
-</div>
-<div style="flex: 1 1 300px; min-width: 0; border: 1px solid #3B3E86; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
-<h3 style="margin: 0; font-size: 21px; color: #FFFFFF">People decide what machines shouldn’t</h3>
-<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #C9C5E4">The factory does the repetitive work. Decisions that carry risk stay with a named person, and each one is signed and kept with the evidence.</p>
-<ul style="margin: 0; padding-left: 18px; font-size: 15px; line-height: 1.8; color: #E9E6F7">
-<li>Approve an exception</li>
-<li>Keep or fix a legacy quirk</li>
-<li>Release to production</li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-
-<!-- ============ 3 · INDETERMINATE (lavender: the turn toward light) ============ -->
-<section style="background: #EFEBFB; padding: 96px 24px">
-<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
-<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
-<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">How we say no</p>
-<h2 style="margin: 0; font-size: 44px; line-height: 1.1; letter-spacing: -0.8px">“Indeterminate” is an answer.</h2>
-<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3D3F6B">When the evidence isn’t there, we say so. An empty output, a missing file or an untested branch never turns into a pass. That refusal is the reason our passes mean something.</p>
-</div>
-<div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
-<div style="background: #FFFFFF; border: 1px solid #D8CCF8; border-radius: 12px; padding: 20px 22px; display: flex; gap: 18px; align-items: baseline; flex-wrap: wrap">
-<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; background: #DDF3E6; color: #0F5C33; padding: 6px 10px; border-radius: 6px">EQUIVALENT</span>
-<span style="flex: 1 1 240px; font-size: 16px; line-height: 1.5; color: #3D3F6B">Every compared field, record and error matched across the declared scenarios.</span>
-</div>
-<div style="background: #FFFFFF; border: 1px solid #D8CCF8; border-radius: 12px; padding: 20px 22px; display: flex; gap: 18px; align-items: baseline; flex-wrap: wrap">
-<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; background: #FCE7CF; color: #8A3B00; padding: 6px 10px; border-radius: 6px">DIFFERENT</span>
-<span style="flex: 1 1 240px; font-size: 16px; line-height: 1.5; color: #3D3F6B">We name the field, the record and the rule. A person decides whether it’s acceptable, and that decision is signed too.</span>
-</div>
-<div style="background: #FFFFFF; border: 1px solid #D8CCF8; border-radius: 12px; padding: 20px 22px; display: flex; gap: 18px; align-items: baseline; flex-wrap: wrap">
-<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; background: #E4E3EE; color: #34365E; padding: 6px 10px; border-radius: 6px">INDETERMINATE</span>
-<span style="flex: 1 1 240px; font-size: 16px; line-height: 1.5; color: #3D3F6B">Not enough evidence to decide. We say what’s missing and how to close it, and we never guess.</span>
-</div>
+<div style="flex: 1 1 520px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 36px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">12m 25s</span><span style="font-size: 14px; line-height: 1.45; color: #C9C5E4">locked rules to signed verdict</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 36px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">2.7M</span><span style="font-size: 14px; line-height: 1.45; color: #C9C5E4">values checked exactly</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 36px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">0</span><span style="font-size: 14px; line-height: 1.45; color: #C9C5E4">lines written or fixed by a person</span></div>
+<span style="grid-column: 1 / -1; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #A9A6CC">ON A REAL ERP RUNNING ON ORACLE · ONE PUBLIC, REPLAYABLE RUN</span>
 </div>
 </div>
 </section>
@@ -556,50 +355,89 @@ html{scroll-behavior:smooth}
 <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px">
 <div style="display: flex; flex-direction: column; gap: 14px; max-width: 760px">
 <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">Proof, with its receipts</p>
-<h2 style="margin: 0; font-size: 44px; line-height: 1.1; letter-spacing: -0.8px">Every number says how we know it.</h2>
-<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3D3F6B">Each claim carries an evidence label and links to the public receipt behind it.</p>
+<h2 style="margin: 0; font-size: 44px; line-height: 1.1; letter-spacing: -0.8px">Reference workloads, with their receipts.</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3D3F6B">Public reference systems, not customer names. Every result carries an evidence label and links to what stands behind it.</p>
 </div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
 <div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px">
-<span style="font-size: 56px; font-weight: 700; letter-spacing: -1.5px; color: #15184D">260/260</span>
-<span style="font-size: 17px; line-height: 1.45; color: #15184D">Oracle → AlloyDB behaviour pairs matched, across 13 datatype families</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.2px; color: #8A5A1F">CORE BANKING · ORACLE → GOOGLE CLOUD</span>
+<span style="font-size: 48px; font-weight: 700; letter-spacing: -1.5px; color: #15184D">8 services</span>
+<span style="font-size: 16px; line-height: 1.5; color: #15184D">Oracle’s CloudBank core banking reference application, rebuilt as PostgreSQL services on GKE and Cloud SQL, with an observed rollback in the cutover rehearsal. Ten of fourteen go-live checks done.</span>
+<span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #DDF3E6; color: #0F5C33; padding: 5px 9px; border-radius: 6px">PROVEN BY EXECUTION · REFERENCE APPLICATION</span>
+<a href="proof.html" style="font-size: 15px; color: #5B3CC4; font-weight: 600">Read the case →</a>
+</div>
+<div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.2px; color: #8A5A1F">ERP · ORACLE → POSTGRESQL</span>
+<span style="font-size: 48px; font-weight: 700; letter-spacing: -1.5px; color: #15184D">12m 25s</span>
+<span style="font-size: 16px; line-height: 1.5; color: #15184D">From locked business rules to a signed verdict on a real ERP process. 2.7M values checked exactly; zero lines written or fixed by a person.</span>
+<span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #DDF3E6; color: #0F5C33; padding: 5px 9px; border-radius: 6px">ONE PUBLIC, REPLAYABLE RUN</span>
+<a href="proof.html" style="font-size: 15px; color: #5B3CC4; font-weight: 600">Read the case →</a>
+</div>
+<div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.2px; color: #8A5A1F">DATABASES · ORACLE → ALLOYDB</span>
+<span style="font-size: 48px; font-weight: 700; letter-spacing: -1.5px; color: #15184D">260/260</span>
+<span style="font-size: 16px; line-height: 1.5; color: #15184D">behaviour pairs matched across 13 datatype families, on native databases.</span>
 <span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #DDF3E6; color: #0F5C33; padding: 5px 9px; border-radius: 6px">PROVEN BY EXECUTION · NATIVE DATABASES</span>
-<a href="#proof" style="font-size: 15px; color: #5B3CC4; font-weight: 600">View receipt →</a>
+<a href="mailto:howard@lightyr.ai?subject=Evidence%20pack%20request:%20Oracle%20to%20AlloyDB" style="font-size: 15px; color: #5B3CC4; font-weight: 600">Request the evidence pack →</a>
 </div>
 <div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px">
-<span style="font-size: 56px; font-weight: 700; letter-spacing: -1.5px; color: #15184D">43/43</span>
-<span style="font-size: 17px; line-height: 1.45; color: #15184D">deliberately wrong T-SQL conversions caught, in 108 native SQL Server vs PostgreSQL comparisons</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.2px; color: #8A5A1F">STORED PROCEDURES · SQL SERVER → POSTGRESQL</span>
+<span style="font-size: 48px; font-weight: 700; letter-spacing: -1.5px; color: #15184D">43/43</span>
+<span style="font-size: 16px; line-height: 1.5; color: #15184D">deliberately wrong T-SQL conversions caught, in 108 native comparisons.</span>
 <span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #DDF3E6; color: #0F5C33; padding: 5px 9px; border-radius: 6px">PROVEN BY EXECUTION · PUBLIC TRAP CORPUS</span>
-<a href="#proof" style="font-size: 15px; color: #5B3CC4; font-weight: 600">View receipt →</a>
-</div>
-<div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px">
-<span style="font-size: 56px; font-weight: 700; letter-spacing: -1.5px; color: #15184D">13,504</span>
-<span style="font-size: 17px; line-height: 1.45; color: #15184D">relationships mapped across 11,347 entities in the CardDemo mainframe knowledge graph</span>
-<span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #EFEBFB; color: #4A2FB0; padding: 5px 9px; border-radius: 6px">FOUND IN CODE · PUBLIC REFERENCE ESTATE</span>
-<a href="#proof" style="font-size: 15px; color: #5B3CC4; font-weight: 600">Explore the graph →</a>
+<a href="mailto:howard@lightyr.ai?subject=Evidence%20pack%20request:%20SQL%20Server%20to%20PostgreSQL" style="font-size: 15px; color: #5B3CC4; font-weight: 600">Request the evidence pack →</a>
 </div>
 </div>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #3D3F6B">Plus <strong style="color: #15184D">13,504 relationships</strong> mapped across 11,347 entities in the knowledge graph of a public mainframe reference application. <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #4A2FB0">FOUND IN CODE · PUBLIC REFERENCE ESTATE</span></p>
 </div>
 </section>
 
-<!-- ============ 5 · RUN THE VERIFIER ============ -->
+<!-- ============ 5 · LIGHTYEAR APERTURE (open verifier) ============ -->
 <section id="verifier" style="background: #FEFEFE; padding: 24px 24px 96px">
-<div style="max-width: 1200px; margin: 0 auto; background: #F7F5FD; border: 1px solid #DDD7F2; border-radius: 18px; padding: 48px; display: flex; flex-wrap: wrap; gap: 40px; align-items: center">
-<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">Don’t trust us</p>
-<h2 style="margin: 0; font-size: 40px; line-height: 1.1; letter-spacing: -0.8px">Run our verifier yourself.</h2>
-<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3D3F6B">Download any public evidence pack and check it with our open verifier. It passes only what it can anchor, and reports “incomplete” rather than guessing.</p>
-<div style="display: flex; flex-wrap: wrap; gap: 12px; padding-top: 6px">
-<a href="#verifier" style="color: #FFFFFF; background: #15184D; text-decoration: none; padding: 14px 20px; border-radius: 10px; font-weight: 600; font-size: 15px">Get the verifier</a>
-<a href="#proof" style="color: #15184D; border: 1px solid #B9AEE6; text-decoration: none; padding: 13px 19px; border-radius: 10px; font-weight: 500; font-size: 15px">See a real evidence pack</a>
+<div style="max-width: 1200px; margin: 0 auto; background: #15184D; color: #E9E6F7; border-radius: 20px; padding: 48px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+<svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true" style="flex: none"><circle cx="15" cy="15" r="13" fill="none" stroke="#F1D19F" stroke-width="2"></circle><polygon points="15,7 22,11 22,19 15,23 8,19 8,11" fill="#FFE7BF"></polygon><path d="M15 7 L24 4 M22 11 L28 18 M22 19 L18 27 M15 23 L6 26 M8 19 L2 12 M8 11 L12 3" stroke="#F1D19F" stroke-width="1.5"></path></svg>
+<span style="font-size: 24px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: #F1D19F">Lightyear Aperture</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: #B4B0D8; border-left: 1px solid #4A4E9C; padding-left: 12px">Free, open verifier</span>
 </div>
+<h2 style="margin: 0; font-size: 42px; line-height: 1.1; letter-spacing: -0.8px; color: #FFFFFF">Let the light in. Check our evidence yourself.</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #C9C5E4">Aperture is our open verifier: an opening anyone outside Lightyear can use to check our work. Point it at any public evidence pack. It’s standard-library Python, needs no network and never runs our code. It passes only what it can anchor, and says “incomplete” rather than guessing.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; padding-top: 4px">
+<a href="mailto:howard@lightyr.ai?subject=Aperture" style="color: #15184D; background: #E9C48F; text-decoration: none; padding: 14px 20px; border-radius: 10px; font-weight: 600; font-size: 15px">Get Aperture</a>
 </div>
-<pre style="flex: 1 1 460px; min-width: 0; margin: 0; background: #15184D; color: #E9E6F7; border-radius: 14px; padding: 24px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.7; overflow-x: auto; white-space: pre">$ python3 -I tools/verify_public_evidence.py \
+<pre style="margin: 0; background: #0B0D30; color: #E9E6F7; border: 1px solid #2E3175; border-radius: 12px; padding: 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.7; overflow-x: auto; white-space: pre">$ python3 -I verify_public_evidence.py \
     all PUBLIC_EVIDENCE --strict --json
 
   0  PASS        every check anchored and passed
   1  FAIL        something doesn’t match
   3  INCOMPLETE  nothing it could anchor; no pass</pre>
+</div>
+<figure class="lyaperture" id="apPlayer" style="flex: 1 1 400px; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 16px">
+<svg viewBox="0 0 420 300" role="img" aria-label="A camera aperture opens and a shaft of light passes through it toward an evidence pack">
+<defs>
+<radialGradient id="apLight" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFFFFF"></stop><stop offset=".55" stop-color="#FFE7BF"></stop><stop offset="1" stop-color="#E9C48F" stop-opacity=".85"></stop></radialGradient>
+<linearGradient id="apShaft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFF1D6" stop-opacity=".95"></stop><stop offset="1" stop-color="#FFF1D6" stop-opacity="0"></stop></linearGradient>
+<clipPath id="apClip"><circle cx="150" cy="150" r="116"></circle></clipPath>
+</defs>
+<polygon class="shaft" points="250,128 420,96 420,204 250,172" fill="url(#apShaft)"></polygon>
+<circle cx="150" cy="150" r="128" fill="none" stroke="#2A2D6E" stroke-width="10"></circle>
+<circle cx="150" cy="150" r="117" fill="#0B0D30" stroke="#3A3E8C" stroke-width="2"></circle>
+<g clip-path="url(#apClip)"><g class="iris"><polygon points="236.6,200.0 150.0,250.0 63.4,200.0 63.4,100.0 150.0,50.0 236.6,100.0" fill="url(#apLight)"></polygon><line x1="236.6" y1="200.0" x2="-802.6" y2="800.0" stroke="#5458A8" stroke-width="2.5"></line><line x1="150.0" y1="250.0" x2="-889.2" y2="-350.0" stroke="#5458A8" stroke-width="2.5"></line><line x1="63.4" y1="200.0" x2="63.4" y2="-1000.0" stroke="#5458A8" stroke-width="2.5"></line><line x1="63.4" y1="100.0" x2="1102.6" y2="-500.0" stroke="#5458A8" stroke-width="2.5"></line><line x1="150.0" y1="50.0" x2="1189.2" y2="650.0" stroke="#5458A8" stroke-width="2.5"></line><line x1="236.6" y1="100.0" x2="236.6" y2="1300.0" stroke="#5458A8" stroke-width="2.5"></line></g></g>
+<circle cx="150" cy="150" r="117" fill="none" stroke="#3A3E8C" stroke-width="2"></circle>
+</svg>
+<div style="background: #0E1038; border: 1px solid #2E3175; border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1.5px; color: #8E8BB8">PUBLIC EVIDENCE PACK</span>
+<ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px">
+<li class="ck c1" style="display: flex; gap: 10px; align-items: center; font-size: 15px"><svg class="tick" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9FE3BC" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="m5 12 4 4 10-10"></path></svg>Manifest hashes match</li><li class="ck c2" style="display: flex; gap: 10px; align-items: center; font-size: 15px"><svg class="tick" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9FE3BC" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="m5 12 4 4 10-10"></path></svg>Receipt digests recomputed</li><li class="ck c3" style="display: flex; gap: 10px; align-items: center; font-size: 15px"><svg class="tick" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9FE3BC" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="m5 12 4 4 10-10"></path></svg>Signatures checked against keys you pin</li><li class="ck c4" style="display: flex; gap: 10px; align-items: center; font-size: 15px"><svg class="tick" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9FE3BC" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="m5 12 4 4 10-10"></path></svg>Hash chain unbroken</li>
+</ul>
+<span class="pass" style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .6px; background: #12573A; color: #C9F5DC; padding: 5px 10px; border-radius: 6px">PASS · every check anchored</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between">
+<figcaption style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8E8BB8">Illustrative. Python 3.11+; replace PUBLIC_EVIDENCE with your downloaded pack.</figcaption>
+<button type="button" class="toggle" aria-pressed="false" id="apPause">Pause animation</button>
+</div>
+</figure>
 </div>
 </section>
 
@@ -632,23 +470,7 @@ html{scroll-behavior:smooth}
 <p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">Named differences, a risk figure for untested logic, and an evidence pack anyone can replay.</p>
 </li>
 </ol>
-</div>
-</section>
-
-<!-- ============ 7 · COVERAGE ============ -->
-<section id="coverage" style="background: #FEFEFE; padding: 0 24px 96px">
-<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px">
-<div style="display: flex; flex-direction: column; gap: 14px; max-width: 760px">
-<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">Coverage, stated honestly</p>
-<h2 style="margin: 0; font-size: 36px; line-height: 1.15; letter-spacing: -0.6px">What we have qualified, and what we haven’t yet.</h2>
-</div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px">
-<div style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 17px; font-weight: 600">Oracle → PostgreSQL</span><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #DDF3E6; color: #0F5C33; padding: 4px 8px; border-radius: 6px">QUALIFIED · LIMITED</span></div>
-<div style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 17px; font-weight: 600">Oracle → AlloyDB</span><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #DDF3E6; color: #0F5C33; padding: 4px 8px; border-radius: 6px">QUALIFIED · LIMITED</span></div>
-<div style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 17px; font-weight: 600">z/OS batch → Java</span><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #FCE7CF; color: #8A3B00; padding: 4px 8px; border-radius: 6px">IN QUALIFICATION</span></div>
-<div style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 17px; font-weight: 600">SAP ASE → PostgreSQL</span><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #FCE7CF; color: #8A3B00; padding: 4px 8px; border-radius: 6px">IN QUALIFICATION</span></div>
-<div style="border: 1px solid #DDD7F2; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 17px; font-weight: 600">Db2 → PostgreSQL</span><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #FCE7CF; color: #8A3B00; padding: 4px 8px; border-radius: 6px">IN QUALIFICATION</span></div>
-</div>
+<a href="product.html#coverage" style="align-self: flex-start; font-size: 16px; font-weight: 600; color: #5B3CC4; text-decoration: none">See which platforms are qualified today →</a>
 </div>
 </section>
 
@@ -670,8 +492,8 @@ html{scroll-behavior:smooth}
 <div style="flex: 0 1 380px; min-width: 0; background: #15184D; color: #E9E6F7; border-radius: 18px; padding: 36px; display: flex; flex-direction: column; gap: 14px">
 <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #C99A5B">FOUR WEEKS · ONE JOB</span>
 <span style="font-size: 48px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">From $50,000</span>
-<a href="#sprint" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 16px 22px; border-radius: 10px; font-weight: 600; font-size: 16px; text-align: center">Book a Verification Sprint</a>
-<a href="#sprint" style="color: #D3CFEA; font-size: 15px; text-align: center">or talk to the founder</a>
+<a href="mailto:howard@lightyr.ai?subject=Verification%20Sprint" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 16px 22px; border-radius: 10px; font-weight: 600; font-size: 16px; text-align: center">Book a Verification Sprint</a>
+<a href="mailto:howard@lightyr.ai?subject=Lightyear" style="color: #D3CFEA; font-size: 15px; text-align: center">or talk to the founder</a>
 </div>
 </div>
 </section>
@@ -688,10 +510,11 @@ html{scroll-behavior:smooth}
 <span>Where context becomes trusted action.</span>
 </div>
 <div style="display: flex; flex-wrap: wrap; gap: 24px">
-<a href="#verifier" style="color: #4A4C78">Public verifier</a>
-<a href="#proof" style="color: #4A4C78">Evidence packs</a>
-<a href="#sprint" style="color: #4A4C78">Security pack</a>
-<a href="#sprint" style="color: #4A4C78">Contact</a>
+<a href="#verifier" style="color: #4A4C78">Aperture verifier</a>
+<a href="mailto:howard@lightyr.ai?subject=Evidence%20pack%20request" style="color: #4A4C78">Evidence packs (on request)</a>
+<a href="resources.html#research" style="color: #4A4C78">Research</a>
+<a href="mailto:howard@lightyr.ai?subject=Security%20pack%20request" style="color: #4A4C78">Security pack (on request)</a>
+<a href="mailto:howard@lightyr.ai?subject=Lightyear" style="color: #4A4C78">Contact</a>
 </div>
 </footer>
 </div>
@@ -752,6 +575,7 @@ html{scroll-behavior:smooth}
       cd.textContent=on?'MONTHLY-INT differs by $0.01: the rewrite rounds, COBOL truncates. Named in the evidence pack; cutover is blocked until it’s fixed.':'Legacy and rewrite agree on this field for this record. Now change one cent.';
     });
   }
+  [['prismPlayer','prismPause'],['apPlayer','apPause']].forEach(function(ids){var el=document.getElementById(ids[0]),bt=document.getElementById(ids[1]);if(el&&bt)bt.addEventListener('click',function(){var on=el.classList.toggle('paused');bt.setAttribute('aria-pressed',on?'true':'false');bt.textContent=on?'Play animation':'Pause animation';});});
   var lp=document.getElementById('loopPlayer'), lb=document.getElementById('loopPause');
   if(lp&&lb) lb.addEventListener('click',function(){var on=lp.classList.toggle('paused');lb.setAttribute('aria-pressed',on?'true':'false');lb.textContent=on?'Play':'Pause';});
 })();
