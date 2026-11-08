@@ -95,3 +95,6 @@ was removed; Aperture's "Read the guide" button was removed until the public rep
 ## (k) 8 Nov: where it runs
 - Homepage trust strip now reads "Read-only: nothing is written back to your systems" and "Runs where you choose: our infrastructure, yours or a partner's" (was "Runs read-only in your cloud" / "Your code and data stay in your environment"), matching the Security Overview's three Sprint deployment modes.
 - Sprint section: "Old and new run side by side, read-only, on our infrastructure, yours or a partner's"; checklist item "Read-only, and runs where you choose".
+
+## (l) 8 Nov: phone layout
+- The build now carries the live site's Nov 7 phone fixes itself: code blocks wrap below 600 px, tables with a header row become labelled cards (class mobile-card-table, data-label on each cell), and header-less tables fit the width (mobile-fit-table). Checked at 375 px: no page overflows and no nested sideways scrolling on any of the nine pages.

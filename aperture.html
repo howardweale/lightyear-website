@@ -20,6 +20,17 @@ a{color:#5B3CC4}a:hover{color:#15184D}
 .lynav summary:focus-visible{outline:2px solid #E9C48F;outline-offset:4px;border-radius:4px}
 .lynav .menu a:hover,.lynav .menu a:focus-visible{background:#F3F0FC;outline:none}
 .lynav[open] .chev{transform:rotate(180deg)}
+/* Keep tables and code examples readable without sideways scrolling on phones. */
+@media (max-width: 600px){
+  pre{white-space:pre-wrap !important;overflow-wrap:anywhere}
+  .mobile-fit-table,.mobile-card-table{min-width:0 !important;width:100% !important}
+  .mobile-fit-table{table-layout:fixed}
+  .mobile-fit-table th,.mobile-fit-table td{padding:12px !important;overflow-wrap:anywhere}
+  .mobile-card-table,.mobile-card-table tbody,.mobile-card-table tr{display:block}
+  .mobile-card-table thead{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .mobile-card-table td{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:12px;padding:12px !important;overflow-wrap:anywhere}
+  .mobile-card-table td::before{content:attr(data-label);font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;color:#676985}
+}
 </style>
 <style>
 html{scroll-behavior:smooth}
