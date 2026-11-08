@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lightyear — Clear your modernization backlog. Prove every change.</title>
-<meta name="description" content="AI agents convert legacy code; an independent Verdict Engine proves field by field the new system behaves the same. Retire legacy sooner, with evidence your auditor can replay.">
+<meta name="description" content="AI agents convert legacy code; Lightyear Prism, an independent judge, proves field by field the new system behaves the same. Retire legacy sooner, with evidence your auditor can replay.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMy42OCAxMy41MiBMMTYuMCA1LjQ0IEwyOC4zMiAxMy41MiBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0zLjY4IDE4LjQ4IEwxNi4wIDI2LjU2IEwyOC4zMiAxOC40OCBaIi8+PC9zdmc+">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,17 +50,13 @@ a{color:#B9A3FF}a:hover{color:#D8CCF8}
 @keyframes pr-tok{0%,2%{opacity:0;transform:translateX(0)}5%{opacity:1}13%{opacity:0;transform:translateX(40px)}100%{opacity:0;transform:translateX(40px)}}
 .lyprism .t2{animation-delay:.45s}.lyprism .t3{animation-delay:.9s}
 @media (prefers-reduced-motion: reduce){.lyprism .scan,.lyprism .tok{opacity:0!important}}
-/* Keep tables and code examples readable without sideways scrolling on phones. */
-@media (max-width: 600px){
-  pre{white-space:pre-wrap !important;overflow-wrap:anywhere}
-  .mobile-fit-table,.mobile-card-table{min-width:0 !important;width:100% !important}
-  .mobile-fit-table{table-layout:fixed}
-  .mobile-fit-table th,.mobile-fit-table td{padding:12px !important;overflow-wrap:anywhere}
-  .mobile-card-table,.mobile-card-table tbody,.mobile-card-table tr{display:block}
-  .mobile-card-table thead{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-  .mobile-card-table td{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:12px;padding:12px !important;overflow-wrap:anywhere}
-  .mobile-card-table td::before{content:attr(data-label);font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;color:#676985}
-}
+
+/* Products menu (shared nav) */
+.lynav summary{list-style:none}
+.lynav summary::-webkit-details-marker{display:none}
+.lynav summary:focus-visible{outline:2px solid #E9C48F;outline-offset:4px;border-radius:4px}
+.lynav .menu a:hover,.lynav .menu a:focus-visible{background:#F3F0FC;outline:none}
+.lynav[open] .chev{transform:rotate(180deg)}
 </style>
 <style>
 html{scroll-behavior:smooth}
@@ -74,18 +70,14 @@ html{scroll-behavior:smooth}
 <section style="background: #15184D; color: #E9E6F7; padding: 0 24px 96px">
 <div style="max-width: 1200px; margin: 0 auto">
 <nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 0">
-<a href="#top" aria-label="Lightyear home" style="display: flex; align-items: center; margin-left: 8px">
-<svg viewBox="0 0 360 220" width="88" height="54" role="img" aria-label="LIGHTYEAR"><path fill="#7D57EA" d="M24 96C84 92 125 74 156 47C166 38 173 30 179 29C179.5 28.7 179.8 28.2 180 28C180.2 28.2 180.5 28.7 181 29C187 30 194 38 204 47C235 74 276 92 336 96H24Z"></path><path fill="#7D57EA" d="M24 124C84 128 125 146 156 173C166 182 173 190 179 191C179.5 191.3 179.8 191.8 180 192C180.2 191.8 180.5 191.3 181 191C187 190 194 182 204 173C235 146 276 128 336 124H24Z"></path><text x="180" y="122" fill="#C99A5B" font-family="Arial, sans-serif" font-size="32" font-weight="700" letter-spacing="6" text-anchor="middle">LIGHTYEAR</text></svg>
-</a>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px; font-size: 15px">
-<a href="product.html" style="color: #D3CFEA; text-decoration: none">Product</a>
-<a href="verify.html" style="color: #D3CFEA; text-decoration: none">Verify</a>
+<a href="index.html" aria-label="Lightyear home" style="display: flex; align-items: center; margin-left: 8px"><svg viewBox="0 0 360 220" width="88" height="54" role="img" aria-label="LIGHTYEAR"><path fill="#7D57EA" d="M24 96C84 92 125 74 156 47C166 38 173 30 179 29C179.5 28.7 179.8 28.2 180 28C180.2 28.2 180.5 28.7 181 29C187 30 194 38 204 47C235 74 276 92 336 96H24Z"></path><path fill="#7D57EA" d="M24 124C84 128 125 146 156 173C166 182 173 190 179 191C179.5 191.3 179.8 191.8 180 192C180.2 191.8 180.5 191.3 181 191C187 190 194 182 204 173C235 146 276 128 336 124H24Z"></path><text x="180" y="122" fill="#C99A5B" font-family="Arial, sans-serif" font-size="32" font-weight="700" letter-spacing="6" text-anchor="middle">LIGHTYEAR</text></svg></a>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px; font-size: 15px">
+<details class="lynav" style="position: relative"><summary style="color: #D3CFEA; text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px">Products<svg class="chev" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" style="transition: transform .15s"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg></summary><div class="menu" style="position: absolute; top: calc(100% + 14px); left: -14px; z-index: 30; width: 320px; background: #FFFFFF; border: 1px solid #DDD7F2; border-radius: 14px; box-shadow: 0 18px 40px rgba(10,12,48,.35); padding: 8px; display: flex; flex-direction: column; gap: 2px"><a href="prism.html" style="display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 10px; text-decoration: none; color: #15184D"><svg viewBox="0 0 90 90" width="36" height="36" aria-hidden="true" focusable="false" style="flex: none"><defs><clipPath id="nvprpyc"><rect width="90" height="90" rx="18"></rect></clipPath></defs><rect width="90" height="90" rx="18" fill="#15184D"></rect><g clip-path="url(#nvprpyc)"><polygon points="52,45 90,18.8 90,25.2" fill="#8F6EF0" opacity=".95"></polygon><polygon points="52,45 90,27.8 90,34.2" fill="#5B8DEF" opacity=".95"></polygon><polygon points="52,45 90,36.8 90,43.2" fill="#36B8A6" opacity=".95"></polygon><polygon points="52,45 90,45.8 90,52.2" fill="#8CC152" opacity=".95"></polygon><polygon points="52,45 90,54.8 90,61.2" fill="#E9C46A" opacity=".95"></polygon><polygon points="52,45 90,63.8 90,70.2" fill="#E8836B" opacity=".95"></polygon></g><line x1="8" y1="52" x2="34" y2="48" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round"></line><polygon points="45,20 62,60 28,60" fill="#FFFFFF" fill-opacity=".14" stroke="#D8CCF8" stroke-width="2.4" stroke-linejoin="round"></polygon><line x1="34" y1="48" x2="52" y2="45" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"></line></svg><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Lightyear Prism</span><span style="font-size: 13px; color: #676985">The independent judge</span></span></a><a href="factory.html" style="display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 10px; text-decoration: none; color: #15184D"><svg viewBox="0 0 90 90" width="36" height="36" aria-hidden="true" focusable="false" style="flex: none"><defs><linearGradient id="nvfafyg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF1D6"></stop><stop offset="1" stop-color="#E9C48F"></stop></linearGradient></defs><rect width="90" height="90" rx="18" fill="#15184D"></rect><g transform="translate(3 0)"><path d="M17 69V43L31 33V43L45 33V43L59 33V26H67V69Z" fill="#2A2D6E" stroke="#D8CCF8" stroke-width="2.2" stroke-linejoin="round"></path><path d="M33 50L26 56L33 62" fill="none" stroke="url(#nvfafyg)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M49 50L56 56L49 62" fill="none" stroke="url(#nvfafyg)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M44 48L38 64" fill="none" stroke="url(#nvfafyg)" stroke-width="3.2" stroke-linecap="round"></path></g><line x1="12" y1="76" x2="78" y2="76" stroke="#5458A8" stroke-width="2" stroke-linecap="round"></line><rect x="22" y="72" width="8" height="4" rx="1.2" fill="#8F6EF0"></rect><rect x="41" y="72" width="8" height="4" rx="1.2" fill="#36B8A6"></rect><rect x="60" y="72" width="8" height="4" rx="1.2" fill="#E9C46A"></rect></svg><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Lightyear Factory</span><span style="font-size: 13px; color: #676985">AI agents write the code</span></span></a><a href="aperture.html" style="display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 10px; text-decoration: none; color: #15184D"><svg viewBox="0 0 90 90" width="36" height="36" aria-hidden="true" focusable="false" style="flex: none"><defs><radialGradient id="nvapapl" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFFFFF"></stop><stop offset=".55" stop-color="#FFE7BF"></stop><stop offset="1" stop-color="#E9C48F"></stop></radialGradient><clipPath id="nvapapc"><circle cx="45" cy="45" r="30"></circle></clipPath></defs><rect width="90" height="90" rx="18" fill="#15184D"></rect><circle cx="45" cy="45" r="33" fill="none" stroke="#2A2D6E" stroke-width="4"></circle><circle cx="45" cy="45" r="30" fill="#0B0D30" stroke="#3A3E8C" stroke-width="1.2"></circle><g clip-path="url(#nvapapc)"><polygon points="65.8,57.0 45.0,69.0 24.2,57.0 24.2,33.0 45.0,21.0 65.8,33.0" fill="url(#nvapapl)"></polygon><line x1="65.8" y1="57.0" x2="3.4" y2="93.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="45.0" y1="69.0" x2="-17.4" y2="33.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="24.2" y1="57.0" x2="24.2" y2="-15.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="24.2" y1="33.0" x2="86.6" y2="-3.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="45.0" y1="21.0" x2="107.4" y2="57.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="65.8" y1="33.0" x2="65.8" y2="105.0" stroke="#5458A8" stroke-width="1.6"></line></g><circle cx="45" cy="45" r="30" fill="none" stroke="#3A3E8C" stroke-width="1.2"></circle></svg><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Lightyear Aperture</span><span style="font-size: 13px; color: #676985">Check the evidence yourself</span></span></a></div></details>
 <a href="solutions.html" style="color: #D3CFEA; text-decoration: none">Solutions</a>
 <a href="proof.html" style="color: #D3CFEA; text-decoration: none">Proof</a>
 <a href="pricing.html" style="color: #D3CFEA; text-decoration: none">Pricing</a>
 <a href="resources.html" style="color: #D3CFEA; text-decoration: none">Resources</a>
 <a href="engineers.html" style="color: #D3CFEA; text-decoration: none">For engineers</a>
-<a href="resources.html#research" style="color: #D3CFEA; text-decoration: none">Research</a>
 <a href="#sprint" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 12px 18px; border-radius: 8px; font-weight: 600">Book a Verification Sprint</a>
 </div>
 </nav>
@@ -105,7 +97,7 @@ html{scroll-behavior:smooth}
 <!-- Verdict console -->
 <figure style="flex: 1 1 480px; min-width: 0; margin: 0; background: #0E1038; border: 1px solid #2E3175; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 14px; font-family: 'IBM Plex Mono', monospace">
 <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap">
-<span style="font-size: 12px; letter-spacing: 1.5px; color: #A9A6CC">VERDICT ENGINE · RUN 0F3C1A</span>
+<span style="font-size: 12px; letter-spacing: 1.5px; color: #A9A6CC">LIGHTYEAR PRISM · RUN 0F3C1A</span>
 <span id="vc-progress" style="font-size: 12px; color: #C99A5B"></span>
 </div>
 <div style="display: grid; grid-template-columns: 1.3fr 1fr 1fr 1.25fr; gap: 0; font-size: 12px; color: #A9A6CC; border-bottom: 1px solid #2E3175; padding-bottom: 8px">
@@ -123,12 +115,21 @@ html{scroll-behavior:smooth}
 
 <!-- Trust strip -->
 <div aria-label="How Lightyear handles your code and data" style="margin-top: 64px; border-top: 1px solid #2E3175; padding-top: 22px; display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; font-size: 14px; color: #C9C5E4">
-<span style="display: inline-flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9FE3BC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4 10-10"></path></svg>Runs read-only in your cloud</span>
-<span style="display: inline-flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9FE3BC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4 10-10"></path></svg>Your code and data stay in your environment</span>
+<span style="display: inline-flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9FE3BC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4 10-10"></path></svg>Read-only: nothing is written back to your systems</span>
+<span style="display: inline-flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9FE3BC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4 10-10"></path></svg>Runs where you choose: our infrastructure, yours or a partner’s</span>
 <span style="display: inline-flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9FE3BC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4 10-10"></path></svg>Human sign-off with hardware keys</span>
 <span style="display: inline-flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9FE3BC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4 10-10"></path></svg>Evidence anyone can replay</span>
 <a href="mailto:howard@lightyr.ai?subject=Security%20pack%20request" style="color: #E9C48F; text-decoration: none; font-weight: 600">Request our security pack →</a>
 </div>
+</div>
+</section>
+
+<!-- ============ 1z · ONE SYSTEM, THREE PRODUCTS ============ -->
+<section id="products" style="background: #1B1E5A; color: #E9E6F7; padding: 64px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 26px">
+<div style="display: flex; flex-direction: column; gap: 10px; max-width: 780px"><p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">One system, three products</p><h2 style="margin: 0; font-size: 36px; line-height: 1.15; color: #FFFFFF; letter-spacing: -0.6px">Build it, judge it, let anyone check it.</h2></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px"><a href="prism.html" style="background: #23266A; border: 1px solid #34378A; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 14px; text-decoration: none; color: #E9E6F7"><div style="display: flex; align-items: center; gap: 14px"><svg viewBox="0 0 90 90" width="56" height="56" aria-hidden="true" focusable="false" style="flex: none"><defs><clipPath id="stprpyc"><rect width="90" height="90" rx="18"></rect></clipPath></defs><rect width="90" height="90" rx="18" fill="#15184D"></rect><g clip-path="url(#stprpyc)"><polygon points="52,45 90,18.8 90,25.2" fill="#8F6EF0" opacity=".95"></polygon><polygon points="52,45 90,27.8 90,34.2" fill="#5B8DEF" opacity=".95"></polygon><polygon points="52,45 90,36.8 90,43.2" fill="#36B8A6" opacity=".95"></polygon><polygon points="52,45 90,45.8 90,52.2" fill="#8CC152" opacity=".95"></polygon><polygon points="52,45 90,54.8 90,61.2" fill="#E9C46A" opacity=".95"></polygon><polygon points="52,45 90,63.8 90,70.2" fill="#E8836B" opacity=".95"></polygon></g><line x1="8" y1="52" x2="34" y2="48" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round"></line><polygon points="45,20 62,60 28,60" fill="#FFFFFF" fill-opacity=".14" stroke="#D8CCF8" stroke-width="2.4" stroke-linejoin="round"></polygon><line x1="34" y1="48" x2="52" y2="45" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"></line></svg><span style="font-size: 22px; font-weight: 700; color: #FFFFFF">Lightyear Prism</span></div><span style="font-size: 16px; line-height: 1.55; color: #C9C5E4">The independent judge. Compares the old system and the new one field by field and signs one of three verdicts.</span><span style="margin-top: auto; font-size: 15px; font-weight: 600; color: #C9B8F8">Explore Prism →</span></a><a href="factory.html" style="background: #23266A; border: 1px solid #34378A; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 14px; text-decoration: none; color: #E9E6F7"><div style="display: flex; align-items: center; gap: 14px"><svg viewBox="0 0 90 90" width="56" height="56" aria-hidden="true" focusable="false" style="flex: none"><defs><linearGradient id="stfafyg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF1D6"></stop><stop offset="1" stop-color="#E9C48F"></stop></linearGradient></defs><rect width="90" height="90" rx="18" fill="#15184D"></rect><g transform="translate(3 0)"><path d="M17 69V43L31 33V43L45 33V43L59 33V26H67V69Z" fill="#2A2D6E" stroke="#D8CCF8" stroke-width="2.2" stroke-linejoin="round"></path><path d="M33 50L26 56L33 62" fill="none" stroke="url(#stfafyg)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M49 50L56 56L49 62" fill="none" stroke="url(#stfafyg)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M44 48L38 64" fill="none" stroke="url(#stfafyg)" stroke-width="3.2" stroke-linecap="round"></path></g><line x1="12" y1="76" x2="78" y2="76" stroke="#5458A8" stroke-width="2" stroke-linecap="round"></line><rect x="22" y="72" width="8" height="4" rx="1.2" fill="#8F6EF0"></rect><rect x="41" y="72" width="8" height="4" rx="1.2" fill="#36B8A6"></rect><rect x="60" y="72" width="8" height="4" rx="1.2" fill="#E9C46A"></rect></svg><span style="font-size: 22px; font-weight: 700; color: #FFFFFF">Lightyear Factory</span></div><span style="font-size: 16px; line-height: 1.55; color: #C9C5E4">AI agents write the replacement under signed limits. Nothing they write counts until Prism agrees.</span><span style="margin-top: auto; font-size: 15px; font-weight: 600; color: #C9B8F8">Explore Factory →</span></a><a href="aperture.html" style="background: #23266A; border: 1px solid #34378A; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 14px; text-decoration: none; color: #E9E6F7"><div style="display: flex; align-items: center; gap: 14px"><svg viewBox="0 0 90 90" width="56" height="56" aria-hidden="true" focusable="false" style="flex: none"><defs><radialGradient id="stapapl" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFFFFF"></stop><stop offset=".55" stop-color="#FFE7BF"></stop><stop offset="1" stop-color="#E9C48F"></stop></radialGradient><clipPath id="stapapc"><circle cx="45" cy="45" r="30"></circle></clipPath></defs><rect width="90" height="90" rx="18" fill="#15184D"></rect><circle cx="45" cy="45" r="33" fill="none" stroke="#2A2D6E" stroke-width="4"></circle><circle cx="45" cy="45" r="30" fill="#0B0D30" stroke="#3A3E8C" stroke-width="1.2"></circle><g clip-path="url(#stapapc)"><polygon points="65.8,57.0 45.0,69.0 24.2,57.0 24.2,33.0 45.0,21.0 65.8,33.0" fill="url(#stapapl)"></polygon><line x1="65.8" y1="57.0" x2="3.4" y2="93.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="45.0" y1="69.0" x2="-17.4" y2="33.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="24.2" y1="57.0" x2="24.2" y2="-15.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="24.2" y1="33.0" x2="86.6" y2="-3.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="45.0" y1="21.0" x2="107.4" y2="57.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="65.8" y1="33.0" x2="65.8" y2="105.0" stroke="#5458A8" stroke-width="1.6"></line></g><circle cx="45" cy="45" r="30" fill="none" stroke="#3A3E8C" stroke-width="1.2"></circle></svg><span style="font-size: 22px; font-weight: 700; color: #FFFFFF">Lightyear Aperture</span></div><span style="font-size: 16px; line-height: 1.55; color: #C9C5E4">The open verifier. Anyone can re-check our evidence offline, without trusting us.</span><span style="margin-top: auto; font-size: 15px; font-weight: 600; color: #C9B8F8">Explore Aperture →</span></a></div>
+<p style="margin: 0; font-size: 15px; color: #A9A6CC">Use all three, or bring your own builder and use Prism and Aperture for the proof.</p>
 </div>
 </section>
 
@@ -138,7 +139,7 @@ html{scroll-behavior:smooth}
 <div style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
 <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #7A5320">Try the judge</p>
 <h2 style="margin: 0; font-size: 50px; line-height: 1.06; letter-spacing: -1px; color: #15184D">One cent.<br>A different verdict.</h2>
-<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3D3F6B; max-width: 540px">A rewrite that rounds where COBOL truncates is one cent off on a monthly interest charge. Testers rarely notice. Across a million accounts, that’s $10,000 a month that won’t reconcile. The Verdict Engine compares every field, so it can’t slip through.</p>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3D3F6B; max-width: 540px">A rewrite that rounds where COBOL truncates is one cent off on a monthly interest charge. Testers rarely notice. Across a million accounts, that’s $10,000 a month that won’t reconcile. Lightyear Prism compares every field, so it can’t slip through.</p>
 <div><button id="cent-btn" type="button" aria-pressed="false" style="font-family: 'IBM Plex Sans', Arial, sans-serif; font-size: 16px; font-weight: 600; color: #FFFFFF; background: #15184D; border: 0; border-radius: 10px; padding: 16px 24px; min-height: 48px; cursor: pointer">Introduce a 1¢ difference</button></div>
 <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #676985">Illustrative: mainframe monthly interest calculation, one account.</p>
 </div>
@@ -167,7 +168,7 @@ html{scroll-behavior:smooth}
 </div>
 <h2 style="margin: 0; font-size: 46px; line-height: 1.08; letter-spacing: -1px; color: #FFFFFF">Decades of business logic, brought into full view.</h2>
 <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #C9C5E4">Prism runs your existing system and the new one side by side, and shows every behaviour, service by service and field by field, as a verdict you can read: equivalent, different or indeterminate. The logic your business depends on is carried forward, and you can see that it was.</p>
-<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #A9A6CC">It judges code from any builder: our factory, your AI platform or your systems integrator.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #A9A6CC">It judges code from any builder: Lightyear Factory, your AI platform or your systems integrator.</p>
 </div>
 <figure class="lyprism" id="prismPlayer" style="flex: 1.35 1 520px; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 16px">
 <svg viewBox="0 0 680 340" role="img" aria-label="Legacy COBOL is read line by line and sent as a beam of light into a glass prism, which splits it into six coloured bands, one for each part of the new system">
@@ -212,7 +213,7 @@ html{scroll-behavior:smooth}
 <span style="display: flex; gap: 10px; align-items: flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D57EA" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 3px"><path d="m5 12 4 4 10-10"></path></svg>See which gates are proven, and which still aren’t</span>
 <span style="display: flex; gap: 10px; align-items: flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7D57EA" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 3px"><path d="m5 12 4 4 10-10"></path></svg>Every decision kept in a hash-chained audit trail</span>
 </div>
-<a href="product.html" style="align-self: flex-start; font-size: 16px; font-weight: 600; color: #5B3CC4; text-decoration: none">Take the product tour →</a>
+<a href="prism.html" style="align-self: flex-start; font-size: 16px; font-weight: 600; color: #5B3CC4; text-decoration: none">Take the product tour →</a>
 </div>
 <figure role="img" aria-label="Illustrative view of Lightyear Control Tower: a release with three gates proven and two still open, so promotion is blocked, beside a signed audit trail" style="flex: 1.6 1 520px; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 12px">
 <div style="background: #F7F5FD; border: 1px solid #DDD7F2; border-radius: 16px; overflow: hidden; box-shadow: 0 24px 60px rgba(21, 24, 77, 0.14)">
@@ -337,13 +338,13 @@ html{scroll-behavior:smooth}
 <section id="factory-strip" style="background: #1B1E5A; color: #E9E6F7; padding: 56px 24px">
 <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 28px 48px; align-items: center; justify-content: space-between">
 <div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
-<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">The agent dark factory</p>
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">Lightyear Factory · the agent dark factory</p>
 <h2 style="margin: 0; font-size: 32px; line-height: 1.15; color: #FFFFFF; letter-spacing: -0.6px">AI agents do the conversion. Prism decides when it’s done.</h2>
-<a href="product.html#factory" style="align-self: flex-start; font-size: 16px; font-weight: 600; color: #C9B8F8; text-decoration: none">Watch the factory run →</a>
+<a href="factory.html" style="align-self: flex-start; font-size: 16px; font-weight: 600; color: #C9B8F8; text-decoration: none">Watch the factory run →</a>
 </div>
 <div style="flex: 1 1 520px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 18px">
 <div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 36px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">12m 25s</span><span style="font-size: 14px; line-height: 1.45; color: #C9C5E4">locked rules to signed verdict</span></div>
-<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 36px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">2.7M</span><span style="font-size: 14px; line-height: 1.45; color: #C9C5E4">values checked exactly</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 36px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">1 of 11</span><span style="font-size: 14px; line-height: 1.45; color: #C9C5E4">approved model calls used</span></div>
 <div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 36px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">0</span><span style="font-size: 14px; line-height: 1.45; color: #C9C5E4">lines written or fixed by a person</span></div>
 <span style="grid-column: 1 / -1; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #A9A6CC">ON A REAL ERP RUNNING ON ORACLE · ONE PUBLIC, REPLAYABLE RUN</span>
 </div>
@@ -369,7 +370,7 @@ html{scroll-behavior:smooth}
 <div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px">
 <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.2px; color: #8A5A1F">ERP · ORACLE → POSTGRESQL</span>
 <span style="font-size: 48px; font-weight: 700; letter-spacing: -1.5px; color: #15184D">12m 25s</span>
-<span style="font-size: 16px; line-height: 1.5; color: #15184D">From locked business rules to a signed verdict on a real ERP process. 2.7M values checked exactly; zero lines written or fixed by a person.</span>
+<span style="font-size: 16px; line-height: 1.5; color: #15184D">From locked business rules to a signed verdict on a real ERP process. The first candidate passed with 1 of 11 approved model calls; zero lines written or fixed by a person.</span>
 <span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #DDF3E6; color: #0F5C33; padding: 5px 9px; border-radius: 6px">ONE PUBLIC, REPLAYABLE RUN</span>
 <a href="proof.html" style="font-size: 15px; color: #5B3CC4; font-weight: 600">Read the case →</a>
 </div>
@@ -388,7 +389,7 @@ html{scroll-behavior:smooth}
 <a href="mailto:howard@lightyr.ai?subject=Evidence%20pack%20request:%20SQL%20Server%20to%20PostgreSQL" style="font-size: 15px; color: #5B3CC4; font-weight: 600">Request the evidence pack →</a>
 </div>
 </div>
-<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #3D3F6B">Plus <strong style="color: #15184D">13,504 relationships</strong> mapped across 11,347 entities in the knowledge graph of a public mainframe reference application. <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #4A2FB0">FOUND IN CODE · PUBLIC REFERENCE ESTATE</span></p>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #3D3F6B">Plus <strong style="color: #15184D">13,491 relationships</strong> mapped across 11,336 entities in the knowledge graph of a public mainframe reference application. <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #4A2FB0">FOUND IN CODE · PUBLIC REFERENCE ESTATE</span></p>
 </div>
 </section>
 
@@ -457,12 +458,12 @@ html{scroll-behavior:smooth}
 <li style="border-top: 3px solid #3B3E86; padding-top: 18px; display: flex; flex-direction: column; gap: 8px">
 <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5B3CC4">STEP 2</span>
 <h3 style="margin: 0; font-size: 21px">Anyone builds</h3>
-<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">Our dark factory, your AI platform or your SI. The builder never sees the hold-out answers.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">Lightyear Factory, your AI platform or your SI. The builder never sees the hold-out answers.</p>
 </li>
 <li style="border-top: 3px solid #7D57EA; padding-top: 18px; display: flex; flex-direction: column; gap: 8px">
 <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5B3CC4">STEP 3</span>
-<h3 style="margin: 0; font-size: 21px">The Verdict Engine judges</h3>
-<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">Old and new run side by side in your cloud, read-only. Outputs, data and errors are compared field by field.</p>
+<h3 style="margin: 0; font-size: 21px">Lightyear Prism judges</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">Old and new run side by side, read-only, on our infrastructure, yours or a partner’s. Outputs, data and errors are compared field by field.</p>
 </li>
 <li style="border-top: 3px solid #A7702C; padding-top: 18px; display: flex; flex-direction: column; gap: 8px">
 <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5B3CC4">STEP 4</span>
@@ -470,7 +471,7 @@ html{scroll-behavior:smooth}
 <p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">Named differences, a risk figure for untested logic, and an evidence pack anyone can replay.</p>
 </li>
 </ol>
-<a href="product.html#coverage" style="align-self: flex-start; font-size: 16px; font-weight: 600; color: #5B3CC4; text-decoration: none">See which platforms are qualified today →</a>
+<a href="prism.html#coverage" style="align-self: flex-start; font-size: 16px; font-weight: 600; color: #5B3CC4; text-decoration: none">See which platforms are qualified today →</a>
 </div>
 </section>
 
@@ -480,13 +481,13 @@ html{scroll-behavior:smooth}
 <div style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
 <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">Start with one job</p>
 <h2 style="margin: 0; font-size: 44px; line-height: 1.1; letter-spacing: -0.8px">The Verification Sprint</h2>
-<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3D3F6B">Send us one batch job or process you’ve already modernized, or let our factory build it during the sprint. In four weeks you get a go/no-go answer, the cost of getting to equivalent, and a business case for the rest of your backlog.</p>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3D3F6B">Send us one batch job or process you’ve already modernized, or let Lightyear Factory build it during the sprint. In four weeks you get a go/no-go answer, the cost of getting to equivalent, and a business case for the rest of your backlog.</p>
 <ul style="margin: 0; padding-left: 20px; font-size: 17px; line-height: 1.8; color: #15184D">
 <li>A business case and cost estimate for the wider backlog</li>
 <li>Every difference named, by field and record</li>
 <li>A risk figure for logic that wasn’t exercised</li>
 <li>A signed, replayable evidence pack</li>
-<li>Runs read-only inside your cloud</li>
+<li>Read-only, and runs where you choose</li>
 </ul>
 </div>
 <div style="flex: 0 1 380px; min-width: 0; background: #15184D; color: #E9E6F7; border-radius: 18px; padding: 36px; display: flex; flex-direction: column; gap: 14px">

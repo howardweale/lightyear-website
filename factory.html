@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lightyear Factory, the agent factory</title>
+<meta name="description" content="AI agents convert legacy code under signed limits; nothing counts until Lightyear Prism agrees.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMy42OCAxMy41MiBMMTYuMCA1LjQ0IEwyOC4zMiAxMy41MiBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0zLjY4IDE4LjQ4IEwxNi4wIDI2LjU2IEwyOC4zMiAxOC40OCBaIi8+PC9zdmc+">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#15184D}
+a{color:#5B3CC4}a:hover{color:#15184D}
+
+
+/* The repair loop (ported from lightyr.ai), scoped to .lyloop */
+.lyloop{--void:#06061A; --panel:#0E0D26; --line:#2A2850; --fg:#F4F2FF; --muted:#A9A5C8;
+  --violet:#8B5CFF; --filament:#FFB547; --ok:#2BD4A0; --bad:#FF5A4E;
+  --display:'Archivo','Arial Narrow',sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --T:10s;
+  color-scheme:dark;}
+.lyloop *{box-sizing:border-box}
+.lyloop .wrap{max-width:none;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.lyloop .stage{position:relative;border:1px solid var(--line);border-radius:14px;background:var(--void);overflow:hidden}
+.lyloop .stage svg{display:block;width:100%;height:auto}
+.lyloop .toggle{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px;min-height:40px;cursor:pointer}
+.lyloop .toggle:hover{border-color:var(--violet)}
+.lyloop .toggle:focus-visible{outline:2px solid var(--filament);outline-offset:2px}
+.lyloop .row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.lyloop .caps{display:grid;flex:1 1 360px;min-height:1.3em}
+.lyloop .cap{grid-area:1/1;margin:0;font-family:var(--display);font-stretch:85%;font-weight:700;font-size:clamp(18px,2.4vw,24px);line-height:1.25;opacity:0}
+.lyloop .tag{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+.lyloop .run .anim{animation-duration:var(--T);animation-iteration-count:infinite;animation-timing-function:ease-in-out;animation-fill-mode:both}
+.lyloop .paused .anim,.lyloop .paused .eyes,.lyloop .paused .gear,.lyloop .paused .bob{animation-play-state:paused}
+.lyloop .fb{transform-box:fill-box;transform-origin:center}
+.lyloop .bob{animation:bob 2.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.lyloop .eyes{transform-box:fill-box;transform-origin:center;animation:blink 3.7s infinite}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.lyloop .gear{transform-box:fill-box;transform-origin:center;animation:spin 2.4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.lyloop .k0{animation-name:k0}
+.lyloop .k1{animation-name:k1}
+.lyloop .k2{animation-name:k2}
+.lyloop .k3{animation-name:k3}
+@keyframes k0{0%,14.5%{opacity:1}16%,100%{opacity:0}}
+@keyframes k1{0%,15%{opacity:0}16.5%,32%{opacity:1}34%,100%{opacity:0}}
+@keyframes k2{0%,33%{opacity:0}35%,69%{opacity:1}71%,100%{opacity:0}}
+@keyframes k3{0%,70%{opacity:0}72%,98%{opacity:1}100%{opacity:0}}
+.lyloop .tA{animation-name:tA}
+.lyloop .tB1{animation-name:tB1}
+.lyloop .tB2{animation-name:tB2}
+@keyframes tA{0%{opacity:1;transform:translate(0,0)}6%,30%{opacity:1;transform:translate(56px,84px)}33%,55%{opacity:0;transform:translate(0,0)}56%{opacity:1;transform:translate(0,0)}62%,95%{opacity:1;transform:translate(56px,84px)}98%,100%{opacity:0;transform:translate(56px,84px)}}
+@keyframes tB1{0%{opacity:1;transform:translate(0,0)}6%,30%{opacity:1;transform:translate(56px,4px)}33%,100%{opacity:0;transform:translate(56px,4px)}}
+@keyframes tB2{0%,55%{opacity:0;transform:translate(0,0)}56%{opacity:1;transform:translate(0,0)}62%,95%{opacity:1;transform:translate(56px,4px)}98%,100%{opacity:0;transform:translate(56px,4px)}}
+.lyloop .scan{animation-name:scan}
+@keyframes scan{0%,5.5%{opacity:0;transform:translateY(0)}6%{opacity:.9;transform:translateY(0)}11%{opacity:.9;transform:translateY(62px)}15.5%{opacity:.9;transform:translateY(0)}16%,61.5%{opacity:0;transform:translateY(0)}62%{opacity:.9;transform:translateY(0)}67%{opacity:.9;transform:translateY(62px)}71.5%{opacity:.9;transform:translateY(0)}72%,100%{opacity:0;transform:translateY(0)}}
+.lyloop .lampA{animation-name:lampA}
+.lyloop .lampR{animation-name:lampR}
+.lyloop .lampG{animation-name:lampG}
+@keyframes lampA{0%,5.5%{fill:#2A2850}6%,8%{fill:#FFB547}9%,11%{fill:#2A2850}12%,14%{fill:#FFB547}15%,61.5%{fill:#2A2850}62%,64%{fill:#FFB547}65%,67%{fill:#2A2850}68%,70%{fill:#FFB547}71%,100%{fill:#2A2850}}
+@keyframes lampR{0%,15.5%{fill:#2A2850}16.5%,33%{fill:#FF5A4E}34%,100%{fill:#2A2850}}
+@keyframes lampG{0%,71.5%{fill:#2A2850}72.5%,96%{fill:#2BD4A0}98%,100%{fill:#2A2850}}
+.lyloop .r1{animation-name:r1}
+.lyloop .r2{animation-name:r2}
+.lyloop .r3{animation-name:r3}
+.lyloop .r4{animation-name:r4}
+@keyframes r1{0%,5.5%{opacity:0}6.5%,15%{opacity:1}16%,100%{opacity:0}}
+@keyframes r2{0%,15.5%{opacity:0}16.5%,33%{opacity:1}34%,100%{opacity:0}}
+@keyframes r3{0%,61.5%{opacity:0}62.5%,71%{opacity:1}72%,100%{opacity:0}}
+@keyframes r4{0%,71.5%{opacity:0}72.5%,96%{opacity:1}98%,100%{opacity:0}}
+.lyloop .stampRed{animation-name:stampRed}
+@keyframes stampRed{0%,15.5%{opacity:0;transform:scale(2.2) rotate(5deg)}18%,31%{opacity:1;transform:scale(1) rotate(5deg)}34%,100%{opacity:0;transform:scale(1) rotate(5deg)}}
+.lyloop .stamp{animation-name:stamp}
+@keyframes stamp{0%,71.5%{opacity:0;transform:scale(2.2) rotate(-6deg)}74%,95%{opacity:1;transform:scale(1) rotate(-6deg)}98%,100%{opacity:0;transform:scale(1) rotate(-6deg)}}
+.lyloop .note{animation-name:note}
+@keyframes note{0%,18%{opacity:0;transform:translate(0,0)}20%{opacity:1;transform:translate(0,0)}30%,36%{opacity:1;transform:translate(-326px,-108px)}39%,100%{opacity:0;transform:translate(-326px,-108px)}}
+.lyloop .aha{animation-name:aha}
+@keyframes aha{0%,29%{opacity:0;transform:scale(0)}31%{opacity:1;transform:scale(1.2)}32.5%,38%{opacity:1;transform:scale(1)}40%,100%{opacity:0;transform:scale(0)}}
+.lyloop .bFix{animation-name:bFix}
+@keyframes bFix{0%,32%{opacity:0;transform:translateY(6px)}34%,45%{opacity:1;transform:translateY(0)}47%,100%{opacity:0}}
+.lyloop .bYes{animation-name:bYes}
+@keyframes bYes{0%,75%{opacity:0;transform:translateY(6px)}77%,94%{opacity:1;transform:translateY(0)}97%,100%{opacity:0}}
+.lyloop .type{animation-name:type}
+@keyframes type{0%,35%{transform:translateY(0)}36.5%{transform:translateY(-4px)}38%{transform:translateY(0)}39.5%{transform:translateY(-4px)}41%{transform:translateY(0)}42.5%{transform:translateY(-4px)}44%,100%{transform:translateY(0)}}
+.lyloop .bolt{animation-name:boltK}
+@keyframes boltK{0%,19%{transform:translate(0,0) rotate(0)}22%,29%{transform:translate(0,5px) rotate(-5deg)}32%{transform:translate(0,-7px) rotate(0)}35%,74%{transform:translate(0,0)}77%{transform:translate(0,-16px)}80%{transform:translate(0,0)}83%{transform:translate(0,-8px)}86%,100%{transform:translate(0,0)}}
+.lyloop .cA{animation-name:cA}
+.lyloop .cB{animation-name:cB}
+@keyframes cA{0%,44%{opacity:0;transform:translate(0,0)}46%{opacity:1;transform:translate(0,0)}53%{opacity:1;transform:translate(230px,-200px)}55%,100%{opacity:0;transform:translate(230px,-200px)}}
+@keyframes cB{0%,44%{opacity:0;transform:translate(0,0)}46%{opacity:1;transform:translate(0,0)}53%{opacity:1;transform:translate(230px,-80px)}55%,100%{opacity:0;transform:translate(230px,-80px)}}
+.lyloop .lamp{animation-name:lamp}
+@keyframes lamp{0%,4%{fill:#2BD4A0}5%,52.5%{fill:#2A2850}53.5%{fill:#FFB547}54.5%{fill:#2A2850}55.5%{fill:#FFB547}56.5%,62%{fill:#2BD4A0}63%,100%{fill:#2A2850}}
+.lyloop .shake{animation-name:shake}
+@keyframes shake{0%,52.5%{transform:translate(0,0)}53.5%{transform:translate(1px,-1px)}54.5%{transform:translate(-1px,1px)}55.5%{transform:translate(1px,1px)}56.5%,100%{transform:translate(0,0)}}
+.lyloop .rcpt{animation-name:rcpt;transform-box:fill-box;transform-origin:50% 0}
+@keyframes rcpt{0%,73%{opacity:0;transform:scaleY(0)}77%,95%{opacity:1;transform:scaleY(1)}98%,100%{opacity:0;transform:scaleY(1)}}
+.lyloop .spark{animation-name:spark}
+@keyframes spark{0%,72%{opacity:0;transform:scale(0)}75%{opacity:1;transform:scale(1.2)}79%{opacity:1;transform:scale(.9)}85%,100%{opacity:0;transform:scale(0)}}
+.lyloop .beamglow{animation-name:beam}
+@keyframes beam{0%,72%{opacity:.25}75%,93%{opacity:1}97%,100%{opacity:.25}}
+@media (prefers-reduced-motion: reduce){.lyloop .anim,.lyloop .eyes,.lyloop .gear,.lyloop .bob{animation:none!important}
+.lyloop .k0,.lyloop .k1,.lyloop .k2,.lyloop .tB1,.lyloop .scan,.lyloop .r1,.lyloop .r2,.lyloop .r3,.lyloop .stampRed,.lyloop .note,.lyloop .aha,.lyloop .bFix,.lyloop .cA,.lyloop .cB,.lyloop .spark{opacity:0}
+.lyloop .k3,.lyloop .tA,.lyloop .tB2,.lyloop .r4,.lyloop .stamp,.lyloop .rcpt,.lyloop .bYes{opacity:1}
+.lyloop .tA{transform:translate(56px,84px)}
+.lyloop .tB2{transform:translate(56px,4px)}
+.lyloop .stamp{transform:rotate(-6deg)}
+.lyloop .lampG{fill:#2BD4A0}
+.lyloop .toggle{display:none}}
+.lyloop .av{width:58px;height:62px;display:block}
+
+
+
+/* Products menu (shared nav) */
+.lynav summary{list-style:none}
+.lynav summary::-webkit-details-marker{display:none}
+.lynav summary:focus-visible{outline:2px solid #E9C48F;outline-offset:4px;border-radius:4px}
+.lynav .menu a:hover,.lynav .menu a:focus-visible{background:#F3F0FC;outline:none}
+.lynav[open] .chev{transform:rotate(180deg)}
+</style>
+<style>
+html{scroll-behavior:smooth}
+@media (max-width: 720px){ h1{font-size:40px !important} h2{font-size:30px !important} }
+</style>
+</head>
+<body>
+<div style="font-family: 'IBM Plex Sans', Arial, sans-serif; color: #15184D; background: #FEFEFE; min-width: 320px">
+
+<section style="background: #15184D; color: #E9E6F7; padding: 0 24px 88px">
+<div style="max-width: 1200px; margin: 0 auto">
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 0">
+<a href="index.html" aria-label="Lightyear home" style="display: flex; align-items: center; margin-left: 8px"><svg viewBox="0 0 360 220" width="88" height="54" role="img" aria-label="LIGHTYEAR"><path fill="#7D57EA" d="M24 96C84 92 125 74 156 47C166 38 173 30 179 29C179.5 28.7 179.8 28.2 180 28C180.2 28.2 180.5 28.7 181 29C187 30 194 38 204 47C235 74 276 92 336 96H24Z"></path><path fill="#7D57EA" d="M24 124C84 128 125 146 156 173C166 182 173 190 179 191C179.5 191.3 179.8 191.8 180 192C180.2 191.8 180.5 191.3 181 191C187 190 194 182 204 173C235 146 276 128 336 124H24Z"></path><text x="180" y="122" fill="#C99A5B" font-family="Arial, sans-serif" font-size="32" font-weight="700" letter-spacing="6" text-anchor="middle">LIGHTYEAR</text></svg></a>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px; font-size: 15px">
+<details class="lynav" style="position: relative"><summary style="color: #FFFFFF; text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; border-bottom: 2px solid #7D57EA; padding-bottom: 4px">Products<svg class="chev" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" style="transition: transform .15s"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg></summary><div class="menu" style="position: absolute; top: calc(100% + 14px); left: -14px; z-index: 30; width: 320px; background: #FFFFFF; border: 1px solid #DDD7F2; border-radius: 14px; box-shadow: 0 18px 40px rgba(10,12,48,.35); padding: 8px; display: flex; flex-direction: column; gap: 2px"><a href="prism.html" style="display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 10px; text-decoration: none; color: #15184D"><svg viewBox="0 0 90 90" width="36" height="36" aria-hidden="true" focusable="false" style="flex: none"><defs><clipPath id="nvprpyc"><rect width="90" height="90" rx="18"></rect></clipPath></defs><rect width="90" height="90" rx="18" fill="#15184D"></rect><g clip-path="url(#nvprpyc)"><polygon points="52,45 90,18.8 90,25.2" fill="#8F6EF0" opacity=".95"></polygon><polygon points="52,45 90,27.8 90,34.2" fill="#5B8DEF" opacity=".95"></polygon><polygon points="52,45 90,36.8 90,43.2" fill="#36B8A6" opacity=".95"></polygon><polygon points="52,45 90,45.8 90,52.2" fill="#8CC152" opacity=".95"></polygon><polygon points="52,45 90,54.8 90,61.2" fill="#E9C46A" opacity=".95"></polygon><polygon points="52,45 90,63.8 90,70.2" fill="#E8836B" opacity=".95"></polygon></g><line x1="8" y1="52" x2="34" y2="48" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round"></line><polygon points="45,20 62,60 28,60" fill="#FFFFFF" fill-opacity=".14" stroke="#D8CCF8" stroke-width="2.4" stroke-linejoin="round"></polygon><line x1="34" y1="48" x2="52" y2="45" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"></line></svg><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Lightyear Prism</span><span style="font-size: 13px; color: #676985">The independent judge</span></span></a><a href="factory.html" aria-current="page" style="display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 10px; text-decoration: none; color: #15184D"><svg viewBox="0 0 90 90" width="36" height="36" aria-hidden="true" focusable="false" style="flex: none"><defs><linearGradient id="nvfafyg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF1D6"></stop><stop offset="1" stop-color="#E9C48F"></stop></linearGradient></defs><rect width="90" height="90" rx="18" fill="#15184D"></rect><g transform="translate(3 0)"><path d="M17 69V43L31 33V43L45 33V43L59 33V26H67V69Z" fill="#2A2D6E" stroke="#D8CCF8" stroke-width="2.2" stroke-linejoin="round"></path><path d="M33 50L26 56L33 62" fill="none" stroke="url(#nvfafyg)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M49 50L56 56L49 62" fill="none" stroke="url(#nvfafyg)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M44 48L38 64" fill="none" stroke="url(#nvfafyg)" stroke-width="3.2" stroke-linecap="round"></path></g><line x1="12" y1="76" x2="78" y2="76" stroke="#5458A8" stroke-width="2" stroke-linecap="round"></line><rect x="22" y="72" width="8" height="4" rx="1.2" fill="#8F6EF0"></rect><rect x="41" y="72" width="8" height="4" rx="1.2" fill="#36B8A6"></rect><rect x="60" y="72" width="8" height="4" rx="1.2" fill="#E9C46A"></rect></svg><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Lightyear Factory</span><span style="font-size: 13px; color: #676985">AI agents write the code</span></span></a><a href="aperture.html" style="display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 10px; text-decoration: none; color: #15184D"><svg viewBox="0 0 90 90" width="36" height="36" aria-hidden="true" focusable="false" style="flex: none"><defs><radialGradient id="nvapapl" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFFFFF"></stop><stop offset=".55" stop-color="#FFE7BF"></stop><stop offset="1" stop-color="#E9C48F"></stop></radialGradient><clipPath id="nvapapc"><circle cx="45" cy="45" r="30"></circle></clipPath></defs><rect width="90" height="90" rx="18" fill="#15184D"></rect><circle cx="45" cy="45" r="33" fill="none" stroke="#2A2D6E" stroke-width="4"></circle><circle cx="45" cy="45" r="30" fill="#0B0D30" stroke="#3A3E8C" stroke-width="1.2"></circle><g clip-path="url(#nvapapc)"><polygon points="65.8,57.0 45.0,69.0 24.2,57.0 24.2,33.0 45.0,21.0 65.8,33.0" fill="url(#nvapapl)"></polygon><line x1="65.8" y1="57.0" x2="3.4" y2="93.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="45.0" y1="69.0" x2="-17.4" y2="33.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="24.2" y1="57.0" x2="24.2" y2="-15.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="24.2" y1="33.0" x2="86.6" y2="-3.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="45.0" y1="21.0" x2="107.4" y2="57.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="65.8" y1="33.0" x2="65.8" y2="105.0" stroke="#5458A8" stroke-width="1.6"></line></g><circle cx="45" cy="45" r="30" fill="none" stroke="#3A3E8C" stroke-width="1.2"></circle></svg><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Lightyear Aperture</span><span style="font-size: 13px; color: #676985">Check the evidence yourself</span></span></a></div></details>
+<a href="solutions.html" style="color: #D3CFEA; text-decoration: none">Solutions</a>
+<a href="proof.html" style="color: #D3CFEA; text-decoration: none">Proof</a>
+<a href="pricing.html" style="color: #D3CFEA; text-decoration: none">Pricing</a>
+<a href="resources.html" style="color: #D3CFEA; text-decoration: none">Resources</a>
+<a href="engineers.html" style="color: #D3CFEA; text-decoration: none">For engineers</a>
+<a href="pricing.html" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 12px 18px; border-radius: 8px; font-weight: 600">Book a Verification Sprint</a>
+</div>
+</nav>
+<div style="display: flex; flex-wrap: wrap; gap: 56px; align-items: center; padding-top: 64px">
+<div style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; align-items: center; gap: 14px"><svg viewBox="0 0 90 90" width="52" height="52" aria-hidden="true" focusable="false" style="flex: none"><defs><linearGradient id="hxfafyg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF1D6"></stop><stop offset="1" stop-color="#E9C48F"></stop></linearGradient></defs><rect width="90" height="90" rx="18" fill="#15184D"></rect><g transform="translate(3 0)"><path d="M17 69V43L31 33V43L45 33V43L59 33V26H67V69Z" fill="#2A2D6E" stroke="#D8CCF8" stroke-width="2.2" stroke-linejoin="round"></path><path d="M33 50L26 56L33 62" fill="none" stroke="url(#hxfafyg)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M49 50L56 56L49 62" fill="none" stroke="url(#hxfafyg)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M44 48L38 64" fill="none" stroke="url(#hxfafyg)" stroke-width="3.2" stroke-linecap="round"></path></g><line x1="12" y1="76" x2="78" y2="76" stroke="#5458A8" stroke-width="2" stroke-linecap="round"></line><rect x="22" y="72" width="8" height="4" rx="1.2" fill="#8F6EF0"></rect><rect x="41" y="72" width="8" height="4" rx="1.2" fill="#36B8A6"></rect><rect x="60" y="72" width="8" height="4" rx="1.2" fill="#E9C46A"></rect></svg><p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">Lightyear Factory · the agent dark factory</p></div>
+<h1 style="margin: 0; font-size: 58px; line-height: 1.05; font-weight: 700; letter-spacing: -1.4px; color: #FFFFFF">AI agents do the conversion. A fixed program decides when it’s done.</h1>
+<p style="margin: 0; font-size: 20px; line-height: 1.55; color: #C9C5E4; max-width: 600px">Lightyear Factory converts legacy code with AI agents working under signed work orders, fixed budgets and a sealed workspace. No person writes or fixes the code, and nothing it writes counts until Lightyear Prism agrees.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 14px"><a href="pricing.html" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 16px 24px; border-radius: 10px; font-weight: 600">Let it convert one process</a><a href="proof.html#factory-run" style="color: #E9E6F7; border: 1px solid #5B5E9C; text-decoration: none; padding: 15px 22px; border-radius: 10px">See the factory run</a></div>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; background: #0E1038; border: 1px solid #2E3175; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 12px; font-family: 'IBM Plex Mono', monospace">
+<span style="font-size: 12px; letter-spacing: 1.5px; color: #A9A6CC">WORK ORDER · SIGNED BEFORE THE RUN</span>
+<span style="font-size: 15px; color: #FFFFFF">scope     authorization screens</span>
+<span style="font-size: 15px; color: #E9E6F7">budget    model calls, tokens, dollars, hours</span>
+<span style="font-size: 15px; color: #E9E6F7">workspace sealed · network off</span>
+<span style="font-size: 15px; color: #E9E6F7">attempts  capped · every call recorded</span>
+<span style="font-size: 15px; color: #FFC38A">done when Lightyear Prism says equivalent</span>
+<span style="font-size: 11px; color: #8E8BB8">Illustrative. A person signs every work order; the agents cannot change it.</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ============ HOW LIGHTYEAR FACTORY WORKS ============ -->
+<section id="factory" style="background: #1B1E5A; color: #E9E6F7; padding: 96px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px">
+<div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-end; justify-content: space-between">
+<div style="flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">How it works</p>
+<h2 style="margin: 0; font-size: 44px; line-height: 1.1; color: #FFFFFF; letter-spacing: -0.8px">Three AI roles work in a loop around a judge with no AI in it.</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #C9C5E4">Lightyear Factory’s advantage is built in: nothing it writes counts until Lightyear Prism, the independent judge, says so. The judge is a deterministic program, not a model, and the agents never see its answer key. Prefer your own builder? The same judge verifies that too.</p>
+</div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: stretch">
+<div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 8px; border-radius: 14px; padding: 24px; background: #23266A; border: 2px solid #23266A">
+<div class="lyloop" style="height: 62px; display: flex; align-items: flex-end; color: #FFC38A"><svg class="av" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="-50 -128 124 136"><line x1="0" y1="-94" x2="0" y2="-108" stroke="#B9A3FF" stroke-width="3" stroke-linecap="round"></line>
+<circle cx="0" cy="-112" r="6" fill="#FFB547"></circle>
+<rect x="-32" y="-96" width="64" height="52" rx="18" fill="#8B5CFF"></rect>
+<rect x="-24" y="-88" width="48" height="32" rx="12" fill="#14132E"></rect>
+<ellipse cx="-10" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse><ellipse cx="10" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse>
+<path d="M-6 -63Q0 -59 6 -63" stroke="#F4F2FF" stroke-width="2" fill="none" stroke-linecap="round"></path>
+<circle cx="-27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle><circle cx="27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle>
+<rect x="-26" y="-42" width="52" height="38" rx="14" fill="#7146F0"></rect>
+<rect x="22" y="-34" width="22" height="28" rx="3" fill="#F4F2FF" stroke="#7146F0" stroke-width="1.5"></rect><rect x="26" y="-28" width="14" height="2.5" fill="#8B5CFF"></rect><rect x="26" y="-22" width="10" height="2.5" fill="#8B5CFF"></rect><rect x="26" y="-16" width="12" height="2.5" fill="#8B5CFF"></rect>
+<rect x="-20" y="-6" width="14" height="10" rx="4" fill="#4B2FB8"></rect><rect x="6" y="-6" width="14" height="10" rx="4" fill="#4B2FB8"></rect>
+<g fill="none" stroke="#FFD48A" stroke-width="2"><circle cx="-10" cy="-73" r="8.5"></circle><circle cx="10" cy="-73" r="8.5"></circle><path d="M-1.5 -74H1.5"></path></g></svg></div>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.2px; color: #C99A5B">1 · PLAN</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #B9A3FF">PIP · PLANNER AI</span>
+<h3 style="margin: 0; font-size: 21px; color: #FFFFFF">Scope the job</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #C9C5E4">Works from the knowledge graph: what the program reads and writes, which rules it carries, what “the same” means. Rules lock before any code is written.</p>
+<span style="margin-top: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.5; color: #A9A6CC; border-top: 1px solid #3B3E86; padding-top: 10px">SEES: source, layouts, the work order</span>
+</div>
+<div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 8px; border-radius: 14px; padding: 24px; background: #23266A; border: 2px solid #23266A">
+<div class="lyloop" style="height: 62px; display: flex; align-items: flex-end; color: #FFC38A"><svg class="av" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="-50 -128 124 136"><rect x="-32" y="-96" width="64" height="52" rx="18" fill="#FFB547"></rect>
+<rect x="-24" y="-88" width="48" height="32" rx="12" fill="#14132E"></rect>
+<ellipse cx="-8" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse><ellipse cx="12" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse>
+<path d="M-2 -63Q4 -59 10 -63" stroke="#F4F2FF" stroke-width="2" fill="none" stroke-linecap="round"></path>
+<circle cx="-27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle><circle cx="27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle>
+<rect x="-26" y="-42" width="52" height="38" rx="14" fill="#E2902A"></rect>
+<rect x="18" y="-40" width="46" height="28" rx="4" fill="#14132E" stroke="#FFB547" stroke-width="2"></rect>
+<rect x="24" y="-33" width="22" height="2.5" fill="#B9A3FF"></rect><rect x="24" y="-27" width="30" height="2.5" fill="#FFB547"></rect><rect x="24" y="-21" width="16" height="2.5" fill="#B9A3FF"></rect>
+<rect x="12" y="-12" width="58" height="5" rx="2" fill="#3A3760"></rect>
+<rect x="10" y="-22" width="14" height="7" rx="3.5" fill="#E2902A"></rect>
+<rect x="-20" y="-6" width="14" height="10" rx="4" fill="#9A5F12"></rect><rect x="6" y="-6" width="14" height="10" rx="4" fill="#9A5F12"></rect>
+<path d="M-29 -95Q-28 -121 0 -122Q28 -121 29 -95Z" fill="#FFD48A"></path><rect x="-36" y="-98" width="72" height="6" rx="3" fill="#F4C46A"></rect><rect x="-4" y="-121" width="8" height="24" rx="3" fill="#F4C46A"></rect></svg></div>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.2px; color: #C99A5B">2 · BUILD</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #B9A3FF">BOLT · BUILDER AI</span>
+<h3 style="margin: 0; font-size: 21px; color: #FFFFFF">Write the new code</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #C9C5E4">Writes the replacement in a sealed workspace with a fixed budget of attempts.</p>
+<span style="margin-top: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.5; color: #A9A6CC; border-top: 1px solid #3B3E86; padding-top: 10px">SEES: source and interfaces, never the answers</span>
+</div>
+<div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 8px; border-radius: 14px; padding: 24px; background: #241F4E; border: 2px solid #A7702C">
+<div class="lyloop" style="height: 62px; display: flex; align-items: flex-end; color: #FFC38A"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M7 21h10M5 7h14M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"></path></svg></div>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.2px; color: #C99A5B">3 · JUDGE</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #B9A3FF">LIGHTYEAR PRISM</span>
+<h3 style="margin: 0; font-size: 21px; color: #FFFFFF">Compare every field</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #C9C5E4">Runs old and new on the same inputs. The answer key is the legacy program itself, run for real.</p>
+<span style="margin-top: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.5; color: #A9A6CC; border-top: 1px solid #3B3E86; padding-top: 10px">HOLDS: the answers and the signing key</span>
+</div>
+<div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 8px; border-radius: 14px; padding: 24px; background: #23266A; border: 2px solid #23266A">
+<div class="lyloop" style="height: 62px; display: flex; align-items: flex-end; color: #FFC38A"><svg class="av" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="-50 -128 124 136"><line x1="-14" y1="-96" x2="-20" y2="-110" stroke="#9FE3BC" stroke-width="3" stroke-linecap="round"></line><circle cx="-21" cy="-113" r="5" fill="#FF5A4E"></circle><rect x="-32" y="-96" width="64" height="52" rx="18" fill="#2BD4A0"></rect><rect x="-24" y="-88" width="48" height="32" rx="12" fill="#14132E"></rect><ellipse cx="-10" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse><ellipse cx="10" cy="-72" rx="5" ry="3.5" fill="#F4F2FF"></ellipse><path d="M-16 -84L-5 -82" stroke="#9FE3BC" stroke-width="2" stroke-linecap="round"></path><path d="M5 -80L16 -81" stroke="#9FE3BC" stroke-width="2" stroke-linecap="round"></path><path d="M-5 -63H5" stroke="#F4F2FF" stroke-width="2" stroke-linecap="round"></path><circle cx="-27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle><circle cx="27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle><rect x="-36" y="-80" width="6" height="16" rx="3" fill="#1A8F6C"></rect><rect x="-26" y="-42" width="52" height="38" rx="14" fill="#1A8F6C"></rect><rect x="-34" y="-36" width="22" height="28" rx="3" fill="#F4F2FF" stroke="#1A8F6C" stroke-width="1.5"></rect><rect x="-30" y="-30" width="14" height="2.5" fill="#2BD4A0"></rect><rect x="-30" y="-24" width="14" height="2.5" fill="#FF5A4E"></rect><rect x="-30" y="-18" width="10" height="2.5" fill="#2BD4A0"></rect><line x1="31" y1="-20" x2="44" y2="-6" stroke="#FFB547" stroke-width="5" stroke-linecap="round"></line><circle cx="22" cy="-30" r="13" fill="#14132E" stroke="#F4F2FF" stroke-width="4"></circle><rect x="14" y="-33" width="16" height="5" rx="1.5" fill="#FF5A4E"></rect><path d="M15 -38H27" stroke="#3A3760" stroke-width="2" stroke-linecap="round"></path><path d="M15 -22H25" stroke="#3A3760" stroke-width="2" stroke-linecap="round"></path><rect x="-20" y="-6" width="14" height="10" rx="4" fill="#126B50"></rect><rect x="6" y="-6" width="14" height="10" rx="4" fill="#126B50"></rect></svg></div>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.2px; color: #C99A5B">4 · REPAIR OR STOP</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #B9A3FF">THE ANALYST</span>
+<h3 style="margin: 0; font-size: 21px; color: #FFFFFF">Fix it, or stop honestly</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #C9C5E4">Differences go back by field name only. When the budget is spent the run stops and the failure is kept as evidence.</p>
+<span style="margin-top: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.5; color: #A9A6CC; border-top: 1px solid #3B3E86; padding-top: 10px">SEES: which field differs, not why</span>
+</div>
+</div>
+
+<div style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.5px; color: #FFC38A">
+<span style="flex: 1 1 auto; border-top: 2px dashed #A7702C"></span>
+<span>THE EXPECTED ANSWERS NEVER CROSS FROM THE JUDGE TO THE BUILDERS</span>
+<span style="flex: 1 1 auto; border-top: 2px dashed #A7702C"></span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">Watch the loop · ten seconds</p>
+<h3 style="margin: 0; font-size: 28px; line-height: 1.2; color: #FFFFFF">One field fails. The builder fixes it. The judge decides.</h3>
+<div class="lyloop">
+<div class="wrap run" id="loopPlayer">
+<div class="stage">
+<svg aria-hidden="false" viewBox="156 104 804 404" role="img" aria-label="Ten-second loop. Lightyear Prism finds one field that differs and reports which field. Bolt, the builder AI, fixes its own code. The same inputs run again on both systems, the engine reports equivalent, and prints a signed receipt.">
+      <g fill="none" stroke="#2A2850" stroke-width="2" stroke-dasharray="4 6">
+        <path d="M372 400C450 400 470 220 540 216"></path>
+        <path d="M372 410C450 410 470 346 540 346"></path>
+        <path d="M680 216C720 216 720 300 740 300"></path>
+        <path d="M680 346C720 346 720 350 740 350"></path>
+      </g>
+      <line x1="156" y1="470" x2="960" y2="470" stroke="#FFB547" stroke-width="2" opacity=".35"></line>
+      <line class="anim beamglow" x1="156" y1="470" x2="960" y2="470" stroke="#FFB547" stroke-width="3" style="filter:drop-shadow(0 0 6px #FFB547)"></line>
+
+
+      <g class="anim shake">
+        <rect x="540" y="168" width="140" height="96" rx="14" fill="#14132E" stroke="#3A3760" stroke-width="2"></rect>
+        <text x="556" y="192" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.5" fill="#A9A5C8">ORIGINAL</text>
+        <text x="556" y="216" font-family="Archivo, sans-serif" font-size="17" font-weight="800" fill="#F4F2FF">Oracle</text>
+        <circle class="anim lamp" cx="563" cy="242" r="6" fill="#2A2850"></circle>
+        <g class="gear"><circle cx="652" cy="244" r="14" fill="none" stroke="#8B5CFF" stroke-width="7" stroke-dasharray="5 4"></circle><circle cx="652" cy="244" r="5.5" fill="#8B5CFF"></circle></g>
+      </g>
+      <g class="anim shake">
+        <rect x="540" y="298" width="140" height="96" rx="14" fill="#14132E" stroke="#3A3760" stroke-width="2"></rect>
+        <text x="556" y="322" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.5" fill="#A9A5C8">MODERNIZED</text>
+        <text x="556" y="346" font-family="Archivo, sans-serif" font-size="17" font-weight="800" fill="#F4F2FF">PostgreSQL</text>
+        <circle class="anim lamp" cx="563" cy="372" r="6" fill="#2A2850"></circle>
+        <g class="gear"><circle cx="652" cy="374" r="14" fill="none" stroke="#8B5CFF" stroke-width="7" stroke-dasharray="5 4"></circle><circle cx="652" cy="374" r="5.5" fill="#8B5CFF"></circle></g>
+      </g>
+
+
+      <!-- Bolt, the builder AI -->
+      <g transform="translate(300 466)"><g class="bob"><g class="anim bolt" style="transform-box:fill-box;transform-origin:50% 100%">
+        <rect x="-32" y="-96" width="64" height="52" rx="18" fill="#FFB547"></rect>
+        <rect x="-24" y="-88" width="48" height="32" rx="12" fill="#14132E"></rect>
+        <g class="eyes"><ellipse cx="-8" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse><ellipse cx="12" cy="-73" rx="5" ry="6" fill="#F4F2FF"></ellipse></g>
+        <path d="M-2 -63Q4 -59 10 -63" stroke="#F4F2FF" stroke-width="2" fill="none" stroke-linecap="round"></path>
+        <circle cx="-27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle><circle cx="27" cy="-56" r="3.5" fill="#FF8FB1" opacity=".75"></circle>
+        <rect x="-26" y="-42" width="52" height="38" rx="14" fill="#E2902A"></rect>
+        <rect x="18" y="-40" width="46" height="28" rx="4" fill="#14132E" stroke="#FFB547" stroke-width="2"></rect>
+        <rect x="24" y="-33" width="22" height="2.5" fill="#B9A3FF"></rect><rect x="24" y="-27" width="30" height="2.5" fill="#FFB547"></rect><rect x="24" y="-21" width="16" height="2.5" fill="#B9A3FF"></rect>
+        <rect x="12" y="-12" width="58" height="5" rx="2" fill="#3A3760"></rect>
+        <rect class="anim type" x="10" y="-22" width="14" height="7" rx="3.5" fill="#E2902A"></rect>
+        <rect x="-20" y="-6" width="14" height="10" rx="4" fill="#9A5F12"></rect><rect x="6" y="-6" width="14" height="10" rx="4" fill="#9A5F12"></rect>
+        <path d="M-29 -95Q-28 -121 0 -122Q28 -121 29 -95Z" fill="#FFD48A"></path><rect x="-36" y="-98" width="72" height="6" rx="3" fill="#F4C46A"></rect><rect x="-4" y="-121" width="8" height="24" rx="3" fill="#F4C46A"></rect>
+      </g></g></g>
+
+
+      <g class="anim cA">
+        <rect x="322" y="384" width="40" height="9" rx="4" fill="#8B5CFF"></rect><rect x="322" y="397" width="30" height="9" rx="4" fill="#FFB547"></rect><rect x="322" y="410" width="36" height="9" rx="4" fill="#B9A3FF"></rect>
+      </g>
+      <g class="anim cB">
+        <rect x="322" y="384" width="40" height="9" rx="4" fill="#8B5CFF"></rect><rect x="322" y="397" width="30" height="9" rx="4" fill="#FFB547"></rect><rect x="322" y="410" width="36" height="9" rx="4" fill="#B9A3FF"></rect>
+      </g>
+
+
+      <!-- Lightyear Prism -->
+      <g>
+        <rect x="812" y="250" width="96" height="14" rx="4" fill="#2A2850"></rect>
+        <rect x="790" y="262" width="140" height="204" rx="12" fill="#14132E" stroke="#8B5CFF" stroke-width="2"></rect>
+        <rect x="802" y="276" width="116" height="76" rx="6" fill="#06061A" stroke="#3A3760" stroke-width="1.5"></rect>
+        <g fill="#2A2850"><rect x="812" y="288" width="44" height="3"></rect><rect x="864" y="288" width="44" height="3"></rect><rect x="812" y="296" width="36" height="3"></rect><rect x="864" y="296" width="36" height="3"></rect><rect x="812" y="304" width="40" height="3"></rect><rect x="864" y="304" width="40" height="3"></rect></g>
+        <line x1="860" y1="284" x2="860" y2="312" stroke="#2A2850" stroke-width="1"></line>
+        <rect class="anim scan" x="804" y="280" width="112" height="2" fill="#FFB547"></rect>
+        <g font-family="IBM Plex Mono, monospace" font-size="10.5" font-weight="600" letter-spacing="1" text-anchor="middle">
+          <text class="anim r1" x="860" y="336" fill="#FFB547">COMPARING</text>
+          <text class="anim r2" x="860" y="336" fill="#FF5A4E">1 FIELD DIFFERS</text>
+          <text class="anim r3" x="860" y="336" fill="#FFB547">RE-CHECKING</text>
+          <text class="anim r4" x="860" y="336" fill="#2BD4A0">EQUIVALENT</text>
+        </g>
+        <circle class="anim lampA" cx="836" cy="370" r="6" fill="#2A2850"></circle>
+        <circle class="anim lampR" cx="860" cy="370" r="6" fill="#2A2850"></circle>
+        <circle class="anim lampG" cx="884" cy="370" r="6" fill="#2A2850"></circle>
+        <text x="860" y="398" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1.5" font-weight="600" fill="#F4F2FF">LIGHTYEAR PRISM</text>
+        <text x="860" y="413" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#A9A5C8">fixed rules · no AI</text>
+        <rect x="828" y="424" width="64" height="5" rx="2" fill="#06061A"></rect>
+        <g class="anim rcpt">
+          <rect x="832" y="427" width="56" height="34" rx="2" fill="#F4F2FF"></rect>
+          <rect x="838" y="433" width="30" height="2.5" fill="#8B5CFF"></rect><rect x="838" y="439" width="40" height="2.5" fill="#A9A5C8"></rect><rect x="838" y="445" width="24" height="2.5" fill="#A9A5C8"></rect>
+          <path d="M866 452l4 4 8-9" fill="none" stroke="#2BD4A0" stroke-width="2.5" stroke-linecap="round"></path>
+        </g>
+        <g class="gear"><circle cx="912" cy="446" r="9" fill="none" stroke="#8B5CFF" stroke-width="5" stroke-dasharray="4 3"></circle><circle cx="912" cy="446" r="3.5" fill="#8B5CFF"></circle></g>
+      </g>
+
+
+      <g class="anim tA">
+        <rect x="684" y="200" width="54" height="34" rx="5" fill="#1C1B3A" stroke="#8B5CFF" stroke-width="1.5"></rect>
+        <rect x="691" y="207" width="40" height="3" fill="#B9A3FF"></rect><rect x="691" y="215" width="30" height="3" fill="#B9A3FF"></rect><rect x="691" y="223" width="36" height="3" fill="#B9A3FF"></rect>
+      </g>
+      <g class="anim tB1">
+        <rect x="684" y="330" width="54" height="34" rx="5" fill="#1C1B3A" stroke="#FF5A4E" stroke-width="1.5"></rect>
+        <rect x="691" y="337" width="40" height="3" fill="#B9A3FF"></rect><rect x="691" y="345" width="18" height="3" fill="#FF5A4E"></rect><rect x="691" y="353" width="36" height="3" fill="#B9A3FF"></rect>
+      </g>
+      <g class="anim tB2">
+        <rect x="684" y="330" width="54" height="34" rx="5" fill="#1C1B3A" stroke="#8B5CFF" stroke-width="1.5"></rect>
+        <rect x="691" y="337" width="40" height="3" fill="#B9A3FF"></rect><rect x="691" y="345" width="30" height="3" fill="#B9A3FF"></rect><rect x="691" y="353" width="36" height="3" fill="#B9A3FF"></rect>
+      </g>
+
+
+      <g class="anim stampRed fb">
+        <rect x="752" y="140" width="166" height="46" rx="5" fill="#06061A" stroke="#FF5A4E" stroke-width="3"></rect>
+        <text x="835" y="164" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="600" font-size="17" letter-spacing="2" fill="#FF5A4E">DIVERGENT</text>
+        <text x="835" y="179" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1" fill="#A9A5C8">1 FIELD DIFFERS</text>
+      </g>
+      <g class="anim note">
+        <rect x="636" y="410" width="150" height="40" rx="6" fill="#2A0F1A" stroke="#FF5A4E" stroke-width="1.5"></rect>
+        <text x="648" y="427" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#FFB3AC">FIELD: invoice type</text>
+        <text x="648" y="442" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#A9A5C8">value: not shared</text>
+      </g>
+      <g class="anim aha fb">
+        <circle cx="342" cy="356" r="14" fill="#FFB547"></circle>
+        <text x="342" y="363" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="900" font-size="20" fill="#06061A">!</text>
+      </g>
+      <g class="anim stamp fb">
+        <rect x="752" y="140" width="166" height="46" rx="5" fill="#06061A" stroke="#2BD4A0" stroke-width="3"></rect>
+        <text x="835" y="164" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="600" font-size="17" letter-spacing="2" fill="#2BD4A0">EQUIVALENT</text>
+        <text x="835" y="179" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1" fill="#A9A5C8">SIGNED · REPLAYABLE</text>
+      </g>
+      <path class="anim spark fb" d="M748 118l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#FFB547"></path>
+      <path class="anim spark fb" d="M934 206l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#2BD4A0"></path>
+      <path class="anim spark fb" d="M770 222l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#B9A3FF"></path>
+
+
+      <g class="anim bFix"><rect x="170" y="307" width="128" height="28" rx="14" fill="#F4F2FF"></rect><path d="M228 335l6 9l6 -9z" fill="#F4F2FF"></path><text x="234" y="326.5" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="500" font-size="13" fill="#06061A">Got it. Fixing!</text></g>
+      <g class="anim bYes"><rect x="272" y="307" width="56" height="28" rx="14" fill="#F4F2FF"></rect><path d="M294 335l6 9l6 -9z" fill="#F4F2FF"></path><text x="300" y="326.5" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="500" font-size="13" fill="#06061A">Yes!</text></g>
+
+
+      <g font-family="Archivo, sans-serif" font-size="15" font-weight="700" fill="#C9C5E6" text-anchor="middle">
+        <text x="300" y="498">Bolt · builder AI</text><text x="860" y="498">Lightyear Prism</text>
+      </g>
+    </svg>
+</div>
+<div class="row">
+<div class="caps" aria-live="off">
+<p class="cap anim k0">Both systems ran. The engine compares every field.</p>
+<p class="cap anim k1">One field differs. The engine names it, not the answer.</p>
+<p class="cap anim k2">The AI fixes its own code and runs it again.</p>
+<p class="cap anim k3">Equivalent. Signed. Anyone can replay it.</p>
+</div>
+<span class="tag">Built lights-out. Proven in plain sight.</span>
+<button type="button" class="toggle" aria-pressed="false" id="loopPause">Pause</button>
+</div>
+</div>
+</div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: stretch">
+<div style="flex: 2 1 560px; min-width: 0; background: #12154A; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 18px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.5px; color: #A9A6CC">ON A REAL ERP RUNNING ON ORACLE · ONE PUBLIC, REPLAYABLE RUN</span>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 40px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">12m 25s</span><span style="font-size: 14px; color: #C9C5E4">locked rules to signed verdict</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 40px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">1st</span><span style="font-size: 14px; color: #C9C5E4">attempt passed</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 40px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">0</span><span style="font-size: 14px; color: #C9C5E4">lines written or fixed by a person</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 40px; font-weight: 700; color: #FFFFFF; letter-spacing: -1px">1 of 11</span><span style="font-size: 14px; color: #C9C5E4">approved model calls used</span></div>
+</div>
+<a href="proof.html#factory-run" style="font-size: 15px; font-weight: 600; color: #C9B8F8">See the full factory run →</a>
+</div>
+<div style="flex: 1 1 300px; min-width: 0; border: 1px solid #3B3E86; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<h3 style="margin: 0; font-size: 21px; color: #FFFFFF">People decide what machines shouldn’t</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #C9C5E4">The factory does the repetitive work. Decisions that carry risk stay with a named person, and each one is signed and kept with the evidence.</p>
+<ul style="margin: 0; padding-left: 18px; font-size: 15px; line-height: 1.8; color: #E9E6F7">
+<li>Approve an exception</li>
+<li>Keep or fix a legacy quirk</li>
+<li>Release to production</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ============ 7 · TARGET PLATFORM AS CODE ============ -->
+<section id="platform" style="background: #FEFEFE; padding: 88px 24px 96px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 780px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">Target platform as code · in build</p>
+<h2 style="margin: 0; font-size: 40px; line-height: 1.12; letter-spacing: -0.8px">The new environment gets a receipt too.</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #3D3F6B">Converting the code is half the move. The factory also writes the target environment as infrastructure code, and Lightyear Prism tests the running platform before anything is promoted. A template says what should be there. A receipt shows what is.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px">
+<div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #7D57EA">01 · MAP</span><h3 style="margin: 0; font-size: 21px">Start from what runs today</h3><p style="margin: 0; font-size: 15px; line-height: 1.55; color: #3D3F6B">The knowledge graph lists the transactions, batch schedules, files and security rules the legacy system actually uses.</p></div>
+<div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #7D57EA">02 · GENERATE</span><h3 style="margin: 0; font-size: 21px">Write the environment as code</h3><p style="margin: 0; font-size: 15px; line-height: 1.55; color: #3D3F6B">Network, identities, secrets, databases, schedules and monitoring for your target cloud, reviewed like any other change.</p></div>
+<div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px; background: #F7F5FD"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8A5A1F">03 · PROVE</span><h3 style="margin: 0; font-size: 21px">Drill the live platform</h3><p style="margin: 0; font-size: 15px; line-height: 1.55; color: #3D3F6B">Prism runs drills against the deployed environment and signs the result into the same receipt as the code.</p></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1.5px; color: #676985">WHAT THE DRILLS CHECK</p>
+<ul role="list" style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 10px">
+<li style="font-size: 14px; background: #EFEBFB; color: #23266A; padding: 8px 14px; border-radius: 20px">Network deny rules hold</li>
+<li style="font-size: 14px; background: #EFEBFB; color: #23266A; padding: 8px 14px; border-radius: 20px">Each service runs as the right identity</li>
+<li style="font-size: 14px; background: #EFEBFB; color: #23266A; padding: 8px 14px; border-radius: 20px">Secrets rotate without downtime</li>
+<li style="font-size: 14px; background: #EFEBFB; color: #23266A; padding: 8px 14px; border-radius: 20px">The database survives failover and recovery</li>
+<li style="font-size: 14px; background: #EFEBFB; color: #23266A; padding: 8px 14px; border-radius: 20px">Alerts fire and clear</li>
+<li style="font-size: 14px; background: #EFEBFB; color: #23266A; padding: 8px 14px; border-radius: 20px">It holds up under sustained load</li>
+</ul>
+</div>
+<p style="margin: 0; font-size: 14px; line-height: 1.6; color: #676985">Status: all 28 platform scenarios passed on our reference core-banking estate on Google Kubernetes Engine in September 2026 (synthetic, nonproduction). That estate is now written as Terraform and tested offline. Generating the environment from your legacy inventory is in build.</p>
+</div>
+</section>
+
+<section style="background: #EFEBFB; padding: 64px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 28px; align-items: center; justify-content: space-between">
+<div style="flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">Already have a builder?</p>
+<h2 style="margin: 0; font-size: 32px; line-height: 1.15; letter-spacing: -0.6px">Keep your AI platform or systems integrator.</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #3D3F6B">Lightyear Factory is one way to build. Lightyear Prism judges every builder’s work the same way, and Lightyear Aperture lets anyone re-check the evidence.</p>
+</div>
+<a href="prism.html#mcp" style="font-size: 16px; font-weight: 600; color: #5B3CC4">Bring your own AI to Prism →</a>
+</div>
+</section>
+<section style="background: #15184D; color: #E9E6F7; padding: 72px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 32px; align-items: center; justify-content: space-between">
+<div style="flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-size: 36px; line-height: 1.15; color: #FFFFFF">Let Lightyear Factory convert one process. Prism decides if it’s right.</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #C9C5E4">A Verification Sprint takes four weeks, from $50,000: one batch job or process, converted by the factory or by your own builder, with a signed verdict at the end.</p>
+</div>
+<a href="pricing.html" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 16px 24px; border-radius: 10px; font-weight: 600">Book a Verification Sprint</a>
+</div>
+</section>
+
+
+<footer style="background: #FEFEFE; padding: 32px 24px; font-size: 13px; color: #676985">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between">
+<span>© 2026 Lightyear. Figures are measured on the code that ships. Nothing on this site is an unqualified claim of equivalence.</span>
+<span>Where context becomes trusted action.</span>
+</div>
+</footer>
+</div>
+<script>
+(function(){
+  var lp=document.getElementById('loopPlayer'), lb=document.getElementById('loopPause');
+  if(lp&&lb) lb.addEventListener('click',function(){var on=lp.classList.toggle('paused');lb.setAttribute('aria-pressed',on?'true':'false');lb.textContent=on?'Play':'Pause';});
+})();
+</script>
+</body>
+</html>
