@@ -9,7 +9,7 @@ const test = base.extend({
   },
 });
 const pages = [
-  'index.html', 'product.html', 'verify.html', 'solutions.html',
+  'index.html', 'prism.html', 'factory.html', 'aperture.html', 'solutions.html',
   'proof.html', 'pricing.html', 'resources.html', 'engineers.html',
 ];
 
@@ -61,11 +61,58 @@ async function noHorizontalScroll(page) {
 for (const file of pages) {
   test(file + ' renders without horizontal scrolling', async ({ page }, testInfo) => {
     await open(page, file);
+    try {
+      await noHorizontalScroll(page);
+    } finally {
+      await testInfo.attach('full-page', {
+        body: await page.screenshot({ fullPage: true }),
+        contentType: 'image/png',
+      });
+    }
+  });
+
+  test(file + ' Products menu has exactly three product links and closes without overflow', async ({ page }, testInfo) => {
+    await open(page, file);
+    const menu = page.locator('details.lynav');
+    await expect(menu).toHaveCount(1);
+    await expect(menu).not.toHaveAttribute('open', '');
     await noHorizontalScroll(page);
-    await testInfo.attach('full-page', {
-      body: await page.screenshot({ fullPage: true }),
-      contentType: 'image/png',
-    });
+    await menu.locator('summary').click();
+    await expect(menu).toHaveAttribute('open', '');
+    const links = menu.getByRole('link');
+    await expect(links).toHaveCount(3);
+    for (const [index, label, target] of [
+      [0, 'Lightyear Prism', 'prism.html'],
+      [1, 'Lightyear Factory', 'factory.html'],
+      [2, 'Lightyear Aperture', 'aperture.html'],
+    ]) {
+      await expect(links.nth(index)).toBeVisible();
+      await expect(links.nth(index)).toContainText(label);
+      await expect(links.nth(index)).toHaveAttribute('href', target);
+    }
+    if (file === 'index.html') {
+      await testInfo.attach('products-menu-open', {
+        body: await page.screenshot({ fullPage: true }), contentType: 'image/png',
+      });
+    }
+    await menu.locator('summary').click();
+    await expect(menu).not.toHaveAttribute('open', '');
+    await expect(links.nth(0)).not.toBeVisible();
+    await noHorizontalScroll(page);
+  });
+}
+
+for (const [source, target] of [
+  ['product.html', 'prism.html'],
+  ['verify.html', 'prism.html#mcp'],
+]) {
+  test(source + ' redirects to ' + target, async ({ page }) => {
+    const response = await page.goto('/' + source);
+    expect(response.status()).toBe(200);
+    await expect(page).toHaveURL(new URL('/' + target, test.info().project.use.baseURL).href);
+    await expect(page.locator('h1')).toBeVisible();
+    if (target.endsWith('#mcp')) await expect(page.locator('#mcp')).toBeVisible();
+    await noHorizontalScroll(page);
   });
 }
 
@@ -111,9 +158,9 @@ test('one cent toggles MATCH -> NOT EQUIVALENT -> MATCH', async ({ page }) => {
 });
 
 for (const [file, playerId, controlId, suffix = ''] of [
-  ['product.html', 'loopPlayer', 'loopPause'],
+  ['factory.html', 'loopPlayer', 'loopPause'],
   ['proof.html', 'fxPlayer', 'fxPause'],
-  ['verify.html', 'vfPlayer', 'vfPause'],
+  ['prism.html', 'vfPlayer', 'vfPause'],
   ['index.html', 'prismPlayer', 'prismPause', ' animation'],
   ['index.html', 'apPlayer', 'apPause', ' animation'],
 ]) {

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lightyear Aperture, the open verifier</title>
+<meta name="description" content="A free, offline verifier anyone can use to check Lightyear evidence packs.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzU3M0E5QyIvPgo8cGF0aCBmaWxsPSIjRkFGOEY0IiBkPSJNMy42OCAxMy41MiBMMTYuMCA1LjQ0IEwyOC4zMiAxMy41MiBaIi8+CjxwYXRoIGZpbGw9IiNGQUY4RjQiIGQ9Ik0zLjY4IDE4LjQ4IEwxNi4wIDI2LjU2IEwyOC4zMiAxOC40OCBaIi8+PC9zdmc+">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#15184D}
+a{color:#5B3CC4}a:hover{color:#15184D}
+
+
+/* Products menu (shared nav) */
+.lynav summary{list-style:none}
+.lynav summary::-webkit-details-marker{display:none}
+.lynav summary:focus-visible{outline:2px solid #E9C48F;outline-offset:4px;border-radius:4px}
+.lynav .menu a:hover,.lynav .menu a:focus-visible{background:#F3F0FC;outline:none}
+.lynav[open] .chev{transform:rotate(180deg)}
+/* Keep tables and code examples readable without sideways scrolling on phones. */
+@media (max-width: 600px){
+  pre{white-space:pre-wrap !important;overflow-wrap:anywhere}
+  .mobile-fit-table,.mobile-card-table{min-width:0 !important;width:100% !important}
+  .mobile-fit-table{table-layout:fixed}
+  .mobile-fit-table th,.mobile-fit-table td{padding:12px !important;overflow-wrap:anywhere}
+  .mobile-card-table,.mobile-card-table tbody,.mobile-card-table tr{display:block}
+  .mobile-card-table thead{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .mobile-card-table td{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:12px;padding:12px !important;overflow-wrap:anywhere}
+  .mobile-card-table td::before{content:attr(data-label);font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;color:#676985}
+}
+</style>
+<style>
+html{scroll-behavior:smooth}
+@media (max-width: 720px){ h1{font-size:40px !important} h2{font-size:30px !important} }
+</style>
+</head>
+<body>
+<div style="font-family: 'IBM Plex Sans', Arial, sans-serif; color: #15184D; background: #FEFEFE; min-width: 320px">
+
+<section style="background: #15184D; color: #E9E6F7; padding: 0 24px 88px">
+<div style="max-width: 1200px; margin: 0 auto">
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 0">
+<a href="index.html" aria-label="Lightyear home" style="display: flex; align-items: center; margin-left: 8px"><svg viewBox="0 0 360 220" width="88" height="54" role="img" aria-label="LIGHTYEAR"><path fill="#7D57EA" d="M24 96C84 92 125 74 156 47C166 38 173 30 179 29C179.5 28.7 179.8 28.2 180 28C180.2 28.2 180.5 28.7 181 29C187 30 194 38 204 47C235 74 276 92 336 96H24Z"></path><path fill="#7D57EA" d="M24 124C84 128 125 146 156 173C166 182 173 190 179 191C179.5 191.3 179.8 191.8 180 192C180.2 191.8 180.5 191.3 181 191C187 190 194 182 204 173C235 146 276 128 336 124H24Z"></path><text x="180" y="122" fill="#C99A5B" font-family="Arial, sans-serif" font-size="32" font-weight="700" letter-spacing="6" text-anchor="middle">LIGHTYEAR</text></svg></a>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px; font-size: 15px">
+<details class="lynav" style="position: relative"><summary style="color: #FFFFFF; text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; border-bottom: 2px solid #7D57EA; padding-bottom: 4px">Products<svg class="chev" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" style="transition: transform .15s"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg></summary><div class="menu" style="position: absolute; top: calc(100% + 14px); left: -14px; z-index: 30; width: 320px; background: #FFFFFF; border: 1px solid #DDD7F2; border-radius: 14px; box-shadow: 0 18px 40px rgba(10,12,48,.35); padding: 8px; display: flex; flex-direction: column; gap: 2px"><a href="prism.html" style="display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 10px; text-decoration: none; color: #15184D"><svg viewBox="0 0 90 90" width="36" height="36" aria-hidden="true" focusable="false" style="flex: none"><defs><clipPath id="nvprpyc"><rect width="90" height="90" rx="18"></rect></clipPath></defs><rect width="90" height="90" rx="18" fill="#15184D"></rect><g clip-path="url(#nvprpyc)"><polygon points="52,45 90,18.8 90,25.2" fill="#8F6EF0" opacity=".95"></polygon><polygon points="52,45 90,27.8 90,34.2" fill="#5B8DEF" opacity=".95"></polygon><polygon points="52,45 90,36.8 90,43.2" fill="#36B8A6" opacity=".95"></polygon><polygon points="52,45 90,45.8 90,52.2" fill="#8CC152" opacity=".95"></polygon><polygon points="52,45 90,54.8 90,61.2" fill="#E9C46A" opacity=".95"></polygon><polygon points="52,45 90,63.8 90,70.2" fill="#E8836B" opacity=".95"></polygon></g><line x1="8" y1="52" x2="34" y2="48" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round"></line><polygon points="45,20 62,60 28,60" fill="#FFFFFF" fill-opacity=".14" stroke="#D8CCF8" stroke-width="2.4" stroke-linejoin="round"></polygon><line x1="34" y1="48" x2="52" y2="45" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"></line></svg><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Lightyear Prism</span><span style="font-size: 13px; color: #676985">The independent judge</span></span></a><a href="factory.html" style="display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 10px; text-decoration: none; color: #15184D"><svg viewBox="0 0 90 90" width="36" height="36" aria-hidden="true" focusable="false" style="flex: none"><defs><linearGradient id="nvfafyg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF1D6"></stop><stop offset="1" stop-color="#E9C48F"></stop></linearGradient></defs><rect width="90" height="90" rx="18" fill="#15184D"></rect><g transform="translate(3 0)"><path d="M17 69V43L31 33V43L45 33V43L59 33V26H67V69Z" fill="#2A2D6E" stroke="#D8CCF8" stroke-width="2.2" stroke-linejoin="round"></path><path d="M33 50L26 56L33 62" fill="none" stroke="url(#nvfafyg)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M49 50L56 56L49 62" fill="none" stroke="url(#nvfafyg)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M44 48L38 64" fill="none" stroke="url(#nvfafyg)" stroke-width="3.2" stroke-linecap="round"></path></g><line x1="12" y1="76" x2="78" y2="76" stroke="#5458A8" stroke-width="2" stroke-linecap="round"></line><rect x="22" y="72" width="8" height="4" rx="1.2" fill="#8F6EF0"></rect><rect x="41" y="72" width="8" height="4" rx="1.2" fill="#36B8A6"></rect><rect x="60" y="72" width="8" height="4" rx="1.2" fill="#E9C46A"></rect></svg><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Lightyear Factory</span><span style="font-size: 13px; color: #676985">AI agents write the code</span></span></a><a href="aperture.html" aria-current="page" style="display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 10px; text-decoration: none; color: #15184D"><svg viewBox="0 0 90 90" width="36" height="36" aria-hidden="true" focusable="false" style="flex: none"><defs><radialGradient id="nvapapl" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFFFFF"></stop><stop offset=".55" stop-color="#FFE7BF"></stop><stop offset="1" stop-color="#E9C48F"></stop></radialGradient><clipPath id="nvapapc"><circle cx="45" cy="45" r="30"></circle></clipPath></defs><rect width="90" height="90" rx="18" fill="#15184D"></rect><circle cx="45" cy="45" r="33" fill="none" stroke="#2A2D6E" stroke-width="4"></circle><circle cx="45" cy="45" r="30" fill="#0B0D30" stroke="#3A3E8C" stroke-width="1.2"></circle><g clip-path="url(#nvapapc)"><polygon points="65.8,57.0 45.0,69.0 24.2,57.0 24.2,33.0 45.0,21.0 65.8,33.0" fill="url(#nvapapl)"></polygon><line x1="65.8" y1="57.0" x2="3.4" y2="93.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="45.0" y1="69.0" x2="-17.4" y2="33.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="24.2" y1="57.0" x2="24.2" y2="-15.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="24.2" y1="33.0" x2="86.6" y2="-3.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="45.0" y1="21.0" x2="107.4" y2="57.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="65.8" y1="33.0" x2="65.8" y2="105.0" stroke="#5458A8" stroke-width="1.6"></line></g><circle cx="45" cy="45" r="30" fill="none" stroke="#3A3E8C" stroke-width="1.2"></circle></svg><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Lightyear Aperture</span><span style="font-size: 13px; color: #676985">Check the evidence yourself</span></span></a></div></details>
+<a href="solutions.html" style="color: #D3CFEA; text-decoration: none">Solutions</a>
+<a href="proof.html" style="color: #D3CFEA; text-decoration: none">Proof</a>
+<a href="pricing.html" style="color: #D3CFEA; text-decoration: none">Pricing</a>
+<a href="resources.html" style="color: #D3CFEA; text-decoration: none">Resources</a>
+<a href="engineers.html" style="color: #D3CFEA; text-decoration: none">For engineers</a>
+<a href="pricing.html" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 12px 18px; border-radius: 8px; font-weight: 600">Book a Verification Sprint</a>
+</div>
+</nav>
+<div style="display: flex; flex-wrap: wrap; gap: 56px; align-items: center; padding-top: 64px">
+<div style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; align-items: center; gap: 14px"><svg viewBox="0 0 90 90" width="52" height="52" aria-hidden="true" focusable="false" style="flex: none"><defs><radialGradient id="hxapapl" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFFFFF"></stop><stop offset=".55" stop-color="#FFE7BF"></stop><stop offset="1" stop-color="#E9C48F"></stop></radialGradient><clipPath id="hxapapc"><circle cx="45" cy="45" r="30"></circle></clipPath></defs><rect width="90" height="90" rx="18" fill="#15184D"></rect><circle cx="45" cy="45" r="33" fill="none" stroke="#2A2D6E" stroke-width="4"></circle><circle cx="45" cy="45" r="30" fill="#0B0D30" stroke="#3A3E8C" stroke-width="1.2"></circle><g clip-path="url(#hxapapc)"><polygon points="65.8,57.0 45.0,69.0 24.2,57.0 24.2,33.0 45.0,21.0 65.8,33.0" fill="url(#hxapapl)"></polygon><line x1="65.8" y1="57.0" x2="3.4" y2="93.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="45.0" y1="69.0" x2="-17.4" y2="33.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="24.2" y1="57.0" x2="24.2" y2="-15.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="24.2" y1="33.0" x2="86.6" y2="-3.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="45.0" y1="21.0" x2="107.4" y2="57.0" stroke="#5458A8" stroke-width="1.6"></line><line x1="65.8" y1="33.0" x2="65.8" y2="105.0" stroke="#5458A8" stroke-width="1.6"></line></g><circle cx="45" cy="45" r="30" fill="none" stroke="#3A3E8C" stroke-width="1.2"></circle></svg><p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">Lightyear Aperture · the open verifier</p></div>
+<h1 style="margin: 0; font-size: 58px; line-height: 1.05; font-weight: 700; letter-spacing: -1.4px; color: #FFFFFF">Don’t trust us. Check the evidence yourself.</h1>
+<p style="margin: 0; font-size: 20px; line-height: 1.55; color: #C9C5E4; max-width: 600px">Aperture is a small, free verifier anyone outside Lightyear can run. Point it at an evidence pack and it checks, offline, that every result is exactly what we say it is.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 14px"><a href="mailto:howard@lightyr.ai?subject=Evidence%20pack" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 16px 24px; border-radius: 10px; font-weight: 600">Request an evidence pack</a><a href="prism.html" style="color: #E9E6F7; border: 1px solid #5B5E9C; text-decoration: none; padding: 15px 22px; border-radius: 10px">How Prism makes the evidence</a></div>
+</div>
+<pre style="flex: 1 1 420px; min-width: 0; margin: 0; background: #0B0D30; color: #E9E6F7; border: 1px solid #2E3175; border-radius: 16px; padding: 24px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.75; overflow-x: auto; white-space: pre">$ python3 -I verify_public_evidence.py \
+    all PUBLIC_EVIDENCE --strict --json
+
+  0  PASS        every check anchored and passed
+  1  FAIL        something doesn’t match
+  3  INCOMPLETE  nothing it could anchor; no pass</pre>
+</div>
+</div>
+</section>
+
+<section style="background: #FEFEFE; padding: 88px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 780px"><p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">What it checks</p><h2 style="margin: 0; font-size: 40px; line-height: 1.12; letter-spacing: -0.8px">Four checks, run on your machine, against keys you choose to trust.</h2></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px"><div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px"><h3 style="margin: 0; font-size: 20px">Manifest hashes match</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">Every file in the pack is exactly the file the record names, byte for byte.</p></div><div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px"><h3 style="margin: 0; font-size: 20px">Receipt digests recomputed</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">Aperture recomputes each receipt’s digest itself instead of trusting the number written in it.</p></div><div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px"><h3 style="margin: 0; font-size: 20px">Signatures checked against your keys</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">Signatures are verified against key fingerprints you obtained separately, not keys shipped in the pack.</p></div><div style="border: 1px solid #DDD7F2; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px"><h3 style="margin: 0; font-size: 20px">Hash chain unbroken</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3D3F6B">Each record links to the one before it, so a missing, reordered or edited entry shows.</p></div></div>
+</div>
+</section>
+<section style="background: #23266A; color: #E9E6F7; padding: 88px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 780px"><p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C99A5B">Four answers, one pass</p><h2 style="margin: 0; font-size: 40px; line-height: 1.12; color: #FFFFFF; letter-spacing: -0.8px">It says “incomplete” rather than guessing.</h2></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px"><div style="background: #2C2F7A; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px"><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; background: #12573A; color: #C9F5DC; padding: 5px 9px; border-radius: 6px">PASS · EXIT 0</span><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #E9E6F7">Every check ran, every one passed, and each is anchored to a key you trust.</p></div><div style="background: #2C2F7A; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px"><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; background: #7A3A06; color: #FFE1C2; padding: 5px 9px; border-radius: 6px">FAIL · EXIT 1</span><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #E9E6F7">Something does not match. Aperture names the file or record.</p></div><div style="background: #2C2F7A; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px"><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; background: #3A3D72; color: #E4E3F5; padding: 5px 9px; border-radius: 6px">INCOMPLETE · EXIT 3</span><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #E9E6F7">There was nothing it could anchor. No pass is given on missing evidence.</p></div><div style="background: #2C2F7A; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 10px"><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; background: #3A3D72; color: #E4E3F5; padding: 5px 9px; border-radius: 6px">UNANCHORED</span><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #E9E6F7">The checks ran, but you supplied no key to anchor them to, so it cannot pass.</p></div></div>
+</div>
+</section>
+<section style="background: #EFEBFB; padding: 88px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 14px"><p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #8A5A1F">Built for people who don’t trust us</p><h2 style="margin: 0; font-size: 38px; line-height: 1.12; letter-spacing: -0.7px">Small enough to read. Strict enough to rely on.</h2><p style="margin: 0; font-size: 17px; line-height: 1.6; color: #3D3F6B">An auditor, a regulator, your own engineers or an investor’s diligence team can run it without installing anything of ours and without a network connection.</p></div>
+<ul style="flex: 1 1 460px; min-width: 0; margin: 0; padding: 28px 28px 28px 48px; background: #FFFFFF; border: 1px solid #D8CCF8; border-radius: 14px; font-size: 16px; line-height: 1.9"><li>Standard-library Python only; nothing to install</li><li>Works offline; never calls home</li><li>Never runs Lightyear’s code</li><li>Free and open</li><li>You pin the keys; the pack cannot vouch for itself</li></ul>
+</div>
+</section>
+<section style="background: #FEFEFE; padding: 64px 24px">
+<div style="max-width: 1200px; margin: 0 auto; border: 1px solid #DDD7F2; border-radius: 14px; padding: 28px; display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between">
+<div style="flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 8px"><span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: #FCE7CF; color: #8A3B00; padding: 5px 9px; border-radius: 6px">STATUS</span><p style="margin: 0; font-size: 16px; line-height: 1.6; color: #3D3F6B">Aperture is built and tested. Its public repository and the first public evidence packs are being prepared. Until then, ask for an evidence pack and we’ll walk you through checking it.</p></div>
+<a href="mailto:howard@lightyr.ai?subject=Evidence%20pack" style="font-size: 16px; font-weight: 600; color: #5B3CC4">Request an evidence pack →</a>
+</div>
+</section>
+<section style="background: #15184D; color: #E9E6F7; padding: 72px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 32px; align-items: center; justify-content: space-between">
+<div style="flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-size: 36px; line-height: 1.15; color: #FFFFFF">Ask for an evidence pack. Check it yourself.</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #C9C5E4">We’ll send a pack from one of our reference runs and the steps to verify it with Aperture on your own machine.</p>
+</div>
+<a href="mailto:howard@lightyr.ai?subject=Evidence%20pack" style="color: #FFFFFF; background: #7D57EA; text-decoration: none; padding: 16px 24px; border-radius: 10px; font-weight: 600">Request an evidence pack</a>
+</div>
+</section>
+
+
+<footer style="background: #FEFEFE; padding: 32px 24px; font-size: 13px; color: #676985">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between">
+<span>© 2026 Lightyear. Figures are measured on the code that ships. Nothing on this site is an unqualified claim of equivalence.</span>
+<span>Where context becomes trusted action.</span>
+</div>
+</footer>
+</div>
+
+</body>
+</html>

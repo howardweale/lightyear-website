@@ -72,15 +72,29 @@ was removed; Aperture's "Read the guide" button was removed until the public rep
 - New section #platform: "The new environment gets a receipt too" (target platform as code, verified by Prism; status: in build).
 - Closing CTA now names our own factory: "Use our factory or bring any AI. We tell you whether it's right."
 
-## Browser validation
+## (g) 7 Nov, 12:05: product names
+- "Verdict Engine" is now "Lightyear Prism" on every page (copy, diagrams and labels).
+- "Lightyear Verify" is retired as a name; the Verify page now says "Lightyear Prism over MCP". The MCP server's technical id (lightyear-verify) is unchanged in the diagram because that is its name in the code.
+- No page uses CardDemo, Verdict Engine or Lightyear Verify.
 
-Run `npm ci`, `npx playwright install chromium`, then `npm run test:site`.
-The PR workflow checks all eight pages at 1440×900 and 375×900, rejects
-JavaScript errors and horizontal scrolling, tests both one-cent toggle
-directions, and tests play/pause/resume for the repair loop on Product,
-Proof, Verify, Prism and Aperture. Screenshots and failure traces are retained.
-Phone tables retain readable column labels and code examples wrap.
+## (h) 7 Nov, afternoon: accuracy corrections
+- Knowledge-graph size corrected to 11,336 entities and 13,491 links (homepage). The earlier 11,347 / 13,504 came from an older build of the graph.
+- The "2.7M values checked exactly" figure is gone from the homepage, Product and Proof stat strips: it came from a separate preflight check, not the 12-minute run the strip describes. The strip now reads "1 of 11 approved model calls used", and the homepage sentence says the first candidate passed with 1 of 11 approved model calls and no lines written or fixed by a person.
+- Product page #platform status now says all 28 platform scenarios passed on our reference core-banking estate on Google Kubernetes Engine in September 2026 (synthetic, nonproduction), that the estate is now written as Terraform and tested offline, and that generating the environment from a customer's legacy inventory is in build. This replaces "drills partly run".
 
-The homepage product section is an illustrated HTML panel captioned
-“Illustrative view”; no real Control Tower screenshot is published.
-The browser checks verify the panel and caption at both viewport sizes.
+## (i) 8 Nov: Lightyear Factory
+- The factory is now named "Lightyear Factory". Eyebrows read "Lightyear Factory · the agent dark factory" (homepage and Product); "our factory" / "our dark factory" became "Lightyear Factory" on the homepage, Product, Pricing and the Proof crew eyebrow. "Dark factory" stays only as the description of how it works.
+
+## (j) 8 Nov: Products menu
+- Top navigation is now: Products (menu) · Solutions · Proof · Pricing · Resources · For engineers · Book a Verification Sprint. "Research" is no longer a separate link (the section stays on resources.html#research).
+- The Products menu lists Lightyear Prism, Lightyear Factory and Lightyear Aperture, with their icons. It is a plain HTML details/summary menu and needs no JavaScript.
+- New pages: prism.html (the old Product page's verification content plus the old Verify page's MCP content, under #mcp), factory.html (the factory section, crew animation, platform as code) and aperture.html (what it checks, its four answers, status).
+- Homepage: new "One system, three products" strip under the hero.
+- Retired: product.html and verify.html. Both are now small redirect pages (to prism.html and prism.html#mcp) so existing links keep working.
+
+## (k) 8 Nov: where it runs
+- Homepage trust strip now reads "Read-only: nothing is written back to your systems" and "Runs where you choose: our infrastructure, yours or a partner's" (was "Runs read-only in your cloud" / "Your code and data stay in your environment"), matching the Security Overview's three Sprint deployment modes.
+- Sprint section: "Old and new run side by side, read-only, on our infrastructure, yours or a partner's"; checklist item "Read-only, and runs where you choose".
+
+## (l) 8 Nov: phone layout
+- The build now carries the live site's Nov 7 phone fixes itself: code blocks wrap below 600 px, tables with a header row become labelled cards (class mobile-card-table, data-label on each cell), and header-less tables fit the width (mobile-fit-table). Checked at 375 px: no page overflows and no nested sideways scrolling on any of the nine pages.
