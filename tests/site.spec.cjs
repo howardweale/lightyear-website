@@ -61,11 +61,14 @@ async function noHorizontalScroll(page) {
 for (const file of pages) {
   test(file + ' renders without horizontal scrolling', async ({ page }, testInfo) => {
     await open(page, file);
-    await noHorizontalScroll(page);
-    await testInfo.attach('full-page', {
-      body: await page.screenshot({ fullPage: true }),
-      contentType: 'image/png',
-    });
+    try {
+      await noHorizontalScroll(page);
+    } finally {
+      await testInfo.attach('full-page', {
+        body: await page.screenshot({ fullPage: true }),
+        contentType: 'image/png',
+      });
+    }
   });
 
   test(file + ' Products menu has exactly three product links and closes without overflow', async ({ page }, testInfo) => {
