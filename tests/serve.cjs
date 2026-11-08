@@ -2,9 +2,10 @@ const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
 
-// Serve only the eight public pages; never expose Git metadata or local files.
+// Serve only the nine public pages and two redirects; never expose Git metadata or local files.
 const pages = new Set([
   'index.html', 'product.html', 'verify.html', 'solutions.html',
+  'prism.html', 'factory.html', 'aperture.html',
   'proof.html', 'pricing.html', 'resources.html', 'engineers.html',
 ]);
 http.createServer((request, response) => {
